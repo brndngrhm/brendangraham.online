@@ -33,7 +33,7 @@ enableEmoji = true
   description = ""
   favicon = ""
   logo = ""
-  #mainSections = ["blog", "project", "talk"]
+  mainSections = ["blog", "project", "talk"]
   navallcaps = true
   # show/hide social icons in site header & footer
   # configure social icons and links below in [[params.social]]
@@ -126,6 +126,10 @@ enableEmoji = true
     title = "Talks"
     url = "/talk/"
     weight = 4
+  [[menu.header]]
+   name = "Resume"
+   url = "/docs/brendan_graham_resume.pdf"
+   weight = 5
   #[[menu.header]]
   #  name = "A collection"
   #  title = "A collection"

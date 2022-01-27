@@ -1,7 +1,7 @@
 ---
 title: Blog
 description: | 
-  Data Analysis, Machine learning, Data Viz and more
+  posts about data analysis, machine learning, data viz and more
 author: "Brendan Graham"
 show_post_thumbnail: true
 thumbnail_left: true # for list-sidebar only

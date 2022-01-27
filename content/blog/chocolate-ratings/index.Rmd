@@ -1,0 +1,349 @@
+---
+title: "Comparing Traditional and Text-Based Models to Predict Chocolate Rating"
+author: Brendan Graham
+date: '2022-01-18'
+slug: chocolate-ratings
+categories: 
+  - tidy tuesday
+  - tidymodels
+  - data science
+tags:
+  - tidy tuesday
+  - tidymodels
+  - data science
+subtitle: 
+summary: 'This post looks at a [TidyTuesday](https://github.com/rfordatascience/tidytuesday) data set about chocolate. After looking at the data I compare text based and "traditional" modelling approaches to predict a chocolate ratings'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+draft: false
+---
+```{r include = FALSE}
+knitr::opts_chunk$set(echo = T, fig.height = 7, fig.width = 9, message = FALSE, warning = FALSE)
+
+options(scipen = 100)
+options(tidymodels.dark = TRUE) 
+
+library(tidytuesdayR)
+library(tidyverse)
+library(lubridate)
+library(highcharter)
+library(plotly)
+library(purrr)
+library(skimr)
+library(here)
+library(ggrepel)
+library(tidymodels)
+library(rules)
+library(vetiver)
+library(doParallel)
+library(pins)
+library(ghibli)
+library(plsmod)
+library(textrecipes)
+library(LiblineaR)
+
+round_numerics <- 
+  function(data, digits = 2){
+    data %>%
+      mutate(across(where(is.numeric), ~ round(.x, digits)))
+  }
+
+add_table <- 
+  function(data, digits = 2){
+    data %>%
+      round_numerics(digits = digits) %>%
+      reactable::reactable(., fullWidth = F, resizable = T, filterable = T, 
+                           highlight = T, defaultPageSize = 10, wrap = FALSE,
+                           showSortIcon = T, striped = T, compact = T)
+  }
+
+bg_theme <- 
+  function(base_size = 11,
+           strip_text_size = 12,
+           strip_text_margin = 10,
+           subtitle_size = 13,
+           subtitle_margin = 10,
+           plot_title_size = 16,
+           plot_title_margin = 10,
+           font = "RobotoMono-Regular",
+           ...) {
+    
+    ret <-
+      ggplot2::theme_gray(base_family = font,
+                          base_size = base_size, ...,) +
+      theme(
+        panel.background = element_rect(fill = "#f3f3f3"),
+        plot.background = element_rect(fill = "#f3f3f3"),
+        legend.background = element_rect(fill = "#f3f3f3")
+        )
+    
+    ret$strip.text <-
+      ggplot2::element_text(
+        # hjust = 0,
+        vjust = -.8,
+        size = strip_text_size,
+        margin = ggplot2::margin(b = strip_text_margin),
+        family = font
+      )
+    
+    ret$plot.subtitle <-
+      ggplot2::element_text(
+        hjust = 0,
+        size = subtitle_size,
+        margin = ggplot2::margin(b = subtitle_margin),
+        family = font
+      )
+    
+    ret$plot.title <-
+      ggplot2::element_text(
+        hjust = 0,
+        size = plot_title_size,
+        margin = ggplot2::margin(b = plot_title_margin),
+        family = font
+      )
+    
+    ret
+  }
+
+chocolate <-
+  readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')
+
+```
+
+The goal for this weeks analysis to compare 2 types of models for predicting chocolate ratings. I have read bout text based models but haven't every attempted one, so in this analysis I will compare some text-based models with more traditional ML models.
+
+The data is composed of 2,530 observations of 10 variables. There is some missing ingredients data, but all othet columes are complete.
+```{r}
+chocolate %>%
+  add_table()
+
+skimr::skim_to_list(chocolate)
+
+```
+
+## Explore
+
+The average rating is around 3.3 or 3.4 out of 5, are ratings are slightly skewed to the left.
+```{r}
+chocolate %>%
+  ggplot(., aes(x = rating)) + 
+  geom_histogram(bins = 10, alpha = .75, fill = ghibli_palette("PonyoMedium")[5]) +
+  bg_theme()
+```
+
+There isn't much of a relationship between cocoa percent and rating.
+```{r}
+chocolate %>%
+  mutate(cocoa_percent = as.numeric(str_remove_all(cocoa_percent, "%"))) %>%
+  ggplot(., aes(x = cocoa_percent, y = rating)) +
+  geom_point() +
+  bg_theme()
+
+```
+
+chocolate with 2 and 3 ingredients seem to be rated higher than those with 4 or 5.
+```{r}
+
+chocolate %>%
+  mutate(ingredients = substr(ingredients, 1, 1)) %>%
+  ggplot(., aes(x = ingredients, y = rating, fill = ingredients)) + 
+  geom_jitter(alpha = .50, show.legend = FALSE) + 
+  geom_boxplot(show.legend = FALSE, alpha = .80) +
+  bg_theme()  + 
+  coord_flip() 
+
+```
+
+## Model
+
+The `most memorable characteristics` column will be used along with number of ingredients as predictors of rating. The `most memorable characteristics` is split and pivoted into indicator variables. A 2nd recipe that includes `step_nzv()` will also be used to see if removeing sparse ingredients improves model performance.
+
+```{r}
+
+max_characteristics <- 
+  chocolate %>% 
+  mutate(num_char = str_count(most_memorable_characteristics, ",") + 1) %>% 
+  filter(num_char == max(num_char)) %>%
+  select(num_char) %>%
+  distinct() %>% 
+  pull(num_char)
+
+choc_characteristics <- 
+  chocolate %>% 
+  mutate(ingredients = substr(ingredients, 1, 1)) %>%
+  tidyr::separate(most_memorable_characteristics, paste0("characteristic", 1:max_characteristics), sep = ",") %>% 
+  pivot_longer(cols = starts_with("characteristic"), values_to = "characteristic") %>%
+  mutate(characteristic = trimws(characteristic)) %>%
+  select(-name) %>%
+  filter(!(is.na(characteristic)),
+         characteristic != '') %>%
+  mutate(characteristic_ind = 1) %>%
+  pivot_wider(names_from = characteristic, values_from = characteristic_ind) %>%
+  select(rating, ingredient_count = ingredients, `rich cocoa`:ncol(.)) %>%
+  filter(!(is.na(ingredient_count)))
+
+choc_characteristics[is.na(choc_characteristics)] <- 0
+
+head(choc_characteristics)
+
+```
+
+```{r}
+
+set.seed(163)
+splits <- 
+  choc_characteristics %>%
+  initial_split(strata = rating)
+
+train <-
+  training(splits)
+test <-
+  testing(splits)
+
+folds <- 
+  bootstraps(train, 25, strata = rating)
+
+recipe <- 
+  recipe(rating ~ ., train)
+
+rec_nzv <- 
+  recipe %>%
+  step_nzv(all_predictors())
+
+```
+ 
+The same 3 models are used for each workflowset. Here is the 'regular' workflowset:
+
+```{r}
+svm_spec <-
+  svm_linear(cost = tune(),
+              margin = tune()
+             ) %>%
+  set_mode("regression") %>%
+  set_engine("LiblineaR")
+
+workflows <- 
+  workflow_set(
+    preproc = list(recipe = recipe), 
+    models = list(svm = svm_spec
+                  ),
+    cross = TRUE)
+
+workflows
+
+```
+
+And here is the text-based workflow, adapted from this [post.](https://juliasilge.com/blog/chocolate-ratings/)
+```{r}
+# text models
+
+set.seed(194)
+choco_split <- 
+  initial_split(chocolate, strata = rating)
+choco_train <- 
+  training(choco_split)
+choco_test <- 
+  testing(choco_split)
+
+choco_folds <- 
+  bootstraps(choco_train, 25, strata = rating)
+
+choco_rec <-
+  recipe(rating ~ most_memorable_characteristics, data = choco_train) %>%
+  step_tokenize(most_memorable_characteristics) %>%
+  step_tokenfilter(most_memorable_characteristics, max_tokens = 100) %>%
+  step_tfidf(most_memorable_characteristics)
+
+text_workflows <- 
+  workflow_set(
+    preproc = list(text_recipe = choco_rec), 
+    models = list(svm = svm_spec
+                  ),
+    cross = TRUE)
+
+text_workflows
+
+```
+
+Here both model types are tuned and compared:
+
+```{r}
+
+cl <- 
+  makeCluster(10)
+
+doParallel::registerDoParallel(cl)
+
+grid_ctrl <-
+  control_grid(
+    save_pred = TRUE,
+    allow_par = TRUE,
+    parallel_over = "everything",
+    verbose = TRUE
+  )
+
+results <- 
+  workflow_map(fn = "tune_grid",
+               object = workflows,
+               seed = 155,
+               verbose = TRUE,
+               control = grid_ctrl,
+               grid = 10, 
+               resamples = folds,
+               metrics = metric_set(rmse, mae)
+  )
+
+stopCluster(cl)
+
+```
+
+```{r}
+
+cl <- 
+  makeCluster(10)
+
+doParallel::registerDoParallel(cl)
+
+grid_ctrl <-
+  control_grid(
+    save_pred = TRUE,
+    allow_par = TRUE,
+    parallel_over = "everything",
+    verbose = TRUE
+  )
+
+text_results <- 
+  workflow_map(fn = "tune_grid",
+               object = text_workflows,
+               seed = 155,
+               verbose = TRUE,
+               control = grid_ctrl,
+               grid = 10, 
+               resamples = choco_folds,
+               metrics = metric_set(rmse, mae)
+  )
+
+```
+
+Using a text based approach does perform better in this case! A lot more could probably be done to improve model performance, such as more pre-processing steps, including more predictors, trying various types of models, but the goal of this post was to try out some text based models and see how those models perform to more "traditional" ML models.
+
+```{r}
+
+results %>% 
+  rank_results(select_best = T) %>%
+  bind_rows(text_results %>% rank_results(select_best = TRUE)) %>%
+  filter(.metric == "rmse") %>%
+  ggplot(., aes(x = reorder(wflow_id, mean), y = mean, color = wflow_id, label = round(mean, 4))) + 
+  geom_point(show.legend = FALSE) + 
+  geom_text(vjust = -0.7, show.legend = FALSE) +
+  geom_errorbar(aes(ymin = mean - std_err, ymax = mean + std_err), show.legend = FALSE) +
+  bg_theme(base_size = 13) + 
+  ghibli::scale_color_ghibli_d("PonyoMedium") + 
+  coord_flip() +
+  labs(x = "RMSE", y = '', title = "Comparing Model Types")
+
+```

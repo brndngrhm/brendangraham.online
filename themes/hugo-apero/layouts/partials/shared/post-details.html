@@ -13,12 +13,7 @@
     <dd class="fw5 ml0">{{ range . }} <a href="{{ "categories/" | absURL }}{{ . | urlize }}">{{ . }}</a> {{ end }}</dd>
   </dl>
   {{ end }}
-  {{ with .Params.series }}
-  <dl class="f6 lh-copy">
-    <dt class="fw7">Series:</dt>
-    <dd class="fw5 ml0">{{ range . }} <a href="{{ "series/" | absURL }}{{ . | urlize }}">{{ . }}</a> {{ end }}</dd>
-  </dl>
-  {{ end }}
+  
   {{ with .Params.tags }}
   <dl class="f6 lh-copy">
     <dt class="fw7">Tags:</dt>

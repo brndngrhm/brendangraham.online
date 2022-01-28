@@ -1,5 +1,6 @@
 ---
-title: Blog
+title: |
+  *Blog*
 description: | 
   posts about data analysis, machine learning, data viz and more
 author: "Brendan Graham"

@@ -1,14 +1,16 @@
 ---
+title: |
+  Hi
 date: "2019-02-25T13:38:41-06:00"
-description: Get in Touch!
+description: get in touch
 draft: false
 formspree_form_id: brendanvgraham@gmail.com
 layout: split-right
 name: Contact Us Form
 show_poweredby_formspree: true
-show_social_links: true
+show_social_links: false
 submit_button_label: Send Message
-title: Contact
+
 type: form
 url: contact
 ---

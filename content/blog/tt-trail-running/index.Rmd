@@ -16,6 +16,8 @@ image:
   preview_only: no
 projects: []
 draft: false
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r include = FALSE, echo = FALSE}
@@ -61,22 +63,19 @@ ultra_rankings <-
 
 ```
 
-## Introduction
 
 This post looks at a past [TidyTuesday](https://github.com/rfordatascience/tidytuesday) data set about ultra trail running. After looking at the data I attempt to quantify and compare the variation in rankings between countries.
 
-## Races
+## Explore the Data
 
 Race data is at the race level; events are made up of races. There can be multiple event observations per year. 
 
 ```{r}
-race %>% 
-  add_table()
+race
 ```
 
-</br> 
-Example data for `Run Rabbit Run` event:
 
+Example data for `Run Rabbit Run` event:
 
 ```{r}
 
@@ -101,15 +100,10 @@ race %>%
   add_table()
 ```
 
-</br> 
-
-## Rankings
-
 Ranking data is at the racer level; racers can appear more than once:
 
 ```{r}
-ultra_rankings %>% 
-  add_table()
+ultra_rankings 
 ```
 
 ```{r}
@@ -120,9 +114,7 @@ ultra_rankings %>%
   add_table()
 ```
 
-</br>
- 
-## Variation in Ranking Among Countries
+### Variation in Ranking Among Countries
 
 Rankings seem interesting, let's try and see which countries have runners with the most *consistent* rankings. First we need to prep the data a little bit. We'll set a threshold to only include countries where runners from that given country participated in at least 15 races.
 
@@ -191,12 +183,9 @@ $$
 QCV = [(q3 - q1)/(q3 + q1))]*100
 $$
 
-### Viewing the Variation
-
 After calculating the CV for log-normal data, we can compare each countries variation. France, Luxembourg and Korea are interesting in that they are relatively consistent, but their median ranks are very high. This suggests racers from these countries get consistently poor results
 
 ```{r}
-
 cv_log <- 
   ultra_rankings %>%
   filter(nationality %in% top_countries) %>%

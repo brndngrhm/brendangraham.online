@@ -20,6 +20,8 @@ image:
   preview_only: no
 projects: []
 draft: false
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r include = FALSE}
@@ -55,8 +57,57 @@ addtable <-
       reactable::reactable(., fullWidth = F, resizable = T, filterable = T, highlight = T, defaultPageSize = 15, 
                            showSortIcon = T, striped = T, compact = T, defaultExpanded = T)
   }
+bg_theme <- 
+  function(base_size = 13,
+           strip_text_size = 12,
+           strip_text_margin = 10,
+           subtitle_size = 13,
+           subtitle_margin = 10,
+           plot_title_size = 16,
+           plot_title_margin = 10,
+           font = "RobotoMono-Regular",
+           ...) {
+    
+    ret <-
+      ggplot2::theme_gray(base_family = font,
+                          base_size = base_size, ...,) +
+      theme(
+        panel.background = element_rect(fill = "#f3f3f3"),
+        plot.background = element_rect(fill = "#f3f3f3"),
+        legend.background = element_rect(fill = "#f3f3f3")
+        )
+    
+    ret$strip.text <-
+      ggplot2::element_text(
+        # hjust = 0,
+        vjust = -.8,
+        size = strip_text_size,
+        margin = ggplot2::margin(b = strip_text_margin),
+        family = font
+      )
+    
+    ret$plot.subtitle <-
+      ggplot2::element_text(
+        hjust = 0,
+        size = subtitle_size,
+        margin = ggplot2::margin(b = subtitle_margin),
+        family = font
+      )
+    
+    ret$plot.title <-
+      ggplot2::element_text(
+        hjust = 0,
+        size = plot_title_size,
+        margin = ggplot2::margin(b = plot_title_margin),
+        family = font
+      )
+    
+    ret
+  }
 
-tail(list.files(here::here("data")))
+bg_red <- "#E64B35"
+bg_green <- "#00a087"
+bg_blue <- "#4DBBD5"
 
 tt_data <- 
   readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-12-21/starbucks.csv')
@@ -74,17 +125,17 @@ sbucks <-
   ))
 ```
 
-## See the data
+## Explore the Data
+
 ```{r}
-
-skimr::partition(skim(sbucks))
-
-sbucks %>%
-  addtable
-
+sbucks
 ```
 
-```{r eval = F}
+```{r}
+skimr::partition(skim(sbucks))
+```
+
+```{r}
 get_cor <- 
   function(size){
     sbucks %>%
@@ -100,8 +151,6 @@ get_cor <-
 map(c("short", "tall", "grande", "venti", "trenta"), ~get_cor(size = .x))
 
 ```
-
-## Explore the impact on calories of whipped cream
 
 First we need to only include products where whip is an option; after viewing plot, looks we'll need to remove some categories.
 
@@ -128,9 +177,7 @@ whip_diff %>%
 
 ```
 
-After removing drinks with no milk, we can plot the distributions of calories and inspect for any potential interaction effects.
-
-#### There doesn't seem to be any interaction effects between whipped cream and milk type used
+After removing drinks with no milk, we can plot the distributions of calories and inspect for any potential interaction effects. There doesn't seem to be any interaction effects between whipped cream and milk type used
 
 ```{r}
 
@@ -158,8 +205,7 @@ line_milk <-
 ggpubr::ggarrange(boxplot_milk, line_milk, nrow = 1, ncol = 2)
 ```
 
-
-#### There may be a slight interaction effect between whipped cream and drink size
+There may be a slight interaction effect between whipped cream and drink size
 
 ```{r}
 
@@ -182,7 +228,7 @@ ggpubr::ggarrange(boxplot_size, line_size, nrow = 1, ncol = 2)
 
 ```
 
-#### There may be a slight interaction effect between drink size and milk used
+There may be a slight interaction effect between drink size and milk used
 
 ```{r}
 
@@ -222,8 +268,6 @@ where:
  
 An interaction term is added since the amount of whipped cream added may vary according to the drink size; maybe *Venti* drinks get more whipped cream added than a *Short* drink and if so the impact on calories is not consistent for whipped cream drinks as size changes.
  
-### Results
-
 ```{r}
 broom::tidy(lm(calories ~ whip + size + milk + whip*size, data = whip_diff)) %>%
   addtable()
@@ -233,7 +277,6 @@ The intercept term alone indicates the average calories for "short" drinks with 
 
 138.84 + 54 + 220.51 + 51.25 + 50.38 = 514.98 calories
 
-#### estimates and std error for terms:
 ```{r}
 broom::tidy(lm(calories ~ whip + size + milk + whip*size, data = whip_diff)) %>%
   filter(term != "(Intercept)") %>% 
@@ -247,7 +290,7 @@ broom::tidy(lm(calories ~ whip + size + milk + whip*size, data = whip_diff)) %>%
        title = "Effect sizes relative to baseline", subtitle = "baseline: short, nonfat milk without whipped cream")
 ```
 
-## Bootstrap Resampling
+### Bootstrap Resampling
 
 There is not a ton of data here, maybe creating some bootstrap resamples might help to model this relationship. Bootstrapping creates *N* datasets by resampling *with replacement*. All of the resamples have the same number of rows as the input dataset, and contain duplicate observations since we sampled with replacement. The assessment data are comprised of the observations that didn't make it into a given resample.
 
@@ -276,6 +319,8 @@ whip_models <-
 
 ```
 
+Based on the plots, the estimates are about the same as the `lm` above!
+
 ```{r}
 
 whip_coefs <- 
@@ -299,13 +344,9 @@ whip_coefs %>%
   facet_wrap(.~term_label, scales = "free") + 
   geom_vline(aes(xintercept = est_mean))+ 
   geom_vline(aes(xintercept = .lower), linetype = "dashed") + 
-  geom_vline(aes(xintercept = .upper), linetype = "dashed")
+  geom_vline(aes(xintercept = .upper), linetype = "dashed") 
 
 ```
-
-### Results
-
-Based on the plots above, the estimates are about the same as the `lm` above!
 
 ## Conclusion
 
@@ -318,7 +359,7 @@ ggplot(whip_diff, aes(x = whip, y = calories, fill = milk)) +
   labs(fill = "Milk Type") + 
   big_labels + 
   facet_grid(.~size) + 
-  scale_y_continuous(breaks = seq(100, 1000, 25))
-  # theme_minimal() + 
-  # theme(legend.position = "none")
+  scale_y_continuous(breaks = seq(100, 1000, 25)) + 
+  bg_theme() + 
+  ggsci::scale_fill_npg()
 ```

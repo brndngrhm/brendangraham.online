@@ -20,6 +20,8 @@ image:
   preview_only: no
 projects: []
 draft: false
+editor_options: 
+  chunk_output_type: console
 ---
 ```{r include = FALSE}
 knitr::opts_chunk$set(echo = T, fig.height = 7, fig.width = 9, message = FALSE, warning = FALSE)
@@ -45,6 +47,7 @@ library(ghibli)
 library(plsmod)
 library(textrecipes)
 library(LiblineaR)
+library(ggsci)
 
 round_numerics <- 
   function(data, digits = 2){
@@ -62,7 +65,7 @@ add_table <-
   }
 
 bg_theme <- 
-  function(base_size = 11,
+  function(base_size = 13,
            strip_text_size = 12,
            strip_text_margin = 10,
            subtitle_size = 13,
@@ -109,6 +112,10 @@ bg_theme <-
     ret
   }
 
+bg_red <- "#E64B35"
+bg_green <- "#00a087"
+bg_blue <- "#4DBBD5"
+
 chocolate <-
   readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-18/chocolate.csv')
 
@@ -116,31 +123,33 @@ chocolate <-
 
 The goal for this weeks analysis to compare 2 types of models for predicting chocolate ratings. I have read bout text based models but haven't every attempted one, so in this analysis I will compare some text-based models with more traditional ML models.
 
-The data is composed of 2,530 observations of 10 variables. There is some missing ingredients data, but all othet columes are complete.
+The data is composed of 2,530 observations of 10 variables. There is some missing ingredients data, but all other columns are complete.
+
 ```{r}
-chocolate %>%
-  add_table()
-
-skimr::skim_to_list(chocolate)
-
+chocolate
 ```
 
-## Explore
+```{r}
+skimr::skim_to_list(chocolate)
+```
+
+## Explore the Data
 
 The average rating is around 3.3 or 3.4 out of 5, are ratings are slightly skewed to the left.
 ```{r}
 chocolate %>%
   ggplot(., aes(x = rating)) + 
-  geom_histogram(bins = 10, alpha = .75, fill = ghibli_palette("PonyoMedium")[5]) +
+  geom_histogram(bins = 10, alpha = .75, fill = bg_green) +
   bg_theme()
 ```
 
 There isn't much of a relationship between cocoa percent and rating.
+
 ```{r}
 chocolate %>%
   mutate(cocoa_percent = as.numeric(str_remove_all(cocoa_percent, "%"))) %>%
   ggplot(., aes(x = cocoa_percent, y = rating)) +
-  geom_point() +
+  geom_point(color = bg_blue) +
   bg_theme()
 
 ```
@@ -154,13 +163,14 @@ chocolate %>%
   geom_jitter(alpha = .50, show.legend = FALSE) + 
   geom_boxplot(show.legend = FALSE, alpha = .80) +
   bg_theme()  + 
-  coord_flip() 
+  coord_flip() +
+  scale_fill_npg()
 
 ```
 
 ## Model
 
-The `most memorable characteristics` column will be used along with number of ingredients as predictors of rating. The `most memorable characteristics` is split and pivoted into indicator variables. A 2nd recipe that includes `step_nzv()` will also be used to see if removeing sparse ingredients improves model performance.
+The `most memorable characteristics` column will be used along with number of ingredients as predictors of rating. The `most memorable characteristics` is split and pivoted into indicator variables. A 2nd recipe that includes `step_nzv()` will also be used to see if removing sparse ingredients improves model performance.
 
 ```{r}
 
@@ -192,6 +202,7 @@ head(choc_characteristics)
 
 ```
 
+Here we prep for modelling by creating splits, resamples and the recipe.
 ```{r}
 
 set.seed(163)
@@ -209,10 +220,6 @@ folds <-
 
 recipe <- 
   recipe(rating ~ ., train)
-
-rec_nzv <- 
-  recipe %>%
-  step_nzv(all_predictors())
 
 ```
  
@@ -238,6 +245,7 @@ workflows
 ```
 
 And here is the text-based workflow, adapted from this [post.](https://juliasilge.com/blog/chocolate-ratings/)
+
 ```{r}
 # text models
 
@@ -347,3 +355,5 @@ results %>%
   labs(x = "RMSE", y = '', title = "Comparing Model Types")
 
 ```
+
+

@@ -20,6 +20,8 @@ image:
   preview_only: no
 projects: []
 draft: false
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r include = FALSE}
@@ -126,33 +128,36 @@ details <-
 
 Last week I tried out a text based model for the first time. This week I want to continue working with a text based model, but supplement the text data with other non-text predictors. The goal will be to use the board game category (text data) and other non-text data to predict the average board game rating.
 
+## Explore the Data
+
+there are 2 tables, one that has the ratings variable we'll use as the outcome, and the other has some columns to be used as predictors. 
+
 ```{r}
+ratings
+```
 
-ratings %>%
-  select(-c(url, thumbnail)) %>%
-  add_table()
+```{r}
+details
+```
 
+Using the `skimr` package we can get a quick understanding of the characteristics of each table.
+
+```{r}
 skimr::skim_to_list(ratings)
 ```
 
 ```{r}
-details %>%
-  add_table()
-
 skimr::skim_to_list(details)
-
 ```
 
-## Explore
-
-There are 200 games missing descriptions:
+Looks like there are 200 games missing descriptions:
 ```{r}
-
 ratings %>%
   anti_join(., details, by = c("id")) %>%
   nrow()
 ```
 
+The distribution of the outcome variable, ratings, is somewhat normally distributed with a mean rating of 6.42 out of 10.
 ```{r}
 n_games <- 
   ratings %>% 
@@ -167,7 +172,7 @@ overall_avg <-
 ratings %>%
   ggplot(aes(x = average)) + 
   geom_histogram(alpha = .75, fill = bg_green) + 
-  bg_theme() + 
+  bg_theme(base_size = 13) + 
   geom_vline(aes(xintercept = mean(average)), linetype = 'dashed') + 
   scale_y_continuous(expand = c(0, 25), breaks = seq(0, 3000, 100)) + 
   labs(x = "rating", y = '', title =  paste("rating distribution of", format(n_games, big.mark = ','),
@@ -176,7 +181,8 @@ ratings %>%
 
 ```
 
-Here we combine the ratings data with the details and token-ize the category column into individual rows per category descriptor:
+Here we can dive into the category column. First we combine the ratings data with the details and then tokenize the category column into individual rows per category descriptor. This wirll help form the basis of the text recipe developed later on.
+
 ```{r}
 combined <- 
   ratings %>%
@@ -201,20 +207,30 @@ tidy_category %>%
   count(word, sort = TRUE)
 ```
 
-then we check the relationship between the numeric columns with the average:
+Since we are also including non-text data in the model, we should explore those predictors as well. The function below iterates over the numeric columns and checks the relationship between the numeric columns with the average rating. There are a number of outliers that need to be handled to make the plots more meaningful.
+
 ```{r}
 get_scatter <- 
   function(data, var){
     
+    variable_filter <- 
+      if (var == "maxplayers"){
+        25
+      } else if (var == "playingtime"){
+        500
+      } else {
+        10000000
+      }
+    
     data %>%
       select(average, one_of({{var}})) %>%
       rename(variable = 2) %>%
+      filter(variable <= variable_filter) %>%
       ggplot(., aes(x = average, y = variable)) +
-      geom_jitter(alpha = .3) + 
-      geom_smooth(se = F) + 
-      bg_theme() +
-      labs(x = "avg rating", y = var)
-    
+      geom_point(alpha = .3, color = bg_green) + 
+      bg_theme(base_size = 13) +
+      labs(x = "avg rating", y = var, title = paste(var, "vs average rating"))
+
   }
 
 numeric_cols <- 
@@ -227,9 +243,9 @@ purrr::map(numeric_cols, ~get_scatter(combined, .x))
 
 ```
 
-## Model
+## Create Some Models
 
-to prep the text data for modeling we can create a matrix with each words TF-IDf value. From the `step_tfidf()` documentation:
+To prep the text data for modeling we can create a matrix with each words TF-IDf value. From the `step_tfidf()` documentation:
 
 >Term frequency-inverse document frequency is the product of two statistics: the term frequency (TF) and the inverse document frequency (IDF).
 >
@@ -239,12 +255,13 @@ to prep the text data for modeling we can create a matrix with each words TF-IDf
 >
 >The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / (# documents where the term appears))
 
+Normally we'd used `step_tokenfilter()` as well, but there are not that many categories so we can use all 113. The important step here is to prep() the recipe and then bake() the results. This sequence of functions applies and executes the recipe, and returns a dataframe ready to be joined with the other predictors.
+
 ```{r}
 text_prep <- 
   recipe(average ~ num + id + name + category, data = combined) %>%
   update_role(num, id, name, new_role = "ID variables") %>%
   step_tokenize(category) %>%
-  # step_tokenfilter(category) %>%
   step_tfidf(category) %>%
   prep() %>%
   bake(new_data = NULL)
@@ -253,7 +270,6 @@ text_prep
 ```
 
 ```{r}
-
 model_data <- 
   combined %>%
   select(-category) %>%
@@ -263,6 +279,7 @@ model_data
 ```
 
 Then we prep for modelling by creating splits, resamples, model specifications, recipes (several to compare), and the workflowset:
+
 ```{r}
 
 set.seed(113)
@@ -279,6 +296,8 @@ folds <-
   vfold_cv(train, strata = average)
 ```
 
+3 recipes are created here with the goal of seeing which combination works the best: one with the just text features, `recipe_text` and one without any text features, `recipe_no_text` and then one with all features, `recipe_all`.
+
 ```{r}
 
 recipe_all <- 
@@ -293,18 +312,6 @@ recipe_text <-
 recipe_no_text <- 
   recipe_all %>%
   step_rm(starts_with('tfidf'))
-
-recipe_all %>% 
-  prep() %>%
-  bake(new_data = NULL)
-
-recipe_text %>% 
-  prep() %>%
-  bake(new_data = NULL)
-
-recipe_no_text %>% 
-  prep() %>%
-  bake(new_data = NULL)
 
 ```
 
@@ -372,6 +379,9 @@ results <-
   )
 
 stopCluster(cl)
+```
+
+```{r}
 
 rank_results(results, select_best = T) %>% 
   mutate(model = ifelse(str_detect(wflow_id, "lasso"), "lasso", model),
@@ -384,12 +394,12 @@ rank_results(results, select_best = T) %>%
   geom_errorbar(aes(ymin = mean - std_err, ymax = mean + std_err)) + 
   geom_point(size = 3, alpha = .75) + 
   labs(title = "Model Performance Across Recipes", subtitle = "metric: RMSE") + 
-  bg_theme() + 
+  bg_theme(base_size = 13) + 
   ggsci::scale_color_npg()
 
 ```
 
-The predicted vs actual performance of the "best" model is not very good. But again, the goal of this post was to combine text data and non-text data into a model.
+The predicted vs actual performance of the "best" model is not very good. But oh well, and anyway the goal of this post was to combine text data and non-text data into a model.
 
 ```{r}
 best_results <- 
@@ -419,6 +429,6 @@ test_results %>%
   geom_point(alpha = 0.35, color = "#00a087") + 
   coord_obs_pred() + 
   labs(x = "observed", y = "predicted") + 
-  bg_theme() + 
+  bg_theme(base_size = 13) + 
   ggsci::scale_color_npg()
 ```

@@ -1,7 +1,7 @@
 ---
-title: "Trying out new `Tidymodels` package: {vetiver}"
+title: "Trying out new Tidymodels package: vetiver"
 author: Brendan Graham
-date: '2022-01-21'
+date: '2022-01-11'
 slug: bees
 categories: 
   - tidy tuesday
@@ -24,6 +24,8 @@ image:
   preview_only: no
 projects: []
 draft: false
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r include = FALSE}
@@ -78,9 +80,11 @@ bg_theme <-
       ggplot2::theme_gray(base_family = font,
                           base_size = base_size, ...,) +
       theme(
-        panel.background = element_rect(fill = "#f3f3f3"),
+        panel.background = element_rect(fill = "#e9e9ea"),
         plot.background = element_rect(fill = "#f3f3f3"),
-        legend.background = element_rect(fill = "#f3f3f3")
+        legend.background = element_rect(fill = "#f3f3f3"),
+        panel.grid = element_line(color = "#ffffff"),
+        panel.grid.major = element_line(color = "#ffffff")
         )
     
     ret$strip.text <-
@@ -111,6 +115,10 @@ bg_theme <-
     ret
   }
 
+bg_red <- "#E64B35"
+bg_green <- "#00a087"
+bg_blue <- "#4DBBD5"
+
 colony <-
   readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-11/colony.csv')
 
@@ -131,13 +139,11 @@ First we'll read in the dataset and explore it, create and compare some models, 
 There are 2 datasets: colony and stressor; We will develop a model using stressors to predict colonies lost.
 
 ```{r}
-colony %>% 
-  add_table()
+colony 
 ```
 
 ```{r}
-stressor %>% 
-  add_table()
+stressor 
 ```
 
 ```{r}
@@ -159,10 +165,10 @@ stressor %>%
   inner_join(., colony) %>%
   ggplot(., aes(x = stress_pct, y = colony_lost_pct, color = factor(year))) + 
   geom_point(alpha = .45) + 
-  coord_equal() + 
+  # coord_equal() + 
   facet_wrap(vars(stressor)) +
   bg_theme(base_size = 13) + 
-  ghibli::scale_color_ghibli_d("PonyoMedium")
+  ggsci::scale_color_npg()
 ```
 
 Here we create the modeling dataset. We have some missing data so we can add a pre-processing step to address that.
@@ -214,7 +220,7 @@ folds
 
 ```
 
-Here we so define some  pre-processing steps using the`recipes` package`:
+Here we so define some  pre-processing steps using the `recipes` package`:
 
  * median imputation for the missing observations
  * center/scale all numeric predictors
@@ -227,13 +233,15 @@ recipe <-
 
 recipe
 
-#make sure there are no issues with the pre-processing steps
-prep(recipe) %>% 
-  bake(new_data = NULL) 
-
 ```
 
-Three models are specified and combined with the recipe into a *workflowset*, which is a certain type of `tidymodels `object that makes tuning and comparing several models extremely easy.
+Prep the recipe to make sure there are no issues with the pre-processing steps
+```{r}
+prep(recipe) %>% 
+  bake(new_data = NULL) 
+```
+
+Three models are specified and combined with the recipe into a *workflowset*, which is a certain type of `tidymodels` object that makes tuning and comparing several models extremely easy.
 
 ```{r}
 lasso_rec <- 
@@ -293,13 +301,16 @@ results <-
   )
 
 stopCluster(cl)
+```
 
+```{r}
 workflowsets::rank_results(results, select_best = T, rank_metric = "rmse")
+```
 
+```{r}
 autoplot(results, select_best = T) +
   bg_theme(base_size = 13) + 
-  ghibli::scale_color_ghibli_d("PonyoMedium")
-
+  ggsci::scale_color_npg()
 ```
 
 ## Using `vetiver`
@@ -375,11 +386,13 @@ preds %>%
 Ideally the points in the scatterplot would fall along, or near, the 45-degree line, so the model performance isn't great. But we were able to successfully deploy it as an API and retrieve predictions!
 
 ```{r eval = FALSE} 
-
 preds %>%
   ggplot(., aes(x = colony_lost_pct, y = .pred)) + 
-  geom_abline(col = "dodgerblue", lty = 2) + 
-  geom_point(alpha = 0.5) + 
+  geom_abline(col = bg_red, lty = 2) + 
+  geom_point(alpha = 0.5, color = bg_green) + 
   coord_obs_pred() + 
-  labs(x = "observed", y = "predicted", title = "predicted colony lost pct vs actual")
+  labs(x = "observed", y = "predicted", title = "predicted colony lost pct vs actual") + 
+  bg_theme()
 ```
+
+![](pred_vs_actual.png)

@@ -1,0 +1,269 @@
+---
+title: "Exploring dog breed data"
+author: Brendan Graham
+date: '2022-01-11'
+slug: bees
+categories: 
+  - tidy tuesday
+tags:
+  - tidy tuesday
+subtitle: 
+summary: 'This post looks at a [TidyTuesday](https://github.com/rfordatascience/tidytuesday) data set about dog breeds. After looking at the data I ...'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+draft: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(echo = T, fig.height = 7, fig.width = 9, message = FALSE, warning = FALSE)
+
+options(scipen = 100)
+options(tidymodels.dark = TRUE) 
+
+library(tidyverse)
+library(lubridate)
+library(purrr)
+library(skimr)
+library(tidymodels)
+library(tidytext)
+library(rules)
+library(vetiver)
+library(doParallel)
+library(ghibli)
+library(stm)
+
+round_numerics <- 
+  function(data, digits = 2){
+    data %>%
+      mutate(across(where(is.numeric), ~ round(.x, digits)))
+  }
+
+add_table <- 
+  function(data, rows = 10){
+    data %>%
+      round_numerics() %>%
+      reactable::reactable(., fullWidth = F, resizable = T, filterable = T, 
+                           highlight = T, defaultPageSize = rows, wrap = TRUE,
+                           showSortIcon = T, striped = T, compact = T)
+  }
+
+bg_theme <- 
+  function(base_size = 11,
+           strip_text_size = 12,
+           strip_text_margin = 10,
+           subtitle_size = 13,
+           subtitle_margin = 10,
+           plot_title_size = 16,
+           plot_title_margin = 10,
+           font = "RobotoMono-Regular",
+           ...) {
+    
+    ret <-
+      ggplot2::theme_gray(base_family = font,
+                          base_size = base_size, ...,) +
+      theme(
+        panel.background = element_rect(fill = "#e9e9ea"),
+        plot.background = element_rect(fill = "#f3f3f3"),
+        legend.background = element_rect(fill = "#f3f3f3"),
+        panel.grid = element_line(color = "#ffffff"),
+        panel.grid.major = element_line(color = "#ffffff")
+        )
+    
+    ret$strip.text <-
+      ggplot2::element_text(
+        # hjust = 0,
+        vjust = -.8,
+        size = strip_text_size,
+        margin = ggplot2::margin(b = strip_text_margin),
+        family = font
+      )
+    
+    ret$plot.subtitle <-
+      ggplot2::element_text(
+        hjust = 0,
+        size = subtitle_size,
+        margin = ggplot2::margin(b = subtitle_margin),
+        family = font
+      )
+    
+    ret$plot.title <-
+      ggplot2::element_text(
+        hjust = 0,
+        size = plot_title_size,
+        margin = ggplot2::margin(b = plot_title_margin),
+        family = font
+      )
+    
+    ret
+  }
+
+bg_red <- "#E64B35"
+bg_green <- "#00a087"
+bg_blue <- "#4DBBD5"
+
+breed_traits <-
+  readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_traits.csv') %>%
+  janitor::clean_names() %>%
+  mutate(breed = str_squish(breed))
+
+trait_description <-
+  readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/trait_description.csv') %>%
+  janitor::clean_names() %>%
+  mutate(trait = str_squish(trait))
+
+breed_rank_all <-
+  readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_rank.csv') %>%
+  janitor::clean_names() %>%
+  mutate(breed = str_squish(breed))
+```
+
+## Introduction
+
+## Explore the data
+
+```{r}
+breed_traits %>% 
+  add_table()
+
+breed_traits %>% 
+  skimr::skim_to_list()
+```
+
+```{r}
+trait_description %>% 
+  add_table()
+
+trait_description %>% 
+  skimr::skim_to_list()
+
+trait_description <- 
+  trait_description %>% 
+  mutate(trait = stringr::str_to_lower(trait),
+         trait = stringr::str_replace_all(trait, ' ', '_'),
+         trait = stringr::str_replace_all(trait, '/', '_'))
+```
+
+```{r}
+breed_rank_all %>% 
+  select(-c(links, image)) %>%
+  add_table()
+
+breed_rank_all %>% 
+  skimr::skim_to_list()
+```
+
+```{r}
+mean_rank <- 
+  breed_rank_all %>%
+  select(-c(links, image)) %>%
+  pivot_longer(cols = starts_with("x"), values_to = 'rank') %>%
+  group_by(breed) %>%
+  summarise(mean_rank = mean(rank, na.rm = T),
+            sd = sd(rank)) %>% 
+  mutate(breed = trimws(breed),
+         breed = as.character(breed)) %>%
+  ungroup() %>%
+  arrange(mean_rank) %>%
+  mutate(rank = row_number()) %>%
+  ungroup() %>%
+  as_tibble()
+
+```
+
+top 15 breeds based on avg rank 2012-2020
+ 
+```{r}
+breed_rank_all %>%
+  select(-c(links, image)) %>%
+  pivot_longer(cols = starts_with("x"), values_to = 'rank') %>%
+  group_by(breed) %>%
+  summarise(mean_rank = mean(rank, na.rm = T),
+            sd = sd(rank)) %>%
+  ungroup() %>%
+  arrange(mean_rank) %>%
+  mutate(rank = row_number()) %>% 
+  filter(rank <=15 | rank >= nrow(.) - 14) %>% 
+    add_table(rows = 130)
+
+```
+
+## Ideas
+are trains different between top 5 an bottom 5 dogs? topic modelling of descriptions?
+
+```{r}
+traits <- 
+  breed_traits %>%
+  select(breed, coat_type, coat_length, everything()) %>% 
+  ungroup() %>%
+  as_tibble() %>%
+  pivot_longer(cols = 4:ncol(.), names_to = "trait", values_to = 'trait_score') %>% 
+  left_join(., trait_description, by = 'trait') %>%
+  ungroup() %>%
+  as_tibble() %>% 
+  left_join(., mean_rank, by = 'breed')
+
+traits
+
+```
+
+```{r}
+
+tidy_descripion <-
+  traits %>%
+  unnest_tokens(word, description) %>%
+  anti_join(get_stopwords())
+
+tidy_descripion %>%
+  count(word, sort = TRUE)
+
+```
+
+```{r}
+
+desc_sparse <-
+  tidy_descripion %>%
+  count(breed, word) %>%
+  cast_sparse(breed, word, n)
+
+```
+
+```{r}
+
+set.seed(634)
+topic_model <- 
+  stm(desc_sparse, K = 4, verbose = FALSE)
+
+summary(topic_model)
+
+```
+
+```{r}
+word_topics <-
+  tidy(topic_model, matrix = "beta")
+
+word_topics
+```
+
+```{r}
+
+word_topics %>%
+  group_by(topic) %>%
+  slice_max(beta, n = 10) %>%
+  ungroup() %>%
+  mutate(topic = paste("Topic", topic)) %>%
+  ggplot(aes(beta, reorder_within(term, beta, topic), fill = topic)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(topic), scales = "free_y") +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_reordered() +
+  labs(x = expression(beta), y = NULL)
+
+
+```
+

@@ -9,7 +9,7 @@ description: |
 # live on the computer
 image_left: false
 images:
-- img/good.jpeg
+- img/good_many_bars.jpeg
 show_action_link: true
 show_social_links: false
 text_align_left: false

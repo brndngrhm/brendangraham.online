@@ -11,7 +11,6 @@ cascade:
   show_post_date: true
   sidebar:
     show_sidebar_adunit: false
-    text_contents_label: On this page
     text_link_label: ""
     text_link_url: ""
     text_series_label: In this series

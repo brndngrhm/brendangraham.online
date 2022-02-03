@@ -2,7 +2,9 @@
 action_label: Read More &rarr;
 action_link: /blog
 action_type: text
-description: i enjoy building windows with numbers, exploding tennis racket strings and pedaling uphill
+description: |
+  *live on the computer*
+#i enjoy building windows with numbers, exploding tennis racket strings and pedaling uphill
 image_left: false
 images:
 - img/good.jpeg

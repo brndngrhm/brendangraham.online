@@ -5,12 +5,11 @@
     <link>https://brendangraham.online/form/</link>
     <description>Recent content in Forms on Brendan Graham</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Mon, 25 Feb 2019 13:38:41 -0600</lastBuildDate><atom:link href="https://brendangraham.online/form/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language><atom:link href="https://brendangraham.online/form/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Contact</title>
+      <title>hi</title>
       <link>https://brendangraham.online/contact/</link>
-      <pubDate>Mon, 25 Feb 2019 13:38:41 -0600</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://brendangraham.online/contact/</guid>
       <description>** Contact page don&amp;rsquo;t contain a body, just the front matter above. See form.html in the layouts folder.

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Brendan Graham</title>
+    <title>brendan graham
+ on Brendan Graham</title>
     <link>https://brendangraham.online/</link>
-    <description>Recent content on Brendan Graham</description>
+    <description>Recent content in brendan graham
+ on Brendan Graham</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 26 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Netlify</title>
       <link>https://brendangraham.online/collection/day02/01-netlify/</link>
@@ -15,18 +17,6 @@
       <guid>https://brendangraham.online/collection/day02/01-netlify/</guid>
       <description>So far, we&amp;rsquo;ve been leveraging GitHub Pages for publishing. This works great, but for blogdown we&amp;rsquo;ll start using Netlify. Let&amp;rsquo;s start RIGHT NOW with a site we&amp;rsquo;ve already built and published.
 Pre-requisites     Pick either your postcards site, or your distill site from day 01. Refresh your memory- which repository was it again?</description>
-    </item>
-    
-    <item>
-      <title>A first post</title>
-      <link>https://brendangraham.online/blog/spoonful-series/01-spoonful/</link>
-      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://brendangraham.online/blog/spoonful-series/01-spoonful/</guid>
-      <description>Hi, I&#39;m the here-bot cat! Use me to find your way in your website.
-Here I am: content/blog/spoonful-series/01-spoonful.md  To remove me, delete this line inside that file: {{&amp;lt; here &amp;gt;}}
-My content section is: blog  My layout is: single-series   does this work?     or this?      Let&amp;rsquo;s start.
-beginning     middle     end     </description>
     </item>
     
     <item>
@@ -64,13 +54,13 @@ install.packages(&amp;quot;postcards&amp;quot;) Restart your R session. If you u
     
     <item>
       <title>A second post</title>
-      <link>https://brendangraham.online/blog/spoonful-series/02-spoonful/</link>
+      <link>https://brendangraham.online/default_blog/02-spoonful/</link>
       <pubDate>Sat, 02 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/blog/spoonful-series/02-spoonful/</guid>
+      <guid>https://brendangraham.online/default_blog/02-spoonful/</guid>
       <description>Hi, I&#39;m the here-bot cat! Use me to find your way in your website.
-Here I am: content/blog/spoonful-series/02-spoonful/index.md  To remove me, delete this line inside that file: {{&amp;lt; here &amp;gt;}}
-My content section is: blog  My layout is: single-series  Images in this page bundle: /blog/spoonful-series/02-spoonful/sidebar-inverse.jpg   part 2!     does this work?      now for some very cool things     more     get ready!</description>
+Here I am: content/default_blog/02-spoonful/index.md  To remove me, delete this line inside that file: {{&amp;lt; here &amp;gt;}}
+My content section is: default_blog  My layout is: single-series  Images in this page bundle: /default_blog/02-spoonful/sidebar-inverse.jpg   part 2!     does this work?      now for some very cool things     more     get ready!</description>
     </item>
     
     <item>
@@ -82,18 +72,6 @@ My content section is: blog  My layout is: single-series  Images in this page bu
       <description>Pre-requisites     First, make sure you have the latest version of the blogdown package installed from CRAN:
 install.packages(&amp;quot;blogdoown&amp;quot;) Restart your R session. If you use RStudio, use the menu item Session &amp;gt; Restart R or the associated keyboard shortcut:
  Ctrl + Shift + F10 (Windows and Linux) or Command + Shift + F10 (Mac OS).  packageVersion(&amp;quot;blogdown&amp;quot;) [1] ‘1.0’  Create GitHub repo     Online.</description>
-    </item>
-    
-    <item>
-      <title>A third post</title>
-      <link>https://brendangraham.online/blog/spoonful-series/03-spoonful/</link>
-      <pubDate>Sun, 03 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://brendangraham.online/blog/spoonful-series/03-spoonful/</guid>
-      <description>Hi, I&#39;m the here-bot cat! Use me to find your way in your website.
-Here I am: content/blog/spoonful-series/03-spoonful/index.markdown  Here is my R Markdown source file: blog/spoonful-series/03-spoonful/index.Rmarkdown You&#39;ll want to edit this file, then re-knit to see the changes take effect in your site preview.
- To remove me, delete this line inside that file: {{&amp;lt; here &amp;gt;}}
-My content section is: blog  My layout is: single-series  Images in this page bundle: /blog/spoonful-series/03-spoonful/featured-photo.</description>
     </item>
     
     <item>
@@ -131,6 +109,16 @@ My content section is: collection  My layout is: single-series   part 2!     doe
     </item>
     
     <item>
+      <title>learning some topic modeling with dog breed traits</title>
+      <link>https://brendangraham.online/blog/dogs/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/dogs/</guid>
+      <description>This post looks at a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about dog breeds. After looking at the data I try developing my first topic model</description>
+    </item>
+    
+    <item>
       <title>Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings</title>
       <link>https://brendangraham.online/blog/boardgames/</link>
       <pubDate>Wed, 26 Jan 2022 00:00:00 +0000</pubDate>
@@ -141,16 +129,6 @@ My content section is: collection  My layout is: single-series   part 2!     doe
     </item>
     
     <item>
-      <title>Trying out new `Tidymodels` package: {vetiver}</title>
-      <link>https://brendangraham.online/blog/bees/</link>
-      <pubDate>Fri, 21 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://brendangraham.online/blog/bees/</guid>
-      <description>This post looks at a 
-&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about changes in bee colonies After looking at the data I build and locally deploy a model api to predict the percentage of colonies lost</description>
-    </item>
-    
-    <item>
       <title>Comparing Traditional and Text-Based Models to Predict Chocolate Rating</title>
       <link>https://brendangraham.online/blog/chocolate-ratings/</link>
       <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
@@ -158,6 +136,16 @@ My content section is: collection  My layout is: single-series   part 2!     doe
       <guid>https://brendangraham.online/blog/chocolate-ratings/</guid>
       <description>This post looks at a 
 &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about chocolate. After looking at the data I compare text based and &amp;ldquo;traditional&amp;rdquo; modelling approaches to predict a chocolate ratings</description>
+    </item>
+    
+    <item>
+      <title>Trying out new Tidymodels package: vetiver</title>
+      <link>https://brendangraham.online/blog/bees/</link>
+      <pubDate>Tue, 11 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/bees/</guid>
+      <description>This post looks at a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about changes in bee colonies After looking at the data I build and locally deploy a model api to predict the percentage of colonies lost</description>
     </item>
     
     <item>
@@ -178,6 +166,15 @@ My content section is: collection  My layout is: single-series   part 2!     doe
       <guid>https://brendangraham.online/blog/starbucks/</guid>
       <description>This post looks at a 
 &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about the contents of various Starbucks drinks. After epxploring the data I model the effect whiped cream has on calories across variosu types of drinks.</description>
+    </item>
+    
+    <item>
+      <title>Wiss Map</title>
+      <link>https://brendangraham.online/project/creating-interactive-maps-with-leaflet/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/creating-interactive-maps-with-leaflet/</guid>
+      <description>parsing XML and using &lt;code&gt;Leaflet&lt;/code&gt; to create interactive maps in R</description>
     </item>
     
     <item>
@@ -248,6 +245,15 @@ Hello! 👋 hello
     </item>
     
     <item>
+      <title>Routeabaga</title>
+      <link>https://brendangraham.online/project/routeabaga/</link>
+      <pubDate>Fri, 06 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/routeabaga/</guid>
+      <description>Discover new cycling routes</description>
+    </item>
+    
+    <item>
       <title>Shiny New Things - Using R to Bridge the Gap in EMR Reporting</title>
       <link>https://brendangraham.online/talk/rstudio_conf_2020/</link>
       <pubDate>Mon, 27 Jan 2020 11:40:00 +0000</pubDate>
@@ -257,30 +263,48 @@ Hello! 👋 hello
     </item>
     
     <item>
+      <title>Everyone Everywhere Music Analysis Tool</title>
+      <link>https://brendangraham.online/project/spotify_analyzer/</link>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/spotify_analyzer/</guid>
+      <description>Use the Spotify API to analyze your favorite artists songs</description>
+    </item>
+    
+    <item>
+      <title>RideTracker</title>
+      <link>https://brendangraham.online/project/ride_tracker/</link>
+      <pubDate>Tue, 26 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/ride_tracker/</guid>
+      <description>Data viz project tracking my cycling habits</description>
+    </item>
+    
+    <item>
       <title>Tachyons for Style</title>
-      <link>https://brendangraham.online/project/giraffes/</link>
+      <link>https://brendangraham.online/default_project/giraffes/</link>
       <pubDate>Wed, 03 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/project/giraffes/</guid>
+      <guid>https://brendangraham.online/default_project/giraffes/</guid>
       <description>Tachyons is a design system that allows you to design gorgeous interfaces in the browser with little effort.      Because Speed     Building this static site generator theme was the first time I used an Atomic (or Functional) CSS system like Tachyons. It&amp;rsquo;s a design system that provides very small (which means fast) CSS modules that you can use in your HTML. So, rather than writing every line of CSS, you apply the style you need as you write your HTML with easy to understand shorthand class names.</description>
     </item>
     
     <item>
       <title>Palmer Penguins</title>
-      <link>https://brendangraham.online/project/penguins/</link>
+      <link>https://brendangraham.online/default_project/penguins/</link>
       <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/project/penguins/</guid>
+      <guid>https://brendangraham.online/default_project/penguins/</guid>
       <description>“Grid is the very first CSS module created specifically to solve the layout problems we&amp;rsquo;ve all been hacking our way around for as long as we&amp;rsquo;ve been making websites.”     — Chris House, A Complete Guide to CSS Grid Layout 1
  Since I began building websites in Y2K, I&amp;rsquo;ve lost count how many times the phrase &amp;ldquo;&amp;hellip;there&amp;rsquo;s got to be a better way to do this&amp;rdquo; has passed my lips.</description>
     </item>
     
     <item>
       <title>Bakeoff</title>
-      <link>https://brendangraham.online/project/bakeoff/</link>
+      <link>https://brendangraham.online/default_project/bakeoff/</link>
       <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/project/bakeoff/</guid>
+      <guid>https://brendangraham.online/default_project/bakeoff/</guid>
       <description>Formspree makes it easy to receive submissions from HTML forms on your static website.      Functional Form     This theme has a form-to-email feature built in, thanks to the simple Formspree integration. All you need to activate the form is a valid recipient email address saved in the front matter of the form (/content/forms/contact.md). Of course, the example shown below (your@email.here) must not be used.</description>
     </item>
     
@@ -291,16 +315,6 @@ Hello! 👋 hello
       
       <guid>https://brendangraham.online/default_blog/built-in-contact-form/</guid>
       <description>Formspree makes it easy to receive submissions from HTML forms on your static website.      Functional Form     This theme has a form-to-email feature built in, thanks to the simple Formspree integration. All you need to activate the form is a valid recipient email address saved in the front matter of the form (/content/forms/contact.md). Of course, the example shown below (your@email.here) must not be used.</description>
-    </item>
-    
-    <item>
-      <title>Contact</title>
-      <link>https://brendangraham.online/contact/</link>
-      <pubDate>Mon, 25 Feb 2019 13:38:41 -0600</pubDate>
-      
-      <guid>https://brendangraham.online/contact/</guid>
-      <description>** Contact page don&amp;rsquo;t contain a body, just the front matter above. See form.html in the layouts folder.
-Formspree requires a (free) account and new form to be set up. The link is made on the final published url in the field: Restrict to Domain. It is possible to register up to 2 emails free and you can select which one you want the forms to go to within Formspree in the Settings tab.</description>
     </item>
     
     <item>
@@ -333,13 +347,24 @@ Formspree requires a (free) account and new form to be set up. The link is made 
     </item>
     
     <item>
-      <title>License</title>
+      <title>hi</title>
+      <link>https://brendangraham.online/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/contact/</guid>
+      <description>** Contact page don&amp;rsquo;t contain a body, just the front matter above. See form.html in the layouts folder.
+Formspree requires a (free) account and new form to be set up. The link is made on the final published url in the field: Restrict to Domain. It is possible to register up to 2 emails free and you can select which one you want the forms to go to within Formspree in the Settings tab.</description>
+    </item>
+    
+    <item>
+      <title>licenses
+</title>
       <link>https://brendangraham.online/license/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://brendangraham.online/license/</guid>
-      <description>My blog posts are released under a Creative Commons Attribution-ShareAlike 4.0 International License.
-  </description>
+      <description>blog posts are released under a Creative Commons Attribution-ShareAlike 4.0 International License:
+     projects and any photos on this site are released under a Attribution-NonCommercial-NoDerivatives 4.0 International License:</description>
     </item>
     
   </channel>

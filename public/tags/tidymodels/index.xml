@@ -18,16 +18,6 @@
     </item>
     
     <item>
-      <title>Trying out new `Tidymodels` package: {vetiver}</title>
-      <link>https://brendangraham.online/blog/bees/</link>
-      <pubDate>Fri, 21 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://brendangraham.online/blog/bees/</guid>
-      <description>This post looks at a 
-&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about changes in bee colonies After looking at the data I build and locally deploy a model api to predict the percentage of colonies lost</description>
-    </item>
-    
-    <item>
       <title>Comparing Traditional and Text-Based Models to Predict Chocolate Rating</title>
       <link>https://brendangraham.online/blog/chocolate-ratings/</link>
       <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
@@ -35,6 +25,16 @@
       <guid>https://brendangraham.online/blog/chocolate-ratings/</guid>
       <description>This post looks at a 
 &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about chocolate. After looking at the data I compare text based and &amp;ldquo;traditional&amp;rdquo; modelling approaches to predict a chocolate ratings</description>
+    </item>
+    
+    <item>
+      <title>Trying out new Tidymodels package: vetiver</title>
+      <link>https://brendangraham.online/blog/bees/</link>
+      <pubDate>Tue, 11 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/bees/</guid>
+      <description>This post looks at a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about changes in bee colonies After looking at the data I build and locally deploy a model api to predict the percentage of colonies lost</description>
     </item>
     
     <item>

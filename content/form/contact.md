@@ -1,7 +1,7 @@
 ---
-title: hi 
+title: hi
 date:
-description:
+description: 
 draft: false
 formspree_form_id: "mzboezbg"
 layout: split-right

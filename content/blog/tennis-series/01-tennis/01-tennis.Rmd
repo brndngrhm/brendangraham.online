@@ -220,9 +220,9 @@ format_points <-
     
   }
 
-points
-
 # write_feather(points, here("wimbledon", "data", "formatted", "points.feather"))
+
+points
 
 ```
 

@@ -25,7 +25,7 @@ enableEmoji = true
     ordered = false
   [markup.highlight]
     # one of: https://xyproto.github.io/splash/docs/
-    style = "paraiso-dark"
+    style = "paraiso-dark" #paraiso-dark
     
 [params]
   orgName = ""
@@ -55,7 +55,7 @@ enableEmoji = true
   # the custom scss file must be in the assets/ folder
   # add the filename name here, without extension
   # to use hex colors instead of named tachyons colors, include "hex" in filename
-  custom_theme = "custom_theme_hex_dark" #custom_theme_hex 
+  custom_theme = "custom_theme_hex" #custom_theme_hex 
   
   # use an embedded font-family
   # serif options: Fraunces / EB Garamond / Bitter

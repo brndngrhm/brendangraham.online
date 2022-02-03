@@ -17,8 +17,8 @@ options(
   blogdown.knit.on_save = FALSE,
   blogdown.server.timeout = 600,
   # build .Rmd to .html (via Pandoc); to build to Markdown, set this option to 'markdown'
-  blogdown.ext = ".Rmarkdown", #.Rmd
-  blogdown.method = "html", #html
+  blogdown.ext = ".Rmd", #.Rmd
+  blogdown.method = "markdown", #html
   blogdown.subdir = "blog"
 )
 

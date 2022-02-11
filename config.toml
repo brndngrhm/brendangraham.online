@@ -112,15 +112,15 @@ enableEmoji = true
 #    url = "/about/"
 #    weight = 1
   [[menu.header]]
-    name = "Blog"
-    title = "Blog"
+    name = "Data"
+    title = "Data"
     url = "/blog/"
     weight = 2
-  [[menu.header]]
-    name = "Projects"
-    title = "Project Portfolio"
-    url = "/project/"
-    weight = 3
+#  [[menu.header]]
+#    name = "Projects"
+#    title = "Project Portfolio"
+#    url = "/project/"
+#    weight = 3
   [[menu.header]]
     name = "Art"
     title = "Art"

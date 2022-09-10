@@ -6,7 +6,34 @@
     <description>Recent content in Tags on Brendan Graham</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 01 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Art</title>
+      <link>https://brendangraham.online/tags/art/</link>
+      <pubDate>Fri, 11 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/art/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>https://brendangraham.online/tags/r/</link>
+      <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tennis</title>
+      <link>https://brendangraham.online/tags/tennis/</link>
+      <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/tennis/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>tidy tuesday</title>
       <link>https://brendangraham.online/tags/tidy-tuesday/</link>
@@ -130,15 +157,6 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://brendangraham.online/tags/series/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tennis</title>
-      <link>https://brendangraham.online/tags/tennis/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://brendangraham.online/tags/tennis/</guid>
       <description></description>
     </item>
     

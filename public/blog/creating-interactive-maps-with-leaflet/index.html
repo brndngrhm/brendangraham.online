@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head>
+  
+                           
+     
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.92.0" />
+<title>Wiss Map | Brendan Graham</title>
+
+
+<meta property="twitter:site" content="@brndngrhm">
+<meta property="twitter:creator" content="@brndngrhm">
+
+
+
+
+
+
+
+  
+    
+  
+<meta name="description" content="parsing XML and using `Leaflet` to create interactive maps in R">
+
+
+<meta property="og:site_name" content="Brendan Graham">
+<meta property="og:title" content="Wiss Map | Brendan Graham">
+<meta property="og:description" content="parsing XML and using `Leaflet` to create interactive maps in R" />
+<meta property="og:type" content="page" />
+<meta property="og:url" content="https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/" />
+<meta property="og:locale" content="en">
+
+
+
+
+    
+        <meta property="og:image" content="https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/featured.jpg" >
+        <meta property="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/featured.jpg" >
+    
+    
+  <meta itemprop="name" content="Wiss Map">
+<meta itemprop="description" content="parsing XML and using Leaflet to create interactive maps in R"><meta itemprop="datePublished" content="2021-09-01T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-09-01T00:00:00+00:00" />
+<meta itemprop="wordCount" content="729"><meta itemprop="image" content="https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/featured.jpg">
+<meta itemprop="keywords" content="" />
+  
+  
+  <!--[if IE]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="shortcut icon" href="" type="image/x-icon">
+  <link rel="icon" href="" type="image/x-icon">
+  
+  
+  <link rel="stylesheet" href="/style.main.min.a4afdcba1badb9429f7a064edf22d01439d58ac03cbdc528513a128259592485.css" integrity="sha256-pK/cuhutuUKfegZO3yLQFDnVisA8vcUoUToSgllZJIU=" media="screen">
+  
+  
+  <script src="/panelset.min.078a92db9bd3228df502db3d9e0453c3cf3d910abe3f8deca0ad196c7071ad41.js" type="text/javascript"></script>
+  
+  
+  <script src="/main.min.314f5cf7ee721b40ec32f2ffbeb2f317cae9f8e5e8c0e623e4f56970fb97755e.js" type="text/javascript"></script>
+</head>
+<body>
+      <div class="grid-container">
+<header class="site-header pt4 pb2 mb4 bb b--transparent ph5 headroom z-max" role="banner">
+  <nav class="site-nav db dt-l w-100" role="navigation">
+    <a class="site-brand db dtc-l v-mid link no-underline w-100 w-33-l tc tl-l" href="https://brendangraham.online" title="Home">
+      <span class="f4 fw7">Brendan Graham</span>
+    </a>
+    <div class="site-links db dtc-l v-mid w-100 w-47-l tc tr-l mt3 mt0-l ttu tracked">
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 active" href="/blog/" title="Data">Data</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/project/" title="Art">Art</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/talk/" title="Talks">Talks</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/docs/brendan_graham_resume.pdf" title="">Resume</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/contact/" title="Contact">Contact</a>
+      
+      
+    </div>
+  </nav>
+</header>
+
+<main class="page-main pa4" role="main">
+  <section class="page-content mw7 center">
+    <article class="post-content pa0 ph4-l">
+      <header class="post-header">
+        <h1 class="f1 lh-solid measure-narrow mb3 fw4">Wiss Map</h1>
+        <h4 class="f4 mt0 mb4 lh-title measure">parsing XML and using `Leaflet` to create interactive maps in R</h4>
+        <p class="f6 measure lh-copy mv1">By Brendan Graham in <a href="https://brendangraham.online/categories/r">R</a>  <a href="https://brendangraham.online/categories/leaflet">leaflet</a>  <a href="https://brendangraham.online/categories/parse-xml">parse xml</a>  <a href="https://brendangraham.online/categories/map">map</a> </p>
+        <p class="f7 db mv0 ttu">September 1, 2021</p>
+
+      
+
+      </header>
+      <section class="post-body pt5 pb4">
+        
+
+
+
+<h1 id="motivation">Motivation
+  <a href="#motivation"></a>
+</h1>
+<p>Shortly after moving to the Wissahickon neighborhood, I was looking for a detailed map of the Wissahickon Valley Park to plan some hikes and learn more about the woods. A lot of the maps I found through googling were either too detailed or not detailed enough, and almost none were interactive. One of the best maps I found was this one below - it has the right level of detail and big picture view I was looking for, but I never heard back from the creator about purchasing a print.</p>
+<p><img src="wiss_map.jpg" alt=""></p>
+<p>source: 
+<a href="http://phillyskyline.com/2015/04/22/happy-earth-day-and-other-assorted-one-mans-trash-affairs/" target="_blank" rel="noopener">phillyskyline.com</a></p>
+<p>After some more goolging I found this 
+<a href="https://www.google.com/maps/d/u/0/viewer?mid=13bnd0IRNwzTpI7VFPASNSWXC5yk" target="_blank" rel="noopener">interactive map</a> created by the Friends of the Wissahickon. It has a lot of the park attractions I was looking for in a map, but I really wanted to be able to make it my own and document my hiking loops, notes and tips. Rather than just make a copy of the Google map, I decided to create my own using <code>leaflet</code> and <code>R</code>.</p>
+
+
+
+
+<h1 id="data-prep">Data Prep
+  <a href="#data-prep"></a>
+</h1>
+<p>To get started, I created a copy of the Friends of the Wissahickon map and exported each layer (Kiosks, Parking, Trailheads&hellip;) as its own <code>.KMZ</code> file, then used 
+<a href="https://www.gpsvisualizer.com/convert_input" target="_blank" rel="noopener">https://www.gpsvisualizer.com/convert_input</a> to convert the <code>.KMZ</code> file to <code>.GPX</code>. A <code>.GPX</code> file is basically <code>XML</code> flavored with some GPS data, so once I had the all of the <code>.GPX</code> files, I was able to use the amazing <code>XML</code> R package to parse the <code>XML</code>.</p>
+<p>As someone used to working with dataframes, parsing XML in R can be tricky. Once I understood the structure of the XML, I was able to create a function to parse the file:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">parse_hike_xml <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">function</span>(file){
+    
+    <span style="color:#09f;font-style:italic">#import hike and parse</span>
+    hike_xml <span style="color:#555">&lt;-</span>
+      XML<span style="color:#555">::</span><span style="color:#c0f">xmlParse</span>(file)
+    nodes <span style="color:#555">&lt;-</span>
+      XML<span style="color:#555">::</span><span style="color:#c0f">getNodeSet</span>(hike_xml, <span style="color:#c30">&#34;//ns:trk&#34;</span>, <span style="color:#c30">&#34;ns&#34;</span>)
+    rows <span style="color:#555">&lt;-</span>
+      <span style="color:#c0f">lapply</span>(nodes, <span style="color:#c0f">function</span>(x) <span style="color:#c0f">data.frame</span>(<span style="color:#c0f">xmlToList</span>(x)))
+    <span style="color:#09f;font-style:italic">#usable dataframe</span>
+    plyr<span style="color:#555">::</span><span style="color:#c0f">ldply</span>(rows, data.frame) <span style="color:#555">%&gt;%</span> 
+      reshape2<span style="color:#555">::</span><span style="color:#c0f">melt</span>(id.vars <span style="color:#555">=</span> <span style="color:#c30">&#34;name&#34;</span>) <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">mutate</span>(type <span style="color:#555">=</span> <span style="color:#c0f">ifelse</span>(value <span style="color:#555">&lt;</span> <span style="color:#f60">0</span>, <span style="color:#c30">&#34;lng&#34;</span>, <span style="color:#c30">&#34;lat&#34;</span>)) <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">spread</span>(type, value) <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">mutate</span>(lng <span style="color:#555">=</span> <span style="color:#c0f">as.numeric</span>(lng),
+             lat <span style="color:#555">=</span> <span style="color:#c0f">as.numeric</span>(lat),
+             type <span style="color:#555">=</span> <span style="color:#c30">&#34;Hike&#34;</span>) <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">rename</span>(desc <span style="color:#555">=</span> <span style="color:#f60">2</span>)
+  }
+</code></pre></div><p>Once I had the function I could read in each hike file, and use <code>purrr</code> to apply my function to each one. This automates <em>almost</em> all of the work - all I need to do is come up with a description for each new hike I add. These descriptions form the hover tool-tip when a user hovers over a route in the map.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic">#stage hike gpx files</span>
+hike_files <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">list.files</span>(<span style="color:#c30">&#39;hikes/&#39;</span>, pattern <span style="color:#555">=</span> <span style="color:#c30">&#34;\\.gpx$&#34;</span>)
+
+master_hike <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">map</span>(hike_files, <span style="color:#555">~</span><span style="color:#c0f">parse_hike_xml</span>(<span style="color:#c0f">paste0</span>(<span style="color:#c30">&#34;hikes/&#34;</span>, .))) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">map_df</span>(., bind_rows) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">mutate</span>(name <span style="color:#555">=</span> <span style="color:#c0f">as.character</span>(name),
+         desc <span style="color:#555">=</span> <span style="color:#c0f">case_when</span>(
+           name <span style="color:#555">==</span> <span style="color:#c30">&#34;Gorgas Creek Loop&#34;</span> <span style="color:#555">~</span> <span style="color:#c30">&#34;Clockwise loop. Starts and ends at Mt Airy Trailhead. 1.49 Mi., 105 ft. elevation&#34;</span>,
+           name <span style="color:#555">==</span> <span style="color:#c30">&#34;Houston Meadows Loop&#34;</span> <span style="color:#555">~</span> <span style="color:#c30">&#34;Counter-clockwise loop. Starts and ends at Houston Playground. 2.48 Mi., 325 ft. elevation&#34;</span>,
+           name <span style="color:#555">==</span> <span style="color:#c30">&#34;Andorra Meadow Loop&#34;</span> <span style="color:#555">~</span> <span style="color:#c30">&#34;Clockwise loop. 1.52 Mi., 104 ft. elevation&#34;</span>,
+           name <span style="color:#555">==</span> <span style="color:#c30">&#34;Lavender/Orange Loop&#34;</span> <span style="color:#555">~</span> <span style="color:#c30">&#34;Clockwise loop. Park on Crefeld and go through gated park entrance. 1.89 Mi., 233 ft. elevation&#34;</span>,
+           <span style="color:#069;font-weight:bold">TRUE</span> <span style="color:#555">~</span> <span style="color:#c30">&#34;other&#34;</span>)
+  )
+</code></pre></div><p>I follow a similar process for adding in the markers for attractions, parking, trailheads&hellip;</p>
+<p>The rest of the code is adding the map and layers using the awesome <code>leaflet</code> package. The map background changes depending user selection, and the user can also select to show certain hikes or not:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># create base map and select map style based on user input</span>
+wiss_map <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">if</span>(input<span style="color:#555">$</span>map_style <span style="color:#555">==</span> <span style="color:#c30">&#34;Simple&#34;</span>){
+    
+    <span style="color:#c0f">leaflet</span>(map_data) <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">addProviderTiles</span>(providers<span style="color:#555">$</span>CartoDB.Positron) <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">setView</span>(lng <span style="color:#555">=</span> <span style="color:#f60">-75.21111265778796</span>,
+              lat <span style="color:#555">=</span> <span style="color:#f60">40.0493331396181</span>,
+              zoom <span style="color:#555">=</span> <span style="color:#f60">14</span>
+      )
+    
+  } else <span style="color:#c0f">if</span>(input<span style="color:#555">$</span>map_style <span style="color:#555">==</span> <span style="color:#c30">&#34;Detailed&#34;</span>) {
+    
+    <span style="color:#c0f">leaflet</span>(map_data) <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">addProviderTiles</span>(providers<span style="color:#555">$</span>HikeBike.HikeBike) <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">setView</span>(lng <span style="color:#555">=</span> <span style="color:#f60">-75.21111265778796</span>,
+              lat <span style="color:#555">=</span> <span style="color:#f60">40.0493331396181</span>,
+              zoom <span style="color:#555">=</span> <span style="color:#f60">14</span>
+      )
+  } else {
+    
+    <span style="color:#c0f">leaflet</span>(map_data) <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">addProviderTiles</span>(providers<span style="color:#555">$</span>CartoDB.DarkMatter) <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">setView</span>(lng <span style="color:#555">=</span> <span style="color:#f60">-75.21111265778796</span>,
+              lat <span style="color:#555">=</span> <span style="color:#f60">40.0493331396181</span>,
+              zoom <span style="color:#555">=</span> <span style="color:#f60">14</span>
+      )
+  }
+
+<span style="color:#09f;font-style:italic">#map it</span>
+<span style="color:#c0f">if</span>(input<span style="color:#555">$</span>hike_select <span style="color:#555">==</span> <span style="color:#c30">&#34;None&#34;</span>) {
+  
+  wiss_map <span style="color:#555">%&gt;%</span>  
+    leaflet<span style="color:#555">::</span><span style="color:#c0f">addAwesomeMarkers</span>(<span style="color:#555">~</span>lng,
+                               <span style="color:#555">~</span>lat,
+                               popup <span style="color:#555">=</span> <span style="color:#555">~</span> <span style="color:#c0f">as.character</span>(desc),
+                               label <span style="color:#555">=</span> <span style="color:#555">~</span> <span style="color:#c0f">as.character</span>(name),
+                               labelOptions <span style="color:#555">=</span> <span style="color:#c0f">labelOptions</span>(textsize <span style="color:#555">=</span> <span style="color:#c30">&#39;13px&#39;</span>),
+                               icon <span style="color:#555">=</span> <span style="color:#555">~</span> my_icons) <span style="color:#555">%&gt;%</span> 
+    <span style="color:#c0f">addControl</span>(html <span style="color:#555">=</span> <span style="color:#c0f">markerLegendHTML</span>(IconSet <span style="color:#555">=</span> IconSet),
+               position <span style="color:#555">=</span> <span style="color:#c30">&#34;bottomleft&#34;</span>)
+  
+} else {
+  
+  wiss_map <span style="color:#555">%&gt;%</span> 
+    leaflet<span style="color:#555">::</span><span style="color:#c0f">addAwesomeMarkers</span>(<span style="color:#555">~</span>lng,
+                               <span style="color:#555">~</span>lat,
+                               popup <span style="color:#555">=</span> <span style="color:#555">~</span> <span style="color:#c0f">as.character</span>(desc),
+                               label <span style="color:#555">=</span> <span style="color:#555">~</span> <span style="color:#c0f">as.character</span>(name),
+                               labelOptions <span style="color:#555">=</span> <span style="color:#c0f">labelOptions</span>(textsize <span style="color:#555">=</span> <span style="color:#c30">&#39;13px&#39;</span>),
+                               icon <span style="color:#555">=</span> <span style="color:#555">~</span> my_icons) <span style="color:#555">%&gt;%</span>
+    <span style="color:#c0f">setView</span>(lng <span style="color:#555">=</span> <span style="color:#c0f">mean</span>(hike_data<span style="color:#555">$</span>lng),
+            lat <span style="color:#555">=</span> <span style="color:#c0f">mean</span>(hike_data<span style="color:#555">$</span>lat),
+            zoom <span style="color:#555">=</span> <span style="color:#f60">15</span>
+    ) <span style="color:#555">%&gt;%</span>
+    leaflet<span style="color:#555">::</span><span style="color:#c0f">addPolylines</span>(hike_data<span style="color:#555">$</span>lng, 
+                          hike_data<span style="color:#555">$</span>lat,
+                          weight <span style="color:#555">=</span> <span style="color:#f60">8</span>, 
+                          color <span style="color:#555">=</span> <span style="color:#c30">&#34;#ff5719&#34;</span>,
+                          stroke <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>, 
+                          fillOpacity <span style="color:#555">=</span> <span style="color:#f60">500</span>,
+                          label <span style="color:#555">=</span> <span style="color:#c0f">unique</span>(hike_data<span style="color:#555">$</span>desc),
+                          labelOptions <span style="color:#555">=</span> <span style="color:#c0f">labelOptions</span>(textsize <span style="color:#555">=</span> <span style="color:#c30">&#39;15px&#39;</span>)) <span style="color:#555">%&gt;%</span>
+    <span style="color:#c0f">addControl</span>(html <span style="color:#555">=</span> <span style="color:#c0f">markerLegendHTML</span>(IconSet <span style="color:#555">=</span> IconSet),
+               position <span style="color:#555">=</span> <span style="color:#c30">&#34;bottomleft&#34;</span>)
+}
+</code></pre></div><p><img src="featured.jpg" alt=""></p>
+<p>You can check out all of the code for it on 
+<a href="https://github.com/brndngrhm/wissahickon_valley_explorer" target="_blank" rel="noopener">GitHub</a>, or view the app itself: 
+<a href="https://explorethewiss.brendangraham.online" target="_blank" rel="noopener">https://explorethewiss.brendangraham.online</a></p>
+
+        
+        <details closed class="f6 fw7 input-reset">
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Posted on:</dt>
+    <dd class="fw5 ml0">September 1, 2021</dd>
+  </dl>
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Length:</dt>
+    <dd class="fw5 ml0">4 minute read, 729 words</dd>
+  </dl>
+  
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Categories:</dt>
+    <dd class="fw5 ml0"> <a href="https://brendangraham.online/categories/r">R</a>  <a href="https://brendangraham.online/categories/leaflet">leaflet</a>  <a href="https://brendangraham.online/categories/parse-xml">parse xml</a>  <a href="https://brendangraham.online/categories/map">map</a> </dd>
+  </dl>
+  
+  
+  
+  <dl class="f6 lh-copy">
+    <dt class="fw7">See Also:</dt>
+    
+  </dl>
+</details>
+
+      </section>
+      <footer class="post-footer">
+        <div class="post-pagination dt w-100 mt4 mb2">
+  
+  
+    <a class="prev dtc pr2 tl v-top fw6"
+    href="https://brendangraham.online/blog/starbucks/">&larr; Modeling the Relationship between Whipped Cream and Calories of Starbucks Drinks</a>
+  
+  
+  
+    <a class="next dtc pl2 tr v-top fw6"
+    href="https://brendangraham.online/blog/routeabaga/">Routeabaga &rarr;</a>
+  
+</div>
+
+      </footer>
+    </article>
+    
+      
+<div class="post-comments pa0 pa4-l mt4">
+  
+  <script src="https://utteranc.es/client.js"
+          repo="brndngrhm/brendangraham.online"
+          issue-term="pathname"
+          theme="boxy-light"
+          label="comments :crystal_ball:"
+          crossorigin="anonymous"
+          async
+          type="text/javascript">
+  </script>
+  
+</div>
+
+    
+  </section>
+</main>
+<footer class="site-footer pv4 bt b--transparent ph5" role="contentinfo">
+  <nav class="db dt-l w-100">
+    <p class="site-copyright f7 db dtc-l v-mid w-100 w-33-l tc tl-l pv2 pv0-l mv0 lh-copy">
+      &copy; 2022
+      <span class="middot-divider"></span>
+      Made with <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/hugo-apero/" rel="dct:source">Hugo Apéro</a></span>.
+      <br />
+      
+Based on <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/formspree/blogophonic-hugo" rel="dct:source">Blogophonic</a></span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://formspree.io" property="cc:attributionName" rel="cc:attributionURL">Formspree</a>.
+    </p>
+    
+    <div class="site-social-links db dtc-l v-mid w-100 w-33-l tc pv2 pv0-l mv0">
+      <div class="social-icon-links" aria-hidden="true">
+  
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://github.com/brndngrhm" title="github" target="_blank" rel="noopener">
+      <i class="fab fa-github fa-lg fa-fw"></i>
+    </a>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://twitter.com/brndngrhm" title="twitter" target="_blank" rel="noopener">
+      <i class="fab fa-twitter fa-lg fa-fw"></i>
+    </a>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://www.linkedin.com/in/brndngrhm/" title="linkedin" target="_blank" rel="noopener">
+      <i class="fab fa-linkedin fa-lg fa-fw"></i>
+    </a>
+  
+</div>
+
+    </div>
+    
+    <div class="site-links f6 db dtc-l v-mid w-100 w-67-l tc tr-l pv2 pv0-l mv0">
+      
+      <a class="dib pv1 ph2 link" href="/license/" title="License">License</a>
+      
+      <a class="dib pv1 ph2 link" href="/contact/" title="Contact form">Contact</a>
+      
+    </div>
+  </nav>
+  
+    <script>
+
+    var i, text, code, codes = document.getElementsByTagName('code');
+    for (let i = 0; i < codes.length;) {
+      code = codes[i];
+      if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+        text = code.textContent;
+        if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
+          text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
+          code.textContent = text;
+        }
+        if (/^\\\((.|\s)+\\\)$/.test(text) ||
+            /^\\\[(.|\s)+\\\]$/.test(text) ||
+            /^\$(.|\s)+\$$/.test(text) ||
+            /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+          code.outerHTML = code.innerHTML;  
+          continue;
+        }
+      }
+      i++;
+    }
+</script>
+
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+
+    
+  
+  
+</footer>
+
+      </div>
+    </body>
+</html>

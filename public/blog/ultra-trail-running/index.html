@@ -56,7 +56,7 @@ TidyTuesday data set about ultra trail running. After looking at the data I atte
   <link rel="icon" href="" type="image/x-icon">
   
   
-  <link rel="stylesheet" href="/style.main.min.c2ff295853144122c9228d41166687890c3aa5a5be171bdfa49d853a99865810.css" integrity="sha256-wv8pWFMUQSLJIo1BFmaHiQw6paW&#43;FxvfpJ2FOpmGWBA=" media="screen">
+  <link rel="stylesheet" href="/style.main.min.a4afdcba1badb9429f7a064edf22d01439d58ac03cbdc528513a128259592485.css" integrity="sha256-pK/cuhutuUKfegZO3yLQFDnVisA8vcUoUToSgllZJIU=" media="screen">
   
   
   <script src="/panelset.min.078a92db9bd3228df502db3d9e0453c3cf3d910abe3f8deca0ad196c7071ad41.js" type="text/javascript"></script>
@@ -76,12 +76,12 @@ TidyTuesday data set about ultra trail running. After looking at the data I atte
         
         
         
-      <a class="link f6 f5-l dib pv1 ph2 active" href="/blog/" title="Blog">Blog</a>
+      <a class="link f6 f5-l dib pv1 ph2 active" href="/blog/" title="Data">Data</a>
       
         
         
         
-      <a class="link f6 f5-l dib pv1 ph2 " href="/project/" title="Project Portfolio">Projects</a>
+      <a class="link f6 f5-l dib pv1 ph2 " href="/project/" title="Art">Art</a>
       
         
         
@@ -92,6 +92,11 @@ TidyTuesday data set about ultra trail running. After looking at the data I atte
         
         
       <a class="link f6 f5-l dib pv1 ph2 " href="/docs/brendan_graham_resume.pdf" title="">Resume</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/contact/" title="Contact">Contact</a>
       
       
     </div>
@@ -111,22 +116,39 @@ TidyTuesday data set about ultra trail running. After looking at the data I atte
 
       </header>
       <section class="post-body pt5 pb4">
-        
-<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/header-attrs/header-attrs.js"></script>
+        <script src="https://brendangraham.online/blog/ultra-trail-running/index_files/core-js/shim.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/react/react.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/react/react-dom.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/reactwidget/react-tools.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/htmlwidgets/htmlwidgets.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/reactable-binding/reactable.js"></script>
 <script src="https://brendangraham.online/blog/ultra-trail-running/index_files/core-js/shim.min.js"></script>
 <script src="https://brendangraham.online/blog/ultra-trail-running/index_files/react/react.min.js"></script>
 <script src="https://brendangraham.online/blog/ultra-trail-running/index_files/react/react-dom.min.js"></script>
 <script src="https://brendangraham.online/blog/ultra-trail-running/index_files/reactwidget/react-tools.js"></script>
 <script src="https://brendangraham.online/blog/ultra-trail-running/index_files/htmlwidgets/htmlwidgets.js"></script>
 <script src="https://brendangraham.online/blog/ultra-trail-running/index_files/reactable-binding/reactable.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/core-js/shim.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/react/react.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/react/react-dom.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/reactwidget/react-tools.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/htmlwidgets/htmlwidgets.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/reactable-binding/reactable.js"></script>
+<p>This post looks at a past 
+<a href="https://github.com/rfordatascience/tidytuesday" target="_blank" rel="noopener">TidyTuesday</a> data set about ultra trail running. After looking at the data I attempt to quantify and compare the variation in rankings between countries.</p>
 
 
-<p>This post looks at a past <a href="https://github.com/rfordatascience/tidytuesday">TidyTuesday</a> data set about ultra trail running. After looking at the data I attempt to quantify and compare the variation in rankings between countries.</p>
-<div id="explore-the-data" class="section level2">
-<h2>Explore the Data</h2>
+
+
+<h2 id="explore-the-data">Explore the Data
+  <a href="#explore-the-data"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h2>
 <p>Race data is at the race level; events are made up of races. There can be multiple event observations per year.</p>
-<pre class="r"><code>race</code></pre>
-<pre><code>## # A tibble: 1,207 × 14
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">race
+</code></pre></div><pre><code>## # A tibble: 1,207 × 14
 ##    race_year_id event   race   city  country date       start_time participation
 ##           &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;date&gt;     &lt;time&gt;     &lt;chr&gt;        
 ##  1        68140 Peak D… Mills… Cast… United… 2021-09-03 19:00      solo         
@@ -141,28 +163,29 @@ TidyTuesday data set about ultra trail running. After looking at the data I atte
 ## 10        69945 Bunket… BBUT … LIND… Sweden  2021-08-07 10:00      solo         
 ## # … with 1,197 more rows, and 6 more variables: distance &lt;dbl&gt;,
 ## #   elevation_gain &lt;dbl&gt;, elevation_loss &lt;dbl&gt;, aid_stations &lt;dbl&gt;,
-## #   participants &lt;dbl&gt;, year &lt;dbl&gt;</code></pre>
+## #   participants &lt;dbl&gt;, year &lt;dbl&gt;
+</code></pre>
 <p>Example data for <code>Run Rabbit Run</code> event:</p>
-<pre class="r"><code>race %&gt;% 
-  filter(event == &quot;RUN RABBIT RUN&quot;) %&gt;%
-  select(event, race, year) %&gt;% 
-  arrange(year) %&gt;%
-  add_table()</code></pre>
-<div id="htmlwidget-1" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">race <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">filter</span>(event <span style="color:#555">==</span> <span style="color:#c30">&#34;RUN RABBIT RUN&#34;</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">select</span>(event, race, year) <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">arrange</span>(year) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">add_table</span>()
+</code></pre></div><div id="htmlwidget-1" class="reactable html-widget" style="width:auto;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"event":["RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN"],"race":["RUN RABBIT RUN 100 HARE","RUN RABBIT RUN 100 TORTOISE RUN","RUN RABBIT RUN 100 HARE","RUN RABBIT RUN 100 TORTOISE RUN","RUN RABBIT RUN 100 HARE","RUN RABBIT RUN 100 TORTOISE RUN","RUN RABBIT RUN 100 HARE","100 HARE","100 Hare","100 Hare"],"year":[2013,2013,2014,2014,2015,2015,2016,2017,2018,2019]},"columns":[{"accessor":"event","name":"event","type":"character"},{"accessor":"race","name":"race","type":"character"},{"accessor":"year","name":"year","type":"numeric"}],"resizable":true,"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"striped":true,"compact":true,"nowrap":true,"inline":true,"dataKey":"e96c781bfa55a192fc88a08cca833c94","key":"e96c781bfa55a192fc88a08cca833c94"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-<p></br><br />
-Some races can have thousands of participants:</p>
-<pre class="r"><code>race %&gt;% 
-  select(event, race, participants) %&gt;%
-  distinct() %&gt;%
-  arrange(desc(participants)) %&gt;%
-  head(10) %&gt;%
-  add_table()</code></pre>
-<div id="htmlwidget-2" class="reactable html-widget" style="width:auto;height:auto;"></div>
+</br>  
+Some races can have thousands of participants:
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">race <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">select</span>(event, race, participants) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">distinct</span>() <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">arrange</span>(<span style="color:#c0f">desc</span>(participants)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">head</span>(<span style="color:#f60">10</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">add_table</span>()
+</code></pre></div><div id="htmlwidget-2" class="reactable html-widget" style="width:auto;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-2">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"event":["Le Grand Raid De La Réunion","Grand Raid De La Réunion","Le Grand Raid De La Réunion","Ultra-Trail Mt. Fuji","UTMB®","SPARNATRAIL","Sinister 7 Ultra","Val d’Aran by UTMB®","Ultra-Trail Mt. Fuji","Sinister 7 Ultra"],"race":["La Diagonale Des Fous","La Diagonale Des Fous","Le Grand Raid De La Réunion","UTMF - Full Course 165km","UTMB®","P'tiot Sparnatrail","Solo","VDA","UTMF","Solo"],"participants":[2900,2500,2500,2400,2300,1800,1600,1500,1400,1400]},"columns":[{"accessor":"event","name":"event","type":"character"},{"accessor":"race","name":"race","type":"character"},{"accessor":"participants","name":"participants","type":"numeric"}],"resizable":true,"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"striped":true,"compact":true,"nowrap":true,"inline":true,"dataKey":"cf1a981737c86de0c680cede1afaa865","key":"cf1a981737c86de0c680cede1afaa865"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p>Ranking data is at the racer level; racers can appear more than once:</p>
-<pre class="r"><code>ultra_rankings </code></pre>
-<pre><code>## # A tibble: 137,803 × 8
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ultra_rankings 
+</code></pre></div><pre><code>## # A tibble: 137,803 × 8
 ##    race_year_id  rank runner     time     age gender nationality time_in_seconds
 ##           &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;                 &lt;dbl&gt;
 ##  1        68140     1 VERHEUL J… 26H 3…    30 M      GBR                   95725
@@ -175,126 +198,135 @@ Some races can have thousands of participants:</p>
 ##  8        68140     8 CROSSLEY … 33H 3…    40 W      GBR                  120803
 ##  9        68140     9 BUTCHER K… 34H 5…    47 M      GBR                  125656
 ## 10        68140    10 Hendry Bi… 34H 5…    29 M      GBR                  125979
-## # … with 137,793 more rows</code></pre>
-<pre class="r"><code>ultra_rankings %&gt;%
-  group_by(runner, nationality) %&gt;% 
-  tally(sort = T) %&gt;%
-  head(10) %&gt;%
-  add_table()</code></pre>
-<div id="htmlwidget-3" class="reactable html-widget" style="width:auto;height:auto;"></div>
+## # … with 137,793 more rows
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ultra_rankings <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">group_by</span>(runner, nationality) <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">tally</span>(sort <span style="color:#555">=</span> T) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">head</span>(<span style="color:#f60">10</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">add_table</span>()
+</code></pre></div><div id="htmlwidget-3" class="reactable html-widget" style="width:auto;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-3">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"runner":["SMITH Mike","DONNELLY Susan","FANCETT Kenneth","CARTER Williams","FU Chihping","HANDLOSER Walter","ETTINGHAUSEN Ed","CATMUR Edward","JOHNSON Eric","JONES Chris"],"nationality":["USA","USA","GBR","USA","USA","USA","USA","GBR","USA","USA"],"n":[61,47,41,39,39,31,30,29,29,29]},"columns":[{"accessor":"runner","name":"runner","type":"character"},{"accessor":"nationality","name":"nationality","type":"character"},{"accessor":"n","name":"n","type":"numeric"}],"resizable":true,"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"striped":true,"compact":true,"nowrap":true,"inline":true,"dataKey":"2baded73304a5e0ca351411d2190c59c","key":"2baded73304a5e0ca351411d2190c59c"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-<div id="variation-in-ranking-among-countries" class="section level3">
-<h3>Variation in Ranking Among Countries</h3>
+
+
+
+
+<h3 id="variation-in-ranking-among-countries">Variation in Ranking Among Countries
+  <a href="#variation-in-ranking-among-countries"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h3>
 <p>Rankings seem interesting, let’s try and see which countries have runners with the most <em>consistent</em> rankings. First we need to prep the data a little bit. We’ll set a threshold to only include countries where runners from that given country participated in at least 15 races.</p>
-<pre class="r"><code>country_counts &lt;- 
-  ultra_rankings %&gt;%
-  select(nationality, race_year_id) %&gt;%
-  distinct() %&gt;%
-  group_by(nationality) %&gt;%
-  tally()
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">country_counts <span style="color:#555">&lt;-</span> 
+  ultra_rankings <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">select</span>(nationality, race_year_id) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">distinct</span>() <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">group_by</span>(nationality) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">tally</span>()
 
-runner_count &lt;-
-  ultra_rankings %&gt;%
-  select(nationality, runner) %&gt;%
-  distinct() %&gt;%
-  group_by(nationality) %&gt;%
-  tally()
+runner_count <span style="color:#555">&lt;-</span>
+  ultra_rankings <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">select</span>(nationality, runner) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">distinct</span>() <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">group_by</span>(nationality) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">tally</span>()
 
-quantile(country_counts$n, probs = seq(0, 1, .10))</code></pre>
-<pre><code>##    0%   10%   20%   30%   40%   50%   60%   70%   80%   90%  100% 
-##   1.0   1.0   2.0   3.3   8.0  15.5  31.0  41.7  82.4 128.7 700.0</code></pre>
-<pre class="r"><code>quantile(runner_count$n, probs = seq(0, 1, .10))</code></pre>
-<pre><code>##      0%     10%     20%     30%     40%     50%     60%     70%     80%     90% 
+<span style="color:#c0f">quantile</span>(country_counts<span style="color:#555">$</span>n, probs <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">0</span>, <span style="color:#f60">1</span>, <span style="color:#f60">.10</span>))
+</code></pre></div><pre><code>##    0%   10%   20%   30%   40%   50%   60%   70%   80%   90%  100% 
+##   1.0   1.0   2.0   3.3   8.0  15.5  31.0  41.7  82.4 128.7 700.0
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#c0f">quantile</span>(runner_count<span style="color:#555">$</span>n, probs <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">0</span>, <span style="color:#f60">1</span>, <span style="color:#f60">.10</span>))
+</code></pre></div><pre><code>##      0%     10%     20%     30%     40%     50%     60%     70%     80%     90% 
 ##     1.0     1.0     1.0     3.0     6.0    16.0    49.4   143.1   261.6   873.0 
 ##    100% 
-## 20345.0</code></pre>
-<pre class="r"><code>top_countries &lt;- 
-  ultra_rankings %&gt;%
-  select(nationality, race_year_id) %&gt;%
-  distinct() %&gt;%
-  group_by(nationality) %&gt;%
-  tally() %&gt;%
-  filter(n &gt; 15) %&gt;% 
-  pull(nationality)
+## 20345.0
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">top_countries <span style="color:#555">&lt;-</span> 
+  ultra_rankings <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">select</span>(nationality, race_year_id) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">distinct</span>() <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">group_by</span>(nationality) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">tally</span>() <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(n <span style="color:#555">&gt;</span> <span style="color:#f60">15</span>) <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">pull</span>(nationality)
 
-top_countries &lt;- 
-  ultra_rankings %&gt;%
-  filter(nationality %in% top_countries) %&gt;%
-  na.omit() %&gt;%
-  select(nationality, runner) %&gt;%
-  distinct() %&gt;%
-  group_by(nationality) %&gt;%
-  tally() %&gt;% 
-  filter(n &gt; 15) %&gt;% 
-  pull(nationality)
+top_countries <span style="color:#555">&lt;-</span> 
+  ultra_rankings <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(nationality <span style="color:#555">%in%</span> top_countries) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">na.omit</span>() <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">select</span>(nationality, runner) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">distinct</span>() <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">group_by</span>(nationality) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">tally</span>() <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">filter</span>(n <span style="color:#555">&gt;</span> <span style="color:#f60">15</span>) <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">pull</span>(nationality)
 
-ultra_rankings %&gt;%
-  filter(nationality %in% top_countries) %&gt;%
-  filter(!is.na(rank)) %&gt;%
-  ggplot(aes(rank)) + 
-  geom_histogram() + 
-  ggtitle(&quot;race rankings&quot;) + 
-  big_labels</code></pre>
-<p><img src="https://brendangraham.online/blog/ultra-trail-running/index_files/figure-html/unnamed-chunk-8-1.png" width="1152" /></p>
+ultra_rankings <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(nationality <span style="color:#555">%in%</span> top_countries) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(<span style="color:#555">!</span><span style="color:#c0f">is.na</span>(rank)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">ggplot</span>(<span style="color:#c0f">aes</span>(rank)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_histogram</span>() <span style="color:#555">+</span> 
+  <span style="color:#c0f">ggtitle</span>(<span style="color:#c30">&#34;race rankings&#34;</span>) <span style="color:#555">+</span> 
+  big_labels
+</code></pre></div><img src="https://brendangraham.online/blog/ultra-trail-running/index_files/figure-html/unnamed-chunk-8-1.png" width="1152" />
 <p>Ranking is highly skewed, so we can use a modified formula for the coefficient of variation meant for log-normal data:
-<span class="math display">\[
+$$
 {cv_{raw}} = \sqrt{e^{s^2_{ln}} - 1}
-\]</span></p>
-<p>where <span class="math inline">\(s_{ln}\)</span> is the sample standard deviation of the data after a natural log transformation. Another alternative we could use the Coefficient of <em>Quartile</em> Variation (see below), but we’ll stick with the modified <em>cv</em> instead.</p>
+$$</p>
+<p>where <code>\(s_{ln}\)</code> is the sample standard deviation of the data after a natural log transformation. Another alternative we could use the Coefficient of <em>Quartile</em> Variation (see below), but we’ll stick with the modified <em>cv</em> instead.</p>
 <p><em>Coefficient of Quartile Variation</em></p>
-<p><span class="math display">\[
+<p>$$
 QCV = [(q3 - q1)/(q3 + q1))]*100
-\]</span></p>
+$$</p>
 <p>After calculating the CV for log-normal data, we can compare each countries variation. France, Luxembourg and Korea are interesting in that they are relatively consistent, but their median ranks are very high. This suggests racers from these countries get consistently poor results</p>
-<pre class="r"><code>cv_log &lt;- 
-  ultra_rankings %&gt;%
-  filter(nationality %in% top_countries) %&gt;%
-  filter(!is.na(rank), !(is.na(gender))) %&gt;%
-  mutate(log_rank = log(rank)) %&gt;% 
-  group_by(nationality) %&gt;% 
-  summarise(
-    mean_rank = mean(rank, na.rm = T),
-    median_rank = median(rank, na.rm = T),
-    q3 = quantile(x = rank, probs = .75, na.rm = T),
-    q1 = quantile(x = rank, probs = .25, na.rm = T),
-    sd_rank = sd(log_rank, na.rm = T),
-    cv_log = sqrt((exp(1)^(sd_rank^2)) - 1),
-    qcv = ((q3 - q1)/(q3 + q1))*100
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cv_log <span style="color:#555">&lt;-</span> 
+  ultra_rankings <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(nationality <span style="color:#555">%in%</span> top_countries) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(<span style="color:#555">!</span><span style="color:#c0f">is.na</span>(rank), <span style="color:#555">!</span>(<span style="color:#c0f">is.na</span>(gender))) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">mutate</span>(log_rank <span style="color:#555">=</span> <span style="color:#c0f">log</span>(rank)) <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">group_by</span>(nationality) <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">summarise</span>(
+    mean_rank <span style="color:#555">=</span> <span style="color:#c0f">mean</span>(rank, na.rm <span style="color:#555">=</span> T),
+    median_rank <span style="color:#555">=</span> <span style="color:#c0f">median</span>(rank, na.rm <span style="color:#555">=</span> T),
+    q3 <span style="color:#555">=</span> <span style="color:#c0f">quantile</span>(x <span style="color:#555">=</span> rank, probs <span style="color:#555">=</span> <span style="color:#f60">.75</span>, na.rm <span style="color:#555">=</span> T),
+    q1 <span style="color:#555">=</span> <span style="color:#c0f">quantile</span>(x <span style="color:#555">=</span> rank, probs <span style="color:#555">=</span> <span style="color:#f60">.25</span>, na.rm <span style="color:#555">=</span> T),
+    sd_rank <span style="color:#555">=</span> <span style="color:#c0f">sd</span>(log_rank, na.rm <span style="color:#555">=</span> T),
+    cv_log <span style="color:#555">=</span> <span style="color:#c0f">sqrt</span>((<span style="color:#c0f">exp</span>(<span style="color:#f60">1</span>)<span style="color:#c0f">^</span>(sd_rank^2)) <span style="color:#555">-</span> <span style="color:#f60">1</span>),
+    qcv <span style="color:#555">=</span> ((q3 <span style="color:#555">-</span> q1)<span style="color:#555">/</span>(q3 <span style="color:#555">+</span> q1))<span style="color:#555">*</span><span style="color:#f60">100</span>
   )
 
-cv_log %&gt;%
-  ggplot(., aes(x = reorder(nationality, cv_log), y = cv_log, label = round(mean_rank, 2))) + 
-  geom_point(size = 3.5, alpha = .85, aes(color = mean_rank)) + 
-  scale_color_distiller(direction = -1, palette = &quot;BuPu&quot;) +
-  coord_flip() +
-  labs(y = &quot;Coefficient of Variation&quot;, x = &quot;&quot;, color = &quot;Mean Rank&quot;,
-       title = &quot;Coefficient of Variation in Race Rankings&quot;) + 
-  big_labels</code></pre>
-<p><img src="https://brendangraham.online/blog/ultra-trail-running/index_files/figure-html/unnamed-chunk-9-1.png" width="1152" /></p>
+cv_log <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> <span style="color:#c0f">reorder</span>(nationality, cv_log), y <span style="color:#555">=</span> cv_log, label <span style="color:#555">=</span> <span style="color:#c0f">round</span>(mean_rank, <span style="color:#f60">2</span>))) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_point</span>(size <span style="color:#555">=</span> <span style="color:#f60">3.5</span>, alpha <span style="color:#555">=</span> <span style="color:#f60">.85</span>, <span style="color:#c0f">aes</span>(color <span style="color:#555">=</span> mean_rank)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">scale_color_distiller</span>(direction <span style="color:#555">=</span> <span style="color:#f60">-1</span>, palette <span style="color:#555">=</span> <span style="color:#c30">&#34;BuPu&#34;</span>) <span style="color:#555">+</span>
+  <span style="color:#c0f">coord_flip</span>() <span style="color:#555">+</span>
+  <span style="color:#c0f">labs</span>(y <span style="color:#555">=</span> <span style="color:#c30">&#34;Coefficient of Variation&#34;</span>, x <span style="color:#555">=</span> <span style="color:#c30">&#34;&#34;</span>, color <span style="color:#555">=</span> <span style="color:#c30">&#34;Mean Rank&#34;</span>,
+       title <span style="color:#555">=</span> <span style="color:#c30">&#34;Coefficient of Variation in Race Rankings&#34;</span>) <span style="color:#555">+</span> 
+  big_labels
+</code></pre></div><img src="https://brendangraham.online/blog/ultra-trail-running/index_files/figure-html/unnamed-chunk-9-1.png" width="1152" />
 <p>Let’s see if this CV aligns with the distributions of the top 2 and bottom 2 ranked countries. We can compare the ranking distributions of THA and USA with that of EDU and EST. The plot shows that ranking distribution for THA and USA are not as skewed as ECU and EST</p>
-<pre class="r"><code>ultra_rankings %&gt;%
-  filter(nationality %in% top_countries) %&gt;%
-  filter(!is.na(rank)) %&gt;%
-  filter(nationality %in% c(&quot;USA&quot;, &quot;THA&quot;, &quot;EST&quot;, &quot;ECU&quot;)) %&gt;% 
-  ggplot(aes(x = rank, fill = nationality)) + 
-  geom_histogram(position = &quot;stack&quot;, show.legend = FALSE, alpha = .55) + 
-  facet_wrap(vars(nationality), scales = &#39;free&#39;) +
-  big_labels + 
-  scale_fill_brewer(palette = &quot;Dark2&quot;) </code></pre>
-<p><img src="https://brendangraham.online/blog/ultra-trail-running/index_files/figure-html/unnamed-chunk-10-1.png" width="1152" /></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ultra_rankings <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(nationality <span style="color:#555">%in%</span> top_countries) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(<span style="color:#555">!</span><span style="color:#c0f">is.na</span>(rank)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(nationality <span style="color:#555">%in%</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;USA&#34;</span>, <span style="color:#c30">&#34;THA&#34;</span>, <span style="color:#c30">&#34;EST&#34;</span>, <span style="color:#c30">&#34;ECU&#34;</span>)) <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">ggplot</span>(<span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> rank, fill <span style="color:#555">=</span> nationality)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_histogram</span>(position <span style="color:#555">=</span> <span style="color:#c30">&#34;stack&#34;</span>, show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>, alpha <span style="color:#555">=</span> <span style="color:#f60">.55</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">facet_wrap</span>(<span style="color:#c0f">vars</span>(nationality), scales <span style="color:#555">=</span> <span style="color:#c30">&#39;free&#39;</span>) <span style="color:#555">+</span>
+  big_labels <span style="color:#555">+</span> 
+  <span style="color:#c0f">scale_fill_brewer</span>(palette <span style="color:#555">=</span> <span style="color:#c30">&#34;Dark2&#34;</span>) 
+</code></pre></div><img src="https://brendangraham.online/blog/ultra-trail-running/index_files/figure-html/unnamed-chunk-10-1.png" width="1152" />
 <p>Plotting each country’s mean rank vs CV shows there is slight correlation; countries whose runners are more consistent tend to have better ranking on average.</p>
-<pre class="r"><code>cv_log %&gt;%
-  ggplot(., aes(x = cv_log, y = mean_rank, label = nationality, 2)) + 
-  geom_text_repel() + 
-  geom_point() + 
-  geom_smooth(method = &quot;gam&quot;, se = F) +
-  labs(x = &quot;Coefficient of Variation&quot;, y = &quot;Mean Rank&quot;)  + 
-  scale_y_continuous(breaks = seq(0, 800, 25)) +
-  scale_x_continuous(limits = c(1.5, 10), breaks = seq(0, 10, 1)) + 
-  big_labels</code></pre>
-<p><img src="https://brendangraham.online/blog/ultra-trail-running/index_files/figure-html/unnamed-chunk-11-1.png" width="1152" /></p>
-</div>
-</div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cv_log <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> cv_log, y <span style="color:#555">=</span> mean_rank, label <span style="color:#555">=</span> nationality, <span style="color:#f60">2</span>)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_text_repel</span>() <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_point</span>() <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_smooth</span>(method <span style="color:#555">=</span> <span style="color:#c30">&#34;gam&#34;</span>, se <span style="color:#555">=</span> F) <span style="color:#555">+</span>
+  <span style="color:#c0f">labs</span>(x <span style="color:#555">=</span> <span style="color:#c30">&#34;Coefficient of Variation&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#34;Mean Rank&#34;</span>)  <span style="color:#555">+</span> 
+  <span style="color:#c0f">scale_y_continuous</span>(breaks <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">0</span>, <span style="color:#f60">800</span>, <span style="color:#f60">25</span>)) <span style="color:#555">+</span>
+  <span style="color:#c0f">scale_x_continuous</span>(limits <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#f60">1.5</span>, <span style="color:#f60">10</span>), breaks <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">0</span>, <span style="color:#f60">10</span>, <span style="color:#f60">1</span>)) <span style="color:#555">+</span> 
+  big_labels
+</code></pre></div><img src="https://brendangraham.online/blog/ultra-trail-running/index_files/figure-html/unnamed-chunk-11-1.png" width="1152" />
 
         
         <details closed class="f6 fw7 input-reset">
@@ -322,7 +354,7 @@ cv_log %&gt;%
   <dl class="f6 lh-copy">
     <dt class="fw7">See Also:</dt>
     
-    <dd class="fw5 ml0"><a href="/blog/dogs/">learning some topic modeling with dog breed traits</a></dd>
+    <dd class="fw5 ml0"><a href="/blog/dogs/">Getting started with topic modeling with dog breed traits</a></dd>
     
     <dd class="fw5 ml0"><a href="/blog/boardgames/">Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings</a></dd>
     

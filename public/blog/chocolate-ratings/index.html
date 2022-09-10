@@ -56,7 +56,7 @@ TidyTuesday data set about chocolate. After looking at the data I compare text b
   <link rel="icon" href="" type="image/x-icon">
   
   
-  <link rel="stylesheet" href="/style.main.min.c2ff295853144122c9228d41166687890c3aa5a5be171bdfa49d853a99865810.css" integrity="sha256-wv8pWFMUQSLJIo1BFmaHiQw6paW&#43;FxvfpJ2FOpmGWBA=" media="screen">
+  <link rel="stylesheet" href="/style.main.min.a4afdcba1badb9429f7a064edf22d01439d58ac03cbdc528513a128259592485.css" integrity="sha256-pK/cuhutuUKfegZO3yLQFDnVisA8vcUoUToSgllZJIU=" media="screen">
   
   
   <script src="/panelset.min.078a92db9bd3228df502db3d9e0453c3cf3d910abe3f8deca0ad196c7071ad41.js" type="text/javascript"></script>
@@ -76,12 +76,12 @@ TidyTuesday data set about chocolate. After looking at the data I compare text b
         
         
         
-      <a class="link f6 f5-l dib pv1 ph2 active" href="/blog/" title="Blog">Blog</a>
+      <a class="link f6 f5-l dib pv1 ph2 active" href="/blog/" title="Data">Data</a>
       
         
         
         
-      <a class="link f6 f5-l dib pv1 ph2 " href="/project/" title="Project Portfolio">Projects</a>
+      <a class="link f6 f5-l dib pv1 ph2 " href="/project/" title="Art">Art</a>
       
         
         
@@ -92,6 +92,11 @@ TidyTuesday data set about chocolate. After looking at the data I compare text b
         
         
       <a class="link f6 f5-l dib pv1 ph2 " href="/docs/brendan_graham_resume.pdf" title="">Resume</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/contact/" title="Contact">Contact</a>
       
       
     </div>
@@ -111,14 +116,10 @@ TidyTuesday data set about chocolate. After looking at the data I compare text b
 
       </header>
       <section class="post-body pt5 pb4">
-        
-<script src="https://brendangraham.online/blog/chocolate-ratings/index_files/header-attrs/header-attrs.js"></script>
-
-
-<p>The goal for this weeks analysis to compare 2 types of models for predicting chocolate ratings. I have read bout text based models but haven’t every attempted one, so in this analysis I will compare some text-based models with more traditional ML models.</p>
+        <p>The goal for this weeks analysis to compare 2 types of models for predicting chocolate ratings. I have read bout text based models but haven&rsquo;t every attempted one, so in this analysis I will compare some text-based models with more traditional ML models.</p>
 <p>The data is composed of 2,530 observations of 10 variables. There is some missing ingredients data, but all other columns are complete.</p>
-<pre class="r"><code>chocolate</code></pre>
-<pre><code>## # A tibble: 2,530 × 10
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">chocolate
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 2,530 × 10
 ##      ref company_manufacturer company_location review_date country_of_bean_orig…
 ##    &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;                  &lt;dbl&gt; &lt;chr&gt;                
 ##  1  2454 5150                 U.S.A.                  2019 Tanzania             
@@ -133,209 +134,224 @@ TidyTuesday data set about chocolate. After looking at the data I compare text b
 ## 10  1011 A. Morin             France                  2013 Panama               
 ## # … with 2,520 more rows, and 5 more variables:
 ## #   specific_bean_origin_or_bar_name &lt;chr&gt;, cocoa_percent &lt;chr&gt;,
-## #   ingredients &lt;chr&gt;, most_memorable_characteristics &lt;chr&gt;, rating &lt;dbl&gt;</code></pre>
-<pre class="r"><code>skimr::skim_to_list(chocolate)</code></pre>
-<p><strong>Variable type: character</strong></p>
+## #   ingredients &lt;chr&gt;, most_memorable_characteristics &lt;chr&gt;, rating &lt;dbl&gt;
+</code></pre><div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">skimr<span style="color:#555">::</span><span style="color:#c0f">skim_to_list</span>(chocolate)
+</code></pre></div><p><strong>Variable type: character</strong></p>
 <table>
 <thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="right">min</th>
-<th align="right">max</th>
-<th align="right">empty</th>
-<th align="right">n_unique</th>
-<th align="right">whitespace</th>
+<tr>
+<th style="text-align:left">skim_variable</th>
+<th style="text-align:right">n_missing</th>
+<th style="text-align:right">complete_rate</th>
+<th style="text-align:right">min</th>
+<th style="text-align:right">max</th>
+<th style="text-align:right">empty</th>
+<th style="text-align:right">n_unique</th>
+<th style="text-align:right">whitespace</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">company_manufacturer</td>
-<td align="right">0</td>
-<td align="right">1.00</td>
-<td align="right">2</td>
-<td align="right">39</td>
-<td align="right">0</td>
-<td align="right">580</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">company_manufacturer</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">39</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">580</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="even">
-<td align="left">company_location</td>
-<td align="right">0</td>
-<td align="right">1.00</td>
-<td align="right">4</td>
-<td align="right">21</td>
-<td align="right">0</td>
-<td align="right">67</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">company_location</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">21</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">67</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="odd">
-<td align="left">country_of_bean_origin</td>
-<td align="right">0</td>
-<td align="right">1.00</td>
-<td align="right">4</td>
-<td align="right">21</td>
-<td align="right">0</td>
-<td align="right">62</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">country_of_bean_origin</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">21</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">62</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="even">
-<td align="left">specific_bean_origin_or_bar_name</td>
-<td align="right">0</td>
-<td align="right">1.00</td>
-<td align="right">3</td>
-<td align="right">51</td>
-<td align="right">0</td>
-<td align="right">1605</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">specific_bean_origin_or_bar_name</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">51</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1605</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="odd">
-<td align="left">cocoa_percent</td>
-<td align="right">0</td>
-<td align="right">1.00</td>
-<td align="right">3</td>
-<td align="right">6</td>
-<td align="right">0</td>
-<td align="right">46</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">cocoa_percent</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">46</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="even">
-<td align="left">ingredients</td>
-<td align="right">87</td>
-<td align="right">0.97</td>
-<td align="right">4</td>
-<td align="right">14</td>
-<td align="right">0</td>
-<td align="right">21</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">ingredients</td>
+<td style="text-align:right">87</td>
+<td style="text-align:right">0.97</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">21</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="odd">
-<td align="left">most_memorable_characteristics</td>
-<td align="right">0</td>
-<td align="right">1.00</td>
-<td align="right">3</td>
-<td align="right">37</td>
-<td align="right">0</td>
-<td align="right">2487</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">most_memorable_characteristics</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">37</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">2487</td>
+<td style="text-align:right">0</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="right">mean</th>
-<th align="right">sd</th>
-<th align="right">p0</th>
-<th align="right">p25</th>
-<th align="right">p50</th>
-<th align="right">p75</th>
-<th align="right">p100</th>
-<th align="left">hist</th>
+<tr>
+<th style="text-align:left">skim_variable</th>
+<th style="text-align:right">n_missing</th>
+<th style="text-align:right">complete_rate</th>
+<th style="text-align:right">mean</th>
+<th style="text-align:right">sd</th>
+<th style="text-align:right">p0</th>
+<th style="text-align:right">p25</th>
+<th style="text-align:right">p50</th>
+<th style="text-align:right">p75</th>
+<th style="text-align:right">p100</th>
+<th style="text-align:left">hist</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">ref</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1429.80</td>
-<td align="right">757.65</td>
-<td align="right">5</td>
-<td align="right">802</td>
-<td align="right">1454.00</td>
-<td align="right">2079.0</td>
-<td align="right">2712</td>
-<td align="left">▆▇▇▇▇</td>
+<tr>
+<td style="text-align:left">ref</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1429.80</td>
+<td style="text-align:right">757.65</td>
+<td style="text-align:right">5</td>
+<td style="text-align:right">802</td>
+<td style="text-align:right">1454.00</td>
+<td style="text-align:right">2079.0</td>
+<td style="text-align:right">2712</td>
+<td style="text-align:left">▆▇▇▇▇</td>
 </tr>
-<tr class="even">
-<td align="left">review_date</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">2014.37</td>
-<td align="right">3.97</td>
-<td align="right">2006</td>
-<td align="right">2012</td>
-<td align="right">2015.00</td>
-<td align="right">2018.0</td>
-<td align="right">2021</td>
-<td align="left">▃▅▇▆▅</td>
+<tr>
+<td style="text-align:left">review_date</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">2014.37</td>
+<td style="text-align:right">3.97</td>
+<td style="text-align:right">2006</td>
+<td style="text-align:right">2012</td>
+<td style="text-align:right">2015.00</td>
+<td style="text-align:right">2018.0</td>
+<td style="text-align:right">2021</td>
+<td style="text-align:left">▃▅▇▆▅</td>
 </tr>
-<tr class="odd">
-<td align="left">rating</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">3.20</td>
-<td align="right">0.45</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">3.25</td>
-<td align="right">3.5</td>
-<td align="right">4</td>
-<td align="left">▁▁▅▇▇</td>
+<tr>
+<td style="text-align:left">rating</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">3.20</td>
+<td style="text-align:right">0.45</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">3.25</td>
+<td style="text-align:right">3.5</td>
+<td style="text-align:right">4</td>
+<td style="text-align:left">▁▁▅▇▇</td>
 </tr>
 </tbody>
 </table>
-<div id="explore-the-data" class="section level2">
-<h2>Explore the Data</h2>
+
+
+
+
+<h2 id="explore-the-data">Explore the Data
+  <a href="#explore-the-data"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h2>
 <p>The average rating is around 3.3 or 3.4 out of 5, are ratings are slightly skewed to the left.</p>
-<pre class="r"><code>chocolate %&gt;%
-  ggplot(., aes(x = rating)) + 
-  geom_histogram(bins = 10, alpha = .75, fill = bg_green) +
-  bg_theme()</code></pre>
-<p><img src="https://brendangraham.online/blog/chocolate-ratings/index_files/figure-html/unnamed-chunk-4-1.png" width="864" /></p>
-<p>There isn’t much of a relationship between cocoa percent and rating.</p>
-<pre class="r"><code>chocolate %&gt;%
-  mutate(cocoa_percent = as.numeric(str_remove_all(cocoa_percent, &quot;%&quot;))) %&gt;%
-  ggplot(., aes(x = cocoa_percent, y = rating)) +
-  geom_point(color = bg_blue) +
-  bg_theme()</code></pre>
-<p><img src="https://brendangraham.online/blog/chocolate-ratings/index_files/figure-html/unnamed-chunk-5-1.png" width="864" /></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">chocolate <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> rating)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_histogram</span>(bins <span style="color:#555">=</span> <span style="color:#f60">10</span>, alpha <span style="color:#555">=</span> <span style="color:#f60">.75</span>, fill <span style="color:#555">=</span> bg_green) <span style="color:#555">+</span>
+  <span style="color:#c0f">bg_theme</span>()
+</code></pre></div><img src="https://brendangraham.online/blog/chocolate-ratings/index_files/figure-html/unnamed-chunk-4-1.png" width="864" />
+<p>There isn&rsquo;t much of a relationship between cocoa percent and rating.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">chocolate <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">mutate</span>(cocoa_percent <span style="color:#555">=</span> <span style="color:#c0f">as.numeric</span>(<span style="color:#c0f">str_remove_all</span>(cocoa_percent, <span style="color:#c30">&#34;%&#34;</span>))) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> cocoa_percent, y <span style="color:#555">=</span> rating)) <span style="color:#555">+</span>
+  <span style="color:#c0f">geom_point</span>(color <span style="color:#555">=</span> bg_blue) <span style="color:#555">+</span>
+  <span style="color:#c0f">bg_theme</span>()
+</code></pre></div><img src="https://brendangraham.online/blog/chocolate-ratings/index_files/figure-html/unnamed-chunk-5-1.png" width="864" />
 <p>chocolate with 2 and 3 ingredients seem to be rated higher than those with 4 or 5.</p>
-<pre class="r"><code>chocolate %&gt;%
-  mutate(ingredients = substr(ingredients, 1, 1)) %&gt;%
-  ggplot(., aes(x = ingredients, y = rating, fill = ingredients)) + 
-  geom_jitter(alpha = .50, show.legend = FALSE) + 
-  geom_boxplot(show.legend = FALSE, alpha = .80) +
-  bg_theme()  + 
-  coord_flip() +
-  scale_fill_npg()</code></pre>
-<p><img src="https://brendangraham.online/blog/chocolate-ratings/index_files/figure-html/unnamed-chunk-6-1.png" width="864" /></p>
-</div>
-<div id="model" class="section level2">
-<h2>Model</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">chocolate <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">mutate</span>(ingredients <span style="color:#555">=</span> <span style="color:#c0f">substr</span>(ingredients, <span style="color:#f60">1</span>, <span style="color:#f60">1</span>)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> ingredients, y <span style="color:#555">=</span> rating, fill <span style="color:#555">=</span> ingredients)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_jitter</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.50</span>, show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_boxplot</span>(show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>, alpha <span style="color:#555">=</span> <span style="color:#f60">.80</span>) <span style="color:#555">+</span>
+  <span style="color:#c0f">bg_theme</span>()  <span style="color:#555">+</span> 
+  <span style="color:#c0f">coord_flip</span>() <span style="color:#555">+</span>
+  <span style="color:#c0f">scale_fill_npg</span>()
+</code></pre></div><img src="https://brendangraham.online/blog/chocolate-ratings/index_files/figure-html/unnamed-chunk-6-1.png" width="864" />
+
+
+
+
+<h2 id="model">Model
+  <a href="#model"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h2>
 <p>The <code>most memorable characteristics</code> column will be used along with number of ingredients as predictors of rating. The <code>most memorable characteristics</code> is split and pivoted into indicator variables. A 2nd recipe that includes <code>step_nzv()</code> will also be used to see if removing sparse ingredients improves model performance.</p>
-<pre class="r"><code>max_characteristics &lt;- 
-  chocolate %&gt;% 
-  mutate(num_char = str_count(most_memorable_characteristics, &quot;,&quot;) + 1) %&gt;% 
-  filter(num_char == max(num_char)) %&gt;%
-  select(num_char) %&gt;%
-  distinct() %&gt;% 
-  pull(num_char)
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">max_characteristics <span style="color:#555">&lt;-</span> 
+  chocolate <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">mutate</span>(num_char <span style="color:#555">=</span> <span style="color:#c0f">str_count</span>(most_memorable_characteristics, <span style="color:#c30">&#34;,&#34;</span>) <span style="color:#555">+</span> <span style="color:#f60">1</span>) <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">filter</span>(num_char <span style="color:#555">==</span> <span style="color:#c0f">max</span>(num_char)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">select</span>(num_char) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">distinct</span>() <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">pull</span>(num_char)
 
-choc_characteristics &lt;- 
-  chocolate %&gt;% 
-  mutate(ingredients = substr(ingredients, 1, 1)) %&gt;%
-  tidyr::separate(most_memorable_characteristics, paste0(&quot;characteristic&quot;, 1:max_characteristics), sep = &quot;,&quot;) %&gt;% 
-  pivot_longer(cols = starts_with(&quot;characteristic&quot;), values_to = &quot;characteristic&quot;) %&gt;%
-  mutate(characteristic = trimws(characteristic)) %&gt;%
-  select(-name) %&gt;%
-  filter(!(is.na(characteristic)),
-         characteristic != &#39;&#39;) %&gt;%
-  mutate(characteristic_ind = 1) %&gt;%
-  pivot_wider(names_from = characteristic, values_from = characteristic_ind) %&gt;%
-  select(rating, ingredient_count = ingredients, `rich cocoa`:ncol(.)) %&gt;%
-  filter(!(is.na(ingredient_count)))
+choc_characteristics <span style="color:#555">&lt;-</span> 
+  chocolate <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">mutate</span>(ingredients <span style="color:#555">=</span> <span style="color:#c0f">substr</span>(ingredients, <span style="color:#f60">1</span>, <span style="color:#f60">1</span>)) <span style="color:#555">%&gt;%</span>
+  tidyr<span style="color:#555">::</span><span style="color:#c0f">separate</span>(most_memorable_characteristics, <span style="color:#c0f">paste0</span>(<span style="color:#c30">&#34;characteristic&#34;</span>, <span style="color:#f60">1</span><span style="color:#555">:</span>max_characteristics), sep <span style="color:#555">=</span> <span style="color:#c30">&#34;,&#34;</span>) <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">pivot_longer</span>(cols <span style="color:#555">=</span> <span style="color:#c0f">starts_with</span>(<span style="color:#c30">&#34;characteristic&#34;</span>), values_to <span style="color:#555">=</span> <span style="color:#c30">&#34;characteristic&#34;</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">mutate</span>(characteristic <span style="color:#555">=</span> <span style="color:#c0f">trimws</span>(characteristic)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">select</span>(<span style="color:#555">-</span>name) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(<span style="color:#555">!</span>(<span style="color:#c0f">is.na</span>(characteristic)),
+         characteristic <span style="color:#555">!=</span> <span style="color:#c30">&#39;&#39;</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">mutate</span>(characteristic_ind <span style="color:#555">=</span> <span style="color:#f60">1</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">pivot_wider</span>(names_from <span style="color:#555">=</span> characteristic, values_from <span style="color:#555">=</span> characteristic_ind) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">select</span>(rating, ingredient_count <span style="color:#555">=</span> ingredients, `rich cocoa`<span style="color:#555">:</span><span style="color:#c0f">ncol</span>(.)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(<span style="color:#555">!</span>(<span style="color:#c0f">is.na</span>(ingredient_count)))
 
-choc_characteristics[is.na(choc_characteristics)] &lt;- 0
+choc_characteristics<span style="color:#c0f">[is.na</span>(choc_characteristics)] <span style="color:#555">&lt;-</span> <span style="color:#f60">0</span>
 
-head(choc_characteristics)</code></pre>
-<pre><code>## # A tibble: 6 × 973
+<span style="color:#c0f">head</span>(choc_characteristics)
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 6 × 973
 ##   rating ingredient_count `rich cocoa` fatty bready cocoa vegetal savory
 ##    &lt;dbl&gt; &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
 ## 1   3.25 3                           1     1      1     0       0      0
@@ -350,139 +366,139 @@ head(choc_characteristics)</code></pre>
 ## #   macadamia &lt;dbl&gt;, fruity &lt;dbl&gt;, melon &lt;dbl&gt;, roasty &lt;dbl&gt;,
 ## #   brief fruit note &lt;dbl&gt;, burnt rubber &lt;dbl&gt;, alkalyzed notes &lt;dbl&gt;,
 ## #   sticky &lt;dbl&gt;, red fruit &lt;dbl&gt;, sour &lt;dbl&gt;, smokey &lt;dbl&gt;, grass &lt;dbl&gt;,
-## #   mild tobacco &lt;dbl&gt;, mild fruit &lt;dbl&gt;, strong smoke &lt;dbl&gt;, green &lt;dbl&gt;, …</code></pre>
-<p>Here we prep for modelling by creating splits, resamples and the recipe.</p>
-<pre class="r"><code>set.seed(163)
-splits &lt;- 
-  choc_characteristics %&gt;%
-  initial_split(strata = rating)
+## #   mild tobacco &lt;dbl&gt;, mild fruit &lt;dbl&gt;, strong smoke &lt;dbl&gt;, green &lt;dbl&gt;, …
+</code></pre><p>Here we prep for modelling by creating splits, resamples and the recipe.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#c0f">set.seed</span>(<span style="color:#f60">163</span>)
+splits <span style="color:#555">&lt;-</span> 
+  choc_characteristics <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">initial_split</span>(strata <span style="color:#555">=</span> rating)
 
-train &lt;-
-  training(splits)
-test &lt;-
-  testing(splits)
+train <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">training</span>(splits)
+test <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">testing</span>(splits)
 
-folds &lt;- 
-  bootstraps(train, 25, strata = rating)
+folds <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">bootstraps</span>(train, <span style="color:#f60">25</span>, strata <span style="color:#555">=</span> rating)
 
-recipe &lt;- 
-  recipe(rating ~ ., train)</code></pre>
-<p>The same 3 models are used for each workflowset. Here is the ‘regular’ workflowset:</p>
-<pre class="r"><code>svm_spec &lt;-
-  svm_linear(cost = tune(),
-              margin = tune()
-             ) %&gt;%
-  set_mode(&quot;regression&quot;) %&gt;%
-  set_engine(&quot;LiblineaR&quot;)
+recipe <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">recipe</span>(rating <span style="color:#555">~</span> ., train)
+</code></pre></div><p>The same 3 models are used for each workflowset. Here is the &lsquo;regular&rsquo; workflowset:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">svm_spec <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">svm_linear</span>(cost <span style="color:#555">=</span> <span style="color:#c0f">tune</span>(),
+              margin <span style="color:#555">=</span> <span style="color:#c0f">tune</span>()
+             ) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">set_mode</span>(<span style="color:#c30">&#34;regression&#34;</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">set_engine</span>(<span style="color:#c30">&#34;LiblineaR&#34;</span>)
 
-workflows &lt;- 
-  workflow_set(
-    preproc = list(recipe = recipe), 
-    models = list(svm = svm_spec
+workflows <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">workflow_set</span>(
+    preproc <span style="color:#555">=</span> <span style="color:#c0f">list</span>(recipe <span style="color:#555">=</span> recipe), 
+    models <span style="color:#555">=</span> <span style="color:#c0f">list</span>(svm <span style="color:#555">=</span> svm_spec
                   ),
-    cross = TRUE)
+    cross <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>)
 
-workflows</code></pre>
-<pre><code>## # A workflow set/tibble: 1 × 4
+workflows
+</code></pre></div><pre tabindex="0"><code>## # A workflow set/tibble: 1 × 4
 ##   wflow_id   info             option    result    
 ##   &lt;chr&gt;      &lt;list&gt;           &lt;list&gt;    &lt;list&gt;    
-## 1 recipe_svm &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;</code></pre>
-<p>And here is the text-based workflow, adapted from this <a href="https://juliasilge.com/blog/chocolate-ratings/">post.</a></p>
-<pre class="r"><code># text models
+## 1 recipe_svm &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
+</code></pre><p>And here is the text-based workflow, adapted from this 
+<a href="https://juliasilge.com/blog/chocolate-ratings/" target="_blank" rel="noopener">post.</a></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># text models</span>
 
-set.seed(194)
-choco_split &lt;- 
-  initial_split(chocolate, strata = rating)
-choco_train &lt;- 
-  training(choco_split)
-choco_test &lt;- 
-  testing(choco_split)
+<span style="color:#c0f">set.seed</span>(<span style="color:#f60">194</span>)
+choco_split <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">initial_split</span>(chocolate, strata <span style="color:#555">=</span> rating)
+choco_train <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">training</span>(choco_split)
+choco_test <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">testing</span>(choco_split)
 
-choco_folds &lt;- 
-  bootstraps(choco_train, 25, strata = rating)
+choco_folds <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">bootstraps</span>(choco_train, <span style="color:#f60">25</span>, strata <span style="color:#555">=</span> rating)
 
-choco_rec &lt;-
-  recipe(rating ~ most_memorable_characteristics, data = choco_train) %&gt;%
-  step_tokenize(most_memorable_characteristics) %&gt;%
-  step_tokenfilter(most_memorable_characteristics, max_tokens = 100) %&gt;%
-  step_tfidf(most_memorable_characteristics)
+choco_rec <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">recipe</span>(rating <span style="color:#555">~</span> most_memorable_characteristics, data <span style="color:#555">=</span> choco_train) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">step_tokenize</span>(most_memorable_characteristics) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">step_tokenfilter</span>(most_memorable_characteristics, max_tokens <span style="color:#555">=</span> <span style="color:#f60">100</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">step_tfidf</span>(most_memorable_characteristics)
 
-text_workflows &lt;- 
-  workflow_set(
-    preproc = list(text_recipe = choco_rec), 
-    models = list(svm = svm_spec
+text_workflows <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">workflow_set</span>(
+    preproc <span style="color:#555">=</span> <span style="color:#c0f">list</span>(text_recipe <span style="color:#555">=</span> choco_rec), 
+    models <span style="color:#555">=</span> <span style="color:#c0f">list</span>(svm <span style="color:#555">=</span> svm_spec
                   ),
-    cross = TRUE)
+    cross <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>)
 
-text_workflows</code></pre>
-<pre><code>## # A workflow set/tibble: 1 × 4
+text_workflows
+</code></pre></div><pre tabindex="0"><code>## # A workflow set/tibble: 1 × 4
 ##   wflow_id        info             option    result    
 ##   &lt;chr&gt;           &lt;list&gt;           &lt;list&gt;    &lt;list&gt;    
-## 1 text_recipe_svm &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;</code></pre>
-<p>Here both model types are tuned and compared:</p>
-<pre class="r"><code>cl &lt;- 
-  makeCluster(10)
+## 1 text_recipe_svm &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
+</code></pre><p>Here both model types are tuned and compared:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cl <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">makeCluster</span>(<span style="color:#f60">10</span>)
 
-doParallel::registerDoParallel(cl)
+doParallel<span style="color:#555">::</span><span style="color:#c0f">registerDoParallel</span>(cl)
 
-grid_ctrl &lt;-
-  control_grid(
-    save_pred = TRUE,
-    allow_par = TRUE,
-    parallel_over = &quot;everything&quot;,
-    verbose = TRUE
+grid_ctrl <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">control_grid</span>(
+    save_pred <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
+    allow_par <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
+    parallel_over <span style="color:#555">=</span> <span style="color:#c30">&#34;everything&#34;</span>,
+    verbose <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>
   )
 
-results &lt;- 
-  workflow_map(fn = &quot;tune_grid&quot;,
-               object = workflows,
-               seed = 155,
-               verbose = TRUE,
-               control = grid_ctrl,
-               grid = 10, 
-               resamples = folds,
-               metrics = metric_set(rmse, mae)
+results <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">workflow_map</span>(fn <span style="color:#555">=</span> <span style="color:#c30">&#34;tune_grid&#34;</span>,
+               object <span style="color:#555">=</span> workflows,
+               seed <span style="color:#555">=</span> <span style="color:#f60">155</span>,
+               verbose <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
+               control <span style="color:#555">=</span> grid_ctrl,
+               grid <span style="color:#555">=</span> <span style="color:#f60">10</span>, 
+               resamples <span style="color:#555">=</span> folds,
+               metrics <span style="color:#555">=</span> <span style="color:#c0f">metric_set</span>(rmse, mae)
   )
 
-stopCluster(cl)</code></pre>
-<pre class="r"><code>cl &lt;- 
-  makeCluster(10)
+<span style="color:#c0f">stopCluster</span>(cl)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cl <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">makeCluster</span>(<span style="color:#f60">10</span>)
 
-doParallel::registerDoParallel(cl)
+doParallel<span style="color:#555">::</span><span style="color:#c0f">registerDoParallel</span>(cl)
 
-grid_ctrl &lt;-
-  control_grid(
-    save_pred = TRUE,
-    allow_par = TRUE,
-    parallel_over = &quot;everything&quot;,
-    verbose = TRUE
+grid_ctrl <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">control_grid</span>(
+    save_pred <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
+    allow_par <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
+    parallel_over <span style="color:#555">=</span> <span style="color:#c30">&#34;everything&#34;</span>,
+    verbose <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>
   )
 
-text_results &lt;- 
-  workflow_map(fn = &quot;tune_grid&quot;,
-               object = text_workflows,
-               seed = 155,
-               verbose = TRUE,
-               control = grid_ctrl,
-               grid = 10, 
-               resamples = choco_folds,
-               metrics = metric_set(rmse, mae)
-  )</code></pre>
-<p>Using a text based approach does perform better in this case! A lot more could probably be done to improve model performance, such as more pre-processing steps, including more predictors, trying various types of models, but the goal of this post was to try out some text based models and see how those models perform to more “traditional” ML models.</p>
-<pre class="r"><code>results %&gt;% 
-  rank_results(select_best = T) %&gt;%
-  bind_rows(text_results %&gt;% rank_results(select_best = TRUE)) %&gt;%
-  filter(.metric == &quot;rmse&quot;) %&gt;%
-  ggplot(., aes(x = reorder(wflow_id, mean), y = mean, color = wflow_id, label = round(mean, 4))) + 
-  geom_point(show.legend = FALSE) + 
-  geom_text(vjust = -0.7, show.legend = FALSE) +
-  geom_errorbar(aes(ymin = mean - std_err, ymax = mean + std_err), show.legend = FALSE) +
-  bg_theme(base_size = 13) + 
-  ghibli::scale_color_ghibli_d(&quot;PonyoMedium&quot;) + 
-  coord_flip() +
-  labs(x = &quot;RMSE&quot;, y = &#39;&#39;, title = &quot;Comparing Model Types&quot;)</code></pre>
-<p><img src="https://brendangraham.online/blog/chocolate-ratings/index_files/figure-html/unnamed-chunk-13-1.png" width="864" /></p>
-</div>
+text_results <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">workflow_map</span>(fn <span style="color:#555">=</span> <span style="color:#c30">&#34;tune_grid&#34;</span>,
+               object <span style="color:#555">=</span> text_workflows,
+               seed <span style="color:#555">=</span> <span style="color:#f60">155</span>,
+               verbose <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
+               control <span style="color:#555">=</span> grid_ctrl,
+               grid <span style="color:#555">=</span> <span style="color:#f60">10</span>, 
+               resamples <span style="color:#555">=</span> choco_folds,
+               metrics <span style="color:#555">=</span> <span style="color:#c0f">metric_set</span>(rmse, mae)
+  )
+</code></pre></div><p>Using a text based approach does perform better in this case! A lot more could probably be done to improve model performance, such as more pre-processing steps, including more predictors, trying various types of models, but the goal of this post was to try out some text based models and see how those models perform to more &ldquo;traditional&rdquo; ML models.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">results <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">rank_results</span>(select_best <span style="color:#555">=</span> T) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">bind_rows</span>(text_results <span style="color:#555">%&gt;%</span> <span style="color:#c0f">rank_results</span>(select_best <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(.metric <span style="color:#555">==</span> <span style="color:#c30">&#34;rmse&#34;</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> <span style="color:#c0f">reorder</span>(wflow_id, mean), y <span style="color:#555">=</span> mean, color <span style="color:#555">=</span> wflow_id, label <span style="color:#555">=</span> <span style="color:#c0f">round</span>(mean, <span style="color:#f60">4</span>))) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_point</span>(show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_text</span>(vjust <span style="color:#555">=</span> <span style="color:#f60">-0.7</span>, show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>) <span style="color:#555">+</span>
+  <span style="color:#c0f">geom_errorbar</span>(<span style="color:#c0f">aes</span>(ymin <span style="color:#555">=</span> mean <span style="color:#555">-</span> std_err, ymax <span style="color:#555">=</span> mean <span style="color:#555">+</span> std_err), show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>) <span style="color:#555">+</span>
+  <span style="color:#c0f">bg_theme</span>(base_size <span style="color:#555">=</span> <span style="color:#f60">13</span>) <span style="color:#555">+</span> 
+  ghibli<span style="color:#555">::</span><span style="color:#c0f">scale_color_ghibli_d</span>(<span style="color:#c30">&#34;PonyoMedium&#34;</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">coord_flip</span>() <span style="color:#555">+</span>
+  <span style="color:#c0f">labs</span>(x <span style="color:#555">=</span> <span style="color:#c30">&#34;RMSE&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#39;&#39;</span>, title <span style="color:#555">=</span> <span style="color:#c30">&#34;Comparing Model Types&#34;</span>)
+</code></pre></div><img src="https://brendangraham.online/blog/chocolate-ratings/index_files/figure-html/unnamed-chunk-13-1.png" width="864" />
 
         
         <details closed class="f6 fw7 input-reset">
@@ -510,7 +526,7 @@ text_results &lt;-
   <dl class="f6 lh-copy">
     <dt class="fw7">See Also:</dt>
     
-    <dd class="fw5 ml0"><a href="/blog/dogs/">learning some topic modeling with dog breed traits</a></dd>
+    <dd class="fw5 ml0"><a href="/blog/dogs/">Getting started with topic modeling with dog breed traits</a></dd>
     
     <dd class="fw5 ml0"><a href="/blog/boardgames/">Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings</a></dd>
     

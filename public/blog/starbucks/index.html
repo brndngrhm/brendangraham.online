@@ -56,7 +56,7 @@ TidyTuesday data set about the contents of various Starbucks drinks. After epxpl
   <link rel="icon" href="" type="image/x-icon">
   
   
-  <link rel="stylesheet" href="/style.main.min.c2ff295853144122c9228d41166687890c3aa5a5be171bdfa49d853a99865810.css" integrity="sha256-wv8pWFMUQSLJIo1BFmaHiQw6paW&#43;FxvfpJ2FOpmGWBA=" media="screen">
+  <link rel="stylesheet" href="/style.main.min.a4afdcba1badb9429f7a064edf22d01439d58ac03cbdc528513a128259592485.css" integrity="sha256-pK/cuhutuUKfegZO3yLQFDnVisA8vcUoUToSgllZJIU=" media="screen">
   
   
   <script src="/panelset.min.078a92db9bd3228df502db3d9e0453c3cf3d910abe3f8deca0ad196c7071ad41.js" type="text/javascript"></script>
@@ -76,12 +76,12 @@ TidyTuesday data set about the contents of various Starbucks drinks. After epxpl
         
         
         
-      <a class="link f6 f5-l dib pv1 ph2 active" href="/blog/" title="Blog">Blog</a>
+      <a class="link f6 f5-l dib pv1 ph2 active" href="/blog/" title="Data">Data</a>
       
         
         
         
-      <a class="link f6 f5-l dib pv1 ph2 " href="/project/" title="Project Portfolio">Projects</a>
+      <a class="link f6 f5-l dib pv1 ph2 " href="/project/" title="Art">Art</a>
       
         
         
@@ -92,6 +92,11 @@ TidyTuesday data set about the contents of various Starbucks drinks. After epxpl
         
         
       <a class="link f6 f5-l dib pv1 ph2 " href="/docs/brendan_graham_resume.pdf" title="">Resume</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/contact/" title="Contact">Contact</a>
       
       
     </div>
@@ -111,9 +116,7 @@ TidyTuesday data set about the contents of various Starbucks drinks. After epxpl
 
       </header>
       <section class="post-body pt5 pb4">
-        
-<script src="https://brendangraham.online/blog/starbucks/index_files/header-attrs/header-attrs.js"></script>
-<script src="https://brendangraham.online/blog/starbucks/index_files/core-js/shim.min.js"></script>
+        <script src="https://brendangraham.online/blog/starbucks/index_files/core-js/shim.min.js"></script>
 <script src="https://brendangraham.online/blog/starbucks/index_files/react/react.min.js"></script>
 <script src="https://brendangraham.online/blog/starbucks/index_files/react/react-dom.min.js"></script>
 <script src="https://brendangraham.online/blog/starbucks/index_files/reactwidget/react-tools.js"></script>
@@ -121,10 +124,16 @@ TidyTuesday data set about the contents of various Starbucks drinks. After epxpl
 <script src="https://brendangraham.online/blog/starbucks/index_files/reactable-binding/reactable.js"></script>
 
 
-<div id="explore-the-data" class="section level2">
-<h2>Explore the Data</h2>
-<pre class="r"><code>sbucks</code></pre>
-<pre><code>## # A tibble: 1,147 × 15
+
+
+<h2 id="explore-the-data">Explore the Data
+  <a href="#explore-the-data"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sbucks
+</code></pre></div><pre><code>## # A tibble: 1,147 × 15
 ##    product_name             size  milk   whip serv_size_m_l calories total_fat_g
 ##    &lt;chr&gt;                    &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;         &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
 ##  1 brewed coffee - dark ro… short none      0           236        3         0.1
@@ -139,340 +148,353 @@ TidyTuesday data set about the contents of various Starbucks drinks. After epxpl
 ## 10 brewed coffee - medium … tall  none      0           354        4         0.1
 ## # … with 1,137 more rows, and 8 more variables: saturated_fat_g &lt;dbl&gt;,
 ## #   trans_fat_g &lt;chr&gt;, cholesterol_mg &lt;dbl&gt;, sodium_mg &lt;dbl&gt;,
-## #   total_carbs_g &lt;dbl&gt;, fiber_g &lt;chr&gt;, sugar_g &lt;dbl&gt;, caffeine_mg &lt;dbl&gt;</code></pre>
-<pre class="r"><code>skimr::partition(skim(sbucks))</code></pre>
-<p><strong>Variable type: character</strong></p>
+## #   total_carbs_g &lt;dbl&gt;, fiber_g &lt;chr&gt;, sugar_g &lt;dbl&gt;, caffeine_mg &lt;dbl&gt;
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">skimr<span style="color:#555">::</span><span style="color:#c0f">partition</span>(<span style="color:#c0f">skim</span>(sbucks))
+</code></pre></div><p><strong>Variable type: character</strong></p>
 <table>
 <thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="right">min</th>
-<th align="right">max</th>
-<th align="right">empty</th>
-<th align="right">n_unique</th>
-<th align="right">whitespace</th>
+<tr>
+<th style="text-align:left">skim_variable</th>
+<th style="text-align:right">n_missing</th>
+<th style="text-align:right">complete_rate</th>
+<th style="text-align:right">min</th>
+<th style="text-align:right">max</th>
+<th style="text-align:right">empty</th>
+<th style="text-align:right">n_unique</th>
+<th style="text-align:right">whitespace</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">product_name</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">8</td>
-<td align="right">47</td>
-<td align="right">0</td>
-<td align="right">93</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">product_name</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">47</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">93</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="even">
-<td align="left">size</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">7</td>
-<td align="right">0</td>
-<td align="right">11</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">size</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">7</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">11</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="odd">
-<td align="left">milk</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">7</td>
-<td align="right">0</td>
-<td align="right">6</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">milk</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">7</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="even">
-<td align="left">trans_fat_g</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">7</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">trans_fat_g</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">7</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="odd">
-<td align="left">fiber_g</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">0</td>
-<td align="right">12</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">fiber_g</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">0</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="right">mean</th>
-<th align="right">sd</th>
-<th align="right">p0</th>
-<th align="right">p25</th>
-<th align="right">p50</th>
-<th align="right">p75</th>
-<th align="right">p100</th>
-<th align="left">hist</th>
+<tr>
+<th style="text-align:left">skim_variable</th>
+<th style="text-align:right">n_missing</th>
+<th style="text-align:right">complete_rate</th>
+<th style="text-align:right">mean</th>
+<th style="text-align:right">sd</th>
+<th style="text-align:right">p0</th>
+<th style="text-align:right">p25</th>
+<th style="text-align:right">p50</th>
+<th style="text-align:right">p75</th>
+<th style="text-align:right">p100</th>
+<th style="text-align:left">hist</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">whip</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0.25</td>
-<td align="right">0.43</td>
-<td align="right">0</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="left">▇▁▁▁▂</td>
+<tr>
+<td style="text-align:left">whip</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0.25</td>
+<td style="text-align:right">0.43</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0.0</td>
+<td style="text-align:right">0.0</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:left">▇▁▁▁▂</td>
 </tr>
-<tr class="even">
-<td align="left">serv_size_m_l</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">461.34</td>
-<td align="right">172.18</td>
-<td align="right">0</td>
-<td align="right">354.0</td>
-<td align="right">473.0</td>
-<td align="right">591</td>
-<td align="right">887</td>
-<td align="left">▁▇▆▆▁</td>
+<tr>
+<td style="text-align:left">serv_size_m_l</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">461.34</td>
+<td style="text-align:right">172.18</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">354.0</td>
+<td style="text-align:right">473.0</td>
+<td style="text-align:right">591</td>
+<td style="text-align:right">887</td>
+<td style="text-align:left">▁▇▆▆▁</td>
 </tr>
-<tr class="odd">
-<td align="left">calories</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">228.39</td>
-<td align="right">137.67</td>
-<td align="right">0</td>
-<td align="right">130.0</td>
-<td align="right">220.0</td>
-<td align="right">320</td>
-<td align="right">640</td>
-<td align="left">▆▇▆▃▁</td>
+<tr>
+<td style="text-align:left">calories</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">228.39</td>
+<td style="text-align:right">137.67</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">130.0</td>
+<td style="text-align:right">220.0</td>
+<td style="text-align:right">320</td>
+<td style="text-align:right">640</td>
+<td style="text-align:left">▆▇▆▃▁</td>
 </tr>
-<tr class="even">
-<td align="left">total_fat_g</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">6.19</td>
-<td align="right">5.97</td>
-<td align="right">0</td>
-<td align="right">1.0</td>
-<td align="right">4.5</td>
-<td align="right">10</td>
-<td align="right">28</td>
-<td align="left">▇▃▂▁▁</td>
+<tr>
+<td style="text-align:left">total_fat_g</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">6.19</td>
+<td style="text-align:right">5.97</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1.0</td>
+<td style="text-align:right">4.5</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">28</td>
+<td style="text-align:left">▇▃▂▁▁</td>
 </tr>
-<tr class="odd">
-<td align="left">saturated_fat_g</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">3.88</td>
-<td align="right">4.01</td>
-<td align="right">0</td>
-<td align="right">0.2</td>
-<td align="right">2.5</td>
-<td align="right">7</td>
-<td align="right">20</td>
-<td align="left">▇▃▂▁▁</td>
+<tr>
+<td style="text-align:left">saturated_fat_g</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">3.88</td>
+<td style="text-align:right">4.01</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0.2</td>
+<td style="text-align:right">2.5</td>
+<td style="text-align:right">7</td>
+<td style="text-align:right">20</td>
+<td style="text-align:left">▇▃▂▁▁</td>
 </tr>
-<tr class="even">
-<td align="left">cholesterol_mg</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">15.24</td>
-<td align="right">17.97</td>
-<td align="right">0</td>
-<td align="right">0.0</td>
-<td align="right">5.0</td>
-<td align="right">30</td>
-<td align="right">75</td>
-<td align="left">▇▂▂▁▁</td>
+<tr>
+<td style="text-align:left">cholesterol_mg</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">15.24</td>
+<td style="text-align:right">17.97</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0.0</td>
+<td style="text-align:right">5.0</td>
+<td style="text-align:right">30</td>
+<td style="text-align:right">75</td>
+<td style="text-align:left">▇▂▂▁▁</td>
 </tr>
-<tr class="odd">
-<td align="left">sodium_mg</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">139.65</td>
-<td align="right">93.09</td>
-<td align="right">0</td>
-<td align="right">70.0</td>
-<td align="right">135.0</td>
-<td align="right">200</td>
-<td align="right">370</td>
-<td align="left">▇▇▇▃▂</td>
+<tr>
+<td style="text-align:left">sodium_mg</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">139.65</td>
+<td style="text-align:right">93.09</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">70.0</td>
+<td style="text-align:right">135.0</td>
+<td style="text-align:right">200</td>
+<td style="text-align:right">370</td>
+<td style="text-align:left">▇▇▇▃▂</td>
 </tr>
-<tr class="even">
-<td align="left">total_carbs_g</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">37.72</td>
-<td align="right">23.26</td>
-<td align="right">0</td>
-<td align="right">20.0</td>
-<td align="right">37.0</td>
-<td align="right">53</td>
-<td align="right">96</td>
-<td align="left">▇▇▇▅▂</td>
+<tr>
+<td style="text-align:left">total_carbs_g</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">37.72</td>
+<td style="text-align:right">23.26</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">20.0</td>
+<td style="text-align:right">37.0</td>
+<td style="text-align:right">53</td>
+<td style="text-align:right">96</td>
+<td style="text-align:left">▇▇▇▅▂</td>
 </tr>
-<tr class="odd">
-<td align="left">sugar_g</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">34.99</td>
-<td align="right">22.46</td>
-<td align="right">0</td>
-<td align="right">18.0</td>
-<td align="right">34.0</td>
-<td align="right">49</td>
-<td align="right">89</td>
-<td align="left">▇▇▇▅▂</td>
+<tr>
+<td style="text-align:left">sugar_g</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">34.99</td>
+<td style="text-align:right">22.46</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">18.0</td>
+<td style="text-align:right">34.0</td>
+<td style="text-align:right">49</td>
+<td style="text-align:right">89</td>
+<td style="text-align:left">▇▇▇▅▂</td>
 </tr>
-<tr class="even">
-<td align="left">caffeine_mg</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">91.86</td>
-<td align="right">78.11</td>
-<td align="right">0</td>
-<td align="right">30.0</td>
-<td align="right">75.0</td>
-<td align="right">150</td>
-<td align="right">475</td>
-<td align="left">▇▃▁▁▁</td>
+<tr>
+<td style="text-align:left">caffeine_mg</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">91.86</td>
+<td style="text-align:right">78.11</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">30.0</td>
+<td style="text-align:right">75.0</td>
+<td style="text-align:right">150</td>
+<td style="text-align:right">475</td>
+<td style="text-align:left">▇▃▁▁▁</td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>get_cor &lt;- 
-  function(size){
-    sbucks %&gt;%
-      filter(size == {{size}}) %&gt;%
-      na.omit() %&gt;%
-      select(where(is.numeric)) %&gt;%
-      corrr::correlate() %&gt;%
-      corrr::shave(upper = TRUE) %&gt;%
-      corrr::rplot() +
-      labs(title = glue::glue(&quot;Corellation for {size} drinks&quot;)) + big_labels
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">get_cor <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">function</span>(size){
+    sbucks <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">filter</span>(size <span style="color:#555">==</span> {{size}}) <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">na.omit</span>() <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">select</span>(<span style="color:#c0f">where</span>(is.numeric)) <span style="color:#555">%&gt;%</span>
+      corrr<span style="color:#555">::</span><span style="color:#c0f">correlate</span>() <span style="color:#555">%&gt;%</span>
+      corrr<span style="color:#555">::</span><span style="color:#c0f">shave</span>(upper <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>) <span style="color:#555">%&gt;%</span>
+      corrr<span style="color:#555">::</span><span style="color:#c0f">rplot</span>() <span style="color:#555">+</span>
+      <span style="color:#c0f">labs</span>(title <span style="color:#555">=</span> glue<span style="color:#555">::</span><span style="color:#c0f">glue</span>(<span style="color:#c30">&#34;Corellation for {size} drinks&#34;</span>)) <span style="color:#555">+</span> big_labels
   }
 
-map(c(&quot;short&quot;, &quot;tall&quot;, &quot;grande&quot;, &quot;venti&quot;, &quot;trenta&quot;), ~get_cor(size = .x))</code></pre>
-<pre><code>## [[1]]</code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-1.png" width="1248" /></p>
+<span style="color:#c0f">map</span>(<span style="color:#c0f">c</span>(<span style="color:#c30">&#34;short&#34;</span>, <span style="color:#c30">&#34;tall&#34;</span>, <span style="color:#c30">&#34;grande&#34;</span>, <span style="color:#c30">&#34;venti&#34;</span>, <span style="color:#c30">&#34;trenta&#34;</span>), <span style="color:#555">~</span><span style="color:#c0f">get_cor</span>(size <span style="color:#555">=</span> .x))
+</code></pre></div><pre><code>## [[1]]
+</code></pre>
+<img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-1.png" width="1248" />
 <pre><code>## 
-## [[2]]</code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-2.png" width="1248" /></p>
+## [[2]]
+</code></pre>
+<img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-2.png" width="1248" />
 <pre><code>## 
-## [[3]]</code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-3.png" width="1248" /></p>
+## [[3]]
+</code></pre>
+<img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-3.png" width="1248" />
 <pre><code>## 
-## [[4]]</code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-4.png" width="1248" /></p>
+## [[4]]
+</code></pre>
+<img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-4.png" width="1248" />
 <pre><code>## 
-## [[5]]</code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-5.png" width="1248" /></p>
+## [[5]]
+</code></pre>
+<img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-5.png" width="1248" />
 <p>First we need to only include products where whip is an option; after viewing plot, looks we’ll need to remove some categories.</p>
-<pre class="r"><code># https://juliasilge.com/blog/beer-production/
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># https://juliasilge.com/blog/beer-production/</span>
 
-whip_diff &lt;- 
-  sbucks %&gt;%
-  select(product_name, size, milk, whip, calories) %&gt;%
-  group_by(product_name, size, milk) %&gt;%
-  mutate(has_whip_option = max(whip)) %&gt;%
-  filter(has_whip_option == 1) %&gt;%
-  mutate(whip = factor(whip, levels = c(&quot;0&quot;, &quot;1&quot;)),
-         size = factor(size, levels = c(&quot;short&quot;, &quot;tall&quot;, &quot;grande&quot;, &quot;venti&quot;)),
-         milk = factor(milk, levels = c(&quot;nonfat&quot;, &quot;soy&quot;, &quot;coconut&quot;, &quot;2%&quot;, &quot;whole&quot;)))
+whip_diff <span style="color:#555">&lt;-</span> 
+  sbucks <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">select</span>(product_name, size, milk, whip, calories) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">group_by</span>(product_name, size, milk) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">mutate</span>(has_whip_option <span style="color:#555">=</span> <span style="color:#c0f">max</span>(whip)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(has_whip_option <span style="color:#555">==</span> <span style="color:#f60">1</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">mutate</span>(whip <span style="color:#555">=</span> <span style="color:#c0f">factor</span>(whip, levels <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;0&#34;</span>, <span style="color:#c30">&#34;1&#34;</span>)),
+         size <span style="color:#555">=</span> <span style="color:#c0f">factor</span>(size, levels <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;short&#34;</span>, <span style="color:#c30">&#34;tall&#34;</span>, <span style="color:#c30">&#34;grande&#34;</span>, <span style="color:#c30">&#34;venti&#34;</span>)),
+         milk <span style="color:#555">=</span> <span style="color:#c0f">factor</span>(milk, levels <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;nonfat&#34;</span>, <span style="color:#c30">&#34;soy&#34;</span>, <span style="color:#c30">&#34;coconut&#34;</span>, <span style="color:#c30">&#34;2%&#34;</span>, <span style="color:#c30">&#34;whole&#34;</span>)))
 
 
-whip_diff %&gt;%
-  ggplot(., aes(x = whip, y = calories)) + 
-  geom_jitter(alpha = .5) +
-  geom_boxplot(alpha = .75) + 
-  facet_grid(milk ~ size, scales = &#39;free&#39;) + 
-  big_labels</code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-5-1.png" width="1248" /></p>
+whip_diff <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> whip, y <span style="color:#555">=</span> calories)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_jitter</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.5</span>) <span style="color:#555">+</span>
+  <span style="color:#c0f">geom_boxplot</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.75</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">facet_grid</span>(milk <span style="color:#555">~</span> size, scales <span style="color:#555">=</span> <span style="color:#c30">&#39;free&#39;</span>) <span style="color:#555">+</span> 
+  big_labels
+</code></pre></div><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-5-1.png" width="1248" />
 <p>After removing drinks with no milk, we can plot the distributions of calories and inspect for any potential interaction effects. There doesn’t seem to be any interaction effects between whipped cream and milk type used</p>
-<pre class="r"><code>whip_diff &lt;- 
-  whip_diff %&gt;%
-  filter(size %in% c(&quot;grande&quot;, &quot;short&quot;, &quot;tall&quot;, &quot;venti&quot;),
-         milk != &#39;none&#39;)
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">whip_diff <span style="color:#555">&lt;-</span> 
+  whip_diff <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(size <span style="color:#555">%in%</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;grande&#34;</span>, <span style="color:#c30">&#34;short&#34;</span>, <span style="color:#c30">&#34;tall&#34;</span>, <span style="color:#c30">&#34;venti&#34;</span>),
+         milk <span style="color:#555">!=</span> <span style="color:#c30">&#39;none&#39;</span>)
 
-boxplot_milk &lt;- 
-  ggplot(whip_diff, aes(x = whip, y = calories, fill = milk)) + 
-  geom_jitter(alpha = .5) +
-  geom_boxplot(alpha = .75) + 
-  # facet_grid(. ~ size) + 
-  labs(fill = &quot;Milk Type&quot;) + 
-  big_labels + 
-  scale_y_continuous(breaks = seq(100, 1000, 25))  +
-  theme_minimal() + 
-  theme(legend.position = &quot;none&quot;)
+boxplot_milk <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">ggplot</span>(whip_diff, <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> whip, y <span style="color:#555">=</span> calories, fill <span style="color:#555">=</span> milk)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_jitter</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.5</span>) <span style="color:#555">+</span>
+  <span style="color:#c0f">geom_boxplot</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.75</span>) <span style="color:#555">+</span> 
+  <span style="color:#09f;font-style:italic"># facet_grid(. ~ size) + </span>
+  <span style="color:#c0f">labs</span>(fill <span style="color:#555">=</span> <span style="color:#c30">&#34;Milk Type&#34;</span>) <span style="color:#555">+</span> 
+  big_labels <span style="color:#555">+</span> 
+  <span style="color:#c0f">scale_y_continuous</span>(breaks <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">100</span>, <span style="color:#f60">1000</span>, <span style="color:#f60">25</span>))  <span style="color:#555">+</span>
+  <span style="color:#c0f">theme_minimal</span>() <span style="color:#555">+</span> 
+  <span style="color:#c0f">theme</span>(legend.position <span style="color:#555">=</span> <span style="color:#c30">&#34;none&#34;</span>)
 
-line_milk &lt;-
-  ggline(whip_diff, x = &quot;whip&quot;, y = &quot;calories&quot;, color = &quot;milk&quot;,
-         add = c(&quot;mean_se&quot;)) + 
-  theme_minimal()
+line_milk <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">ggline</span>(whip_diff, x <span style="color:#555">=</span> <span style="color:#c30">&#34;whip&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#34;calories&#34;</span>, color <span style="color:#555">=</span> <span style="color:#c30">&#34;milk&#34;</span>,
+         add <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;mean_se&#34;</span>)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">theme_minimal</span>()
 
-ggpubr::ggarrange(boxplot_milk, line_milk, nrow = 1, ncol = 2)</code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-6-1.png" width="1248" /></p>
+ggpubr<span style="color:#555">::</span><span style="color:#c0f">ggarrange</span>(boxplot_milk, line_milk, nrow <span style="color:#555">=</span> <span style="color:#f60">1</span>, ncol <span style="color:#555">=</span> <span style="color:#f60">2</span>)
+</code></pre></div><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-6-1.png" width="1248" />
 <p>There may be a slight interaction effect between whipped cream and drink size</p>
-<pre class="r"><code>boxplot_size &lt;- 
-  ggplot(whip_diff, aes(x = whip, y = calories, fill = size)) + 
-  geom_jitter(alpha = .5) +
-  geom_boxplot(alpha = .75) + 
-  labs(fill = &quot;Milk Type&quot;) + 
-  big_labels + 
-  scale_y_continuous(breaks = seq(100, 1000, 25)) +
-  theme_minimal() + 
-  theme(legend.position = &quot;none&quot;)
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">boxplot_size <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">ggplot</span>(whip_diff, <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> whip, y <span style="color:#555">=</span> calories, fill <span style="color:#555">=</span> size)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_jitter</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.5</span>) <span style="color:#555">+</span>
+  <span style="color:#c0f">geom_boxplot</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.75</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">labs</span>(fill <span style="color:#555">=</span> <span style="color:#c30">&#34;Milk Type&#34;</span>) <span style="color:#555">+</span> 
+  big_labels <span style="color:#555">+</span> 
+  <span style="color:#c0f">scale_y_continuous</span>(breaks <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">100</span>, <span style="color:#f60">1000</span>, <span style="color:#f60">25</span>)) <span style="color:#555">+</span>
+  <span style="color:#c0f">theme_minimal</span>() <span style="color:#555">+</span> 
+  <span style="color:#c0f">theme</span>(legend.position <span style="color:#555">=</span> <span style="color:#c30">&#34;none&#34;</span>)
 
-line_size &lt;-
-  ggline(whip_diff, x = &quot;whip&quot;, y = &quot;calories&quot;, color = &quot;size&quot;,
-         add = c(&quot;mean_se&quot;)) + 
-  theme_minimal()
+line_size <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">ggline</span>(whip_diff, x <span style="color:#555">=</span> <span style="color:#c30">&#34;whip&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#34;calories&#34;</span>, color <span style="color:#555">=</span> <span style="color:#c30">&#34;size&#34;</span>,
+         add <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;mean_se&#34;</span>)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">theme_minimal</span>()
 
-ggpubr::ggarrange(boxplot_size, line_size, nrow = 1, ncol = 2)</code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-7-1.png" width="1248" /></p>
+ggpubr<span style="color:#555">::</span><span style="color:#c0f">ggarrange</span>(boxplot_size, line_size, nrow <span style="color:#555">=</span> <span style="color:#f60">1</span>, ncol <span style="color:#555">=</span> <span style="color:#f60">2</span>)
+</code></pre></div><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-7-1.png" width="1248" />
 <p>There may be a slight interaction effect between drink size and milk used</p>
-<pre class="r"><code>boxplot_size_milk &lt;- 
-  ggplot(whip_diff, aes(x = milk, y = calories, fill = size)) + 
-  geom_jitter(alpha = .5) +
-  geom_boxplot(alpha = .75) + 
-  labs(fill = &quot;Milk Type&quot;) + 
-  big_labels + 
-  scale_y_continuous(breaks = seq(100, 1000, 25)) +
-  theme_minimal() + 
-  theme(legend.position = &quot;none&quot;)
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">boxplot_size_milk <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">ggplot</span>(whip_diff, <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> milk, y <span style="color:#555">=</span> calories, fill <span style="color:#555">=</span> size)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_jitter</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.5</span>) <span style="color:#555">+</span>
+  <span style="color:#c0f">geom_boxplot</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.75</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">labs</span>(fill <span style="color:#555">=</span> <span style="color:#c30">&#34;Milk Type&#34;</span>) <span style="color:#555">+</span> 
+  big_labels <span style="color:#555">+</span> 
+  <span style="color:#c0f">scale_y_continuous</span>(breaks <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">100</span>, <span style="color:#f60">1000</span>, <span style="color:#f60">25</span>)) <span style="color:#555">+</span>
+  <span style="color:#c0f">theme_minimal</span>() <span style="color:#555">+</span> 
+  <span style="color:#c0f">theme</span>(legend.position <span style="color:#555">=</span> <span style="color:#c30">&#34;none&#34;</span>)
 
-line_size_milk &lt;-
-  ggline(whip_diff, x = &quot;milk&quot;, y = &quot;calories&quot;, color = &quot;size&quot;,
-         add = c(&quot;mean_se&quot;)) + 
-  theme_minimal()
+line_size_milk <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">ggline</span>(whip_diff, x <span style="color:#555">=</span> <span style="color:#c30">&#34;milk&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#34;calories&#34;</span>, color <span style="color:#555">=</span> <span style="color:#c30">&#34;size&#34;</span>,
+         add <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;mean_se&#34;</span>)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">theme_minimal</span>()
 
-ggpubr::ggarrange(boxplot_size_milk, line_size_milk, nrow = 1, ncol = 2)</code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-8-1.png" width="1248" /></p>
-</div>
-<div id="simple-model" class="section level2">
-<h2>Simple model</h2>
+ggpubr<span style="color:#555">::</span><span style="color:#c0f">ggarrange</span>(boxplot_size_milk, line_size_milk, nrow <span style="color:#555">=</span> <span style="color:#f60">1</span>, ncol <span style="color:#555">=</span> <span style="color:#f60">2</span>)
+</code></pre></div><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-8-1.png" width="1248" />
+
+
+
+
+<h2 id="simple-model">Simple model
+  <a href="#simple-model"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h2>
 <p>The next step is to model the relationship between calories and the inclusion of whip cream on various drinks, while accounting for size and milk type. The LM model contains all categorical predictors and is equivalent to a 1 way ANOVA. IN this case we don’t really need to do an ANOVA beause the means are obviously different from one another. The assumptions of homogeneous variance among groups and approximately normally distributed data seem to pass given an inspection of the boxplots above.</p>
-<p><span class="math display">\[
+<p>$$
 \hat{Y}= b_0 + b_1X_1 + b_2X_2 + b_3X_3 + b_4X_1X_2
-\]</span></p>
+$$</p>
 <p>where:</p>
 <ul>
 <li>Y is calories</li>
@@ -481,36 +503,44 @@ ggpubr::ggarrange(boxplot_size_milk, line_size_milk, nrow = 1, ncol = 2)</code><
 <li>X3 is an indicator for milk type (5 levels, ref level = nonfat)</li>
 </ul>
 <p>An interaction term is added since the amount of whipped cream added may vary according to the drink size; maybe <em>Venti</em> drinks get more whipped cream added than a <em>Short</em> drink and if so the impact on calories is not consistent for whipped cream drinks as size changes.</p>
-<pre class="r"><code>broom::tidy(lm(calories ~ whip + size + milk + whip*size, data = whip_diff)) %&gt;%
-  addtable()</code></pre>
-<div id="htmlwidget-1" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">broom<span style="color:#555">::</span><span style="color:#c0f">tidy</span>(<span style="color:#c0f">lm</span>(calories <span style="color:#555">~</span> whip <span style="color:#555">+</span> size <span style="color:#555">+</span> milk <span style="color:#555">+</span> whip<span style="color:#555">*</span>size, data <span style="color:#555">=</span> whip_diff)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">addtable</span>()
+</code></pre></div><div id="htmlwidget-1" class="reactable html-widget" style="width:auto;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"term":["(Intercept)","whip1","sizetall","sizegrande","sizeventi","milksoy","milkcoconut","milk2%","milkwhole","whip1:sizetall","whip1:sizegrande","whip1:sizeventi"],"estimate":[138.84,54.09,50.84,124.86,220.51,9.29,1.43,30.71,51.25,22.78,50.38,50.38],"std.error":[11.74,15.49,12.33,12.3,12.3,7.04,6.86,6.86,6.86,17.42,17.37,17.37],"statistic":[11.83,3.49,4.12,10.15,17.93,1.32,0.21,4.48,7.47,1.31,2.9,2.9],"p.value":[0,0,0,0,0,0.19,0.84,0,0,0.19,0,0]},"columns":[{"accessor":"term","name":"term","type":"character"},{"accessor":"estimate","name":"estimate","type":"numeric"},{"accessor":"std.error","name":"std.error","type":"numeric"},{"accessor":"statistic","name":"statistic","type":"numeric"},{"accessor":"p.value","name":"p.value","type":"numeric"}],"resizable":true,"filterable":true,"defaultPageSize":15,"paginationType":"numbers","showPageInfo":true,"minRows":1,"defaultExpanded":true,"highlight":true,"striped":true,"compact":true,"inline":true,"dataKey":"559549227df2e6fff5e0d092a94e24e0","key":"559549227df2e6fff5e0d092a94e24e0"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p>The intercept term alone indicates the average calories for “short” drinks with nonfat milk and without whipped cream is about 139 calories. To get the avg calories for a venti with whipped cream and whole milk, for example, we can add:</p>
 <p>138.84 + 54 + 220.51 + 51.25 + 50.38 = 514.98 calories</p>
-<pre class="r"><code>broom::tidy(lm(calories ~ whip + size + milk + whip*size, data = whip_diff)) %&gt;%
-  filter(term != &quot;(Intercept)&quot;) %&gt;% 
-  ggplot(., aes(x = reorder(term, estimate), y = estimate, label = round(estimate, 2))) + 
-  geom_point() + 
-  geom_text(nudge_x = .28) + 
-  coord_flip() + 
-  geom_hline(yintercept = 0) + 
-  geom_errorbar(aes(x = term, ymin = estimate - std.error, ymax = estimate + std.error)) +
-  labs(x = &quot;estimate&quot;, y = &quot;&quot;,
-       title = &quot;Effect sizes relative to baseline&quot;, subtitle = &quot;baseline: short, nonfat milk without whipped cream&quot;)</code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-10-1.png" width="1248" /></p>
-<div id="bootstrap-resampling" class="section level3">
-<h3>Bootstrap Resampling</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">broom<span style="color:#555">::</span><span style="color:#c0f">tidy</span>(<span style="color:#c0f">lm</span>(calories <span style="color:#555">~</span> whip <span style="color:#555">+</span> size <span style="color:#555">+</span> milk <span style="color:#555">+</span> whip<span style="color:#555">*</span>size, data <span style="color:#555">=</span> whip_diff)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(term <span style="color:#555">!=</span> <span style="color:#c30">&#34;(Intercept)&#34;</span>) <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> <span style="color:#c0f">reorder</span>(term, estimate), y <span style="color:#555">=</span> estimate, label <span style="color:#555">=</span> <span style="color:#c0f">round</span>(estimate, <span style="color:#f60">2</span>))) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_point</span>() <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_text</span>(nudge_x <span style="color:#555">=</span> <span style="color:#f60">.28</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">coord_flip</span>() <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_hline</span>(yintercept <span style="color:#555">=</span> <span style="color:#f60">0</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_errorbar</span>(<span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> term, ymin <span style="color:#555">=</span> estimate <span style="color:#555">-</span> std.error, ymax <span style="color:#555">=</span> estimate <span style="color:#555">+</span> std.error)) <span style="color:#555">+</span>
+  <span style="color:#c0f">labs</span>(x <span style="color:#555">=</span> <span style="color:#c30">&#34;estimate&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#34;&#34;</span>,
+       title <span style="color:#555">=</span> <span style="color:#c30">&#34;Effect sizes relative to baseline&#34;</span>, subtitle <span style="color:#555">=</span> <span style="color:#c30">&#34;baseline: short, nonfat milk without whipped cream&#34;</span>)
+</code></pre></div><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-10-1.png" width="1248" />
+
+
+
+
+<h3 id="bootstrap-resampling">Bootstrap Resampling
+  <a href="#bootstrap-resampling"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h3>
 <p>There is not a ton of data here, maybe creating some bootstrap resamples might help to model this relationship. Bootstrapping creates <em>N</em> datasets by resampling <em>with replacement</em>. All of the resamples have the same number of rows as the input dataset, and contain duplicate observations since we sampled with replacement. The assessment data are comprised of the observations that didn’t make it into a given resample.</p>
 <p>Below are the first 10 resamples of the dataset; each contains 550 observations to fit the model (the <em>analysis</em> split). the remaining observations are the <em>assessment</em> split, but are not used in this case, since we are not doing any model tuning or measuring any performance metrics. The model coefficients will be an average across all 5000 resamples.</p>
-<pre class="r"><code># use bootstrap resampling; account for potential interaction effect
-set.seed(1459)
-samples &lt;-
-  rsample::bootstraps(whip_diff,
-                      times = 5000,
-                      apparent = TRUE)
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># use bootstrap resampling; account for potential interaction effect</span>
+<span style="color:#c0f">set.seed</span>(<span style="color:#f60">1459</span>)
+samples <span style="color:#555">&lt;-</span>
+  rsample<span style="color:#555">::</span><span style="color:#c0f">bootstraps</span>(whip_diff,
+                      times <span style="color:#555">=</span> <span style="color:#f60">5000</span>,
+                      apparent <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>)
 
-head(samples, 10)</code></pre>
-<pre><code>## # A tibble: 10 × 2
+<span style="color:#c0f">head</span>(samples, <span style="color:#f60">10</span>)
+</code></pre></div><pre><code>## # A tibble: 10 × 2
 ##    splits            id           
 ##    &lt;list&gt;            &lt;chr&gt;        
 ##  1 &lt;split [550/200]&gt; Bootstrap0001
@@ -522,53 +552,59 @@ head(samples, 10)</code></pre>
 ##  7 &lt;split [550/209]&gt; Bootstrap0007
 ##  8 &lt;split [550/216]&gt; Bootstrap0008
 ##  9 &lt;split [550/199]&gt; Bootstrap0009
-## 10 &lt;split [550/196]&gt; Bootstrap0010</code></pre>
-<pre class="r"><code>whip_models &lt;- 
-  samples %&gt;%
-  mutate(
-    model = map(splits, ~ lm(calories ~ whip + size + milk + whip*size, data = .)),
-    coef_info = map(model, tidy)
-  )</code></pre>
-<p>Based on the plots, the estimates are about the same as the <code>lm</code> above!</p>
-<pre class="r"><code>whip_coefs &lt;- 
-  whip_models %&gt;%
-  unnest(coef_info)
+## 10 &lt;split [550/196]&gt; Bootstrap0010
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">whip_models <span style="color:#555">&lt;-</span> 
+  samples <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">mutate</span>(
+    model <span style="color:#555">=</span> <span style="color:#c0f">map</span>(splits, <span style="color:#555">~</span> <span style="color:#c0f">lm</span>(calories <span style="color:#555">~</span> whip <span style="color:#555">+</span> size <span style="color:#555">+</span> milk <span style="color:#555">+</span> whip<span style="color:#555">*</span>size, data <span style="color:#555">=</span> .)),
+    coef_info <span style="color:#555">=</span> <span style="color:#c0f">map</span>(model, tidy)
+  )
+</code></pre></div><p>Based on the plots, the estimates are about the same as the <code>lm</code> above!</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">whip_coefs <span style="color:#555">&lt;-</span> 
+  whip_models <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">unnest</span>(coef_info)
 
-means &lt;- 
-  whip_coefs %&gt;%
-  group_by(term) %&gt;%
-  summarise(est_mean = mean(estimate))
+means <span style="color:#555">&lt;-</span> 
+  whip_coefs <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">group_by</span>(term) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">summarise</span>(est_mean <span style="color:#555">=</span> <span style="color:#c0f">mean</span>(estimate))
 
-spreads &lt;- 
-  int_pctl(whip_models, coef_info)
+spreads <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">int_pctl</span>(whip_models, coef_info)
 
-whip_coefs %&gt;%
-  left_join(., means, &quot;term&quot;)  %&gt;%
-  left_join(., spreads %&gt;% select(.lower, .upper, term), &quot;term&quot;)  %&gt;%
-  mutate(term_label = paste(term, round(est_mean, 2))) %&gt;% 
-  ggplot(aes(x = estimate, label = est_mean)) +
-  geom_histogram(alpha = 0.7) + 
-  facet_wrap(.~term_label, scales = &quot;free&quot;) + 
-  geom_vline(aes(xintercept = est_mean))+ 
-  geom_vline(aes(xintercept = .lower), linetype = &quot;dashed&quot;) + 
-  geom_vline(aes(xintercept = .upper), linetype = &quot;dashed&quot;) </code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-13-1.png" width="1248" /></p>
-</div>
-</div>
-<div id="conclusion" class="section level2">
-<h2>Conclusion</h2>
+whip_coefs <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">left_join</span>(., means, <span style="color:#c30">&#34;term&#34;</span>)  <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">left_join</span>(., spreads <span style="color:#555">%&gt;%</span> <span style="color:#c0f">select</span>(.lower, .upper, term), <span style="color:#c30">&#34;term&#34;</span>)  <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">mutate</span>(term_label <span style="color:#555">=</span> <span style="color:#c0f">paste</span>(term, <span style="color:#c0f">round</span>(est_mean, <span style="color:#f60">2</span>))) <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">ggplot</span>(<span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> estimate, label <span style="color:#555">=</span> est_mean)) <span style="color:#555">+</span>
+  <span style="color:#c0f">geom_histogram</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">0.7</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">facet_wrap</span>(.~term_label, scales <span style="color:#555">=</span> <span style="color:#c30">&#34;free&#34;</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_vline</span>(<span style="color:#c0f">aes</span>(xintercept <span style="color:#555">=</span> est_mean))<span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_vline</span>(<span style="color:#c0f">aes</span>(xintercept <span style="color:#555">=</span> .lower), linetype <span style="color:#555">=</span> <span style="color:#c30">&#34;dashed&#34;</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_vline</span>(<span style="color:#c0f">aes</span>(xintercept <span style="color:#555">=</span> .upper), linetype <span style="color:#555">=</span> <span style="color:#c30">&#34;dashed&#34;</span>) 
+</code></pre></div><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-13-1.png" width="1248" />
+
+
+
+
+<h2 id="conclusion">Conclusion
+  <a href="#conclusion"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h2>
 <p>These 2 methods are similar ways to accomplish the same goal, and in this case we got similar result. In fact, a simple faceted boxplot could have saved a ton of time and shown us the same results - calories differ across whipped cream options, milk options and size options!</p>
-<pre class="r"><code>ggplot(whip_diff, aes(x = whip, y = calories, fill = milk)) + 
-  geom_jitter(alpha = .5) +
-  geom_boxplot(alpha = .75) + 
-  labs(fill = &quot;Milk Type&quot;) + 
-  big_labels + 
-  facet_grid(.~size) + 
-  scale_y_continuous(breaks = seq(100, 1000, 25)) + 
-  bg_theme() + 
-  ggsci::scale_fill_npg()</code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-14-1.png" width="1248" /></p>
-</div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#c0f">ggplot</span>(whip_diff, <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> whip, y <span style="color:#555">=</span> calories, fill <span style="color:#555">=</span> milk)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_jitter</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.5</span>) <span style="color:#555">+</span>
+  <span style="color:#c0f">geom_boxplot</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.75</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">labs</span>(fill <span style="color:#555">=</span> <span style="color:#c30">&#34;Milk Type&#34;</span>) <span style="color:#555">+</span> 
+  big_labels <span style="color:#555">+</span> 
+  <span style="color:#c0f">facet_grid</span>(.~size) <span style="color:#555">+</span> 
+  <span style="color:#c0f">scale_y_continuous</span>(breaks <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">100</span>, <span style="color:#f60">1000</span>, <span style="color:#f60">25</span>)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">bg_theme</span>() <span style="color:#555">+</span> 
+  ggsci<span style="color:#555">::</span><span style="color:#c0f">scale_fill_npg</span>()
+</code></pre></div><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-14-1.png" width="1248" />
 
         
         <details closed class="f6 fw7 input-reset">
@@ -596,7 +632,7 @@ whip_coefs %&gt;%
   <dl class="f6 lh-copy">
     <dt class="fw7">See Also:</dt>
     
-    <dd class="fw5 ml0"><a href="/blog/dogs/">learning some topic modeling with dog breed traits</a></dd>
+    <dd class="fw5 ml0"><a href="/blog/dogs/">Getting started with topic modeling with dog breed traits</a></dd>
     
     <dd class="fw5 ml0"><a href="/blog/boardgames/">Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings</a></dd>
     
@@ -614,6 +650,9 @@ whip_coefs %&gt;%
     href="https://brendangraham.online/blog/ultra-trail-running/">&larr; Comparing Variability in Ultra Trail Running Results Across Countries</a>
   
   
+  
+    <a class="next dtc pl2 tr v-top fw6"
+    href="https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/">Wiss Map &rarr;</a>
   
 </div>
 

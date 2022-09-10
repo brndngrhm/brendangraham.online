@@ -56,7 +56,7 @@ TidyTuesday data set about board game ratings. After looking at the data I attem
   <link rel="icon" href="" type="image/x-icon">
   
   
-  <link rel="stylesheet" href="/style.main.min.c2ff295853144122c9228d41166687890c3aa5a5be171bdfa49d853a99865810.css" integrity="sha256-wv8pWFMUQSLJIo1BFmaHiQw6paW&#43;FxvfpJ2FOpmGWBA=" media="screen">
+  <link rel="stylesheet" href="/style.main.min.a4afdcba1badb9429f7a064edf22d01439d58ac03cbdc528513a128259592485.css" integrity="sha256-pK/cuhutuUKfegZO3yLQFDnVisA8vcUoUToSgllZJIU=" media="screen">
   
   
   <script src="/panelset.min.078a92db9bd3228df502db3d9e0453c3cf3d910abe3f8deca0ad196c7071ad41.js" type="text/javascript"></script>
@@ -76,12 +76,12 @@ TidyTuesday data set about board game ratings. After looking at the data I attem
         
         
         
-      <a class="link f6 f5-l dib pv1 ph2 active" href="/blog/" title="Blog">Blog</a>
+      <a class="link f6 f5-l dib pv1 ph2 active" href="/blog/" title="Data">Data</a>
       
         
         
         
-      <a class="link f6 f5-l dib pv1 ph2 " href="/project/" title="Project Portfolio">Projects</a>
+      <a class="link f6 f5-l dib pv1 ph2 " href="/project/" title="Art">Art</a>
       
         
         
@@ -92,6 +92,11 @@ TidyTuesday data set about board game ratings. After looking at the data I attem
         
         
       <a class="link f6 f5-l dib pv1 ph2 " href="/docs/brendan_graham_resume.pdf" title="">Resume</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/contact/" title="Contact">Contact</a>
       
       
     </div>
@@ -111,16 +116,20 @@ TidyTuesday data set about board game ratings. After looking at the data I attem
 
       </header>
       <section class="post-body pt5 pb4">
-        
-<script src="https://brendangraham.online/blog/boardgames/index_files/header-attrs/header-attrs.js"></script>
+        <p>Last week I tried out a text based model for the first time. This week I want to continue working with a text based model, but supplement the text data with other non-text predictors. The goal will be to use the board game category (text data) and other non-text data to predict the average board game rating.</p>
 
 
-<p>Last week I tried out a text based model for the first time. This week I want to continue working with a text based model, but supplement the text data with other non-text predictors. The goal will be to use the board game category (text data) and other non-text data to predict the average board game rating.</p>
-<div id="explore-the-data" class="section level2">
-<h2>Explore the Data</h2>
-<p>there are 2 tables, one that has the ratings variable we’ll use as the outcome, and the other has some columns to be used as predictors.</p>
-<pre class="r"><code>ratings</code></pre>
-<pre><code>## # A tibble: 21,831 × 10
+
+
+<h2 id="explore-the-data">Explore the Data
+  <a href="#explore-the-data"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h2>
+<p>there are 2 tables, one that has the ratings variable we&rsquo;ll use as the outcome, and the other has some columns to be used as predictors.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ratings
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 21,831 × 10
 ##      num     id name     year  rank average bayes_average users_rated url       
 ##    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;     
 ##  1   105  30549 Pandem…  2008   106    7.59          7.49      108975 /boardgam…
@@ -133,9 +142,9 @@ TidyTuesday data set about board game ratings. After looking at the data I attem
 ##  8     3 167791 Terraf…  2016     4    8.42          8.27       74216 /boardgam…
 ##  9    15 173346 7 Wond…  2015    16    8.11          7.98       69472 /boardgam…
 ## 10    35  31260 Agrico…  2007    36    7.93          7.81       66093 /boardgam…
-## # … with 21,821 more rows, and 1 more variable: thumbnail &lt;chr&gt;</code></pre>
-<pre class="r"><code>details</code></pre>
-<pre><code>## # A tibble: 21,631 × 23
+## # … with 21,821 more rows, and 1 more variable: thumbnail &lt;chr&gt;
+</code></pre><div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">details
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 21,631 × 23
 ##      num     id primary   description        yearpublished minplayers maxplayers
 ##    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;                      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
 ##  1     0  30549 Pandemic  In Pandemic, seve…          2008          2          4
@@ -153,523 +162,523 @@ TidyTuesday data set about board game ratings. After looking at the data I attem
 ## #   boardgamecategory &lt;chr&gt;, boardgamemechanic &lt;chr&gt;, boardgamefamily &lt;chr&gt;,
 ## #   boardgameexpansion &lt;chr&gt;, boardgameimplementation &lt;chr&gt;,
 ## #   boardgamedesigner &lt;chr&gt;, boardgameartist &lt;chr&gt;, boardgamepublisher &lt;chr&gt;,
-## #   owned &lt;dbl&gt;, trading &lt;dbl&gt;, wanting &lt;dbl&gt;, wishing &lt;dbl&gt;</code></pre>
-<p>Using the <code>skimr</code> package we can get a quick understanding of the characteristics of each table.</p>
-<pre class="r"><code>skimr::skim_to_list(ratings)</code></pre>
-<p><strong>Variable type: character</strong></p>
+## #   owned &lt;dbl&gt;, trading &lt;dbl&gt;, wanting &lt;dbl&gt;, wishing &lt;dbl&gt;
+</code></pre><p>Using the <code>skimr</code> package we can get a quick understanding of the characteristics of each table.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">skimr<span style="color:#555">::</span><span style="color:#c0f">skim_to_list</span>(ratings)
+</code></pre></div><p><strong>Variable type: character</strong></p>
 <table>
 <thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="right">min</th>
-<th align="right">max</th>
-<th align="right">empty</th>
-<th align="right">n_unique</th>
-<th align="right">whitespace</th>
+<tr>
+<th style="text-align:left">skim_variable</th>
+<th style="text-align:right">n_missing</th>
+<th style="text-align:right">complete_rate</th>
+<th style="text-align:right">min</th>
+<th style="text-align:right">max</th>
+<th style="text-align:right">empty</th>
+<th style="text-align:right">n_unique</th>
+<th style="text-align:right">whitespace</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">name</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">107</td>
-<td align="right">0</td>
-<td align="right">21432</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">name</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">107</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">21432</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="even">
-<td align="left">url</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">16</td>
-<td align="right">68</td>
-<td align="right">0</td>
-<td align="right">21831</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">url</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">16</td>
+<td style="text-align:right">68</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">21831</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="odd">
-<td align="left">thumbnail</td>
-<td align="right">6</td>
-<td align="right">1</td>
-<td align="right">135</td>
-<td align="right">139</td>
-<td align="right">0</td>
-<td align="right">21816</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">thumbnail</td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">135</td>
+<td style="text-align:right">139</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">21816</td>
+<td style="text-align:right">0</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="right">mean</th>
-<th align="right">sd</th>
-<th align="right">p0</th>
-<th align="right">p25</th>
-<th align="right">p50</th>
-<th align="right">p75</th>
-<th align="right">p100</th>
-<th align="left">hist</th>
+<tr>
+<th style="text-align:left">skim_variable</th>
+<th style="text-align:right">n_missing</th>
+<th style="text-align:right">complete_rate</th>
+<th style="text-align:right">mean</th>
+<th style="text-align:right">sd</th>
+<th style="text-align:right">p0</th>
+<th style="text-align:right">p25</th>
+<th style="text-align:right">p50</th>
+<th style="text-align:right">p75</th>
+<th style="text-align:right">p100</th>
+<th style="text-align:left">hist</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">num</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">10915.00</td>
-<td align="right">6302.21</td>
-<td align="right">0.00</td>
-<td align="right">5457.50</td>
-<td align="right">10915.00</td>
-<td align="right">16372.50</td>
-<td align="right">21830.00</td>
-<td align="left">▇▇▇▇▇</td>
+<tr>
+<td style="text-align:left">num</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">10915.00</td>
+<td style="text-align:right">6302.21</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">5457.50</td>
+<td style="text-align:right">10915.00</td>
+<td style="text-align:right">16372.50</td>
+<td style="text-align:right">21830.00</td>
+<td style="text-align:left">▇▇▇▇▇</td>
 </tr>
-<tr class="even">
-<td align="left">id</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">118144.78</td>
-<td align="right">105369.55</td>
-<td align="right">1.00</td>
-<td align="right">12308.50</td>
-<td align="right">104994.00</td>
-<td align="right">207219.00</td>
-<td align="right">350992.00</td>
-<td align="left">▇▂▃▃▂</td>
+<tr>
+<td style="text-align:left">id</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">118144.78</td>
+<td style="text-align:right">105369.55</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">12308.50</td>
+<td style="text-align:right">104994.00</td>
+<td style="text-align:right">207219.00</td>
+<td style="text-align:right">350992.00</td>
+<td style="text-align:left">▇▂▃▃▂</td>
 </tr>
-<tr class="odd">
-<td align="left">year</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1987.44</td>
-<td align="right">193.51</td>
-<td align="right">0.00</td>
-<td align="right">2001.00</td>
-<td align="right">2011.00</td>
-<td align="right">2017.00</td>
-<td align="right">3500.00</td>
-<td align="left">▁▁▇▁▁</td>
+<tr>
+<td style="text-align:left">year</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1987.44</td>
+<td style="text-align:right">193.51</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">2001.00</td>
+<td style="text-align:right">2011.00</td>
+<td style="text-align:right">2017.00</td>
+<td style="text-align:right">3500.00</td>
+<td style="text-align:left">▁▁▇▁▁</td>
 </tr>
-<tr class="even">
-<td align="left">rank</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">10916.00</td>
-<td align="right">6302.21</td>
-<td align="right">1.00</td>
-<td align="right">5458.50</td>
-<td align="right">10916.00</td>
-<td align="right">16373.50</td>
-<td align="right">21831.00</td>
-<td align="left">▇▇▇▇▇</td>
+<tr>
+<td style="text-align:left">rank</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">10916.00</td>
+<td style="text-align:right">6302.21</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">5458.50</td>
+<td style="text-align:right">10916.00</td>
+<td style="text-align:right">16373.50</td>
+<td style="text-align:right">21831.00</td>
+<td style="text-align:left">▇▇▇▇▇</td>
 </tr>
-<tr class="odd">
-<td align="left">average</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">6.42</td>
-<td align="right">0.93</td>
-<td align="right">1.04</td>
-<td align="right">5.83</td>
-<td align="right">6.45</td>
-<td align="right">7.04</td>
-<td align="right">9.57</td>
-<td align="left">▁▁▅▇▁</td>
+<tr>
+<td style="text-align:left">average</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">6.42</td>
+<td style="text-align:right">0.93</td>
+<td style="text-align:right">1.04</td>
+<td style="text-align:right">5.83</td>
+<td style="text-align:right">6.45</td>
+<td style="text-align:right">7.04</td>
+<td style="text-align:right">9.57</td>
+<td style="text-align:left">▁▁▅▇▁</td>
 </tr>
-<tr class="even">
-<td align="left">bayes_average</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">5.68</td>
-<td align="right">0.36</td>
-<td align="right">0.00</td>
-<td align="right">5.51</td>
-<td align="right">5.54</td>
-<td align="right">5.67</td>
-<td align="right">8.51</td>
-<td align="left">▁▁▁▇▁</td>
+<tr>
+<td style="text-align:left">bayes_average</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">5.68</td>
+<td style="text-align:right">0.36</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">5.51</td>
+<td style="text-align:right">5.54</td>
+<td style="text-align:right">5.67</td>
+<td style="text-align:right">8.51</td>
+<td style="text-align:left">▁▁▁▇▁</td>
 </tr>
-<tr class="odd">
-<td align="left">users_rated</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">866.96</td>
-<td align="right">3679.82</td>
-<td align="right">30.00</td>
-<td align="right">56.00</td>
-<td align="right">122.00</td>
-<td align="right">392.00</td>
-<td align="right">108975.00</td>
-<td align="left">▇▁▁▁▁</td>
+<tr>
+<td style="text-align:left">users_rated</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">866.96</td>
+<td style="text-align:right">3679.82</td>
+<td style="text-align:right">30.00</td>
+<td style="text-align:right">56.00</td>
+<td style="text-align:right">122.00</td>
+<td style="text-align:right">392.00</td>
+<td style="text-align:right">108975.00</td>
+<td style="text-align:left">▇▁▁▁▁</td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>skimr::skim_to_list(details)</code></pre>
-<p><strong>Variable type: character</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">skimr<span style="color:#555">::</span><span style="color:#c0f">skim_to_list</span>(details)
+</code></pre></div><p><strong>Variable type: character</strong></p>
 <table>
 <thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="right">min</th>
-<th align="right">max</th>
-<th align="right">empty</th>
-<th align="right">n_unique</th>
-<th align="right">whitespace</th>
+<tr>
+<th style="text-align:left">skim_variable</th>
+<th style="text-align:right">n_missing</th>
+<th style="text-align:right">complete_rate</th>
+<th style="text-align:right">min</th>
+<th style="text-align:right">max</th>
+<th style="text-align:right">empty</th>
+<th style="text-align:right">n_unique</th>
+<th style="text-align:right">whitespace</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">primary</td>
-<td align="right">0</td>
-<td align="right">1.00</td>
-<td align="right">1</td>
-<td align="right">107</td>
-<td align="right">0</td>
-<td align="right">21236</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">primary</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">107</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">21236</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="even">
-<td align="left">description</td>
-<td align="right">1</td>
-<td align="right">1.00</td>
-<td align="right">49</td>
-<td align="right">16144</td>
-<td align="right">0</td>
-<td align="right">21615</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">description</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">49</td>
+<td style="text-align:right">16144</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">21615</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="odd">
-<td align="left">boardgamecategory</td>
-<td align="right">283</td>
-<td align="right">0.99</td>
-<td align="right">8</td>
-<td align="right">216</td>
-<td align="right">0</td>
-<td align="right">6730</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">boardgamecategory</td>
+<td style="text-align:right">283</td>
+<td style="text-align:right">0.99</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">216</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">6730</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="even">
-<td align="left">boardgamemechanic</td>
-<td align="right">1590</td>
-<td align="right">0.93</td>
-<td align="right">8</td>
-<td align="right">478</td>
-<td align="right">0</td>
-<td align="right">8291</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">boardgamemechanic</td>
+<td style="text-align:right">1590</td>
+<td style="text-align:right">0.93</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">478</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">8291</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="odd">
-<td align="left">boardgamefamily</td>
-<td align="right">3761</td>
-<td align="right">0.83</td>
-<td align="right">13</td>
-<td align="right">2768</td>
-<td align="right">0</td>
-<td align="right">11285</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">boardgamefamily</td>
+<td style="text-align:right">3761</td>
+<td style="text-align:right">0.83</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">2768</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">11285</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="even">
-<td align="left">boardgameexpansion</td>
-<td align="right">16125</td>
-<td align="right">0.25</td>
-<td align="right">7</td>
-<td align="right">18150</td>
-<td align="right">0</td>
-<td align="right">5264</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">boardgameexpansion</td>
+<td style="text-align:right">16125</td>
+<td style="text-align:right">0.25</td>
+<td style="text-align:right">7</td>
+<td style="text-align:right">18150</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">5264</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="odd">
-<td align="left">boardgameimplementation</td>
-<td align="right">16769</td>
-<td align="right">0.22</td>
-<td align="right">6</td>
-<td align="right">890</td>
-<td align="right">0</td>
-<td align="right">4247</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">boardgameimplementation</td>
+<td style="text-align:right">16769</td>
+<td style="text-align:right">0.22</td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">890</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">4247</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="even">
-<td align="left">boardgamedesigner</td>
-<td align="right">596</td>
-<td align="right">0.97</td>
-<td align="right">7</td>
-<td align="right">332</td>
-<td align="right">0</td>
-<td align="right">9136</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">boardgamedesigner</td>
+<td style="text-align:right">596</td>
+<td style="text-align:right">0.97</td>
+<td style="text-align:right">7</td>
+<td style="text-align:right">332</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">9136</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="odd">
-<td align="left">boardgameartist</td>
-<td align="right">5907</td>
-<td align="right">0.73</td>
-<td align="right">6</td>
-<td align="right">8408</td>
-<td align="right">0</td>
-<td align="right">9080</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">boardgameartist</td>
+<td style="text-align:right">5907</td>
+<td style="text-align:right">0.73</td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">8408</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">9080</td>
+<td style="text-align:right">0</td>
 </tr>
-<tr class="even">
-<td align="left">boardgamepublisher</td>
-<td align="right">1</td>
-<td align="right">1.00</td>
-<td align="right">6</td>
-<td align="right">3744</td>
-<td align="right">0</td>
-<td align="right">11265</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left">boardgamepublisher</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">3744</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">11265</td>
+<td style="text-align:right">0</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="right">mean</th>
-<th align="right">sd</th>
-<th align="right">p0</th>
-<th align="right">p25</th>
-<th align="right">p50</th>
-<th align="right">p75</th>
-<th align="right">p100</th>
-<th align="left">hist</th>
+<tr>
+<th style="text-align:left">skim_variable</th>
+<th style="text-align:right">n_missing</th>
+<th style="text-align:right">complete_rate</th>
+<th style="text-align:right">mean</th>
+<th style="text-align:right">sd</th>
+<th style="text-align:right">p0</th>
+<th style="text-align:right">p25</th>
+<th style="text-align:right">p50</th>
+<th style="text-align:right">p75</th>
+<th style="text-align:right">p100</th>
+<th style="text-align:left">hist</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">num</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">10815.00</td>
-<td align="right">6244.48</td>
-<td align="right">0</td>
-<td align="right">5407.5</td>
-<td align="right">10815</td>
-<td align="right">16222.5</td>
-<td align="right">21630</td>
-<td align="left">▇▇▇▇▇</td>
+<tr>
+<td style="text-align:left">num</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">10815.00</td>
+<td style="text-align:right">6244.48</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">5407.5</td>
+<td style="text-align:right">10815</td>
+<td style="text-align:right">16222.5</td>
+<td style="text-align:right">21630</td>
+<td style="text-align:left">▇▇▇▇▇</td>
 </tr>
-<tr class="even">
-<td align="left">id</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">118133.09</td>
-<td align="right">105310.42</td>
-<td align="right">1</td>
-<td align="right">12280.5</td>
-<td align="right">105187</td>
-<td align="right">207013.0</td>
-<td align="right">350992</td>
-<td align="left">▇▂▃▃▂</td>
+<tr>
+<td style="text-align:left">id</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">118133.09</td>
+<td style="text-align:right">105310.42</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">12280.5</td>
+<td style="text-align:right">105187</td>
+<td style="text-align:right">207013.0</td>
+<td style="text-align:right">350992</td>
+<td style="text-align:left">▇▂▃▃▂</td>
 </tr>
-<tr class="odd">
-<td align="left">yearpublished</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1986.09</td>
-<td align="right">210.04</td>
-<td align="right">-3500</td>
-<td align="right">2001.0</td>
-<td align="right">2011</td>
-<td align="right">2017.0</td>
-<td align="right">2023</td>
-<td align="left">▁▁▁▁▇</td>
+<tr>
+<td style="text-align:left">yearpublished</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1986.09</td>
+<td style="text-align:right">210.04</td>
+<td style="text-align:right">-3500</td>
+<td style="text-align:right">2001.0</td>
+<td style="text-align:right">2011</td>
+<td style="text-align:right">2017.0</td>
+<td style="text-align:right">2023</td>
+<td style="text-align:left">▁▁▁▁▇</td>
 </tr>
-<tr class="even">
-<td align="left">minplayers</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">2.01</td>
-<td align="right">0.69</td>
-<td align="right">0</td>
-<td align="right">2.0</td>
-<td align="right">2</td>
-<td align="right">2.0</td>
-<td align="right">10</td>
-<td align="left">▇▁▁▁▁</td>
+<tr>
+<td style="text-align:left">minplayers</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">2.01</td>
+<td style="text-align:right">0.69</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">2.0</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">2.0</td>
+<td style="text-align:right">10</td>
+<td style="text-align:left">▇▁▁▁▁</td>
 </tr>
-<tr class="odd">
-<td align="left">maxplayers</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">5.71</td>
-<td align="right">15.10</td>
-<td align="right">0</td>
-<td align="right">4.0</td>
-<td align="right">4</td>
-<td align="right">6.0</td>
-<td align="right">999</td>
-<td align="left">▇▁▁▁▁</td>
+<tr>
+<td style="text-align:left">maxplayers</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">5.71</td>
+<td style="text-align:right">15.10</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">4.0</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">6.0</td>
+<td style="text-align:right">999</td>
+<td style="text-align:left">▇▁▁▁▁</td>
 </tr>
-<tr class="even">
-<td align="left">playingtime</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">90.51</td>
-<td align="right">534.83</td>
-<td align="right">0</td>
-<td align="right">25.0</td>
-<td align="right">45</td>
-<td align="right">90.0</td>
-<td align="right">60000</td>
-<td align="left">▇▁▁▁▁</td>
+<tr>
+<td style="text-align:left">playingtime</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">90.51</td>
+<td style="text-align:right">534.83</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">25.0</td>
+<td style="text-align:right">45</td>
+<td style="text-align:right">90.0</td>
+<td style="text-align:right">60000</td>
+<td style="text-align:left">▇▁▁▁▁</td>
 </tr>
-<tr class="odd">
-<td align="left">minplaytime</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">63.65</td>
-<td align="right">447.21</td>
-<td align="right">0</td>
-<td align="right">20.0</td>
-<td align="right">30</td>
-<td align="right">60.0</td>
-<td align="right">60000</td>
-<td align="left">▇▁▁▁▁</td>
+<tr>
+<td style="text-align:left">minplaytime</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">63.65</td>
+<td style="text-align:right">447.21</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">20.0</td>
+<td style="text-align:right">30</td>
+<td style="text-align:right">60.0</td>
+<td style="text-align:right">60000</td>
+<td style="text-align:left">▇▁▁▁▁</td>
 </tr>
-<tr class="even">
-<td align="left">maxplaytime</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">90.51</td>
-<td align="right">534.83</td>
-<td align="right">0</td>
-<td align="right">25.0</td>
-<td align="right">45</td>
-<td align="right">90.0</td>
-<td align="right">60000</td>
-<td align="left">▇▁▁▁▁</td>
+<tr>
+<td style="text-align:left">maxplaytime</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">90.51</td>
+<td style="text-align:right">534.83</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">25.0</td>
+<td style="text-align:right">45</td>
+<td style="text-align:right">90.0</td>
+<td style="text-align:right">60000</td>
+<td style="text-align:left">▇▁▁▁▁</td>
 </tr>
-<tr class="odd">
-<td align="left">minage</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">9.61</td>
-<td align="right">3.64</td>
-<td align="right">0</td>
-<td align="right">8.0</td>
-<td align="right">10</td>
-<td align="right">12.0</td>
-<td align="right">25</td>
-<td align="left">▂▇▆▁▁</td>
+<tr>
+<td style="text-align:left">minage</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">9.61</td>
+<td style="text-align:right">3.64</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">8.0</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">12.0</td>
+<td style="text-align:right">25</td>
+<td style="text-align:left">▂▇▆▁▁</td>
 </tr>
-<tr class="even">
-<td align="left">owned</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1487.92</td>
-<td align="right">5395.08</td>
-<td align="right">0</td>
-<td align="right">150.0</td>
-<td align="right">322</td>
-<td align="right">903.5</td>
-<td align="right">168364</td>
-<td align="left">▇▁▁▁▁</td>
+<tr>
+<td style="text-align:left">owned</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1487.92</td>
+<td style="text-align:right">5395.08</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">150.0</td>
+<td style="text-align:right">322</td>
+<td style="text-align:right">903.5</td>
+<td style="text-align:right">168364</td>
+<td style="text-align:left">▇▁▁▁▁</td>
 </tr>
-<tr class="odd">
-<td align="left">trading</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">43.59</td>
-<td align="right">102.41</td>
-<td align="right">0</td>
-<td align="right">5.0</td>
-<td align="right">13</td>
-<td align="right">38.0</td>
-<td align="right">2508</td>
-<td align="left">▇▁▁▁▁</td>
+<tr>
+<td style="text-align:left">trading</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">43.59</td>
+<td style="text-align:right">102.41</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">5.0</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">38.0</td>
+<td style="text-align:right">2508</td>
+<td style="text-align:left">▇▁▁▁▁</td>
 </tr>
-<tr class="even">
-<td align="left">wanting</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">42.03</td>
-<td align="right">117.94</td>
-<td align="right">0</td>
-<td align="right">3.0</td>
-<td align="right">9</td>
-<td align="right">29.0</td>
-<td align="right">2011</td>
-<td align="left">▇▁▁▁▁</td>
+<tr>
+<td style="text-align:left">wanting</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">42.03</td>
+<td style="text-align:right">117.94</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">3.0</td>
+<td style="text-align:right">9</td>
+<td style="text-align:right">29.0</td>
+<td style="text-align:right">2011</td>
+<td style="text-align:left">▇▁▁▁▁</td>
 </tr>
-<tr class="odd">
-<td align="left">wishing</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">233.66</td>
-<td align="right">800.66</td>
-<td align="right">0</td>
-<td align="right">14.0</td>
-<td align="right">39</td>
-<td align="right">131.0</td>
-<td align="right">19325</td>
-<td align="left">▇▁▁▁▁</td>
+<tr>
+<td style="text-align:left">wishing</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">233.66</td>
+<td style="text-align:right">800.66</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">14.0</td>
+<td style="text-align:right">39</td>
+<td style="text-align:right">131.0</td>
+<td style="text-align:right">19325</td>
+<td style="text-align:left">▇▁▁▁▁</td>
 </tr>
 </tbody>
 </table>
 <p>Looks like there are 200 games missing descriptions:</p>
-<pre class="r"><code>ratings %&gt;%
-  anti_join(., details, by = c(&quot;id&quot;)) %&gt;%
-  nrow()</code></pre>
-<pre><code>## [1] 200</code></pre>
-<p>The distribution of the outcome variable, ratings, is somewhat normally distributed with a mean rating of 6.42 out of 10.</p>
-<pre class="r"><code>n_games &lt;- 
-  ratings %&gt;% 
-  distinct(name) %&gt;% 
-  nrow()
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ratings <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">anti_join</span>(., details, by <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;id&#34;</span>)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">nrow</span>()
+</code></pre></div><pre tabindex="0"><code>## [1] 200
+</code></pre><p>The distribution of the outcome variable, ratings, is somewhat normally distributed with a mean rating of 6.42 out of 10.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">n_games <span style="color:#555">&lt;-</span> 
+  ratings <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">distinct</span>(name) <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">nrow</span>()
 
-overall_avg &lt;- 
-  ratings %&gt;% 
-  summarise(mean_rating = mean(average, na.rm = T)) %&gt;%
-  pull(mean_rating)
+overall_avg <span style="color:#555">&lt;-</span> 
+  ratings <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">summarise</span>(mean_rating <span style="color:#555">=</span> <span style="color:#c0f">mean</span>(average, na.rm <span style="color:#555">=</span> T)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">pull</span>(mean_rating)
 
-ratings %&gt;%
-  ggplot(aes(x = average)) + 
-  geom_histogram(alpha = .75, fill = bg_green) + 
-  bg_theme(base_size = 13) + 
-  geom_vline(aes(xintercept = mean(average)), linetype = &#39;dashed&#39;) + 
-  scale_y_continuous(expand = c(0, 25), breaks = seq(0, 3000, 100)) + 
-  labs(x = &quot;rating&quot;, y = &#39;&#39;, title =  paste(&quot;rating distribution of&quot;, format(n_games, big.mark = &#39;,&#39;),
-                                            &quot;games&quot;),
-       subtitle = paste(&quot;overall avg rating:&quot;, round(overall_avg, 2)))</code></pre>
-<p><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-7-1.png" width="864" /></p>
+ratings <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">ggplot</span>(<span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> average)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_histogram</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.75</span>, fill <span style="color:#555">=</span> bg_green) <span style="color:#555">+</span> 
+  <span style="color:#c0f">bg_theme</span>(base_size <span style="color:#555">=</span> <span style="color:#f60">13</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_vline</span>(<span style="color:#c0f">aes</span>(xintercept <span style="color:#555">=</span> <span style="color:#c0f">mean</span>(average)), linetype <span style="color:#555">=</span> <span style="color:#c30">&#39;dashed&#39;</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">scale_y_continuous</span>(expand <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#f60">0</span>, <span style="color:#f60">25</span>), breaks <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">0</span>, <span style="color:#f60">3000</span>, <span style="color:#f60">100</span>)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">labs</span>(x <span style="color:#555">=</span> <span style="color:#c30">&#34;rating&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#39;&#39;</span>, title <span style="color:#555">=</span>  <span style="color:#c0f">paste</span>(<span style="color:#c30">&#34;rating distribution of&#34;</span>, <span style="color:#c0f">format</span>(n_games, big.mark <span style="color:#555">=</span> <span style="color:#c30">&#39;,&#39;</span>),
+                                            <span style="color:#c30">&#34;games&#34;</span>),
+       subtitle <span style="color:#555">=</span> <span style="color:#c0f">paste</span>(<span style="color:#c30">&#34;overall avg rating:&#34;</span>, <span style="color:#c0f">round</span>(overall_avg, <span style="color:#f60">2</span>)))
+</code></pre></div><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-7-1.png" width="864" />
 <p>Here we can dive into the category column. First we combine the ratings data with the details and then tokenize the category column into individual rows per category descriptor. This wirll help form the basis of the text recipe developed later on.</p>
-<pre class="r"><code>combined &lt;- 
-  ratings %&gt;%
-  inner_join(., details %&gt;% select(-num), by = c(&quot;id&quot;)) %&gt;%
-  select(-c(url, rank, bayes_average, users_rated, yearpublished, thumbnail, primary,
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">combined <span style="color:#555">&lt;-</span> 
+  ratings <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">inner_join</span>(., details <span style="color:#555">%&gt;%</span> <span style="color:#c0f">select</span>(<span style="color:#555">-</span>num), by <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;id&#34;</span>)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">select</span>(<span style="color:#555">-</span><span style="color:#c0f">c</span>(url, rank, bayes_average, users_rated, yearpublished, thumbnail, primary,
             boardgameexpansion, boardgameimplementation, boardgamedesigner, description,
             boardgamepublisher,boardgameartist, boardgamefamily, boardgamemechanic,
-            owned, trading, wanting, wishing, minplaytime, maxplaytime, year)) %&gt;%
-  select(num, id, name, average, boardgamecategory, everything()) %&gt;%
-  rename(category = boardgamecategory) %&gt;%
-  mutate(category = str_remove_all(category, &quot;&#39;&quot;),
-         category = str_remove_all(category, &#39;&quot;&#39;),
-         category = str_replace_all(category, &quot;\\[|\\]&quot;, &quot;&quot;),
-         category = trimws(category)) %&gt;%
-  filter(!(is.na(category)))
+            owned, trading, wanting, wishing, minplaytime, maxplaytime, year)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">select</span>(num, id, name, average, boardgamecategory, <span style="color:#c0f">everything</span>()) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">rename</span>(category <span style="color:#555">=</span> boardgamecategory) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">mutate</span>(category <span style="color:#555">=</span> <span style="color:#c0f">str_remove_all</span>(category, <span style="color:#c30">&#34;&#39;&#34;</span>),
+         category <span style="color:#555">=</span> <span style="color:#c0f">str_remove_all</span>(category, <span style="color:#c30">&#39;&#34;&#39;</span>),
+         category <span style="color:#555">=</span> <span style="color:#c0f">str_replace_all</span>(category, <span style="color:#c30">&#34;\\[|\\]&#34;</span>, <span style="color:#c30">&#34;&#34;</span>),
+         category <span style="color:#555">=</span> <span style="color:#c0f">trimws</span>(category)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(<span style="color:#555">!</span>(<span style="color:#c0f">is.na</span>(category)))
 
-tidy_category &lt;-
-  combined %&gt;%
-  unnest_tokens(word, category)
+tidy_category <span style="color:#555">&lt;-</span>
+  combined <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">unnest_tokens</span>(word, category)
 
-tidy_category %&gt;%
-  count(word, sort = TRUE)</code></pre>
-<pre><code>## # A tibble: 113 × 2
+tidy_category <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">count</span>(word, sort <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>)
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 113 × 2
 ##    word         n
 ##    &lt;chr&gt;    &lt;int&gt;
 ##  1 game     10882
@@ -682,52 +691,59 @@ tidy_category %&gt;%
 ##  8 fiction   1666
 ##  9 science   1666
 ## 10 fighting  1658
-## # … with 103 more rows</code></pre>
-<p>Since we are also including non-text data in the model, we should explore those predictors as well. The function below iterates over the numeric columns and checks the relationship between the numeric columns with the average rating. There are a number of outliers that need to be handled to make the plots more meaningful.</p>
-<pre class="r"><code>get_scatter &lt;- 
-  function(data, var){
+## # … with 103 more rows
+</code></pre><p>Since we are also including non-text data in the model, we should explore those predictors as well. The function below iterates over the numeric columns and checks the relationship between the numeric columns with the average rating. There are a number of outliers that need to be handled to make the plots more meaningful.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">get_scatter <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">function</span>(data, var){
     
-    variable_filter &lt;- 
-      if (var == &quot;maxplayers&quot;){
-        25
-      } else if (var == &quot;playingtime&quot;){
-        500
+    variable_filter <span style="color:#555">&lt;-</span> 
+      <span style="color:#c0f">if </span>(var <span style="color:#555">==</span> <span style="color:#c30">&#34;maxplayers&#34;</span>){
+        <span style="color:#f60">25</span>
+      } else <span style="color:#c0f">if </span>(var <span style="color:#555">==</span> <span style="color:#c30">&#34;playingtime&#34;</span>){
+        <span style="color:#f60">500</span>
       } else {
-        10000000
+        <span style="color:#f60">10000000</span>
       }
     
-    data %&gt;%
-      select(average, one_of({{var}})) %&gt;%
-      rename(variable = 2) %&gt;%
-      filter(variable &lt;= variable_filter) %&gt;%
-      ggplot(., aes(x = average, y = variable)) +
-      geom_point(alpha = .3, color = bg_green) + 
-      bg_theme(base_size = 13) +
-      labs(x = &quot;avg rating&quot;, y = var, title = paste(var, &quot;vs average rating&quot;))
+    data <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">select</span>(average, <span style="color:#c0f">one_of</span>({{var}})) <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">rename</span>(variable <span style="color:#555">=</span> <span style="color:#f60">2</span>) <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">filter</span>(variable <span style="color:#555">&lt;=</span> variable_filter) <span style="color:#555">%&gt;%</span>
+      <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> average, y <span style="color:#555">=</span> variable)) <span style="color:#555">+</span>
+      <span style="color:#c0f">geom_point</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.3</span>, color <span style="color:#555">=</span> bg_green) <span style="color:#555">+</span> 
+      <span style="color:#c0f">bg_theme</span>(base_size <span style="color:#555">=</span> <span style="color:#f60">13</span>) <span style="color:#555">+</span>
+      <span style="color:#c0f">labs</span>(x <span style="color:#555">=</span> <span style="color:#c30">&#34;avg rating&#34;</span>, y <span style="color:#555">=</span> var, title <span style="color:#555">=</span> <span style="color:#c0f">paste</span>(var, <span style="color:#c30">&#34;vs average rating&#34;</span>))
 
   }
 
-numeric_cols &lt;- 
-  combined %&gt;%
-  select(where(is.numeric)) %&gt;%
-  select(-c(id, num, average)) %&gt;%
+numeric_cols <span style="color:#555">&lt;-</span> 
+  combined <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">select</span>(<span style="color:#c0f">where</span>(is.numeric)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">select</span>(<span style="color:#555">-</span><span style="color:#c0f">c</span>(id, num, average)) <span style="color:#555">%&gt;%</span>
   names
 
-purrr::map(numeric_cols, ~get_scatter(combined, .x))</code></pre>
-<pre><code>## [[1]]</code></pre>
-<p><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-9-1.png" width="864" /></p>
-<pre><code>## 
-## [[2]]</code></pre>
-<p><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-9-2.png" width="864" /></p>
-<pre><code>## 
-## [[3]]</code></pre>
-<p><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-9-3.png" width="864" /></p>
-<pre><code>## 
-## [[4]]</code></pre>
-<p><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-9-4.png" width="864" /></p>
-</div>
-<div id="create-some-models" class="section level2">
-<h2>Create Some Models</h2>
+purrr<span style="color:#555">::</span><span style="color:#c0f">map</span>(numeric_cols, <span style="color:#555">~</span><span style="color:#c0f">get_scatter</span>(combined, .x))
+</code></pre></div><pre tabindex="0"><code>## [[1]]
+</code></pre><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-9-1.png" width="864" />
+<pre tabindex="0"><code>## 
+## [[2]]
+</code></pre><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-9-2.png" width="864" />
+<pre tabindex="0"><code>## 
+## [[3]]
+</code></pre><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-9-3.png" width="864" />
+<pre tabindex="0"><code>## 
+## [[4]]
+</code></pre><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-9-4.png" width="864" />
+
+
+
+
+<h2 id="create-some-models">Create Some Models
+  <a href="#create-some-models"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h2>
 <p>To prep the text data for modeling we can create a matrix with each words TF-IDf value. From the <code>step_tfidf()</code> documentation:</p>
 <blockquote>
 <p>Term frequency-inverse document frequency is the product of two statistics: the term frequency (TF) and the inverse document frequency (IDF).</p>
@@ -735,17 +751,17 @@ purrr::map(numeric_cols, ~get_scatter(combined, .x))</code></pre>
 <p>Inverse document frequency is a measure of how informative a word is, e.g., how common or rare the word is across all the observations. If a word &gt;appears in all the observations it might not give that much insight, but if it only appears in some it might help differentiate between observations.</p>
 <p>The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / (# documents where the term appears))</p>
 </blockquote>
-<p>Normally we’d used <code>step_tokenfilter()</code> as well, but there are not that many categories so we can use all 113. The important step here is to prep() the recipe and then bake() the results. This sequence of functions applies and executes the recipe, and returns a dataframe ready to be joined with the other predictors.</p>
-<pre class="r"><code>text_prep &lt;- 
-  recipe(average ~ num + id + name + category, data = combined) %&gt;%
-  update_role(num, id, name, new_role = &quot;ID variables&quot;) %&gt;%
-  step_tokenize(category) %&gt;%
-  step_tfidf(category) %&gt;%
-  prep() %&gt;%
-  bake(new_data = NULL)
+<p>Normally we&rsquo;d used <code>step_tokenfilter()</code> as well, but there are not that many categories so we can use all 113. The important step here is to prep() the recipe and then bake() the results. This sequence of functions applies and executes the recipe, and returns a dataframe ready to be joined with the other predictors.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">text_prep <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">recipe</span>(average <span style="color:#555">~</span> num <span style="color:#555">+</span> id <span style="color:#555">+</span> name <span style="color:#555">+</span> category, data <span style="color:#555">=</span> combined) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">update_role</span>(num, id, name, new_role <span style="color:#555">=</span> <span style="color:#c30">&#34;ID variables&#34;</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">step_tokenize</span>(category) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">step_tfidf</span>(category) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">prep</span>() <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">bake</span>(new_data <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">NULL</span>)
 
-text_prep</code></pre>
-<pre><code>## # A tibble: 21,348 × 117
+text_prep
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 21,348 × 117
 ##      num     id name  average tfidf_category_… tfidf_category_… tfidf_category_…
 ##    &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
 ##  1   105  30549 Pand…    7.59                0                0                0
@@ -764,14 +780,14 @@ text_prep</code></pre>
 ## #   tfidf_category_ancient &lt;dbl&gt;, tfidf_category_and &lt;dbl&gt;,
 ## #   tfidf_category_animals &lt;dbl&gt;, tfidf_category_arabian &lt;dbl&gt;,
 ## #   tfidf_category_aviation &lt;dbl&gt;, tfidf_category_base &lt;dbl&gt;,
-## #   tfidf_category_based &lt;dbl&gt;, tfidf_category_bluffing &lt;dbl&gt;, …</code></pre>
-<pre class="r"><code>model_data &lt;- 
-  combined %&gt;%
-  select(-category) %&gt;%
-  left_join(., text_prep %&gt;% select(-c(num, name, average)), &quot;id&quot;) 
+## #   tfidf_category_based &lt;dbl&gt;, tfidf_category_bluffing &lt;dbl&gt;, …
+</code></pre><div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">model_data <span style="color:#555">&lt;-</span> 
+  combined <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">select</span>(<span style="color:#555">-</span>category) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">left_join</span>(., text_prep <span style="color:#555">%&gt;%</span> <span style="color:#c0f">select</span>(<span style="color:#555">-</span><span style="color:#c0f">c</span>(num, name, average)), <span style="color:#c30">&#34;id&#34;</span>) 
 
-model_data</code></pre>
-<pre><code>## # A tibble: 21,348 × 121
+model_data
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 21,348 × 121
 ##      num     id name            average minplayers maxplayers playingtime minage
 ##    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;
 ##  1   105  30549 Pandemic           7.59          2          4          45      8
@@ -790,64 +806,64 @@ model_data</code></pre>
 ## #   tfidf_category_age &lt;dbl&gt;, tfidf_category_agents &lt;dbl&gt;,
 ## #   tfidf_category_american &lt;dbl&gt;, tfidf_category_ancient &lt;dbl&gt;,
 ## #   tfidf_category_and &lt;dbl&gt;, tfidf_category_animals &lt;dbl&gt;,
-## #   tfidf_category_arabian &lt;dbl&gt;, tfidf_category_aviation &lt;dbl&gt;, …</code></pre>
-<p>Then we prep for modelling by creating splits, resamples, model specifications, recipes (several to compare), and the workflowset:</p>
-<pre class="r"><code>set.seed(113)
-splits &lt;- 
-  model_data %&gt;%
-  initial_split(strata = average)
+## #   tfidf_category_arabian &lt;dbl&gt;, tfidf_category_aviation &lt;dbl&gt;, …
+</code></pre><p>Then we prep for modelling by creating splits, resamples, model specifications, recipes (several to compare), and the workflowset:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#c0f">set.seed</span>(<span style="color:#f60">113</span>)
+splits <span style="color:#555">&lt;-</span> 
+  model_data <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">initial_split</span>(strata <span style="color:#555">=</span> average)
 
-train &lt;-
-  training(splits)
-test &lt;-
-  testing(splits)
+train <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">training</span>(splits)
+test <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">testing</span>(splits)
 
-folds &lt;- 
-  vfold_cv(train, strata = average)</code></pre>
-<p>3 recipes are created here with the goal of seeing which combination works the best: one with the just text features, <code>recipe_text</code> and one without any text features, <code>recipe_no_text</code> and then one with all features, <code>recipe_all</code>.</p>
-<pre class="r"><code>recipe_all &lt;- 
-  recipe(average ~ ., data = train) %&gt;%
-  update_role(num, id, name, new_role = &quot;ID variables&quot;) %&gt;%
-  step_normalize(minplayers, maxplayers, playingtime, minage)
+folds <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">vfold_cv</span>(train, strata <span style="color:#555">=</span> average)
+</code></pre></div><p>3 recipes are created here with the goal of seeing which combination works the best: one with the just text features, <code>recipe_text</code> and one without any text features, <code>recipe_no_text</code> and then one with all features, <code>recipe_all</code>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">recipe_all <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">recipe</span>(average <span style="color:#555">~</span> ., data <span style="color:#555">=</span> train) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">update_role</span>(num, id, name, new_role <span style="color:#555">=</span> <span style="color:#c30">&#34;ID variables&#34;</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">step_normalize</span>(minplayers, maxplayers, playingtime, minage)
 
-recipe_text &lt;- 
-  recipe_all %&gt;%
-  step_rm(minplayers, maxplayers, playingtime, minage)
+recipe_text <span style="color:#555">&lt;-</span> 
+  recipe_all <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">step_rm</span>(minplayers, maxplayers, playingtime, minage)
 
-recipe_no_text &lt;- 
-  recipe_all %&gt;%
-  step_rm(starts_with(&#39;tfidf&#39;))</code></pre>
-<pre class="r"><code>svm_spec &lt;-
-  svm_linear(cost = tune(),
-             margin = tune()
-  ) %&gt;%
-  set_mode(&quot;regression&quot;) %&gt;%
-  set_engine(&quot;LiblineaR&quot;)
+recipe_no_text <span style="color:#555">&lt;-</span> 
+  recipe_all <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">step_rm</span>(<span style="color:#c0f">starts_with</span>(<span style="color:#c30">&#39;tfidf&#39;</span>))
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">svm_spec <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">svm_linear</span>(cost <span style="color:#555">=</span> <span style="color:#c0f">tune</span>(),
+             margin <span style="color:#555">=</span> <span style="color:#c0f">tune</span>()
+  ) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">set_mode</span>(<span style="color:#c30">&#34;regression&#34;</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">set_engine</span>(<span style="color:#c30">&#34;LiblineaR&#34;</span>)
 
-lasso_spec &lt;- 
-  parsnip::linear_reg(penalty = tune(), 
-                      mixture = 1) %&gt;%
-  set_engine(&quot;glmnet&quot;)
+lasso_spec <span style="color:#555">&lt;-</span> 
+  parsnip<span style="color:#555">::</span><span style="color:#c0f">linear_reg</span>(penalty <span style="color:#555">=</span> <span style="color:#c0f">tune</span>(), 
+                      mixture <span style="color:#555">=</span> <span style="color:#f60">1</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">set_engine</span>(<span style="color:#c30">&#34;glmnet&#34;</span>)
 
-mars_spec &lt;- 
-  parsnip::mars(num_terms = tune(),
-                prod_degree = tune()) %&gt;%
-  set_mode(&#39;regression&#39;) %&gt;%
-  set_engine(&quot;earth&quot;)
+mars_spec <span style="color:#555">&lt;-</span> 
+  parsnip<span style="color:#555">::</span><span style="color:#c0f">mars</span>(num_terms <span style="color:#555">=</span> <span style="color:#c0f">tune</span>(),
+                prod_degree <span style="color:#555">=</span> <span style="color:#c0f">tune</span>()) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">set_mode</span>(<span style="color:#c30">&#39;regression&#39;</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">set_engine</span>(<span style="color:#c30">&#34;earth&#34;</span>)
 
-workflows &lt;- 
-  workflow_set(
-    preproc = list(recipe_all = recipe_all,
-                   recipe_text = recipe_text,
-                   recipe_numeric = recipe_no_text), 
-    models = list(svm = svm_spec,
-                  lasso = lasso_spec,
-                  mars = mars_spec
+workflows <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">workflow_set</span>(
+    preproc <span style="color:#555">=</span> <span style="color:#c0f">list</span>(recipe_all <span style="color:#555">=</span> recipe_all,
+                   recipe_text <span style="color:#555">=</span> recipe_text,
+                   recipe_numeric <span style="color:#555">=</span> recipe_no_text), 
+    models <span style="color:#555">=</span> <span style="color:#c0f">list</span>(svm <span style="color:#555">=</span> svm_spec,
+                  lasso <span style="color:#555">=</span> lasso_spec,
+                  mars <span style="color:#555">=</span> mars_spec
     ),
-    cross = TRUE)
+    cross <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>)
 
-workflows</code></pre>
-<pre><code>## # A workflow set/tibble: 9 × 4
+workflows
+</code></pre></div><pre tabindex="0"><code>## # A workflow set/tibble: 9 × 4
 ##   wflow_id             info             option    result    
 ##   &lt;chr&gt;                &lt;list&gt;           &lt;list&gt;    &lt;list&gt;    
 ## 1 recipe_all_svm       &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
@@ -858,86 +874,85 @@ workflows</code></pre>
 ## 6 recipe_text_mars     &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
 ## 7 recipe_numeric_svm   &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
 ## 8 recipe_numeric_lasso &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
-## 9 recipe_numeric_mars  &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;</code></pre>
-<p>Here we compare the model performance. It looks like the lasso models with the full set of predictors performs the best (circles) and the models without the category text performed the worst (triangles)</p>
-<pre class="r"><code>grid_ctrl &lt;-
-  control_grid(
-    save_pred = TRUE,
-    allow_par = TRUE,
-    parallel_over = &quot;everything&quot;,
-    verbose = TRUE
+## 9 recipe_numeric_mars  &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
+</code></pre><p>Here we compare the model performance. It looks like the lasso models with the full set of predictors performs the best (circles) and the models without the category text performed the worst (triangles)</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">grid_ctrl <span style="color:#555">&lt;-</span>
+  <span style="color:#c0f">control_grid</span>(
+    save_pred <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
+    allow_par <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
+    parallel_over <span style="color:#555">=</span> <span style="color:#c30">&#34;everything&#34;</span>,
+    verbose <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>
   )
 
-cl &lt;- 
-  makeCluster(10)
+cl <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">makeCluster</span>(<span style="color:#f60">10</span>)
 
-doParallel::registerDoParallel(cl)
+doParallel<span style="color:#555">::</span><span style="color:#c0f">registerDoParallel</span>(cl)
 
-results &lt;- 
-  workflow_map(fn = &quot;tune_grid&quot;,
-               object = workflows,
-               seed = 155,
-               verbose = TRUE,
-               control = grid_ctrl,
-               grid = 10, 
-               resamples = folds,
-               metrics = metric_set(rmse, mae)
+results <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">workflow_map</span>(fn <span style="color:#555">=</span> <span style="color:#c30">&#34;tune_grid&#34;</span>,
+               object <span style="color:#555">=</span> workflows,
+               seed <span style="color:#555">=</span> <span style="color:#f60">155</span>,
+               verbose <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
+               control <span style="color:#555">=</span> grid_ctrl,
+               grid <span style="color:#555">=</span> <span style="color:#f60">10</span>, 
+               resamples <span style="color:#555">=</span> folds,
+               metrics <span style="color:#555">=</span> <span style="color:#c0f">metric_set</span>(rmse, mae)
   )
 
-stopCluster(cl)</code></pre>
-<pre class="r"><code>rank_results(results, select_best = T) %&gt;% 
-  mutate(model = ifelse(str_detect(wflow_id, &quot;lasso&quot;), &quot;lasso&quot;, model),
-         recipe_type = case_when(
-           str_detect(wflow_id, &quot;text&quot;) ~ &quot;text_recipe&quot;,
-           str_detect(wflow_id, &quot;all&quot;) ~ &quot;full recipe&quot;,
-           TRUE ~ &quot;no_text_recipe&quot;)) %&gt;%
-  filter(.metric == &#39;rmse&#39;) %&gt;%
-  ggplot(.,aes(x = rank,  y = mean, color = model, shape = recipe_type)) +
-  geom_errorbar(aes(ymin = mean - std_err, ymax = mean + std_err)) + 
-  geom_point(size = 3, alpha = .75) + 
-  labs(title = &quot;Model Performance Across Recipes&quot;, subtitle = &quot;metric: RMSE&quot;) + 
-  bg_theme(base_size = 13) + 
-  ggsci::scale_color_npg()</code></pre>
-<p><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-16-1.png" width="864" /></p>
-<p>The predicted vs actual performance of the “best” model is not very good. But oh well, and anyway the goal of this post was to combine text data and non-text data into a model.</p>
-<pre class="r"><code>best_results &lt;- 
-   results %&gt;% 
-   extract_workflow_set_result(&quot;recipe_all_lasso&quot;) %&gt;% 
-   select_best(metric = &quot;rmse&quot;)
+<span style="color:#c0f">stopCluster</span>(cl)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#c0f">rank_results</span>(results, select_best <span style="color:#555">=</span> T) <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">mutate</span>(model <span style="color:#555">=</span> <span style="color:#c0f">ifelse</span>(<span style="color:#c0f">str_detect</span>(wflow_id, <span style="color:#c30">&#34;lasso&#34;</span>), <span style="color:#c30">&#34;lasso&#34;</span>, model),
+         recipe_type <span style="color:#555">=</span> <span style="color:#c0f">case_when</span>(
+           <span style="color:#c0f">str_detect</span>(wflow_id, <span style="color:#c30">&#34;text&#34;</span>) <span style="color:#555">~</span> <span style="color:#c30">&#34;text_recipe&#34;</span>,
+           <span style="color:#c0f">str_detect</span>(wflow_id, <span style="color:#c30">&#34;all&#34;</span>) <span style="color:#555">~</span> <span style="color:#c30">&#34;full recipe&#34;</span>,
+           <span style="color:#069;font-weight:bold">TRUE</span> <span style="color:#555">~</span> <span style="color:#c30">&#34;no_text_recipe&#34;</span>)) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">filter</span>(.metric <span style="color:#555">==</span> <span style="color:#c30">&#39;rmse&#39;</span>) <span style="color:#555">%&gt;%</span>
+  <span style="color:#c0f">ggplot</span>(<span style="color:#c0f">.,aes</span>(x <span style="color:#555">=</span> rank,  y <span style="color:#555">=</span> mean, color <span style="color:#555">=</span> model, shape <span style="color:#555">=</span> recipe_type)) <span style="color:#555">+</span>
+  <span style="color:#c0f">geom_errorbar</span>(<span style="color:#c0f">aes</span>(ymin <span style="color:#555">=</span> mean <span style="color:#555">-</span> std_err, ymax <span style="color:#555">=</span> mean <span style="color:#555">+</span> std_err)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_point</span>(size <span style="color:#555">=</span> <span style="color:#f60">3</span>, alpha <span style="color:#555">=</span> <span style="color:#f60">.75</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">labs</span>(title <span style="color:#555">=</span> <span style="color:#c30">&#34;Model Performance Across Recipes&#34;</span>, subtitle <span style="color:#555">=</span> <span style="color:#c30">&#34;metric: RMSE&#34;</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">bg_theme</span>(base_size <span style="color:#555">=</span> <span style="color:#f60">13</span>) <span style="color:#555">+</span> 
+  ggsci<span style="color:#555">::</span><span style="color:#c0f">scale_color_npg</span>()
+</code></pre></div><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-16-1.png" width="864" />
+<p>The predicted vs actual performance of the &ldquo;best&rdquo; model is not very good. But oh well, and anyway the goal of this post was to combine text data and non-text data into a model.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">best_results <span style="color:#555">&lt;-</span> 
+   results <span style="color:#555">%&gt;%</span> 
+   <span style="color:#c0f">extract_workflow_set_result</span>(<span style="color:#c30">&#34;recipe_all_lasso&#34;</span>) <span style="color:#555">%&gt;%</span> 
+   <span style="color:#c0f">select_best</span>(metric <span style="color:#555">=</span> <span style="color:#c30">&#34;rmse&#34;</span>)
 
-best_results</code></pre>
-<pre><code>## # A tibble: 1 × 2
+best_results
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 1 × 2
 ##   penalty .config              
 ##     &lt;dbl&gt; &lt;fct&gt;                
-## 1 0.00350 Preprocessor1_Model08</code></pre>
-<pre class="r"><code>cl &lt;- 
-  makeCluster(10)
+## 1 0.00350 Preprocessor1_Model08
+</code></pre><div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cl <span style="color:#555">&lt;-</span> 
+  <span style="color:#c0f">makeCluster</span>(<span style="color:#f60">10</span>)
 
-test_results &lt;- 
-   results %&gt;% 
-   extract_workflow(&quot;recipe_all_lasso&quot;) %&gt;% 
-   finalize_workflow(best_results) %&gt;% 
-   last_fit(split = splits)
+test_results <span style="color:#555">&lt;-</span> 
+   results <span style="color:#555">%&gt;%</span> 
+   <span style="color:#c0f">extract_workflow</span>(<span style="color:#c30">&#34;recipe_all_lasso&#34;</span>) <span style="color:#555">%&gt;%</span> 
+   <span style="color:#c0f">finalize_workflow</span>(best_results) <span style="color:#555">%&gt;%</span> 
+   <span style="color:#c0f">last_fit</span>(split <span style="color:#555">=</span> splits)
 
-collect_metrics(test_results)</code></pre>
-<pre><code>## # A tibble: 2 × 4
+<span style="color:#c0f">collect_metrics</span>(test_results)
+</code></pre></div><pre tabindex="0"><code>## # A tibble: 2 × 4
 ##   .metric .estimator .estimate .config             
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;fct&gt;               
 ## 1 rmse    standard       0.822 Preprocessor1_Model1
-## 2 rsq     standard       0.215 Preprocessor1_Model1</code></pre>
-<pre class="r"><code>stopCluster(cl)
+## 2 rsq     standard       0.215 Preprocessor1_Model1
+</code></pre><div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#c0f">stopCluster</span>(cl)
 
-test_results %&gt;% 
-  collect_predictions() %&gt;% 
-  ggplot(aes(x = average, y = .pred)) + 
-  geom_abline(col = &quot;#e64b35&quot;, lty = 2) + 
-  geom_point(alpha = 0.35, color = &quot;#00a087&quot;) + 
-  coord_obs_pred() + 
-  labs(x = &quot;observed&quot;, y = &quot;predicted&quot;) + 
-  bg_theme(base_size = 13) + 
-  ggsci::scale_color_npg()</code></pre>
-<p><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-17-1.png" width="864" /></p>
-</div>
+test_results <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">collect_predictions</span>() <span style="color:#555">%&gt;%</span> 
+  <span style="color:#c0f">ggplot</span>(<span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> average, y <span style="color:#555">=</span> .pred)) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_abline</span>(col <span style="color:#555">=</span> <span style="color:#c30">&#34;#e64b35&#34;</span>, lty <span style="color:#555">=</span> <span style="color:#f60">2</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">geom_point</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">0.35</span>, color <span style="color:#555">=</span> <span style="color:#c30">&#34;#00a087&#34;</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">coord_obs_pred</span>() <span style="color:#555">+</span> 
+  <span style="color:#c0f">labs</span>(x <span style="color:#555">=</span> <span style="color:#c30">&#34;observed&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#34;predicted&#34;</span>) <span style="color:#555">+</span> 
+  <span style="color:#c0f">bg_theme</span>(base_size <span style="color:#555">=</span> <span style="color:#f60">13</span>) <span style="color:#555">+</span> 
+  ggsci<span style="color:#555">::</span><span style="color:#c0f">scale_color_npg</span>()
+</code></pre></div><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-17-1.png" width="864" />
 
         
         <details closed class="f6 fw7 input-reset">
@@ -965,7 +980,7 @@ test_results %&gt;%
   <dl class="f6 lh-copy">
     <dt class="fw7">See Also:</dt>
     
-    <dd class="fw5 ml0"><a href="/blog/dogs/">learning some topic modeling with dog breed traits</a></dd>
+    <dd class="fw5 ml0"><a href="/blog/dogs/">Getting started with topic modeling with dog breed traits</a></dd>
     
     <dd class="fw5 ml0"><a href="/blog/chocolate-ratings/">Comparing Traditional and Text-Based Models to Predict Chocolate Rating</a></dd>
     
@@ -980,7 +995,7 @@ test_results %&gt;%
   
   
     <a class="prev dtc pr2 tl v-top fw6"
-    href="https://brendangraham.online/blog/dogs/">&larr; learning some topic modeling with dog breed traits</a>
+    href="https://brendangraham.online/blog/dogs/">&larr; Getting started with topic modeling with dog breed traits</a>
   
   
   

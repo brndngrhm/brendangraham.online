@@ -124,7 +124,7 @@ enableEmoji = true
   [[menu.header]]
     name = "Art"
     title = "Art"
-    url = "/art/"
+    url = "/project/"
     weight = 4
   [[menu.header]]
     name = "Talks"

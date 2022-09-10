@@ -9,10 +9,10 @@
     <lastBuildDate>Tue, 26 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/tags/cycling-analytics/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RideTracker</title>
-      <link>https://brendangraham.online/project/ride_tracker/</link>
+      <link>https://brendangraham.online/blog/ride-tracker/</link>
       <pubDate>Tue, 26 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/project/ride_tracker/</guid>
+      <guid>https://brendangraham.online/blog/ride-tracker/</guid>
       <description>Data viz project tracking my cycling habits</description>
     </item>
     

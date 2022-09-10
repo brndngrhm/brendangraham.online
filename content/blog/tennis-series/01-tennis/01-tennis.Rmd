@@ -116,7 +116,7 @@ The next step is to clean and prep the data for analysis.
 
 ### Match data
 
-The matches dataset has a ton of missing data, so we can ignore most columns. Also, we cab deconstruct `match_num` to extract meaningful match metadata. For example, the first number seems to indicate a mens match (1) vs a womens match (2), the 2nd number is the round in which the match took place and the last 2 numbers are the match number. The `format_matches` function applies these steps  
+The matches dataset has a ton of missing data, so we have to ignore most columns. Also, we can deconstruct `match_num` to extract meaningful match metadata. For example, the first number seems to indicate a mens match (1) vs a womens match (2), the 2nd number is the round in which the match took place and the last 2 numbers are the match number. The `format_matches` function applies these steps  
 
 ```{r}
 matches
@@ -226,4 +226,4 @@ points
 
 ```
 
-
+Now we're set to actually start analyzing the data in part 2 of this series.

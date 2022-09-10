@@ -8,9 +8,9 @@
  on Brendan Graham</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 01 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>learning some topic modeling with dog breed traits</title>
+      <title>Getting started with topic modeling with dog breed traits</title>
       <link>https://brendangraham.online/blog/dogs/</link>
       <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
       
@@ -67,6 +67,42 @@
       <guid>https://brendangraham.online/blog/starbucks/</guid>
       <description>This post looks at a 
 &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about the contents of various Starbucks drinks. After epxploring the data I model the effect whiped cream has on calories across variosu types of drinks.</description>
+    </item>
+    
+    <item>
+      <title>Wiss Map</title>
+      <link>https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/</guid>
+      <description>parsing XML and using &lt;code&gt;Leaflet&lt;/code&gt; to create interactive maps in R</description>
+    </item>
+    
+    <item>
+      <title>Routeabaga</title>
+      <link>https://brendangraham.online/blog/routeabaga/</link>
+      <pubDate>Fri, 06 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/routeabaga/</guid>
+      <description>Discover new cycling routes</description>
+    </item>
+    
+    <item>
+      <title>Everyone Everywhere Music Analysis Tool</title>
+      <link>https://brendangraham.online/blog/spotify-data/</link>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/spotify-data/</guid>
+      <description>Use the Spotify API to analyze your favorite artists songs</description>
+    </item>
+    
+    <item>
+      <title>RideTracker</title>
+      <link>https://brendangraham.online/blog/ride-tracker/</link>
+      <pubDate>Tue, 26 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/ride-tracker/</guid>
+      <description>Data viz project tracking my cycling habits</description>
     </item>
     
   </channel>

@@ -4,13 +4,10 @@ action_link: /blog
 action_type: text
 description: |
     live on the computer
-# much like the other personal, data science-focused websites but also different
-# engage with how i to present my online self
 # i enjoy building windows with numbers, exploding tennis racket strings and pedaling uphill
-# live on the computer
 image_left: false
 images:
-- img/good_many_bars.jpeg
+- img/good_one_bar.jpeg
 show_action_link: true
 show_social_links: false
 text_align_left: false

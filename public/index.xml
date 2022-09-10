@@ -8,7 +8,16 @@
  on Brendan Graham</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 01 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Wimbledon analysis part 1: get the data</title>
+      <link>https://brendangraham.online/blog/tennis-series/01-tennis/tennis-part1/</link>
+      <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/tennis-series/01-tennis/tennis-part1/</guid>
+      <description>This post is the first in a series on analyzing Wimbledon tournament data.</description>
+    </item>
+    
     <item>
       <title>Netlify</title>
       <link>https://brendangraham.online/collection/day02/01-netlify/</link>
@@ -109,7 +118,25 @@ My content section is: collection  My layout is: single-series   part 2!     doe
     </item>
     
     <item>
-      <title>learning some topic modeling with dog breed traits</title>
+      <title></title>
+      <link>https://brendangraham.online/project/art/</link>
+      <pubDate>Fri, 11 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/art/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://brendangraham.online/project/test/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Getting started with topic modeling with dog breed traits</title>
       <link>https://brendangraham.online/blog/dogs/</link>
       <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
       
@@ -170,10 +197,10 @@ My content section is: collection  My layout is: single-series   part 2!     doe
     
     <item>
       <title>Wiss Map</title>
-      <link>https://brendangraham.online/project/creating-interactive-maps-with-leaflet/</link>
+      <link>https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/</link>
       <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/project/creating-interactive-maps-with-leaflet/</guid>
+      <guid>https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/</guid>
       <description>parsing XML and using &lt;code&gt;Leaflet&lt;/code&gt; to create interactive maps in R</description>
     </item>
     
@@ -246,10 +273,10 @@ Hello! 👋 hello
     
     <item>
       <title>Routeabaga</title>
-      <link>https://brendangraham.online/project/routeabaga/</link>
+      <link>https://brendangraham.online/blog/routeabaga/</link>
       <pubDate>Fri, 06 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/project/routeabaga/</guid>
+      <guid>https://brendangraham.online/blog/routeabaga/</guid>
       <description>Discover new cycling routes</description>
     </item>
     
@@ -264,19 +291,19 @@ Hello! 👋 hello
     
     <item>
       <title>Everyone Everywhere Music Analysis Tool</title>
-      <link>https://brendangraham.online/project/spotify_analyzer/</link>
+      <link>https://brendangraham.online/blog/spotify-data/</link>
       <pubDate>Wed, 27 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/project/spotify_analyzer/</guid>
+      <guid>https://brendangraham.online/blog/spotify-data/</guid>
       <description>Use the Spotify API to analyze your favorite artists songs</description>
     </item>
     
     <item>
       <title>RideTracker</title>
-      <link>https://brendangraham.online/project/ride_tracker/</link>
+      <link>https://brendangraham.online/blog/ride-tracker/</link>
       <pubDate>Tue, 26 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/project/ride_tracker/</guid>
+      <guid>https://brendangraham.online/blog/ride-tracker/</guid>
       <description>Data viz project tracking my cycling habits</description>
     </item>
     
@@ -287,6 +314,25 @@ Hello! 👋 hello
       
       <guid>https://brendangraham.online/default_project/giraffes/</guid>
       <description>Tachyons is a design system that allows you to design gorgeous interfaces in the browser with little effort.      Because Speed     Building this static site generator theme was the first time I used an Atomic (or Functional) CSS system like Tachyons. It&amp;rsquo;s a design system that provides very small (which means fast) CSS modules that you can use in your HTML. So, rather than writing every line of CSS, you apply the style you need as you write your HTML with easy to understand shorthand class names.</description>
+    </item>
+    
+    <item>
+      <title>Palmer Penguins</title>
+      <link>https://brendangraham.online/art/test/</link>
+      <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/art/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Palmer Penguins</title>
+      <link>https://brendangraham.online/art/test2/</link>
+      <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/art/test2/</guid>
+      <description>“Grid is the very first CSS module created specifically to solve the layout problems we&amp;rsquo;ve all been hacking our way around for as long as we&amp;rsquo;ve been making websites.”     — Chris House, A Complete Guide to CSS Grid Layout 1
+ Since I began building websites in Y2K, I&amp;rsquo;ve lost count how many times the phrase &amp;ldquo;&amp;hellip;there&amp;rsquo;s got to be a better way to do this&amp;rdquo; has passed my lips.</description>
     </item>
     
     <item>

@@ -6,7 +6,16 @@
     <description>Recent content in R on Brendan Graham</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 01 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/categories/r/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/categories/r/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Wimbledon analysis part 1: get the data</title>
+      <link>https://brendangraham.online/blog/tennis-series/01-tennis/tennis-part1/</link>
+      <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/tennis-series/01-tennis/tennis-part1/</guid>
+      <description>This post is the first in a series on analyzing Wimbledon tournament data.</description>
+    </item>
+    
     <item>
       <title>A second post</title>
       <link>https://brendangraham.online/default_blog/02-spoonful/</link>
@@ -32,10 +41,10 @@ My content section is: default_blog  My layout is: single-series  Images in this
     
     <item>
       <title>Wiss Map</title>
-      <link>https://brendangraham.online/project/creating-interactive-maps-with-leaflet/</link>
+      <link>https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/</link>
       <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/project/creating-interactive-maps-with-leaflet/</guid>
+      <guid>https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/</guid>
       <description>parsing XML and using &lt;code&gt;Leaflet&lt;/code&gt; to create interactive maps in R</description>
     </item>
     
@@ -55,6 +64,25 @@ My content section is: default_blog  My layout is: single-series  Images in this
       
       <guid>https://brendangraham.online/default_project/giraffes/</guid>
       <description>Tachyons is a design system that allows you to design gorgeous interfaces in the browser with little effort.      Because Speed     Building this static site generator theme was the first time I used an Atomic (or Functional) CSS system like Tachyons. It&amp;rsquo;s a design system that provides very small (which means fast) CSS modules that you can use in your HTML. So, rather than writing every line of CSS, you apply the style you need as you write your HTML with easy to understand shorthand class names.</description>
+    </item>
+    
+    <item>
+      <title>Palmer Penguins</title>
+      <link>https://brendangraham.online/art/test/</link>
+      <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/art/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Palmer Penguins</title>
+      <link>https://brendangraham.online/art/test2/</link>
+      <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/art/test2/</guid>
+      <description>“Grid is the very first CSS module created specifically to solve the layout problems we&amp;rsquo;ve all been hacking our way around for as long as we&amp;rsquo;ve been making websites.”     — Chris House, A Complete Guide to CSS Grid Layout 1
+ Since I began building websites in Y2K, I&amp;rsquo;ve lost count how many times the phrase &amp;ldquo;&amp;hellip;there&amp;rsquo;s got to be a better way to do this&amp;rdquo; has passed my lips.</description>
     </item>
     
     <item>

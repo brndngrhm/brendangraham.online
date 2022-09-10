@@ -2,21 +2,11 @@
 title: ""
 author: Brendan Graham
 date: '2022-02-08'
-slug: bees
+slug: airmen
 categories: 
-  - tidy tuesday
-  - tidymodels
-  - plumber
-  - api
-  - data science
 tags:
-  - tidy tuesday
-  - tidymodels
-  - plumber
-  - api
-  - data science
 subtitle: 
-summary: 'This post looks at a [TidyTuesday](https://github.com/rfordatascience/tidytuesday) data set about changes in bee colonies After looking at the data I build and locally deploy a model api to predict the percentage of colonies lost'
+summary: 'This post looks at a [TidyTuesday](https://github.com/rfordatascience/tidytuesday) data set about'
 featured: no
 image:
   caption: ''
@@ -48,7 +38,8 @@ library(rules)
 library(vetiver)
 library(doParallel)
 library(pins)
-library(ghibli)
+library(ggsci)
+library(statebins)
 
 round_numerics <- 
   function(data, digits = 2){
@@ -127,8 +118,77 @@ airmen <-
 
 ```{r}
 
-
 airmen %>%
   add_table 
 
+skimr::skim_to_list(airmen)
+
 ```
+
+```{r}
+
+airmen %>% 
+  group_by(state) %>% 
+  tally(sort = T) %>%
+  na.omit() %>%
+  mutate(freq = n / sum()) %>%
+  ggplot(aes(x = reorder(state, n), y = n, label = n)) + 
+  geom_col(fill = bg_green, alpha = .75) + 
+  coord_flip() + 
+  scale_y_continuous(expand = c(0, 1)) + 
+  bg_theme() 
+
+airmen %>% 
+  mutate(grad_year = year(as.Date(graduation_date))) %>% 
+  group_by(grad_year) %>% 
+  tally(sort = T) %>%
+  ggplot(aes(x = factor(grad_year), y = n, label = n)) + 
+  geom_line(color = bg_green, alpha = .75, group = 1) + 
+  geom_point(color = bg_green, alpha = .75) + 
+  bg_theme() +
+  labs(x = 'year', y = "total grads")
+
+airmen %>% 
+  group_by(pilot_type) %>% 
+  tally(sort = T) %>%
+  na.omit() %>%
+  mutate(freq = n / sum()) %>%
+  ggplot(aes(x = reorder(pilot_type, n), y = n, label = n)) + 
+  geom_col(fill = bg_green, alpha = .75) + 
+  coord_flip() + 
+  scale_y_continuous(expand = c(0, 10)) + 
+  bg_theme() 
+
+airmen %>% 
+  mutate(rank_group = ifelse(!rank_at_graduation %in% c("2nd Lt", "1st Lt", "Flight Officer"), "other", rank_at_graduation)) %>%
+  group_by(pilot_type, rank_group) %>% 
+  tally(sort = T) %>%
+  na.omit() %>%
+  ggplot(aes(x = reorder(pilot_type, n), y = n, fill = rank_group)) + 
+  geom_col(alpha = .75, show.legend = FALSE) + 
+  coord_flip() + 
+  bg_theme() +
+  scale_fill_npg() +
+  facet_wrap(vars(rank_group), scales = 'free')
+
+adat <- read_csv(system.file("extdata", "wapostates.csv", package="statebins"))
+
+state_totals <- 
+  airmen %>% 
+  group_by(state) %>% 
+  tally(sort = T) %>%
+  left_join(., adat %>% select(stab, state_name = state), by = c("state" = "stab"))
+
+statebins(state_totals %>% ungroup() %>% select(state = state_name, n) %>% as.data.frame(), 
+          value_col = "n",
+          state_col = "state",
+          palette = "Purples",
+          round = T) +
+  labs(x="2008-2010") +
+  theme_statebins(legend_position = "none") 
+
+```
+
+
+
+

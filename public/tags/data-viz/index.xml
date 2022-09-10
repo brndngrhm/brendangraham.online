@@ -9,19 +9,19 @@
     <lastBuildDate>Wed, 27 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/tags/data-viz/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Everyone Everywhere Music Analysis Tool</title>
-      <link>https://brendangraham.online/project/spotify_analyzer/</link>
+      <link>https://brendangraham.online/blog/spotify-data/</link>
       <pubDate>Wed, 27 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/project/spotify_analyzer/</guid>
+      <guid>https://brendangraham.online/blog/spotify-data/</guid>
       <description>Use the Spotify API to analyze your favorite artists songs</description>
     </item>
     
     <item>
       <title>RideTracker</title>
-      <link>https://brendangraham.online/project/ride_tracker/</link>
+      <link>https://brendangraham.online/blog/ride-tracker/</link>
       <pubDate>Tue, 26 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/project/ride_tracker/</guid>
+      <guid>https://brendangraham.online/blog/ride-tracker/</guid>
       <description>Data viz project tracking my cycling habits</description>
     </item>
     

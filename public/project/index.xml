@@ -1,48 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Projects
+    <title>Art
  on Brendan Graham</title>
     <link>https://brendangraham.online/project/</link>
-    <description>Recent content in Projects
+    <description>Recent content in Art
  on Brendan Graham</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 01 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/project/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/project/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Wiss Map</title>
-      <link>https://brendangraham.online/project/creating-interactive-maps-with-leaflet/</link>
-      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      <title></title>
+      <link>https://brendangraham.online/project/art/</link>
+      <pubDate>Fri, 11 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/project/creating-interactive-maps-with-leaflet/</guid>
-      <description>parsing XML and using &lt;code&gt;Leaflet&lt;/code&gt; to create interactive maps in R</description>
+      <guid>https://brendangraham.online/project/art/</guid>
+      <description></description>
     </item>
     
     <item>
-      <title>Routeabaga</title>
-      <link>https://brendangraham.online/project/routeabaga/</link>
-      <pubDate>Fri, 06 Nov 2020 00:00:00 +0000</pubDate>
+      <title></title>
+      <link>https://brendangraham.online/project/test/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/project/routeabaga/</guid>
-      <description>Discover new cycling routes</description>
-    </item>
-    
-    <item>
-      <title>Everyone Everywhere Music Analysis Tool</title>
-      <link>https://brendangraham.online/project/spotify_analyzer/</link>
-      <pubDate>Wed, 27 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://brendangraham.online/project/spotify_analyzer/</guid>
-      <description>Use the Spotify API to analyze your favorite artists songs</description>
-    </item>
-    
-    <item>
-      <title>RideTracker</title>
-      <link>https://brendangraham.online/project/ride_tracker/</link>
-      <pubDate>Tue, 26 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://brendangraham.online/project/ride_tracker/</guid>
-      <description>Data viz project tracking my cycling habits</description>
+      <guid>https://brendangraham.online/project/test/</guid>
+      <description></description>
     </item>
     
   </channel>

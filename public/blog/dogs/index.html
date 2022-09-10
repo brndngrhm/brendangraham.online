@@ -8,8 +8,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="generator" content="Hugo 0.92.0" />
-<title>Getting started with topic modeling with dog breed traits | Brendan Graham</title>
+<meta name="generator" content="Hugo 0.80.0" />
+<title>Getting started with topic modeling with dog breed traits | Brendan Graham Online</title>
 
 
 <meta property="twitter:site" content="@brndngrhm">
@@ -27,8 +27,8 @@
 <meta name="description" content="">
 
 
-<meta property="og:site_name" content="Brendan Graham">
-<meta property="og:title" content="Getting started with topic modeling with dog breed traits | Brendan Graham">
+<meta property="og:site_name" content="Brendan Graham Online">
+<meta property="og:title" content="Getting started with topic modeling with dog breed traits | Brendan Graham Online">
 <meta property="og:description" content="" />
 <meta property="og:type" content="page" />
 <meta property="og:url" content="https://brendangraham.online/blog/dogs/" />
@@ -45,10 +45,16 @@
     
   <meta itemprop="name" content="Getting started with topic modeling with dog breed traits">
 <meta itemprop="description" content="This post looks at a 
-TidyTuesday data set about dog breeds. After looking at the data I try developing my first topic model"><meta itemprop="datePublished" content="2022-02-01T00:00:00+00:00" />
+TidyTuesday data set about dog breeds. After looking at the data I try developing my first topic model">
+<meta itemprop="datePublished" content="2022-02-01T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-02-01T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1603"><meta itemprop="image" content="https://brendangraham.online/blog/dogs/featured.png">
+<meta itemprop="wordCount" content="1603">
+<meta itemprop="image" content="https://brendangraham.online/blog/dogs/featured.png">
+
+
+
 <meta itemprop="keywords" content="tidy tuesday,topic modeling,tidytext," />
+
   
   
   <!--[if IE]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -56,20 +62,20 @@ TidyTuesday data set about dog breeds. After looking at the data I try developin
   <link rel="icon" href="" type="image/x-icon">
   
   
-  <link rel="stylesheet" href="/style.main.min.a4afdcba1badb9429f7a064edf22d01439d58ac03cbdc528513a128259592485.css" integrity="sha256-pK/cuhutuUKfegZO3yLQFDnVisA8vcUoUToSgllZJIU=" media="screen">
+  <link rel="stylesheet" href="/style.main.min.748d32745e8f9c104956428ac7a5c34d14f9057c0a6c22350e05ee46cb277d52.css" integrity="sha256-dI0ydF6PnBBJVkKKx6XDTRT5BXwKbCI1DgXuRssnfVI=" media="screen">
   
   
-  <script src="/panelset.min.078a92db9bd3228df502db3d9e0453c3cf3d910abe3f8deca0ad196c7071ad41.js" type="text/javascript"></script>
+  <script src="/panelset.min.41f62c42d5f25dd80e81136866f4f1baa1bc17669edfd002e75c0e107953789b.js" type="text/javascript"></script>
   
   
-  <script src="/main.min.314f5cf7ee721b40ec32f2ffbeb2f317cae9f8e5e8c0e623e4f56970fb97755e.js" type="text/javascript"></script>
+  <script src="/main.min.07ec8e08cbb63db3a2cf7d4a7df6f7be00c715f13b64d8df6a2c48441ba8b14b.js" type="text/javascript"></script>
 </head>
 <body>
       <div class="grid-container">
 <header class="site-header pt4 pb2 mb4 bb b--transparent ph5 headroom z-max" role="banner">
   <nav class="site-nav db dt-l w-100" role="navigation">
     <a class="site-brand db dtc-l v-mid link no-underline w-100 w-33-l tc tl-l" href="https://brendangraham.online" title="Home">
-      <span class="f4 fw7">Brendan Graham</span>
+      <span class="f4 fw7">Brendan Graham Online</span>
     </a>
     <div class="site-links db dtc-l v-mid w-100 w-47-l tc tr-l mt3 mt0-l ttu tracked">
       
@@ -144,7 +150,7 @@ TidyTuesday data set about dog breeds. After looking at the data I try developin
       <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
     </svg></a>
 </h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_traits <span style="color:#555">&lt;-</span>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_traits <span style="color:#555">&lt;-</span>
   readr<span style="color:#555">::</span><span style="color:#c0f">read_csv</span>(<span style="color:#c30">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_traits.csv&#39;</span>) <span style="color:#555">%&gt;%</span>
   janitor<span style="color:#555">::</span><span style="color:#c0f">clean_names</span>() <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">mutate</span>(breed <span style="color:#555">=</span> <span style="color:#c0f">str_squish</span>(breed))
@@ -158,7 +164,7 @@ breed_rank_all <span style="color:#555">&lt;-</span>
   readr<span style="color:#555">::</span><span style="color:#c0f">read_csv</span>(<span style="color:#c30">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_rank.csv&#39;</span>) <span style="color:#555">%&gt;%</span>
   janitor<span style="color:#555">::</span><span style="color:#c0f">clean_names</span>() <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">mutate</span>(breed <span style="color:#555">=</span> <span style="color:#c0f">str_squish</span>(breed))
-</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_traits 
+</code></pre></div><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_traits 
 </code></pre></div><pre><code>## # A tibble: 195 × 17
 ##    breed     affectionate_wit… good_with_young_… good_with_other… shedding_level
 ##    &lt;chr&gt;                 &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
@@ -179,7 +185,7 @@ breed_rank_all <span style="color:#555">&lt;-</span>
 ## #   trainability_level &lt;dbl&gt;, energy_level &lt;dbl&gt;, barking_level &lt;dbl&gt;,
 ## #   mental_stimulation_needs &lt;dbl&gt;
 </code></pre>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># trait_description &lt;- </span>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># trait_description &lt;- </span>
 <span style="color:#09f;font-style:italic">#   trait_description %&gt;% </span>
 <span style="color:#09f;font-style:italic">#   mutate(trait = stringr::str_to_lower(trait),</span>
 <span style="color:#09f;font-style:italic">#          trait = stringr::str_replace_all(trait, &#39; &#39;, &#39;_&#39;),</span>
@@ -206,7 +212,7 @@ trait_description
 ## 15 Barking Level              Only To Alert              Very Vo… How often thi…
 ## 16 Mental Stimulation Needs   Happy to Lounge            Needs a… How much ment…
 </code></pre>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_rank_all
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_rank_all
 </code></pre></div><pre><code>## # A tibble: 195 × 11
 ##    breed       x2013_rank x2014_rank x2015_rank x2016_rank x2017_rank x2018_rank
 ##    &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
@@ -224,7 +230,7 @@ trait_description
 ## #   x2020_rank &lt;dbl&gt;, links &lt;chr&gt;, image &lt;chr&gt;
 </code></pre>
 <p>Top and bottom 5 breeds based on avg rank 2012-2020</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_rank_all <span style="color:#555">%&gt;%</span>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_rank_all <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">select</span>(<span style="color:#555">-</span><span style="color:#c0f">c</span>(links, image)) <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">pivot_longer</span>(cols <span style="color:#555">=</span> <span style="color:#c0f">starts_with</span>(<span style="color:#c30">&#34;x&#34;</span>), values_to <span style="color:#555">=</span> <span style="color:#c30">&#39;rank&#39;</span>) <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">group_by</span>(breed) <span style="color:#555">%&gt;%</span>
@@ -238,7 +244,7 @@ trait_description
 </code></pre></div><div id="htmlwidget-1" class="reactable html-widget" style="width:auto;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"breed":["Retrievers (Labrador)","German Shepherd Dogs","Retrievers (Golden)","Bulldogs","Beagles","English Foxhounds","Norwegian Lundehunds","Grand Basset Griffon Vendeens","Sloughis","Azawakhs"],"mean_rank":[1,2.12,3.12,4.62,5.62,187.12,187.38,188,189,193],"sd":[0,0.35,0.35,0.52,1.06,5.89,6.72,"NA","NA","NA"],"rank":[1,2,3,4,5,191,192,193,194,195]},"columns":[{"accessor":"breed","name":"breed","type":"character"},{"accessor":"mean_rank","name":"mean_rank","type":"numeric"},{"accessor":"sd","name":"sd","type":"numeric"},{"accessor":"rank","name":"rank","type":"numeric"}],"resizable":true,"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"striped":true,"compact":true,"inline":true,"dataKey":"5e0310fa692dade820af17b7a1f88b6f","key":"5e0310fa692dade820af17b7a1f88b6f"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p>Between 2013 - 2020, Labrador Retrievers were never <em>not</em> #1. French Bulldogs ranking was are most improved from 9 to 2, while Yorkshire Terriers have largest drop from 6 to 10.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_rank_all <span style="color:#555">%&gt;%</span>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_rank_all <span style="color:#555">%&gt;%</span>
   <span style="color:#09f;font-style:italic"># select(-c(links, image)) %&gt;%</span>
   <span style="color:#c0f">pivot_longer</span>(cols <span style="color:#555">=</span> <span style="color:#c0f">starts_with</span>(<span style="color:#c30">&#34;x&#34;</span>), values_to <span style="color:#555">=</span> <span style="color:#c30">&#39;rank&#39;</span>) <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">mutate</span>(name <span style="color:#555">=</span> <span style="color:#c0f">str_replace_all</span>(name, <span style="color:#c30">&#34;x&#34;</span>, <span style="color:#c30">&#34;&#34;</span>),
@@ -268,8 +274,8 @@ trait_description
   <span style="color:#c0f">bg_theme</span>() <span style="color:#555">+</span> 
   <span style="color:#c0f">scale_y_continuous</span>(breaks <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">1</span>, <span style="color:#f60">10</span>, <span style="color:#f60">1</span>)) <span style="color:#555">+</span> 
   <span style="color:#c0f">labs</span>(x <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">NULL</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#34;rank&#34;</span>, title <span style="color:#555">=</span> <span style="color:#c30">&#34;Changes in Breed Ranks&#34;</span>, subtitle <span style="color:#555">=</span> <span style="color:#c30">&#34;top 10 breeds in each year only&#34;</span>) 
-</code></pre></div><img src="https://brendangraham.online/blog/dogs/index_files/figure-html/unnamed-chunk-7-1.png" width="864" />
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mean_rank <span style="color:#555">&lt;-</span> 
+</code></pre></div><p><img src="https://brendangraham.online/blog/dogs/index_files/figure-html/unnamed-chunk-7-1.png" width="864" /></p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mean_rank <span style="color:#555">&lt;-</span> 
   breed_rank_all <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">select</span>(<span style="color:#555">-</span><span style="color:#c0f">c</span>(links, image)) <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">pivot_longer</span>(cols <span style="color:#555">=</span> <span style="color:#c0f">starts_with</span>(<span style="color:#c30">&#34;x&#34;</span>), values_to <span style="color:#555">=</span> <span style="color:#c30">&#39;rank&#39;</span>) <span style="color:#555">%&gt;%</span>
@@ -283,7 +289,7 @@ trait_description
   <span style="color:#c0f">mutate</span>(rank <span style="color:#555">=</span> <span style="color:#c0f">row_number</span>()) <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">as_tibble</span>()
-</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">traits <span style="color:#555">&lt;-</span> 
+</code></pre></div><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">traits <span style="color:#555">&lt;-</span> 
   breed_traits <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">select</span>(breed, coat_type, coat_length, <span style="color:#c0f">everything</span>()) <span style="color:#555">%&gt;%</span> 
   <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span>
@@ -312,7 +318,7 @@ traits <span style="color:#555">%&gt;%</span>
 <p>Topic modeling is a method for unsupervised classification of such documents, similar to clustering on numeric data, which finds natural groups of items even when we’re not sure what we’re looking for.</p>
 </blockquote>
 <p>Next the tidytext’s <code>unnest_tokens()</code> is used to separate the trait descriptions into words, then stop words and some other the common words are removed. This results in a dataframe with 1 word per trait per row. as a first step</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">trait_list <span style="color:#555">&lt;-</span> 
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">trait_list <span style="color:#555">&lt;-</span> 
   <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;Affectionate With Family&#34;</span>, <span style="color:#c30">&#34;Trainability Level&#34;</span>, <span style="color:#c30">&#34;Barking Level&#34;</span>, <span style="color:#c30">&#34;Mental Stimulation Needs&#34;</span>)
 
 tidy_descripion <span style="color:#555">&lt;-</span>
@@ -340,7 +346,7 @@ tidy_descripion <span style="color:#555">%&gt;%</span>
 ## # … with 66 more rows
 </code></pre>
 <p>Next we need to make the data into a <code>DocumentTermMatrix</code> using <code>cast_dtm()</code></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">desc_dtm <span style="color:#555">&lt;-</span>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">desc_dtm <span style="color:#555">&lt;-</span>
   tidy_descripion <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">count</span>(trait, word) <span style="color:#555">%&gt;%</span>
   tidytext<span style="color:#555">::</span><span style="color:#c0f">cast_dtm</span>(trait, word, n)
@@ -349,7 +355,7 @@ tidy_descripion <span style="color:#555">%&gt;%</span>
 </code></pre></div><pre><code>## [1]  4 76
 </code></pre>
 <p>This means there are 4 traits (i.e. documents) and 76 different tokens (i.e. terms or words) in our dataset for modeling. Then we use <code>LDA()</code> to create a 4 topic model, one for each of the 4 traits we filtered for above.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># Latent Dirichlet allocation algorithms for topic modelling</span>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># Latent Dirichlet allocation algorithms for topic modelling</span>
 traits_lda <span style="color:#555">&lt;-</span> 
   <span style="color:#c0f">LDA</span>(desc_dtm, k <span style="color:#555">=</span> <span style="color:#f60">4</span>, control <span style="color:#555">=</span> <span style="color:#c0f">list</span>(seed <span style="color:#555">=</span> <span style="color:#f60">173</span>))
 
@@ -357,7 +363,7 @@ traits_lda
 </code></pre></div><pre><code>## A LDA_VEM topic model with 4 topics.
 </code></pre>
 <p>we can examine per-topic-per-word probabilities, beta, where the model computes the probability of a given term being generated from a given topic. For example, the term “affectionate” has an almost zero probability of being generated from topics 1, 2, or 3, but it makes up about 5% of topic 4.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># per-topic-per-word probabilities.</span>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># per-topic-per-word probabilities.</span>
 trait_topics <span style="color:#555">&lt;-</span> 
   <span style="color:#c0f">tidy</span>(traits_lda, matrix <span style="color:#555">=</span> <span style="color:#c30">&#34;beta&#34;</span>)
 
@@ -378,7 +384,7 @@ trait_topics
 ## # … with 294 more rows
 </code></pre>
 <p>From the plot we can pretty clearly see that topic 1 is probably Mental Stimulation Needs, topic 2 is likely Trainability Level, topic 3 is Barking Level and topic 4 is probably Affectionate With Family</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">top_terms <span style="color:#555">&lt;-</span> 
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">top_terms <span style="color:#555">&lt;-</span> 
   trait_topics <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">group_by</span>(topic) <span style="color:#555">%&gt;%</span>
@@ -394,9 +400,9 @@ top_terms <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">scale_y_reordered</span>() <span style="color:#555">+</span> 
   <span style="color:#c0f">bg_theme</span>() <span style="color:#555">+</span>
   <span style="color:#c0f">scale_fill_npg</span>()
-</code></pre></div><img src="https://brendangraham.online/blog/dogs/index_files/figure-html/unnamed-chunk-14-1.png" width="864" />
+</code></pre></div><p><img src="https://brendangraham.online/blog/dogs/index_files/figure-html/unnamed-chunk-14-1.png" width="864" /></p>
 <p>We can then examine per-document-per-topic probabilities, gamma. This lets us take a look at topic probabilities of each trait. This aligns well with the plot above.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">traits_gamma <span style="color:#555">&lt;-</span> 
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">traits_gamma <span style="color:#555">&lt;-</span> 
   <span style="color:#c0f">tidy</span>(traits_lda, matrix <span style="color:#555">=</span> <span style="color:#c30">&#34;gamma&#34;</span>)
 
 traits_gamma
@@ -420,14 +426,14 @@ traits_gamma
 ## 15 Mental Stimulation Needs     4 0.000395
 ## 16 Trainability Level           4 0.000643
 </code></pre>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">traits_gamma <span style="color:#555">%&gt;%</span>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">traits_gamma <span style="color:#555">%&gt;%</span>
   <span style="color:#c0f">ggplot</span>(<span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> <span style="color:#c0f">factor</span>(topic), y <span style="color:#555">=</span> gamma, color <span style="color:#555">=</span> <span style="color:#c0f">factor</span>(topic))) <span style="color:#555">+</span>
   <span style="color:#c0f">geom_point</span>(size <span style="color:#555">=</span> <span style="color:#f60">3</span>, show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>) <span style="color:#555">+</span>
   <span style="color:#c0f">facet_wrap</span>(<span style="color:#555">~</span> document) <span style="color:#555">+</span>
   <span style="color:#c0f">labs</span>(x <span style="color:#555">=</span> <span style="color:#c30">&#34;topic&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c0f">expression</span>(gamma)) <span style="color:#555">+</span> 
   <span style="color:#c0f">bg_theme</span>() <span style="color:#555">+</span>
   <span style="color:#c0f">scale_color_npg</span>()
-</code></pre></div><img src="https://brendangraham.online/blog/dogs/index_files/figure-html/unnamed-chunk-15-1.png" width="864" />
+</code></pre></div><p><img src="https://brendangraham.online/blog/dogs/index_files/figure-html/unnamed-chunk-15-1.png" width="864" /></p>
 
         
         <details closed class="f6 fw7 input-reset">
@@ -455,11 +461,11 @@ traits_gamma
   <dl class="f6 lh-copy">
     <dt class="fw7">See Also:</dt>
     
+    <dd class="fw5 ml0"><a href="/blog/pell/">Creating a Hex Bin Map with Pell Grant Data</a></dd>
+    
     <dd class="fw5 ml0"><a href="/blog/boardgames/">Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings</a></dd>
     
     <dd class="fw5 ml0"><a href="/blog/chocolate-ratings/">Comparing Traditional and Text-Based Models to Predict Chocolate Rating</a></dd>
-    
-    <dd class="fw5 ml0"><a href="/blog/bees/">Trying out new Tidymodels package: vetiver</a></dd>
     
   </dl>
 </details>
@@ -468,6 +474,9 @@ traits_gamma
       <footer class="post-footer">
         <div class="post-pagination dt w-100 mt4 mb2">
   
+  
+    <a class="prev dtc pr2 tl v-top fw6"
+    href="https://brendangraham.online/blog/pell/">&larr; Creating a Hex Bin Map with Pell Grant Data</a>
   
   
   

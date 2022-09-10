@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Brendan Graham</title>
+    <title>Categories on Brendan Graham Online</title>
     <link>https://brendangraham.online/categories/</link>
-    <description>Recent content in Categories on Brendan Graham</description>
+    <description>Recent content in Categories on Brendan Graham Online</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 11 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 10 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>data viz</title>
+      <link>https://brendangraham.online/categories/data-viz/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/data-viz/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hex bin map</title>
+      <link>https://brendangraham.online/categories/hex-bin-map/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/hex-bin-map/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidy tuesday</title>
+      <link>https://brendangraham.online/categories/tidy-tuesday/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/tidy-tuesday/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Art</title>
       <link>https://brendangraham.online/categories/art/</link>
@@ -31,15 +58,6 @@
       <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
       
       <guid>https://brendangraham.online/categories/tennis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tidy tuesday</title>
-      <link>https://brendangraham.online/categories/tidy-tuesday/</link>
-      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://brendangraham.online/categories/tidy-tuesday/</guid>
       <description></description>
     </item>
     

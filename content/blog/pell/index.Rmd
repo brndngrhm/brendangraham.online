@@ -1,8 +1,8 @@
 ---
-title: "Creating a Hex Bin Map with Pell Grant Data"
+title: "Creating a Hex Bin Map to Show Changes Pell Grants"
 author: Brendan Graham
-date: '2022-01-11'
-slug: bees
+date: '2022-09-10'
+slug: pell
 categories: 
   - tidy tuesday
   - data viz
@@ -22,8 +22,9 @@ projects: []
 draft: false
 editor_options: 
   chunk_output_type: console
+  markdown: 
+    wrap: 72
 ---
-
 
 ```{r}
 library(tidytuesdayR)
@@ -46,28 +47,45 @@ library(usdata)
 
 source(here::here("content", "blog", "util.R"))
 
+```
+
+## Get the data
+
+First I read in the data and do some minor cleaning:\
+\* only include data post-1999 since it looks like 1999 isn't a full
+year of data. \* overwrite the `state_name` variable with the full state
+name instead of the abbreviation. This makes creating a hex bin map
+later on a little easier. One consequence of this is Puerto Rico and
+other US Territories are excluded
+
+```{r}
 tt_url <- 
   "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-08-30/pell.csv"
 
+pell <- 
+  readr::read_csv(tt_url)
+
+skimr::skim(pell)
+
+```
+
+```{r}
 pell <-
   readr::read_csv(tt_url) %>%
   janitor::clean_names() %>%
   filter(year > 1999) %>%
   mutate(state_name = usdata::abbr2state(abbr = state))
-```
 
-
-
-
-## Explore the Data
-Note: uses some custom functions located at []()
-```{r}
 pell %>% 
   get_table()
-
-skimr::skim(pell)
-
 ```
+
+## Explore the data
+
+It looks like some time around 2009 the total dollar amount of Pell
+grants increased and remained at a higher level the prior to 2009. The
+volume of grants remained constant though, so we see the impact of this
+increase in the average amount per grant.
 
 ```{r}
 ggpubr::ggarrange(
@@ -102,7 +120,10 @@ ggpubr::ggarrange(
 )
 ```
 
-some states spike and come down (AZ), some spike and remain (CA)
+Looking state by states we can see not all states behave the same. Some
+states spike post 2009 and come down to a new baseline level like AZ,
+while some increase and remain steady at a new level, like CA.
+
 ```{r}
 pell %>% 
   group_by(state, year) %>%
@@ -117,6 +138,27 @@ pell %>%
   scale_color_npg() + 
   bg_theme()
 ```
+
+Digging into this post 2009 increase some more, there is some evidence
+that the policy changes as a result of the 2008 financial crisis can
+explain some of what we're seeing in the data.
+
+Specifically, that document notes that
+
+> the recession of 2007--2009 and the subsequent slow recovery drew more
+> students into the recipient pool. Eligibility increased as adult
+> students and the families of dependent students experienced losses in
+> income and assets; enrollment of eligible students also rose as people
+> who had lost jobs sought to acquire new skills and people who would
+> have entered the workforce enrolled in school because they could not
+> find employment. The expansion of online education, particularly at
+> for-profit institutions, attracted still more students, many of whom
+> were eligible for Pell grant.
+
+## Visualizing the Change
+
+This plot ranks states in order of change post-2009, with Arizona
+leading the way.
 
 ```{r}
 # https://www.cbo.gov/sites/default/files/cbofiles/attachments/44448_PellGrants_9-5-13.pdf
@@ -158,7 +200,10 @@ pell_time_state_comparison %>%
 
 ```
 
-### hexbin map
+We can also visualize these increases using a hex bin map, in which each
+state is represented by a hexagon , color coded with the post-2009
+increase in avg Pell grant money received.
+
 ```{r}
 # https://r-graph-gallery.com/328-hexbin-map-of-the-usa.html
 

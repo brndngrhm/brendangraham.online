@@ -130,14 +130,14 @@
       <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
     </svg></a>
 </h2>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#c0f">with</span>(airquality, <span style="color:#c0f">boxplot</span>(Temp <span style="color:#555">~</span> Month))
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">with</span>(airquality, <span style="color:#06287e">boxplot</span>(Temp <span style="color:#666">~</span> Month))
 </code></pre></div><p><img src="https://brendangraham.online/default_blog/rmarkdown/index_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#c0f">with</span>(airquality, <span style="color:#c0f">plot</span>(Ozone <span style="color:#555">~</span> Temp))
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">with</span>(airquality, <span style="color:#06287e">plot</span>(Ozone <span style="color:#666">~</span> Temp))
 </code></pre></div><p><img src="https://brendangraham.online/default_blog/rmarkdown/index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mlev <span style="color:#555">&lt;-</span> <span style="color:#c0f">levels</span>(<span style="color:#c0f">with</span>(airquality, <span style="color:#c0f">as.factor</span>(Month)))
-<span style="color:#c0f">with</span>(airquality, <span style="color:#c0f">plot</span>(Ozone <span style="color:#555">~</span> Temp, 
-                      pch <span style="color:#555">=</span> <span style="color:#c0f">as.numeric</span>(mlev), 
-                      col <span style="color:#555">=</span> mlev))
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mlev <span style="color:#666">&lt;-</span> <span style="color:#06287e">levels</span>(<span style="color:#06287e">with</span>(airquality, <span style="color:#06287e">as.factor</span>(Month)))
+<span style="color:#06287e">with</span>(airquality, <span style="color:#06287e">plot</span>(Ozone <span style="color:#666">~</span> Temp, 
+                      pch <span style="color:#666">=</span> <span style="color:#06287e">as.numeric</span>(mlev), 
+                      col <span style="color:#666">=</span> mlev))
 </code></pre></div><p><img src="https://brendangraham.online/default_blog/rmarkdown/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 
         

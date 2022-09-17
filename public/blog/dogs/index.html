@@ -150,21 +150,21 @@ TidyTuesday data set about dog breeds. After looking at the data I try developin
       <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
     </svg></a>
 </h2>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_traits <span style="color:#555">&lt;-</span>
-  readr<span style="color:#555">::</span><span style="color:#c0f">read_csv</span>(<span style="color:#c30">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_traits.csv&#39;</span>) <span style="color:#555">%&gt;%</span>
-  janitor<span style="color:#555">::</span><span style="color:#c0f">clean_names</span>() <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(breed <span style="color:#555">=</span> <span style="color:#c0f">str_squish</span>(breed))
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_traits <span style="color:#666">&lt;-</span>
+  readr<span style="color:#666">::</span><span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_traits.csv&#39;</span>) <span style="color:#666">%&gt;%</span>
+  janitor<span style="color:#666">::</span><span style="color:#06287e">clean_names</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(breed <span style="color:#666">=</span> <span style="color:#06287e">str_squish</span>(breed))
 
-trait_description <span style="color:#555">&lt;-</span>
-  readr<span style="color:#555">::</span><span style="color:#c0f">read_csv</span>(<span style="color:#c30">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/trait_description.csv&#39;</span>) <span style="color:#555">%&gt;%</span>
-  janitor<span style="color:#555">::</span><span style="color:#c0f">clean_names</span>() <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(trait <span style="color:#555">=</span> <span style="color:#c0f">str_squish</span>(trait))
+trait_description <span style="color:#666">&lt;-</span>
+  readr<span style="color:#666">::</span><span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/trait_description.csv&#39;</span>) <span style="color:#666">%&gt;%</span>
+  janitor<span style="color:#666">::</span><span style="color:#06287e">clean_names</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(trait <span style="color:#666">=</span> <span style="color:#06287e">str_squish</span>(trait))
 
-breed_rank_all <span style="color:#555">&lt;-</span>
-  readr<span style="color:#555">::</span><span style="color:#c0f">read_csv</span>(<span style="color:#c30">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_rank.csv&#39;</span>) <span style="color:#555">%&gt;%</span>
-  janitor<span style="color:#555">::</span><span style="color:#c0f">clean_names</span>() <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(breed <span style="color:#555">=</span> <span style="color:#c0f">str_squish</span>(breed))
-</code></pre></div><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_traits 
+breed_rank_all <span style="color:#666">&lt;-</span>
+  readr<span style="color:#666">::</span><span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_rank.csv&#39;</span>) <span style="color:#666">%&gt;%</span>
+  janitor<span style="color:#666">::</span><span style="color:#06287e">clean_names</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(breed <span style="color:#666">=</span> <span style="color:#06287e">str_squish</span>(breed))
+</code></pre></div><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_traits 
 </code></pre></div><pre><code>## # A tibble: 195 × 17
 ##    breed     affectionate_wit… good_with_young_… good_with_other… shedding_level
 ##    &lt;chr&gt;                 &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
@@ -185,11 +185,11 @@ breed_rank_all <span style="color:#555">&lt;-</span>
 ## #   trainability_level &lt;dbl&gt;, energy_level &lt;dbl&gt;, barking_level &lt;dbl&gt;,
 ## #   mental_stimulation_needs &lt;dbl&gt;
 </code></pre>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># trait_description &lt;- </span>
-<span style="color:#09f;font-style:italic">#   trait_description %&gt;% </span>
-<span style="color:#09f;font-style:italic">#   mutate(trait = stringr::str_to_lower(trait),</span>
-<span style="color:#09f;font-style:italic">#          trait = stringr::str_replace_all(trait, &#39; &#39;, &#39;_&#39;),</span>
-<span style="color:#09f;font-style:italic">#          trait = stringr::str_replace_all(trait, &#39;/&#39;, &#39;_&#39;))</span>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic"># trait_description &lt;- </span>
+<span style="color:#60a0b0;font-style:italic">#   trait_description %&gt;% </span>
+<span style="color:#60a0b0;font-style:italic">#   mutate(trait = stringr::str_to_lower(trait),</span>
+<span style="color:#60a0b0;font-style:italic">#          trait = stringr::str_replace_all(trait, &#39; &#39;, &#39;_&#39;),</span>
+<span style="color:#60a0b0;font-style:italic">#          trait = stringr::str_replace_all(trait, &#39;/&#39;, &#39;_&#39;))</span>
 
 trait_description 
 </code></pre></div><pre><code>## # A tibble: 16 × 4
@@ -212,7 +212,7 @@ trait_description
 ## 15 Barking Level              Only To Alert              Very Vo… How often thi…
 ## 16 Mental Stimulation Needs   Happy to Lounge            Needs a… How much ment…
 </code></pre>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_rank_all
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_rank_all
 </code></pre></div><pre><code>## # A tibble: 195 × 11
 ##    breed       x2013_rank x2014_rank x2015_rank x2016_rank x2017_rank x2018_rank
 ##    &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
@@ -230,78 +230,78 @@ trait_description
 ## #   x2020_rank &lt;dbl&gt;, links &lt;chr&gt;, image &lt;chr&gt;
 </code></pre>
 <p>Top and bottom 5 breeds based on avg rank 2012-2020</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_rank_all <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">select</span>(<span style="color:#555">-</span><span style="color:#c0f">c</span>(links, image)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">pivot_longer</span>(cols <span style="color:#555">=</span> <span style="color:#c0f">starts_with</span>(<span style="color:#c30">&#34;x&#34;</span>), values_to <span style="color:#555">=</span> <span style="color:#c30">&#39;rank&#39;</span>) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">group_by</span>(breed) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">summarise</span>(mean_rank <span style="color:#555">=</span> <span style="color:#c0f">mean</span>(rank, na.rm <span style="color:#555">=</span> T),
-            sd <span style="color:#555">=</span> <span style="color:#c0f">sd</span>(rank, na.rm <span style="color:#555">=</span> T)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">arrange</span>(mean_rank) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(rank <span style="color:#555">=</span> <span style="color:#c0f">row_number</span>()) <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">filter</span>(rank <span style="color:#555">&lt;=</span><span style="color:#f60">5</span> <span style="color:#555">|</span> rank <span style="color:#555">&gt;=</span> <span style="color:#c0f">nrow</span>(.) <span style="color:#555">-</span> <span style="color:#f60">4</span>) <span style="color:#555">%&gt;%</span> 
-    <span style="color:#c0f">add_table</span>(rows <span style="color:#555">=</span> <span style="color:#f60">10</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_rank_all <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(<span style="color:#666">-</span><span style="color:#06287e">c</span>(links, image)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">pivot_longer</span>(cols <span style="color:#666">=</span> <span style="color:#06287e">starts_with</span>(<span style="color:#4070a0">&#34;x&#34;</span>), values_to <span style="color:#666">=</span> <span style="color:#4070a0">&#39;rank&#39;</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(breed) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">summarise</span>(mean_rank <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(rank, na.rm <span style="color:#666">=</span> T),
+            sd <span style="color:#666">=</span> <span style="color:#06287e">sd</span>(rank, na.rm <span style="color:#666">=</span> T)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ungroup</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">arrange</span>(mean_rank) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(rank <span style="color:#666">=</span> <span style="color:#06287e">row_number</span>()) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">filter</span>(rank <span style="color:#666">&lt;=</span><span style="color:#40a070">5</span> <span style="color:#666">|</span> rank <span style="color:#666">&gt;=</span> <span style="color:#06287e">nrow</span>(.) <span style="color:#666">-</span> <span style="color:#40a070">4</span>) <span style="color:#666">%&gt;%</span> 
+    <span style="color:#06287e">add_table</span>(rows <span style="color:#666">=</span> <span style="color:#40a070">10</span>)
 </code></pre></div><div id="htmlwidget-1" class="reactable html-widget" style="width:auto;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"breed":["Retrievers (Labrador)","German Shepherd Dogs","Retrievers (Golden)","Bulldogs","Beagles","English Foxhounds","Norwegian Lundehunds","Grand Basset Griffon Vendeens","Sloughis","Azawakhs"],"mean_rank":[1,2.12,3.12,4.62,5.62,187.12,187.38,188,189,193],"sd":[0,0.35,0.35,0.52,1.06,5.89,6.72,"NA","NA","NA"],"rank":[1,2,3,4,5,191,192,193,194,195]},"columns":[{"accessor":"breed","name":"breed","type":"character"},{"accessor":"mean_rank","name":"mean_rank","type":"numeric"},{"accessor":"sd","name":"sd","type":"numeric"},{"accessor":"rank","name":"rank","type":"numeric"}],"resizable":true,"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"striped":true,"compact":true,"inline":true,"dataKey":"5e0310fa692dade820af17b7a1f88b6f","key":"5e0310fa692dade820af17b7a1f88b6f"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p>Between 2013 - 2020, Labrador Retrievers were never <em>not</em> #1. French Bulldogs ranking was are most improved from 9 to 2, while Yorkshire Terriers have largest drop from 6 to 10.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_rank_all <span style="color:#555">%&gt;%</span>
-  <span style="color:#09f;font-style:italic"># select(-c(links, image)) %&gt;%</span>
-  <span style="color:#c0f">pivot_longer</span>(cols <span style="color:#555">=</span> <span style="color:#c0f">starts_with</span>(<span style="color:#c30">&#34;x&#34;</span>), values_to <span style="color:#555">=</span> <span style="color:#c30">&#39;rank&#39;</span>) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(name <span style="color:#555">=</span> <span style="color:#c0f">str_replace_all</span>(name, <span style="color:#c30">&#34;x&#34;</span>, <span style="color:#c30">&#34;&#34;</span>),
-         name <span style="color:#555">=</span> <span style="color:#c0f">str_replace_all</span>(name, <span style="color:#c30">&#34;_rank&#34;</span>, <span style="color:#c30">&#34;&#34;</span>),
-         year <span style="color:#555">=</span> <span style="color:#c0f">as.numeric</span>(name)
-  ) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">select</span>(<span style="color:#555">-</span>name) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">group_by</span>(year) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(top_15 <span style="color:#555">=</span> <span style="color:#c0f">ifelse</span>(rank <span style="color:#555">&lt;=</span> <span style="color:#f60">10</span>, <span style="color:#f60">1</span>, <span style="color:#f60">0</span>)) <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">filter</span>(top_15 <span style="color:#555">==</span> <span style="color:#f60">1</span>) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">group_by</span>(breed) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(
-    label <span style="color:#555">=</span> <span style="color:#c0f">case_when</span>(
-      year <span style="color:#555">==</span> <span style="color:#c0f">min</span>(year) <span style="color:#555">~</span> <span style="color:#c0f">paste</span>(breed, rank),
-      year <span style="color:#555">==</span> <span style="color:#c0f">max</span>(year) <span style="color:#555">~</span> <span style="color:#c0f">paste</span>(breed, rank),
-      <span style="color:#069;font-weight:bold">TRUE</span> <span style="color:#555">~</span> <span style="color:#069;font-weight:bold">NA_character_</span>),
-    image_url <span style="color:#555">=</span> <span style="color:#c0f">case_when</span>(
-      year <span style="color:#555">==</span> <span style="color:#c0f">min</span>(year) <span style="color:#555">~</span> image,
-      year <span style="color:#555">==</span> <span style="color:#c0f">max</span>(year) <span style="color:#555">~</span> image,
-      <span style="color:#069;font-weight:bold">TRUE</span> <span style="color:#555">~</span> <span style="color:#069;font-weight:bold">NA_character_</span>)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">ggplot</span>(<span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> <span style="color:#c0f">as.factor</span>(year), y <span style="color:#555">=</span> rank, group <span style="color:#555">=</span> breed, label <span style="color:#555">=</span> label)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_point</span>(show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>, <span style="color:#c0f">aes</span>(color <span style="color:#555">=</span> breed)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_line</span>(show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>, <span style="color:#c0f">aes</span>(color <span style="color:#555">=</span> breed)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_image</span>(<span style="color:#c0f">aes</span>(image <span style="color:#555">=</span> image_url), size<span style="color:#555">=</span><span style="color:#f60">.05</span>) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_label_repel</span>(nudge_y <span style="color:#555">=</span> <span style="color:#f60">0.4</span>) <span style="color:#555">+</span> 
-  <span style="color:#c0f">bg_theme</span>() <span style="color:#555">+</span> 
-  <span style="color:#c0f">scale_y_continuous</span>(breaks <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">1</span>, <span style="color:#f60">10</span>, <span style="color:#f60">1</span>)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">labs</span>(x <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">NULL</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#34;rank&#34;</span>, title <span style="color:#555">=</span> <span style="color:#c30">&#34;Changes in Breed Ranks&#34;</span>, subtitle <span style="color:#555">=</span> <span style="color:#c30">&#34;top 10 breeds in each year only&#34;</span>) 
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">breed_rank_all <span style="color:#666">%&gt;%</span>
+  <span style="color:#60a0b0;font-style:italic"># select(-c(links, image)) %&gt;%</span>
+  <span style="color:#06287e">pivot_longer</span>(cols <span style="color:#666">=</span> <span style="color:#06287e">starts_with</span>(<span style="color:#4070a0">&#34;x&#34;</span>), values_to <span style="color:#666">=</span> <span style="color:#4070a0">&#39;rank&#39;</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(name <span style="color:#666">=</span> <span style="color:#06287e">str_replace_all</span>(name, <span style="color:#4070a0">&#34;x&#34;</span>, <span style="color:#4070a0">&#34;&#34;</span>),
+         name <span style="color:#666">=</span> <span style="color:#06287e">str_replace_all</span>(name, <span style="color:#4070a0">&#34;_rank&#34;</span>, <span style="color:#4070a0">&#34;&#34;</span>),
+         year <span style="color:#666">=</span> <span style="color:#06287e">as.numeric</span>(name)
+  ) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(<span style="color:#666">-</span>name) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(year) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(top_15 <span style="color:#666">=</span> <span style="color:#06287e">ifelse</span>(rank <span style="color:#666">&lt;=</span> <span style="color:#40a070">10</span>, <span style="color:#40a070">1</span>, <span style="color:#40a070">0</span>)) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">filter</span>(top_15 <span style="color:#666">==</span> <span style="color:#40a070">1</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ungroup</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(breed) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(
+    label <span style="color:#666">=</span> <span style="color:#06287e">case_when</span>(
+      year <span style="color:#666">==</span> <span style="color:#06287e">min</span>(year) <span style="color:#666">~</span> <span style="color:#06287e">paste</span>(breed, rank),
+      year <span style="color:#666">==</span> <span style="color:#06287e">max</span>(year) <span style="color:#666">~</span> <span style="color:#06287e">paste</span>(breed, rank),
+      <span style="color:#007020;font-weight:bold">TRUE</span> <span style="color:#666">~</span> <span style="color:#007020;font-weight:bold">NA_character_</span>),
+    image_url <span style="color:#666">=</span> <span style="color:#06287e">case_when</span>(
+      year <span style="color:#666">==</span> <span style="color:#06287e">min</span>(year) <span style="color:#666">~</span> image,
+      year <span style="color:#666">==</span> <span style="color:#06287e">max</span>(year) <span style="color:#666">~</span> image,
+      <span style="color:#007020;font-weight:bold">TRUE</span> <span style="color:#666">~</span> <span style="color:#007020;font-weight:bold">NA_character_</span>)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> <span style="color:#06287e">as.factor</span>(year), y <span style="color:#666">=</span> rank, group <span style="color:#666">=</span> breed, label <span style="color:#666">=</span> label)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_point</span>(show.legend <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>, <span style="color:#06287e">aes</span>(color <span style="color:#666">=</span> breed)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_line</span>(show.legend <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>, <span style="color:#06287e">aes</span>(color <span style="color:#666">=</span> breed)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_image</span>(<span style="color:#06287e">aes</span>(image <span style="color:#666">=</span> image_url), size<span style="color:#666">=</span><span style="color:#40a070">.05</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_label_repel</span>(nudge_y <span style="color:#666">=</span> <span style="color:#40a070">0.4</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">bg_theme</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">scale_y_continuous</span>(breaks <span style="color:#666">=</span> <span style="color:#06287e">seq</span>(<span style="color:#40a070">1</span>, <span style="color:#40a070">10</span>, <span style="color:#40a070">1</span>)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">labs</span>(x <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">NULL</span>, y <span style="color:#666">=</span> <span style="color:#4070a0">&#34;rank&#34;</span>, title <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Changes in Breed Ranks&#34;</span>, subtitle <span style="color:#666">=</span> <span style="color:#4070a0">&#34;top 10 breeds in each year only&#34;</span>) 
 </code></pre></div><p><img src="https://brendangraham.online/blog/dogs/index_files/figure-html/unnamed-chunk-7-1.png" width="864" /></p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mean_rank <span style="color:#555">&lt;-</span> 
-  breed_rank_all <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">select</span>(<span style="color:#555">-</span><span style="color:#c0f">c</span>(links, image)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">pivot_longer</span>(cols <span style="color:#555">=</span> <span style="color:#c0f">starts_with</span>(<span style="color:#c30">&#34;x&#34;</span>), values_to <span style="color:#555">=</span> <span style="color:#c30">&#39;rank&#39;</span>) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">group_by</span>(breed) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">summarise</span>(mean_rank <span style="color:#555">=</span> <span style="color:#c0f">mean</span>(rank, na.rm <span style="color:#555">=</span> T),
-            sd <span style="color:#555">=</span> <span style="color:#c0f">sd</span>(rank)) <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">mutate</span>(breed <span style="color:#555">=</span> <span style="color:#c0f">trimws</span>(breed),
-         breed <span style="color:#555">=</span> <span style="color:#c0f">as.character</span>(breed)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">arrange</span>(mean_rank) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(rank <span style="color:#555">=</span> <span style="color:#c0f">row_number</span>()) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">as_tibble</span>()
-</code></pre></div><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">traits <span style="color:#555">&lt;-</span> 
-  breed_traits <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">select</span>(breed, coat_type, coat_length, <span style="color:#c0f">everything</span>()) <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">as_tibble</span>() <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">pivot_longer</span>(cols <span style="color:#555">=</span> <span style="color:#f60">4</span><span style="color:#555">:</span><span style="color:#c0f">ncol</span>(.), names_to <span style="color:#555">=</span> <span style="color:#c30">&#34;trait&#34;</span>, values_to <span style="color:#555">=</span> <span style="color:#c30">&#39;trait_score&#39;</span>) <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">left_join</span>(., trait_description, by <span style="color:#555">=</span> <span style="color:#c30">&#39;trait&#39;</span>) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">as_tibble</span>() <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">left_join</span>(., mean_rank, by <span style="color:#555">=</span> <span style="color:#c30">&#39;breed&#39;</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mean_rank <span style="color:#666">&lt;-</span> 
+  breed_rank_all <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(<span style="color:#666">-</span><span style="color:#06287e">c</span>(links, image)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">pivot_longer</span>(cols <span style="color:#666">=</span> <span style="color:#06287e">starts_with</span>(<span style="color:#4070a0">&#34;x&#34;</span>), values_to <span style="color:#666">=</span> <span style="color:#4070a0">&#39;rank&#39;</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(breed) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">summarise</span>(mean_rank <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(rank, na.rm <span style="color:#666">=</span> T),
+            sd <span style="color:#666">=</span> <span style="color:#06287e">sd</span>(rank)) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">mutate</span>(breed <span style="color:#666">=</span> <span style="color:#06287e">trimws</span>(breed),
+         breed <span style="color:#666">=</span> <span style="color:#06287e">as.character</span>(breed)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ungroup</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">arrange</span>(mean_rank) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(rank <span style="color:#666">=</span> <span style="color:#06287e">row_number</span>()) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ungroup</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">as_tibble</span>()
+</code></pre></div><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">traits <span style="color:#666">&lt;-</span> 
+  breed_traits <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(breed, coat_type, coat_length, <span style="color:#06287e">everything</span>()) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">ungroup</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">as_tibble</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">pivot_longer</span>(cols <span style="color:#666">=</span> <span style="color:#40a070">4</span><span style="color:#666">:</span><span style="color:#06287e">ncol</span>(.), names_to <span style="color:#666">=</span> <span style="color:#4070a0">&#34;trait&#34;</span>, values_to <span style="color:#666">=</span> <span style="color:#4070a0">&#39;trait_score&#39;</span>) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">left_join</span>(., trait_description, by <span style="color:#666">=</span> <span style="color:#4070a0">&#39;trait&#39;</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ungroup</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">as_tibble</span>() <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">left_join</span>(., mean_rank, by <span style="color:#666">=</span> <span style="color:#4070a0">&#39;breed&#39;</span>)
 
-traits <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">add_table</span>()
+traits <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">add_table</span>()
 </code></pre></div>
 
 
@@ -318,18 +318,18 @@ traits <span style="color:#555">%&gt;%</span>
 <p>Topic modeling is a method for unsupervised classification of such documents, similar to clustering on numeric data, which finds natural groups of items even when we’re not sure what we’re looking for.</p>
 </blockquote>
 <p>Next the tidytext’s <code>unnest_tokens()</code> is used to separate the trait descriptions into words, then stop words and some other the common words are removed. This results in a dataframe with 1 word per trait per row. as a first step</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">trait_list <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;Affectionate With Family&#34;</span>, <span style="color:#c30">&#34;Trainability Level&#34;</span>, <span style="color:#c30">&#34;Barking Level&#34;</span>, <span style="color:#c30">&#34;Mental Stimulation Needs&#34;</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">trait_list <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;Affectionate With Family&#34;</span>, <span style="color:#4070a0">&#34;Trainability Level&#34;</span>, <span style="color:#4070a0">&#34;Barking Level&#34;</span>, <span style="color:#4070a0">&#34;Mental Stimulation Needs&#34;</span>)
 
-tidy_descripion <span style="color:#555">&lt;-</span>
-  trait_description <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">filter</span>(trait <span style="color:#555">%in%</span> trait_list) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">unnest_tokens</span>(word, description) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">anti_join</span>(<span style="color:#c0f">get_stopwords</span>()) <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">filter</span>(<span style="color:#555">!</span>word <span style="color:#555">%in%</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;breed&#34;</span>, <span style="color:#c30">&#34;breeds&#34;</span>, <span style="color:#c30">&#34;breed&#39;s&#34;</span>, <span style="color:#c30">&#34;dogs&#34;</span>))
+tidy_descripion <span style="color:#666">&lt;-</span>
+  trait_description <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(trait <span style="color:#666">%in%</span> trait_list) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">unnest_tokens</span>(word, description) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">anti_join</span>(<span style="color:#06287e">get_stopwords</span>()) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">filter</span>(<span style="color:#666">!</span>word <span style="color:#666">%in%</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;breed&#34;</span>, <span style="color:#4070a0">&#34;breeds&#34;</span>, <span style="color:#4070a0">&#34;breed&#39;s&#34;</span>, <span style="color:#4070a0">&#34;dogs&#34;</span>))
   
-tidy_descripion <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">count</span>(word, sort <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>)
+tidy_descripion <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">count</span>(word, sort <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
 </code></pre></div><pre><code>## # A tibble: 76 × 2
 ##    word             n
 ##    &lt;chr&gt;        &lt;int&gt;
@@ -346,26 +346,26 @@ tidy_descripion <span style="color:#555">%&gt;%</span>
 ## # … with 66 more rows
 </code></pre>
 <p>Next we need to make the data into a <code>DocumentTermMatrix</code> using <code>cast_dtm()</code></p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">desc_dtm <span style="color:#555">&lt;-</span>
-  tidy_descripion <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">count</span>(trait, word) <span style="color:#555">%&gt;%</span>
-  tidytext<span style="color:#555">::</span><span style="color:#c0f">cast_dtm</span>(trait, word, n)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">desc_dtm <span style="color:#666">&lt;-</span>
+  tidy_descripion <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">count</span>(trait, word) <span style="color:#666">%&gt;%</span>
+  tidytext<span style="color:#666">::</span><span style="color:#06287e">cast_dtm</span>(trait, word, n)
 
-<span style="color:#c0f">dim</span>(desc_dtm)
+<span style="color:#06287e">dim</span>(desc_dtm)
 </code></pre></div><pre><code>## [1]  4 76
 </code></pre>
 <p>This means there are 4 traits (i.e. documents) and 76 different tokens (i.e. terms or words) in our dataset for modeling. Then we use <code>LDA()</code> to create a 4 topic model, one for each of the 4 traits we filtered for above.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># Latent Dirichlet allocation algorithms for topic modelling</span>
-traits_lda <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">LDA</span>(desc_dtm, k <span style="color:#555">=</span> <span style="color:#f60">4</span>, control <span style="color:#555">=</span> <span style="color:#c0f">list</span>(seed <span style="color:#555">=</span> <span style="color:#f60">173</span>))
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic"># Latent Dirichlet allocation algorithms for topic modelling</span>
+traits_lda <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">LDA</span>(desc_dtm, k <span style="color:#666">=</span> <span style="color:#40a070">4</span>, control <span style="color:#666">=</span> <span style="color:#06287e">list</span>(seed <span style="color:#666">=</span> <span style="color:#40a070">173</span>))
 
 traits_lda
 </code></pre></div><pre><code>## A LDA_VEM topic model with 4 topics.
 </code></pre>
 <p>we can examine per-topic-per-word probabilities, beta, where the model computes the probability of a given term being generated from a given topic. For example, the term “affectionate” has an almost zero probability of being generated from topics 1, 2, or 3, but it makes up about 5% of topic 4.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># per-topic-per-word probabilities.</span>
-trait_topics <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">tidy</span>(traits_lda, matrix <span style="color:#555">=</span> <span style="color:#c30">&#34;beta&#34;</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic"># per-topic-per-word probabilities.</span>
+trait_topics <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">tidy</span>(traits_lda, matrix <span style="color:#666">=</span> <span style="color:#4070a0">&#34;beta&#34;</span>)
 
 trait_topics
 </code></pre></div><pre><code>## # A tibble: 304 × 3
@@ -384,26 +384,26 @@ trait_topics
 ## # … with 294 more rows
 </code></pre>
 <p>From the plot we can pretty clearly see that topic 1 is probably Mental Stimulation Needs, topic 2 is likely Trainability Level, topic 3 is Barking Level and topic 4 is probably Affectionate With Family</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">top_terms <span style="color:#555">&lt;-</span> 
-  trait_topics <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">group_by</span>(topic) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">slice_max</span>(beta, n <span style="color:#555">=</span> <span style="color:#f60">5</span>, with_ties <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>) <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">arrange</span>(topic, <span style="color:#555">-</span>beta)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">top_terms <span style="color:#666">&lt;-</span> 
+  trait_topics <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ungroup</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(topic) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">slice_max</span>(beta, n <span style="color:#666">=</span> <span style="color:#40a070">5</span>, with_ties <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">ungroup</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">arrange</span>(topic, <span style="color:#666">-</span>beta)
 
-top_terms <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(term <span style="color:#555">=</span> <span style="color:#c0f">reorder_within</span>(term, beta, topic)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">ggplot</span>(<span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> beta, y <span style="color:#555">=</span> term, fill <span style="color:#555">=</span> <span style="color:#c0f">factor</span>(topic))) <span style="color:#555">+</span>
-  <span style="color:#c0f">geom_col</span>(show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>, alpha <span style="color:#555">=</span> <span style="color:#f60">.76</span>) <span style="color:#555">+</span>
-  <span style="color:#c0f">facet_wrap</span>(<span style="color:#555">~</span> topic, scales <span style="color:#555">=</span> <span style="color:#c30">&#34;free&#34;</span>) <span style="color:#555">+</span>
-  <span style="color:#c0f">scale_y_reordered</span>() <span style="color:#555">+</span> 
-  <span style="color:#c0f">bg_theme</span>() <span style="color:#555">+</span>
-  <span style="color:#c0f">scale_fill_npg</span>()
+top_terms <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(term <span style="color:#666">=</span> <span style="color:#06287e">reorder_within</span>(term, beta, topic)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> beta, y <span style="color:#666">=</span> term, fill <span style="color:#666">=</span> <span style="color:#06287e">factor</span>(topic))) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_col</span>(show.legend <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>, alpha <span style="color:#666">=</span> <span style="color:#40a070">.76</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">facet_wrap</span>(<span style="color:#666">~</span> topic, scales <span style="color:#666">=</span> <span style="color:#4070a0">&#34;free&#34;</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">scale_y_reordered</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">bg_theme</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">scale_fill_npg</span>()
 </code></pre></div><p><img src="https://brendangraham.online/blog/dogs/index_files/figure-html/unnamed-chunk-14-1.png" width="864" /></p>
 <p>We can then examine per-document-per-topic probabilities, gamma. This lets us take a look at topic probabilities of each trait. This aligns well with the plot above.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">traits_gamma <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">tidy</span>(traits_lda, matrix <span style="color:#555">=</span> <span style="color:#c30">&#34;gamma&#34;</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">traits_gamma <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">tidy</span>(traits_lda, matrix <span style="color:#666">=</span> <span style="color:#4070a0">&#34;gamma&#34;</span>)
 
 traits_gamma
 </code></pre></div><pre><code>## # A tibble: 16 × 3
@@ -426,13 +426,13 @@ traits_gamma
 ## 15 Mental Stimulation Needs     4 0.000395
 ## 16 Trainability Level           4 0.000643
 </code></pre>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">traits_gamma <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">ggplot</span>(<span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> <span style="color:#c0f">factor</span>(topic), y <span style="color:#555">=</span> gamma, color <span style="color:#555">=</span> <span style="color:#c0f">factor</span>(topic))) <span style="color:#555">+</span>
-  <span style="color:#c0f">geom_point</span>(size <span style="color:#555">=</span> <span style="color:#f60">3</span>, show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>) <span style="color:#555">+</span>
-  <span style="color:#c0f">facet_wrap</span>(<span style="color:#555">~</span> document) <span style="color:#555">+</span>
-  <span style="color:#c0f">labs</span>(x <span style="color:#555">=</span> <span style="color:#c30">&#34;topic&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c0f">expression</span>(gamma)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">bg_theme</span>() <span style="color:#555">+</span>
-  <span style="color:#c0f">scale_color_npg</span>()
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">traits_gamma <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> <span style="color:#06287e">factor</span>(topic), y <span style="color:#666">=</span> gamma, color <span style="color:#666">=</span> <span style="color:#06287e">factor</span>(topic))) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_point</span>(size <span style="color:#666">=</span> <span style="color:#40a070">3</span>, show.legend <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">facet_wrap</span>(<span style="color:#666">~</span> document) <span style="color:#666">+</span>
+  <span style="color:#06287e">labs</span>(x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;topic&#34;</span>, y <span style="color:#666">=</span> <span style="color:#06287e">expression</span>(gamma)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">bg_theme</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">scale_color_npg</span>()
 </code></pre></div><p><img src="https://brendangraham.online/blog/dogs/index_files/figure-html/unnamed-chunk-15-1.png" width="864" /></p>
 
         

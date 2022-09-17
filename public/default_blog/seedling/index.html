@@ -143,14 +143,14 @@ Hello! 👋 hello
 
 </div>
 <p>Was created by combining this theme&rsquo;s <code>panelset</code> and <code>panel</code> shortcodes:</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">{{&lt; panelset class=<span style="color:#c30">&#34;greetings&#34;</span> &gt;}}
-{{&lt; panel name=<span style="color:#c30">&#34;Hello! :wave:&#34;</span> &gt;}}
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">{{&lt; panelset class=<span style="color:#4070a0">&#34;greetings&#34;</span> &gt;}}
+{{&lt; panel name=<span style="color:#4070a0">&#34;Hello! :wave:&#34;</span> &gt;}}
   hello
-{{&lt; <span style="color:#555">/</span>panel &gt;}}
-{{&lt; panel name=<span style="color:#c30">&#34;Goodbye :dash:&#34;</span> &gt;}}
+{{&lt; <span style="color:#666">/</span>panel &gt;}}
+{{&lt; panel name=<span style="color:#4070a0">&#34;Goodbye :dash:&#34;</span> &gt;}}
   goodbye
-{{&lt; <span style="color:#555">/</span>panel &gt;}}
-{{&lt; <span style="color:#555">/</span>panelset &gt;}}
+{{&lt; <span style="color:#666">/</span>panel &gt;}}
+{{&lt; <span style="color:#666">/</span>panelset &gt;}}
 </code></pre></div><p>You could also revert to HTML as well. For example, this panelset:</p>
 <div class="panelset">
   <div class="panel">
@@ -165,18 +165,18 @@ Hello! 👋 hello
   </div>
 </div>
 <p>Was created with this HTML code:</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#309;font-weight:bold">div</span> <span style="color:#309">class</span><span style="color:#555">=</span><span style="color:#c30">&#34;panelset&#34;</span>&gt;
-  &lt;<span style="color:#309;font-weight:bold">div</span> <span style="color:#309">class</span><span style="color:#555">=</span><span style="color:#c30">&#34;panel&#34;</span>&gt;
-    &lt;<span style="color:#309;font-weight:bold">div</span> <span style="color:#309">class</span><span style="color:#555">=</span><span style="color:#c30">&#34;panel-name&#34;</span>&gt;Question&lt;/<span style="color:#309;font-weight:bold">div</span>&gt;
-    <span style="color:#09f;font-style:italic">&lt;!-- Panel content --&gt;</span>
-    &lt;<span style="color:#309;font-weight:bold">p</span>&gt;Which came first: the 🐔 or the 🥚?&lt;/<span style="color:#309;font-weight:bold">p</span>&gt;
-  &lt;/<span style="color:#309;font-weight:bold">div</span>&gt;
-  &lt;<span style="color:#309;font-weight:bold">div</span> <span style="color:#309">class</span><span style="color:#555">=</span><span style="color:#c30">&#34;panel&#34;</span>&gt;
-    &lt;<span style="color:#309;font-weight:bold">div</span> <span style="color:#309">class</span><span style="color:#555">=</span><span style="color:#c30">&#34;panel-name&#34;</span>&gt;Answer 🐣&lt;/<span style="color:#309;font-weight:bold">div</span>&gt;
-    <span style="color:#09f;font-style:italic">&lt;!-- Panel content --&gt;</span>
-    &lt;<span style="color:#309;font-weight:bold">p</span>&gt;Team 🥚 FTW!&lt;/<span style="color:#309;font-weight:bold">p</span>&gt;
-  &lt;/<span style="color:#309;font-weight:bold">div</span>&gt;
-&lt;/<span style="color:#309;font-weight:bold">div</span>&gt;
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#062873;font-weight:bold">div</span> <span style="color:#4070a0">class</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;panelset&#34;</span>&gt;
+  &lt;<span style="color:#062873;font-weight:bold">div</span> <span style="color:#4070a0">class</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;panel&#34;</span>&gt;
+    &lt;<span style="color:#062873;font-weight:bold">div</span> <span style="color:#4070a0">class</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;panel-name&#34;</span>&gt;Question&lt;/<span style="color:#062873;font-weight:bold">div</span>&gt;
+    <span style="color:#60a0b0;font-style:italic">&lt;!-- Panel content --&gt;</span>
+    &lt;<span style="color:#062873;font-weight:bold">p</span>&gt;Which came first: the 🐔 or the 🥚?&lt;/<span style="color:#062873;font-weight:bold">p</span>&gt;
+  &lt;/<span style="color:#062873;font-weight:bold">div</span>&gt;
+  &lt;<span style="color:#062873;font-weight:bold">div</span> <span style="color:#4070a0">class</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;panel&#34;</span>&gt;
+    &lt;<span style="color:#062873;font-weight:bold">div</span> <span style="color:#4070a0">class</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;panel-name&#34;</span>&gt;Answer 🐣&lt;/<span style="color:#062873;font-weight:bold">div</span>&gt;
+    <span style="color:#60a0b0;font-style:italic">&lt;!-- Panel content --&gt;</span>
+    &lt;<span style="color:#062873;font-weight:bold">p</span>&gt;Team 🥚 FTW!&lt;/<span style="color:#062873;font-weight:bold">p</span>&gt;
+  &lt;/<span style="color:#062873;font-weight:bold">div</span>&gt;
+&lt;/<span style="color:#062873;font-weight:bold">div</span>&gt;
 </code></pre></div>
         
         <details closed class="f6 fw7 input-reset">

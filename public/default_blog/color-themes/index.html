@@ -138,24 +138,24 @@ three options meets your needs.</p>
 <p>Hugo Apéro includes 8 built-in color themes that work &ldquo;out of the box.&rdquo;
 This means you can use a color theme to quickly customize the look of your site
 without needing to write any CSS. You can select the color theme in your <code>config.toml</code> file. Scroll down to find:</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[params]
-  <span style="color:#a00;background-color:#faa">&lt;!--</span>snip snip<span style="color:#a00;background-color:#faa">--&gt;</span>
-  <span style="color:#09f;font-style:italic"># use a built-in color theme</span>
-  <span style="color:#09f;font-style:italic"># one of: forest / grayscale / peach / plum /</span>
-  <span style="color:#09f;font-style:italic">#         poppy / sky / violet / water</span>
-  theme = <span style="color:#c30">&#34;&#34;</span>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[params]
+  <span style="">&lt;!--</span>snip snip<span style="">--&gt;</span>
+  <span style="color:#60a0b0;font-style:italic"># use a built-in color theme</span>
+  <span style="color:#60a0b0;font-style:italic"># one of: forest / grayscale / peach / plum /</span>
+  <span style="color:#60a0b0;font-style:italic">#         poppy / sky / violet / water</span>
+  theme = <span style="color:#4070a0">&#34;&#34;</span>
 </code></pre></div><p>Type one of the options like <code>&quot;peach&quot;</code> inside the quotation marks. If you have a Hugo server started (i.e., by using <code>blogdown::serve_site()</code>), when you save the <code>config.toml</code> file, your site preview will immediately and automatically update with your new color theme. For example, let&rsquo;s choose <code>&quot;peach&quot;</code>!</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[params]
-  <span style="color:#a00;background-color:#faa">&lt;!--</span>snip snip<span style="color:#a00;background-color:#faa">--&gt;</span>
-  <span style="color:#09f;font-style:italic"># use a built-in color theme</span>
-  <span style="color:#09f;font-style:italic"># one of: forest / grayscale / peach / plum /</span>
-  <span style="color:#09f;font-style:italic">#         poppy / sky / violet / water</span>
-  theme = <span style="color:#c30">&#34;peach&#34;</span>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[params]
+  <span style="">&lt;!--</span>snip snip<span style="">--&gt;</span>
+  <span style="color:#60a0b0;font-style:italic"># use a built-in color theme</span>
+  <span style="color:#60a0b0;font-style:italic"># one of: forest / grayscale / peach / plum /</span>
+  <span style="color:#60a0b0;font-style:italic">#         poppy / sky / violet / water</span>
+  theme = <span style="color:#4070a0">&#34;peach&#34;</span>
 </code></pre></div><p>You should see:</p>
 <p><img src="peach.png" alt="Switching to the peach color theme"></p>
 <p>If you select a theme that isn&rsquo;t one of the available options (like <code>&quot;pecan&quot;</code>),
 you should see an error message print to your viewer pane in the RStudio IDE:</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Selected theme <span style="color:#c30">&#39;pecan&#39;</span> is not one of the options.
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Selected theme <span style="color:#4070a0">&#39;pecan&#39;</span> is not one of the options.
 </code></pre></div><p>All of the color themes were designed to meet 
 <a href="https://webaim.org/articles/contrast/" target="_blank" rel="noopener">WCAG 2.0 level AA requirements</a> for contrast ratios.</p>
 
@@ -187,23 +187,23 @@ offer an easy way for you to setup your site using your favorite colors. Here ar
 <p>Copy the code below for a full set of color parameters giving you control over the theme color scheme. For an option like <code>siteBgColor</code>, for example, you can type one of the predefined color names from Tachyons and save the file. Use only color names as shown in the &ldquo;Color Palette&rdquo; section of <a href="https://tachyons.io/docs/themes/skins/">https://tachyons.io/docs/themes/skins/</a>.</p>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scss" data-lang="scss"><span style="color:#09f;font-style:italic">// basic color options: use only color names as shown in the
-</span><span style="color:#09f;font-style:italic">// &#34;Color Palette&#34; section of https://tachyons.io/docs/themes/skins/
-</span><span style="color:#09f;font-style:italic"></span><span style="color:#033">$siteBgColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;near-white&#34;</span> ;
-<span style="color:#033">$sidebarBgColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;light-gray&#34;</span> ;
-<span style="color:#033">$textColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;dark-gray&#34;</span> ;
-<span style="color:#033">$sidebarTextColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;mid-gray&#34;</span> ;
-<span style="color:#033">$headlineColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;dark-pink&#34;</span> ;
-<span style="color:#033">$headingColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;near-black&#34;</span> ;
-<span style="color:#033">$bodyLinkColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;blue&#34;</span> ;
-<span style="color:#033">$navLinkColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;near-black&#34;</span> ;
-<span style="color:#033">$sidebarLinkColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;near-black&#34;</span> ;
-<span style="color:#033">$footerTextColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;silver&#34;</span> ;
-<span style="color:#033">$buttonTextColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;near-white&#34;</span> ;
-<span style="color:#033">$buttonBgColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;black&#34;</span> ;
-<span style="color:#033">$buttonHoverTextColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;white&#34;</span> ;
-<span style="color:#033">$buttonHoverBgColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;blue&#34;</span> ;
-<span style="color:#033">$borderColor</span><span style="color:#555">:</span> <span style="color:#c30">&#34;moon-gray&#34;</span> ;
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scss" data-lang="scss"><span style="color:#60a0b0;font-style:italic">// basic color options: use only color names as shown in the
+</span><span style="color:#60a0b0;font-style:italic">// &#34;Color Palette&#34; section of https://tachyons.io/docs/themes/skins/
+</span><span style="color:#60a0b0;font-style:italic"></span><span style="color:#bb60d5">$siteBgColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;near-white&#34;</span> ;
+<span style="color:#bb60d5">$sidebarBgColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;light-gray&#34;</span> ;
+<span style="color:#bb60d5">$textColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;dark-gray&#34;</span> ;
+<span style="color:#bb60d5">$sidebarTextColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;mid-gray&#34;</span> ;
+<span style="color:#bb60d5">$headlineColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;dark-pink&#34;</span> ;
+<span style="color:#bb60d5">$headingColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;near-black&#34;</span> ;
+<span style="color:#bb60d5">$bodyLinkColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;blue&#34;</span> ;
+<span style="color:#bb60d5">$navLinkColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;near-black&#34;</span> ;
+<span style="color:#bb60d5">$sidebarLinkColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;near-black&#34;</span> ;
+<span style="color:#bb60d5">$footerTextColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;silver&#34;</span> ;
+<span style="color:#bb60d5">$buttonTextColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;near-white&#34;</span> ;
+<span style="color:#bb60d5">$buttonBgColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;black&#34;</span> ;
+<span style="color:#bb60d5">$buttonHoverTextColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;white&#34;</span> ;
+<span style="color:#bb60d5">$buttonHoverBgColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;blue&#34;</span> ;
+<span style="color:#bb60d5">$borderColor</span><span style="color:#666">:</span> <span style="color:#4070a0">&#34;moon-gray&#34;</span> ;
 </code></pre></div><p>Two last steps- back in your <code>config.toml</code> file:</p>
 <ol>
 <li>
@@ -214,19 +214,19 @@ offer an easy way for you to setup your site using your favorite colors. Here ar
 </li>
 </ol>
 <p>Your final <code>config.toml</code> would look something like this:</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[params]
-  <span style="color:#a00;background-color:#faa">&lt;!--</span>snip snip<span style="color:#a00;background-color:#faa">--&gt;</span>
-  <span style="color:#09f;font-style:italic"># use a built-in color theme</span>
-  <span style="color:#09f;font-style:italic"># one of: forest / grayscale / peach / plum /</span>
-  <span style="color:#09f;font-style:italic">#         poppy / sky / violet / water </span>
-  theme = <span style="color:#c30">&#34;&#34;</span>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[params]
+  <span style="">&lt;!--</span>snip snip<span style="">--&gt;</span>
+  <span style="color:#60a0b0;font-style:italic"># use a built-in color theme</span>
+  <span style="color:#60a0b0;font-style:italic"># one of: forest / grayscale / peach / plum /</span>
+  <span style="color:#60a0b0;font-style:italic">#         poppy / sky / violet / water </span>
+  theme = <span style="color:#4070a0">&#34;&#34;</span>
   
-  <span style="color:#09f;font-style:italic"># or, leave theme empty &amp; make your own palette</span>
-  <span style="color:#09f;font-style:italic"># see docs at https://hugo-apero.netlify.app/blog/color-themes/</span>
-  <span style="color:#09f;font-style:italic"># the custom scss file must be in the assets/ folder</span>
-  <span style="color:#09f;font-style:italic"># add the filename name here, without extension</span>
-  <span style="color:#09f;font-style:italic"># to use hex colors instead of named tachyons colors, include &#34;hex&#34; in filename</span>
-  custom_theme = <span style="color:#c30">&#34;named-colors&#34;</span> 
+  <span style="color:#60a0b0;font-style:italic"># or, leave theme empty &amp; make your own palette</span>
+  <span style="color:#60a0b0;font-style:italic"># see docs at https://hugo-apero.netlify.app/blog/color-themes/</span>
+  <span style="color:#60a0b0;font-style:italic"># the custom scss file must be in the assets/ folder</span>
+  <span style="color:#60a0b0;font-style:italic"># add the filename name here, without extension</span>
+  <span style="color:#60a0b0;font-style:italic"># to use hex colors instead of named tachyons colors, include &#34;hex&#34; in filename</span>
+  custom_theme = <span style="color:#4070a0">&#34;named-colors&#34;</span> 
 </code></pre></div>
 
 
@@ -240,36 +240,36 @@ offer an easy way for you to setup your site using your favorite colors. Here ar
 <p>Let&rsquo;s say you have a style guide to follow and <code>washed-blue</code> just won&rsquo;t cut the
 mustard. There is a bypass of these
 predefined colors built in, you just need to do <em>one very special extra step</em>. Follow the steps above for using named Tachyons colors, but then, add <code>hex</code> anywhere in the filename for your custom <code>.scss</code> (for example, you may name this file <code>hex-colors.scss</code>). If you include <code>hex</code> in the filename, you get to assign your own HEX codes, like this:</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scss" data-lang="scss"><span style="color:#09f;font-style:italic">// set custom hex colors
-</span><span style="color:#09f;font-style:italic"></span><span style="color:#033">$siteBgColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#e3e3da</span>;
-<span style="color:#033">$sidebarBgColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#dbdbd2</span>;
-<span style="color:#033">$textColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#666260</span>;
-<span style="color:#033">$sidebarTextColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#666260</span>;
-<span style="color:#033">$headlineColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#103742</span>;
-<span style="color:#033">$headingColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#103742</span>;
-<span style="color:#033">$bodyLinkColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#c4001a</span>;
-<span style="color:#033">$navLinkColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#c4001a</span>;
-<span style="color:#033">$sidebarLinkColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#c4001a</span>;
-<span style="color:#033">$footerTextColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#918f8d</span>;
-<span style="color:#033">$buttonTextColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#f7f7f4</span>;
-<span style="color:#033">$buttonHoverTextColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#f9f9f8</span>;
-<span style="color:#033">$buttonBgColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#103742</span>;
-<span style="color:#033">$buttonHoverBgColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#c4001a</span>;
-<span style="color:#033">$borderColorCustom</span><span style="color:#555">:</span> <span style="color:#f60">#c4beb9</span>;
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scss" data-lang="scss"><span style="color:#60a0b0;font-style:italic">// set custom hex colors
+</span><span style="color:#60a0b0;font-style:italic"></span><span style="color:#bb60d5">$siteBgColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#e3e3da</span>;
+<span style="color:#bb60d5">$sidebarBgColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#dbdbd2</span>;
+<span style="color:#bb60d5">$textColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#666260</span>;
+<span style="color:#bb60d5">$sidebarTextColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#666260</span>;
+<span style="color:#bb60d5">$headlineColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#103742</span>;
+<span style="color:#bb60d5">$headingColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#103742</span>;
+<span style="color:#bb60d5">$bodyLinkColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#c4001a</span>;
+<span style="color:#bb60d5">$navLinkColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#c4001a</span>;
+<span style="color:#bb60d5">$sidebarLinkColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#c4001a</span>;
+<span style="color:#bb60d5">$footerTextColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#918f8d</span>;
+<span style="color:#bb60d5">$buttonTextColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#f7f7f4</span>;
+<span style="color:#bb60d5">$buttonHoverTextColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#f9f9f8</span>;
+<span style="color:#bb60d5">$buttonBgColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#103742</span>;
+<span style="color:#bb60d5">$buttonHoverBgColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#c4001a</span>;
+<span style="color:#bb60d5">$borderColorCustom</span><span style="color:#666">:</span> <span style="color:#40a070">#c4beb9</span>;
 </code></pre></div><p>After adding the name of your theme file (minus the <code>.scss</code> extension) that you added to <code>assets/</code> as the <code>custom_theme</code>, your final <code>config.toml</code> would look something like this:</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[params]
-  <span style="color:#a00;background-color:#faa">&lt;!--</span>snip snip<span style="color:#a00;background-color:#faa">--&gt;</span>
-  <span style="color:#09f;font-style:italic"># use a built-in color theme</span>
-  <span style="color:#09f;font-style:italic"># one of: forest / grayscale / peach / plum /</span>
-  <span style="color:#09f;font-style:italic">#         poppy / sky / violet / water </span>
-  theme = <span style="color:#c30">&#34;&#34;</span>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[params]
+  <span style="">&lt;!--</span>snip snip<span style="">--&gt;</span>
+  <span style="color:#60a0b0;font-style:italic"># use a built-in color theme</span>
+  <span style="color:#60a0b0;font-style:italic"># one of: forest / grayscale / peach / plum /</span>
+  <span style="color:#60a0b0;font-style:italic">#         poppy / sky / violet / water </span>
+  theme = <span style="color:#4070a0">&#34;&#34;</span>
   
-  <span style="color:#09f;font-style:italic"># or, leave theme empty &amp; make your own palette</span>
-  <span style="color:#09f;font-style:italic"># see docs at https://hugo-apero.netlify.app/blog/color-themes/</span>
-  <span style="color:#09f;font-style:italic"># the custom scss file must be in the assets/ folder</span>
-  <span style="color:#09f;font-style:italic"># add the filename name here, without extension</span>
-  <span style="color:#09f;font-style:italic"># to use hex colors instead of named tachyons colors, include &#34;hex&#34; in filename</span>
-  custom_theme = <span style="color:#c30">&#34;hex-colors&#34;</span> 
+  <span style="color:#60a0b0;font-style:italic"># or, leave theme empty &amp; make your own palette</span>
+  <span style="color:#60a0b0;font-style:italic"># see docs at https://hugo-apero.netlify.app/blog/color-themes/</span>
+  <span style="color:#60a0b0;font-style:italic"># the custom scss file must be in the assets/ folder</span>
+  <span style="color:#60a0b0;font-style:italic"># add the filename name here, without extension</span>
+  <span style="color:#60a0b0;font-style:italic"># to use hex colors instead of named tachyons colors, include &#34;hex&#34; in filename</span>
+  custom_theme = <span style="color:#4070a0">&#34;hex-colors&#34;</span> 
 </code></pre></div>
         
         <details closed class="f6 fw7 input-reset">

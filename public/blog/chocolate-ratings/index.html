@@ -124,7 +124,7 @@ TidyTuesday data set about chocolate. After looking at the data I compare text b
       <section class="post-body pt5 pb4">
         <p>The goal for this weeks analysis to compare 2 types of models for predicting chocolate ratings. I have read bout text based models but haven&rsquo;t every attempted one, so in this analysis I will compare some text-based models with more traditional ML models.</p>
 <p>The data is composed of 2,530 observations of 10 variables. There is some missing ingredients data, but all other columns are complete.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">chocolate
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">chocolate
 </code></pre></div><pre><code>## # A tibble: 2,530 × 10
 ##      ref company_manufacturer company_location review_date country_of_bean_orig…
 ##    &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;                  &lt;dbl&gt; &lt;chr&gt;                
@@ -141,7 +141,7 @@ TidyTuesday data set about chocolate. After looking at the data I compare text b
 ## # … with 2,520 more rows, and 5 more variables:
 ## #   specific_bean_origin_or_bar_name &lt;chr&gt;, cocoa_percent &lt;chr&gt;,
 ## #   ingredients &lt;chr&gt;, most_memorable_characteristics &lt;chr&gt;, rating &lt;dbl&gt;
-</code></pre><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">skimr<span style="color:#555">::</span><span style="color:#c0f">skim_to_list</span>(chocolate)
+</code></pre><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">skimr<span style="color:#666">::</span><span style="color:#06287e">skim_to_list</span>(chocolate)
 </code></pre></div><p><strong>Variable type: character</strong></p>
 <table>
 <thead>
@@ -299,27 +299,27 @@ TidyTuesday data set about chocolate. After looking at the data I compare text b
     </svg></a>
 </h2>
 <p>The average rating is around 3.3 or 3.4 out of 5, are ratings are slightly skewed to the left.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">chocolate <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> rating)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_histogram</span>(bins <span style="color:#555">=</span> <span style="color:#f60">10</span>, alpha <span style="color:#555">=</span> <span style="color:#f60">.75</span>, fill <span style="color:#555">=</span> bg_green) <span style="color:#555">+</span>
-  <span style="color:#c0f">bg_theme</span>()
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">chocolate <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> rating)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_histogram</span>(bins <span style="color:#666">=</span> <span style="color:#40a070">10</span>, alpha <span style="color:#666">=</span> <span style="color:#40a070">.75</span>, fill <span style="color:#666">=</span> bg_green) <span style="color:#666">+</span>
+  <span style="color:#06287e">bg_theme</span>()
 </code></pre></div><p><img src="https://brendangraham.online/blog/chocolate-ratings/index_files/figure-html/unnamed-chunk-4-1.png" width="864" /></p>
 <p>There isn&rsquo;t much of a relationship between cocoa percent and rating.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">chocolate <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(cocoa_percent <span style="color:#555">=</span> <span style="color:#c0f">as.numeric</span>(<span style="color:#c0f">str_remove_all</span>(cocoa_percent, <span style="color:#c30">&#34;%&#34;</span>))) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> cocoa_percent, y <span style="color:#555">=</span> rating)) <span style="color:#555">+</span>
-  <span style="color:#c0f">geom_point</span>(color <span style="color:#555">=</span> bg_blue) <span style="color:#555">+</span>
-  <span style="color:#c0f">bg_theme</span>()
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">chocolate <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(cocoa_percent <span style="color:#666">=</span> <span style="color:#06287e">as.numeric</span>(<span style="color:#06287e">str_remove_all</span>(cocoa_percent, <span style="color:#4070a0">&#34;%&#34;</span>))) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> cocoa_percent, y <span style="color:#666">=</span> rating)) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_point</span>(color <span style="color:#666">=</span> bg_blue) <span style="color:#666">+</span>
+  <span style="color:#06287e">bg_theme</span>()
 </code></pre></div><p><img src="https://brendangraham.online/blog/chocolate-ratings/index_files/figure-html/unnamed-chunk-5-1.png" width="864" /></p>
 <p>chocolate with 2 and 3 ingredients seem to be rated higher than those with 4 or 5.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">chocolate <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(ingredients <span style="color:#555">=</span> <span style="color:#c0f">substr</span>(ingredients, <span style="color:#f60">1</span>, <span style="color:#f60">1</span>)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> ingredients, y <span style="color:#555">=</span> rating, fill <span style="color:#555">=</span> ingredients)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_jitter</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.50</span>, show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_boxplot</span>(show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>, alpha <span style="color:#555">=</span> <span style="color:#f60">.80</span>) <span style="color:#555">+</span>
-  <span style="color:#c0f">bg_theme</span>()  <span style="color:#555">+</span> 
-  <span style="color:#c0f">coord_flip</span>() <span style="color:#555">+</span>
-  <span style="color:#c0f">scale_fill_npg</span>()
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">chocolate <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(ingredients <span style="color:#666">=</span> <span style="color:#06287e">substr</span>(ingredients, <span style="color:#40a070">1</span>, <span style="color:#40a070">1</span>)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> ingredients, y <span style="color:#666">=</span> rating, fill <span style="color:#666">=</span> ingredients)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">.50</span>, show.legend <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_boxplot</span>(show.legend <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>, alpha <span style="color:#666">=</span> <span style="color:#40a070">.80</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">bg_theme</span>()  <span style="color:#666">+</span> 
+  <span style="color:#06287e">coord_flip</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">scale_fill_npg</span>()
 </code></pre></div><p><img src="https://brendangraham.online/blog/chocolate-ratings/index_files/figure-html/unnamed-chunk-6-1.png" width="864" /></p>
 
 
@@ -332,31 +332,31 @@ TidyTuesday data set about chocolate. After looking at the data I compare text b
     </svg></a>
 </h2>
 <p>The <code>most memorable characteristics</code> column will be used along with number of ingredients as predictors of rating. The <code>most memorable characteristics</code> is split and pivoted into indicator variables. A 2nd recipe that includes <code>step_nzv()</code> will also be used to see if removing sparse ingredients improves model performance.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">max_characteristics <span style="color:#555">&lt;-</span> 
-  chocolate <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">mutate</span>(num_char <span style="color:#555">=</span> <span style="color:#c0f">str_count</span>(most_memorable_characteristics, <span style="color:#c30">&#34;,&#34;</span>) <span style="color:#555">+</span> <span style="color:#f60">1</span>) <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">filter</span>(num_char <span style="color:#555">==</span> <span style="color:#c0f">max</span>(num_char)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">select</span>(num_char) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">distinct</span>() <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">pull</span>(num_char)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">max_characteristics <span style="color:#666">&lt;-</span> 
+  chocolate <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">mutate</span>(num_char <span style="color:#666">=</span> <span style="color:#06287e">str_count</span>(most_memorable_characteristics, <span style="color:#4070a0">&#34;,&#34;</span>) <span style="color:#666">+</span> <span style="color:#40a070">1</span>) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">filter</span>(num_char <span style="color:#666">==</span> <span style="color:#06287e">max</span>(num_char)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(num_char) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">distinct</span>() <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">pull</span>(num_char)
 
-choc_characteristics <span style="color:#555">&lt;-</span> 
-  chocolate <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">mutate</span>(ingredients <span style="color:#555">=</span> <span style="color:#c0f">substr</span>(ingredients, <span style="color:#f60">1</span>, <span style="color:#f60">1</span>)) <span style="color:#555">%&gt;%</span>
-  tidyr<span style="color:#555">::</span><span style="color:#c0f">separate</span>(most_memorable_characteristics, <span style="color:#c0f">paste0</span>(<span style="color:#c30">&#34;characteristic&#34;</span>, <span style="color:#f60">1</span><span style="color:#555">:</span>max_characteristics), sep <span style="color:#555">=</span> <span style="color:#c30">&#34;,&#34;</span>) <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">pivot_longer</span>(cols <span style="color:#555">=</span> <span style="color:#c0f">starts_with</span>(<span style="color:#c30">&#34;characteristic&#34;</span>), values_to <span style="color:#555">=</span> <span style="color:#c30">&#34;characteristic&#34;</span>) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(characteristic <span style="color:#555">=</span> <span style="color:#c0f">trimws</span>(characteristic)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">select</span>(<span style="color:#555">-</span>name) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">filter</span>(<span style="color:#555">!</span>(<span style="color:#c0f">is.na</span>(characteristic)),
-         characteristic <span style="color:#555">!=</span> <span style="color:#c30">&#39;&#39;</span>) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(characteristic_ind <span style="color:#555">=</span> <span style="color:#f60">1</span>) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">pivot_wider</span>(names_from <span style="color:#555">=</span> characteristic, values_from <span style="color:#555">=</span> characteristic_ind) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">select</span>(rating, ingredient_count <span style="color:#555">=</span> ingredients, `rich cocoa`<span style="color:#555">:</span><span style="color:#c0f">ncol</span>(.)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">filter</span>(<span style="color:#555">!</span>(<span style="color:#c0f">is.na</span>(ingredient_count)))
+choc_characteristics <span style="color:#666">&lt;-</span> 
+  chocolate <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">mutate</span>(ingredients <span style="color:#666">=</span> <span style="color:#06287e">substr</span>(ingredients, <span style="color:#40a070">1</span>, <span style="color:#40a070">1</span>)) <span style="color:#666">%&gt;%</span>
+  tidyr<span style="color:#666">::</span><span style="color:#06287e">separate</span>(most_memorable_characteristics, <span style="color:#06287e">paste0</span>(<span style="color:#4070a0">&#34;characteristic&#34;</span>, <span style="color:#40a070">1</span><span style="color:#666">:</span>max_characteristics), sep <span style="color:#666">=</span> <span style="color:#4070a0">&#34;,&#34;</span>) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">pivot_longer</span>(cols <span style="color:#666">=</span> <span style="color:#06287e">starts_with</span>(<span style="color:#4070a0">&#34;characteristic&#34;</span>), values_to <span style="color:#666">=</span> <span style="color:#4070a0">&#34;characteristic&#34;</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(characteristic <span style="color:#666">=</span> <span style="color:#06287e">trimws</span>(characteristic)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(<span style="color:#666">-</span>name) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(<span style="color:#666">!</span>(<span style="color:#06287e">is.na</span>(characteristic)),
+         characteristic <span style="color:#666">!=</span> <span style="color:#4070a0">&#39;&#39;</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(characteristic_ind <span style="color:#666">=</span> <span style="color:#40a070">1</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">pivot_wider</span>(names_from <span style="color:#666">=</span> characteristic, values_from <span style="color:#666">=</span> characteristic_ind) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(rating, ingredient_count <span style="color:#666">=</span> ingredients, `rich cocoa`<span style="color:#666">:</span><span style="color:#06287e">ncol</span>(.)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(<span style="color:#666">!</span>(<span style="color:#06287e">is.na</span>(ingredient_count)))
 
-choc_characteristics<span style="color:#c0f">[is.na</span>(choc_characteristics)] <span style="color:#555">&lt;-</span> <span style="color:#f60">0</span>
+choc_characteristics<span style="color:#06287e">[is.na</span>(choc_characteristics)] <span style="color:#666">&lt;-</span> <span style="color:#40a070">0</span>
 
-<span style="color:#c0f">head</span>(choc_characteristics)
+<span style="color:#06287e">head</span>(choc_characteristics)
 </code></pre></div><pre><code>## # A tibble: 6 × 973
 ##   rating ingredient_count `rich cocoa` fatty bready cocoa vegetal savory
 ##    &lt;dbl&gt; &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
@@ -374,35 +374,35 @@ choc_characteristics<span style="color:#c0f">[is.na</span>(choc_characteristics)
 ## #   sticky &lt;dbl&gt;, red fruit &lt;dbl&gt;, sour &lt;dbl&gt;, smokey &lt;dbl&gt;, grass &lt;dbl&gt;,
 ## #   mild tobacco &lt;dbl&gt;, mild fruit &lt;dbl&gt;, strong smoke &lt;dbl&gt;, green &lt;dbl&gt;, …
 </code></pre><p>Here we prep for modelling by creating splits, resamples and the recipe.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#c0f">set.seed</span>(<span style="color:#f60">163</span>)
-splits <span style="color:#555">&lt;-</span> 
-  choc_characteristics <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">initial_split</span>(strata <span style="color:#555">=</span> rating)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">set.seed</span>(<span style="color:#40a070">163</span>)
+splits <span style="color:#666">&lt;-</span> 
+  choc_characteristics <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">initial_split</span>(strata <span style="color:#666">=</span> rating)
 
-train <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">training</span>(splits)
-test <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">testing</span>(splits)
+train <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">training</span>(splits)
+test <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">testing</span>(splits)
 
-folds <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">bootstraps</span>(train, <span style="color:#f60">25</span>, strata <span style="color:#555">=</span> rating)
+folds <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">bootstraps</span>(train, <span style="color:#40a070">25</span>, strata <span style="color:#666">=</span> rating)
 
-recipe <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">recipe</span>(rating <span style="color:#555">~</span> ., train)
+recipe <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">recipe</span>(rating <span style="color:#666">~</span> ., train)
 </code></pre></div><p>The same 3 models are used for each workflowset. Here is the &lsquo;regular&rsquo; workflowset:</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">svm_spec <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">svm_linear</span>(cost <span style="color:#555">=</span> <span style="color:#c0f">tune</span>(),
-              margin <span style="color:#555">=</span> <span style="color:#c0f">tune</span>()
-             ) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">set_mode</span>(<span style="color:#c30">&#34;regression&#34;</span>) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">set_engine</span>(<span style="color:#c30">&#34;LiblineaR&#34;</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">svm_spec <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">svm_linear</span>(cost <span style="color:#666">=</span> <span style="color:#06287e">tune</span>(),
+              margin <span style="color:#666">=</span> <span style="color:#06287e">tune</span>()
+             ) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">set_mode</span>(<span style="color:#4070a0">&#34;regression&#34;</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">set_engine</span>(<span style="color:#4070a0">&#34;LiblineaR&#34;</span>)
 
-workflows <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">workflow_set</span>(
-    preproc <span style="color:#555">=</span> <span style="color:#c0f">list</span>(recipe <span style="color:#555">=</span> recipe), 
-    models <span style="color:#555">=</span> <span style="color:#c0f">list</span>(svm <span style="color:#555">=</span> svm_spec
+workflows <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">workflow_set</span>(
+    preproc <span style="color:#666">=</span> <span style="color:#06287e">list</span>(recipe <span style="color:#666">=</span> recipe), 
+    models <span style="color:#666">=</span> <span style="color:#06287e">list</span>(svm <span style="color:#666">=</span> svm_spec
                   ),
-    cross <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>)
+    cross <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
 
 workflows
 </code></pre></div><pre><code>## # A workflow set/tibble: 1 × 4
@@ -411,31 +411,31 @@ workflows
 ## 1 recipe_svm &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
 </code></pre><p>And here is the text-based workflow, adapted from this 
 <a href="https://juliasilge.com/blog/chocolate-ratings/" target="_blank" rel="noopener">post.</a></p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># text models</span>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic"># text models</span>
 
-<span style="color:#c0f">set.seed</span>(<span style="color:#f60">194</span>)
-choco_split <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">initial_split</span>(chocolate, strata <span style="color:#555">=</span> rating)
-choco_train <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">training</span>(choco_split)
-choco_test <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">testing</span>(choco_split)
+<span style="color:#06287e">set.seed</span>(<span style="color:#40a070">194</span>)
+choco_split <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">initial_split</span>(chocolate, strata <span style="color:#666">=</span> rating)
+choco_train <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">training</span>(choco_split)
+choco_test <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">testing</span>(choco_split)
 
-choco_folds <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">bootstraps</span>(choco_train, <span style="color:#f60">25</span>, strata <span style="color:#555">=</span> rating)
+choco_folds <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">bootstraps</span>(choco_train, <span style="color:#40a070">25</span>, strata <span style="color:#666">=</span> rating)
 
-choco_rec <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">recipe</span>(rating <span style="color:#555">~</span> most_memorable_characteristics, data <span style="color:#555">=</span> choco_train) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">step_tokenize</span>(most_memorable_characteristics) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">step_tokenfilter</span>(most_memorable_characteristics, max_tokens <span style="color:#555">=</span> <span style="color:#f60">100</span>) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">step_tfidf</span>(most_memorable_characteristics)
+choco_rec <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">recipe</span>(rating <span style="color:#666">~</span> most_memorable_characteristics, data <span style="color:#666">=</span> choco_train) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">step_tokenize</span>(most_memorable_characteristics) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">step_tokenfilter</span>(most_memorable_characteristics, max_tokens <span style="color:#666">=</span> <span style="color:#40a070">100</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">step_tfidf</span>(most_memorable_characteristics)
 
-text_workflows <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">workflow_set</span>(
-    preproc <span style="color:#555">=</span> <span style="color:#c0f">list</span>(text_recipe <span style="color:#555">=</span> choco_rec), 
-    models <span style="color:#555">=</span> <span style="color:#c0f">list</span>(svm <span style="color:#555">=</span> svm_spec
+text_workflows <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">workflow_set</span>(
+    preproc <span style="color:#666">=</span> <span style="color:#06287e">list</span>(text_recipe <span style="color:#666">=</span> choco_rec), 
+    models <span style="color:#666">=</span> <span style="color:#06287e">list</span>(svm <span style="color:#666">=</span> svm_spec
                   ),
-    cross <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>)
+    cross <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
 
 text_workflows
 </code></pre></div><pre><code>## # A workflow set/tibble: 1 × 4
@@ -443,67 +443,67 @@ text_workflows
 ##   &lt;chr&gt;           &lt;list&gt;           &lt;list&gt;    &lt;list&gt;    
 ## 1 text_recipe_svm &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
 </code></pre><p>Here both model types are tuned and compared:</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cl <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">makeCluster</span>(<span style="color:#f60">10</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cl <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">makeCluster</span>(<span style="color:#40a070">10</span>)
 
-doParallel<span style="color:#555">::</span><span style="color:#c0f">registerDoParallel</span>(cl)
+doParallel<span style="color:#666">::</span><span style="color:#06287e">registerDoParallel</span>(cl)
 
-grid_ctrl <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">control_grid</span>(
-    save_pred <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
-    allow_par <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
-    parallel_over <span style="color:#555">=</span> <span style="color:#c30">&#34;everything&#34;</span>,
-    verbose <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>
+grid_ctrl <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">control_grid</span>(
+    save_pred <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>,
+    allow_par <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>,
+    parallel_over <span style="color:#666">=</span> <span style="color:#4070a0">&#34;everything&#34;</span>,
+    verbose <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>
   )
 
-results <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">workflow_map</span>(fn <span style="color:#555">=</span> <span style="color:#c30">&#34;tune_grid&#34;</span>,
-               object <span style="color:#555">=</span> workflows,
-               seed <span style="color:#555">=</span> <span style="color:#f60">155</span>,
-               verbose <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
-               control <span style="color:#555">=</span> grid_ctrl,
-               grid <span style="color:#555">=</span> <span style="color:#f60">10</span>, 
-               resamples <span style="color:#555">=</span> folds,
-               metrics <span style="color:#555">=</span> <span style="color:#c0f">metric_set</span>(rmse, mae)
+results <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">workflow_map</span>(fn <span style="color:#666">=</span> <span style="color:#4070a0">&#34;tune_grid&#34;</span>,
+               object <span style="color:#666">=</span> workflows,
+               seed <span style="color:#666">=</span> <span style="color:#40a070">155</span>,
+               verbose <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>,
+               control <span style="color:#666">=</span> grid_ctrl,
+               grid <span style="color:#666">=</span> <span style="color:#40a070">10</span>, 
+               resamples <span style="color:#666">=</span> folds,
+               metrics <span style="color:#666">=</span> <span style="color:#06287e">metric_set</span>(rmse, mae)
   )
 
-<span style="color:#c0f">stopCluster</span>(cl)
-</code></pre></div><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cl <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">makeCluster</span>(<span style="color:#f60">10</span>)
+<span style="color:#06287e">stopCluster</span>(cl)
+</code></pre></div><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cl <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">makeCluster</span>(<span style="color:#40a070">10</span>)
 
-doParallel<span style="color:#555">::</span><span style="color:#c0f">registerDoParallel</span>(cl)
+doParallel<span style="color:#666">::</span><span style="color:#06287e">registerDoParallel</span>(cl)
 
-grid_ctrl <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">control_grid</span>(
-    save_pred <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
-    allow_par <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
-    parallel_over <span style="color:#555">=</span> <span style="color:#c30">&#34;everything&#34;</span>,
-    verbose <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>
+grid_ctrl <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">control_grid</span>(
+    save_pred <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>,
+    allow_par <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>,
+    parallel_over <span style="color:#666">=</span> <span style="color:#4070a0">&#34;everything&#34;</span>,
+    verbose <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>
   )
 
-text_results <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">workflow_map</span>(fn <span style="color:#555">=</span> <span style="color:#c30">&#34;tune_grid&#34;</span>,
-               object <span style="color:#555">=</span> text_workflows,
-               seed <span style="color:#555">=</span> <span style="color:#f60">155</span>,
-               verbose <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>,
-               control <span style="color:#555">=</span> grid_ctrl,
-               grid <span style="color:#555">=</span> <span style="color:#f60">10</span>, 
-               resamples <span style="color:#555">=</span> choco_folds,
-               metrics <span style="color:#555">=</span> <span style="color:#c0f">metric_set</span>(rmse, mae)
+text_results <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">workflow_map</span>(fn <span style="color:#666">=</span> <span style="color:#4070a0">&#34;tune_grid&#34;</span>,
+               object <span style="color:#666">=</span> text_workflows,
+               seed <span style="color:#666">=</span> <span style="color:#40a070">155</span>,
+               verbose <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>,
+               control <span style="color:#666">=</span> grid_ctrl,
+               grid <span style="color:#666">=</span> <span style="color:#40a070">10</span>, 
+               resamples <span style="color:#666">=</span> choco_folds,
+               metrics <span style="color:#666">=</span> <span style="color:#06287e">metric_set</span>(rmse, mae)
   )
 </code></pre></div><p>Using a text based approach does perform better in this case! A lot more could probably be done to improve model performance, such as more pre-processing steps, including more predictors, trying various types of models, but the goal of this post was to try out some text based models and see how those models perform to more &ldquo;traditional&rdquo; ML models.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">results <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">rank_results</span>(select_best <span style="color:#555">=</span> T) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">bind_rows</span>(text_results <span style="color:#555">%&gt;%</span> <span style="color:#c0f">rank_results</span>(select_best <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">filter</span>(.metric <span style="color:#555">==</span> <span style="color:#c30">&#34;rmse&#34;</span>) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> <span style="color:#c0f">reorder</span>(wflow_id, mean), y <span style="color:#555">=</span> mean, color <span style="color:#555">=</span> wflow_id, label <span style="color:#555">=</span> <span style="color:#c0f">round</span>(mean, <span style="color:#f60">4</span>))) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_point</span>(show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_text</span>(vjust <span style="color:#555">=</span> <span style="color:#f60">-0.7</span>, show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>) <span style="color:#555">+</span>
-  <span style="color:#c0f">geom_errorbar</span>(<span style="color:#c0f">aes</span>(ymin <span style="color:#555">=</span> mean <span style="color:#555">-</span> std_err, ymax <span style="color:#555">=</span> mean <span style="color:#555">+</span> std_err), show.legend <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">FALSE</span>) <span style="color:#555">+</span>
-  <span style="color:#c0f">bg_theme</span>(base_size <span style="color:#555">=</span> <span style="color:#f60">13</span>) <span style="color:#555">+</span> 
-  ghibli<span style="color:#555">::</span><span style="color:#c0f">scale_color_ghibli_d</span>(<span style="color:#c30">&#34;PonyoMedium&#34;</span>) <span style="color:#555">+</span> 
-  <span style="color:#c0f">coord_flip</span>() <span style="color:#555">+</span>
-  <span style="color:#c0f">labs</span>(x <span style="color:#555">=</span> <span style="color:#c30">&#34;RMSE&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#39;&#39;</span>, title <span style="color:#555">=</span> <span style="color:#c30">&#34;Comparing Model Types&#34;</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">results <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">rank_results</span>(select_best <span style="color:#666">=</span> T) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">bind_rows</span>(text_results <span style="color:#666">%&gt;%</span> <span style="color:#06287e">rank_results</span>(select_best <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(.metric <span style="color:#666">==</span> <span style="color:#4070a0">&#34;rmse&#34;</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> <span style="color:#06287e">reorder</span>(wflow_id, mean), y <span style="color:#666">=</span> mean, color <span style="color:#666">=</span> wflow_id, label <span style="color:#666">=</span> <span style="color:#06287e">round</span>(mean, <span style="color:#40a070">4</span>))) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_point</span>(show.legend <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_text</span>(vjust <span style="color:#666">=</span> <span style="color:#40a070">-0.7</span>, show.legend <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_errorbar</span>(<span style="color:#06287e">aes</span>(ymin <span style="color:#666">=</span> mean <span style="color:#666">-</span> std_err, ymax <span style="color:#666">=</span> mean <span style="color:#666">+</span> std_err), show.legend <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">bg_theme</span>(base_size <span style="color:#666">=</span> <span style="color:#40a070">13</span>) <span style="color:#666">+</span> 
+  ghibli<span style="color:#666">::</span><span style="color:#06287e">scale_color_ghibli_d</span>(<span style="color:#4070a0">&#34;PonyoMedium&#34;</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">coord_flip</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">labs</span>(x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;RMSE&#34;</span>, y <span style="color:#666">=</span> <span style="color:#4070a0">&#39;&#39;</span>, title <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Comparing Model Types&#34;</span>)
 </code></pre></div><p><img src="https://brendangraham.online/blog/chocolate-ratings/index_files/figure-html/unnamed-chunk-13-1.png" width="864" /></p>
 
         

@@ -140,45 +140,45 @@
     </svg></a>
 </h2>
 <p>I want to use several years worth of data. Rather than load the match data and the point by point data manually, the <code>get_url()</code> and <code>get_data()</code> functions below streamline the process.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># no tournament in 2020</span>
-years <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">c</span>(<span style="color:#c0f">seq</span>(<span style="color:#f60">2015</span>, <span style="color:#f60">2019</span>, <span style="color:#f60">1</span>), <span style="color:#f60">2021</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic"># no tournament in 2020</span>
+years <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">c</span>(<span style="color:#06287e">seq</span>(<span style="color:#40a070">2015</span>, <span style="color:#40a070">2019</span>, <span style="color:#40a070">1</span>), <span style="color:#40a070">2021</span>)
 
-get_url <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">function</span>(year, type){
+get_url <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">function</span>(year, type){
     
-    <span style="color:#c0f">if</span>(<span style="color:#555">!</span>type <span style="color:#555">%in%</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#39;points&#39;</span>, <span style="color:#c30">&#39;matches&#39;</span>)) <span style="color:#c0f">stop</span>(<span style="color:#c30">&#34;Type must be one of &#39;points&#39; or &#39;maches&#39;&#34;</span>)
+    <span style="color:#06287e">if</span>(<span style="color:#666">!</span>type <span style="color:#666">%in%</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#39;points&#39;</span>, <span style="color:#4070a0">&#39;matches&#39;</span>)) <span style="color:#06287e">stop</span>(<span style="color:#4070a0">&#34;Type must be one of &#39;points&#39; or &#39;maches&#39;&#34;</span>)
     
-    <span style="color:#c0f">glue</span>(<span style="color:#c30">&#39;https://raw.githubusercontent.com/JeffSackmann/tennis_slam_pointbypoint/master/{year}-wimbledon-{type}.csv&#39;</span>)
+    <span style="color:#06287e">glue</span>(<span style="color:#4070a0">&#39;https://raw.githubusercontent.com/JeffSackmann/tennis_slam_pointbypoint/master/{year}-wimbledon-{type}.csv&#39;</span>)
     
   }
 
-get_data <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">function</span>(url){
+get_data <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">function</span>(url){
     
-    <span style="color:#09f;font-style:italic">#points datasets needs an extra step in order to use map_dfr</span>
-    data <span style="color:#555">&lt;-</span> 
-      <span style="color:#c0f">if </span>(<span style="color:#c0f">str_detect</span>(url, <span style="color:#c30">&#34;points&#34;</span>)){
-        <span style="color:#c0f">read_csv</span>({{url}}) <span style="color:#555">%&gt;%</span>
-          <span style="color:#c0f">as_tibble</span>() <span style="color:#555">%&gt;%</span>
-          <span style="color:#09f;font-style:italic"># this step needed for map_dfr(); in some datasets point number is numeric, others its a character</span>
-          <span style="color:#c0f">mutate</span>(PointNumber <span style="color:#555">=</span> <span style="color:#c0f">as.numeric</span>(PointNumber)) <span style="color:#555">%&gt;%</span>
-          <span style="color:#c0f">clean_names</span>()
+    <span style="color:#60a0b0;font-style:italic">#points datasets needs an extra step in order to use map_dfr</span>
+    data <span style="color:#666">&lt;-</span> 
+      <span style="color:#06287e">if </span>(<span style="color:#06287e">str_detect</span>(url, <span style="color:#4070a0">&#34;points&#34;</span>)){
+        <span style="color:#06287e">read_csv</span>({{url}}) <span style="color:#666">%&gt;%</span>
+          <span style="color:#06287e">as_tibble</span>() <span style="color:#666">%&gt;%</span>
+          <span style="color:#60a0b0;font-style:italic"># this step needed for map_dfr(); in some datasets point number is numeric, others its a character</span>
+          <span style="color:#06287e">mutate</span>(PointNumber <span style="color:#666">=</span> <span style="color:#06287e">as.numeric</span>(PointNumber)) <span style="color:#666">%&gt;%</span>
+          <span style="color:#06287e">clean_names</span>()
         
       } else {
         
-        readr<span style="color:#555">::</span><span style="color:#c0f">read_csv</span>({{url}}) <span style="color:#555">%&gt;%</span>
-          <span style="color:#c0f">as_tibble</span>() <span style="color:#555">%&gt;%</span>
-          janitor<span style="color:#555">::</span><span style="color:#c0f">clean_names</span>()
+        readr<span style="color:#666">::</span><span style="color:#06287e">read_csv</span>({{url}}) <span style="color:#666">%&gt;%</span>
+          <span style="color:#06287e">as_tibble</span>() <span style="color:#666">%&gt;%</span>
+          janitor<span style="color:#666">::</span><span style="color:#06287e">clean_names</span>()
       }
     
     data
     
   }
 </code></pre></div><p>Here I map my 2 functions over the years list and retrieve the points and matches data from 2015-2021</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">points <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">map</span>(years, <span style="color:#555">~</span><span style="color:#c0f">get_url</span>(.x, type <span style="color:#555">=</span> <span style="color:#c30">&#39;points&#39;</span>)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">map_dfr</span>(., <span style="color:#555">~</span><span style="color:#c0f">get_data</span>(.x)) 
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">points <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">map</span>(years, <span style="color:#666">~</span><span style="color:#06287e">get_url</span>(.x, type <span style="color:#666">=</span> <span style="color:#4070a0">&#39;points&#39;</span>)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">map_dfr</span>(., <span style="color:#666">~</span><span style="color:#06287e">get_data</span>(.x)) 
 
 points
 </code></pre></div><pre><code>## # A tibble: 265,127 × 65
@@ -201,9 +201,9 @@ points
 ## #   p1ace &lt;dbl&gt;, p2ace &lt;dbl&gt;, p1winner &lt;dbl&gt;, p2winner &lt;dbl&gt;,
 ## #   p1double_fault &lt;dbl&gt;, p2double_fault &lt;dbl&gt;, p1unf_err &lt;dbl&gt;,
 ## #   p2unf_err &lt;dbl&gt;, p1net_point &lt;dbl&gt;, p2net_point &lt;dbl&gt;, …
-</code></pre><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">matches <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">map</span>(years, <span style="color:#555">~</span><span style="color:#c0f">get_url</span>(.x, type <span style="color:#555">=</span> <span style="color:#c30">&#39;matches&#39;</span>)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">map_dfr</span>(., <span style="color:#555">~</span><span style="color:#c0f">get_data</span>(.x)) 
+</code></pre><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">matches <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">map</span>(years, <span style="color:#666">~</span><span style="color:#06287e">get_url</span>(.x, type <span style="color:#666">=</span> <span style="color:#4070a0">&#39;matches&#39;</span>)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">map_dfr</span>(., <span style="color:#666">~</span><span style="color:#06287e">get_data</span>(.x)) 
 
 matches
 </code></pre></div><pre><code>## # A tibble: 1,393 × 16
@@ -223,8 +223,8 @@ matches
 ## #   court_id &lt;lgl&gt;, player1id &lt;lgl&gt;, player2id &lt;lgl&gt;, nation1 &lt;lgl&gt;,
 ## #   nation2 &lt;lgl&gt;
 </code></pre><p>At this point I would normally save the data to a <code>data/raw</code> directory to preserve its initial state. Then I would create a separate script to read in the raw data to clean and format it. I skip that step here but below is the the code I would use to do that.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#c0f">write_feather</span>(points, <span style="color:#c0f">here</span>(<span style="color:#c30">&#34;wimbledon&#34;</span>, <span style="color:#c30">&#34;data&#34;</span>, <span style="color:#c30">&#34;raw&#34;</span>, <span style="color:#c30">&#34;points.feather&#34;</span>))
-<span style="color:#c0f">write_feather</span>(matches, <span style="color:#c0f">here</span>(<span style="color:#c30">&#34;wimbledon&#34;</span>, <span style="color:#c30">&#34;data&#34;</span>, <span style="color:#c30">&#34;raw&#34;</span> <span style="color:#c30">&#34;matches.feather&#34;</span>))
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">write_feather</span>(points, <span style="color:#06287e">here</span>(<span style="color:#4070a0">&#34;wimbledon&#34;</span>, <span style="color:#4070a0">&#34;data&#34;</span>, <span style="color:#4070a0">&#34;raw&#34;</span>, <span style="color:#4070a0">&#34;points.feather&#34;</span>))
+<span style="color:#06287e">write_feather</span>(matches, <span style="color:#06287e">here</span>(<span style="color:#4070a0">&#34;wimbledon&#34;</span>, <span style="color:#4070a0">&#34;data&#34;</span>, <span style="color:#4070a0">&#34;raw&#34;</span> <span style="color:#4070a0">&#34;matches.feather&#34;</span>))
 </code></pre></div>
 
 
@@ -247,7 +247,7 @@ matches
     </svg></a>
 </h3>
 <p>The matches dataset has a ton of missing data, so we have to ignore most columns. Also, we can deconstruct <code>match_num</code> to extract meaningful match metadata. For example, the first number seems to indicate a mens match (1) vs a womens match (2), the 2nd number is the round in which the match took place and the last 2 numbers are the match number. The <code>format_matches</code> function applies these steps</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">matches
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">matches
 </code></pre></div><pre><code>## # A tibble: 1,393 × 16
 ##    match_id  year slam  match_num player1 player2 status winner event_name round
 ##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;lgl&gt;  &lt;lgl&gt;  &lt;lgl&gt;      &lt;lgl&gt;
@@ -264,16 +264,16 @@ matches
 ## # … with 1,383 more rows, and 6 more variables: court_name &lt;lgl&gt;,
 ## #   court_id &lt;lgl&gt;, player1id &lt;lgl&gt;, player2id &lt;lgl&gt;, nation1 &lt;lgl&gt;,
 ## #   nation2 &lt;lgl&gt;
-</code></pre><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">format_matches <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">function</span>(){
-    matches <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">select</span>(match_id<span style="color:#555">:</span>player2) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">mutate</span>(category <span style="color:#555">=</span> <span style="color:#c0f">ifelse</span>(<span style="color:#c0f">str_sub</span>(match_num, <span style="color:#f60">1</span>, <span style="color:#f60">1</span>) <span style="color:#555">==</span> <span style="color:#f60">1</span>, <span style="color:#c30">&#34;men&#34;</span>, <span style="color:#c30">&#34;women&#34;</span>),
-             round <span style="color:#555">=</span> <span style="color:#c0f">str_sub</span>(match_num, <span style="color:#f60">2</span>, <span style="color:#f60">2</span>),
-             match_no <span style="color:#555">=</span> <span style="color:#c0f">as.numeric</span>(<span style="color:#c0f">str_sub</span>(match_num, <span style="color:#f60">3</span>, <span style="color:#f60">4</span>)))
+</code></pre><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">format_matches <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">function</span>(){
+    matches <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">select</span>(match_id<span style="color:#666">:</span>player2) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">mutate</span>(category <span style="color:#666">=</span> <span style="color:#06287e">ifelse</span>(<span style="color:#06287e">str_sub</span>(match_num, <span style="color:#40a070">1</span>, <span style="color:#40a070">1</span>) <span style="color:#666">==</span> <span style="color:#40a070">1</span>, <span style="color:#4070a0">&#34;men&#34;</span>, <span style="color:#4070a0">&#34;women&#34;</span>),
+             round <span style="color:#666">=</span> <span style="color:#06287e">str_sub</span>(match_num, <span style="color:#40a070">2</span>, <span style="color:#40a070">2</span>),
+             match_no <span style="color:#666">=</span> <span style="color:#06287e">as.numeric</span>(<span style="color:#06287e">str_sub</span>(match_num, <span style="color:#40a070">3</span>, <span style="color:#40a070">4</span>)))
   }
 
-<span style="color:#c0f">format_matches</span>()
+<span style="color:#06287e">format_matches</span>()
 </code></pre></div><pre><code>## # A tibble: 1,393 × 9
 ##    match_id    year slam   match_num player1   player2   category round match_no
 ##    &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;    &lt;dbl&gt;
@@ -289,20 +289,20 @@ matches
 ## 10 2015-wimb…  2015 wimbl…      1110 Andreas … Ricardas… men      1           10
 ## # … with 1,383 more rows
 </code></pre><p>It&rsquo;ll probably be useful to have a column for match winner. To get the winner for each match we can turn to the points data and use <code>p1games_won</code> and <code>p2games_won</code> to determine the match winner.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">get_match_winner <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">function</span>(){
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">get_match_winner <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">function</span>(){
     
-    points <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">filter</span>(set_winner <span style="color:#555">&gt;</span> <span style="color:#f60">0</span>) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">select</span>(match_id, p1games_won, p2games_won) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">group_by</span>(match_id) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">summarise</span>(tot_p1games_won <span style="color:#555">=</span> <span style="color:#c0f">sum</span>(p1games_won),
-                tot_p2games_won <span style="color:#555">=</span> <span style="color:#c0f">sum</span>(p2games_won)) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">mutate</span>(match_winner <span style="color:#555">=</span> <span style="color:#c0f">ifelse</span>(tot_p1games_won <span style="color:#555">&gt;</span> tot_p2games_won, <span style="color:#c30">&#34;player1&#34;</span>, <span style="color:#c30">&#34;player2&#34;</span>)) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">select</span>(match_id, match_winner)
+    points <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">filter</span>(set_winner <span style="color:#666">&gt;</span> <span style="color:#40a070">0</span>) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">select</span>(match_id, p1games_won, p2games_won) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">group_by</span>(match_id) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">summarise</span>(tot_p1games_won <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(p1games_won),
+                tot_p2games_won <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(p2games_won)) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">mutate</span>(match_winner <span style="color:#666">=</span> <span style="color:#06287e">ifelse</span>(tot_p1games_won <span style="color:#666">&gt;</span> tot_p2games_won, <span style="color:#4070a0">&#34;player1&#34;</span>, <span style="color:#4070a0">&#34;player2&#34;</span>)) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">select</span>(match_id, match_winner)
   }
 
-<span style="color:#c0f">get_match_winner</span>()
+<span style="color:#06287e">get_match_winner</span>()
 </code></pre></div><pre><code>## # A tibble: 1,387 × 2
 ##    match_id            match_winner
 ##    &lt;chr&gt;               &lt;chr&gt;       
@@ -318,10 +318,10 @@ matches
 ## 10 2015-wimbledon-1110 player2     
 ## # … with 1,377 more rows
 </code></pre><p>Finally we can apply and join the the 2 functions to get our cleaned matches dataset. (As above, for the purposes of this post we&rsquo;ll skip the step of saving the cleaned data, but the code to do so is included below).</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">matches <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">format_matches</span>() <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">inner_join</span>(., <span style="color:#c0f">get_match_winner</span>()) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(match_winner <span style="color:#555">=</span> <span style="color:#c0f">ifelse</span>(match_winner <span style="color:#555">==</span> <span style="color:#c30">&#34;player1&#34;</span>, player1, player2))
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">matches <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">format_matches</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">inner_join</span>(., <span style="color:#06287e">get_match_winner</span>()) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(match_winner <span style="color:#666">=</span> <span style="color:#06287e">ifelse</span>(match_winner <span style="color:#666">==</span> <span style="color:#4070a0">&#34;player1&#34;</span>, player1, player2))
 
 matches
 </code></pre></div><pre><code>## # A tibble: 1,387 × 10
@@ -338,7 +338,7 @@ matches
 ##  9 2015-wimb…  2015 wimbl…      1109 Marin Ci… Hiroki M… men      1            9
 ## 10 2015-wimb…  2015 wimbl…      1110 Andreas … Ricardas… men      1           10
 ## # … with 1,377 more rows, and 1 more variable: match_winner &lt;chr&gt;
-</code></pre><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># write_feather(matches, here(&#34;wimbledon&#34;, &#34;data&#34;, &#34;formatted&#34;, &#34;matches.feather&#34;))</span>
+</code></pre><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic"># write_feather(matches, here(&#34;wimbledon&#34;, &#34;data&#34;, &#34;formatted&#34;, &#34;matches.feather&#34;))</span>
 </code></pre></div>
 
 
@@ -349,7 +349,7 @@ matches
       <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
     </svg></a>
 </h3>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">points
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">points
 </code></pre></div><pre><code>## # A tibble: 265,127 × 65
 ##    match_id       elapsed_time set_no p1games_won p2games_won set_winner game_no
 ##    &lt;chr&gt;          &lt;time&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
@@ -371,46 +371,46 @@ matches
 ## #   p1double_fault &lt;dbl&gt;, p2double_fault &lt;dbl&gt;, p1unf_err &lt;dbl&gt;,
 ## #   p2unf_err &lt;dbl&gt;, p1net_point &lt;dbl&gt;, p2net_point &lt;dbl&gt;, …
 </code></pre><p>The first part of <code>format_points()</code> creates some time columns: match minutes, set minutes and game minutes. then I add some sequence numbers that assigns a row number for each game, set and match. This comes in handy when trying to determine how many points happen in each game, set or match, and also helps to partition sets and games within a match, <code>game_seq</code> will reset after every game, <code>set_seq</code> rests after each set and <code>match_seq</code> is a sequence of row number from 1 to the end of the match.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">format_points <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">function</span>(){
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">format_points <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">function</span>(){
 
-    time <span style="color:#555">&lt;-</span> 
-      points <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">filter</span>(point_number <span style="color:#555">&gt;</span> <span style="color:#f60">0</span>) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">select</span>(match_id, set_no, elapsed_time) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">group_by</span>(match_id, set_no) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">filter</span>(elapsed_time <span style="color:#555">==</span> <span style="color:#c0f">max</span>(elapsed_time)) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">group_by</span>(match_id) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">mutate</span>(
-        set_length_mins <span style="color:#555">=</span> <span style="color:#c0f">case_when</span>(
-          set_no <span style="color:#555">==</span> <span style="color:#f60">1</span> <span style="color:#555">~</span> <span style="color:#c0f">as.numeric</span>(elapsed_time)<span style="color:#555">/</span><span style="color:#f60">60</span>,
-          <span style="color:#069;font-weight:bold">TRUE</span> <span style="color:#555">~</span> (<span style="color:#c0f">as.numeric</span>(elapsed_time) <span style="color:#555">-</span> <span style="color:#c0f">lag</span>(<span style="color:#c0f">as.numeric</span>(elapsed_time)))<span style="color:#555">/</span><span style="color:#f60">60</span>),
-        game_length_mins <span style="color:#555">=</span> <span style="color:#c0f">sum</span>(set_length_mins)
+    time <span style="color:#666">&lt;-</span> 
+      points <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">filter</span>(point_number <span style="color:#666">&gt;</span> <span style="color:#40a070">0</span>) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">select</span>(match_id, set_no, elapsed_time) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">group_by</span>(match_id, set_no) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">filter</span>(elapsed_time <span style="color:#666">==</span> <span style="color:#06287e">max</span>(elapsed_time)) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">ungroup</span>() <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">group_by</span>(match_id) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">mutate</span>(
+        set_length_mins <span style="color:#666">=</span> <span style="color:#06287e">case_when</span>(
+          set_no <span style="color:#666">==</span> <span style="color:#40a070">1</span> <span style="color:#666">~</span> <span style="color:#06287e">as.numeric</span>(elapsed_time)<span style="color:#666">/</span><span style="color:#40a070">60</span>,
+          <span style="color:#007020;font-weight:bold">TRUE</span> <span style="color:#666">~</span> (<span style="color:#06287e">as.numeric</span>(elapsed_time) <span style="color:#666">-</span> <span style="color:#06287e">lag</span>(<span style="color:#06287e">as.numeric</span>(elapsed_time)))<span style="color:#666">/</span><span style="color:#40a070">60</span>),
+        game_length_mins <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(set_length_mins)
       )
     
-    points_formatted <span style="color:#555">&lt;-</span> 
-      points <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">filter</span>(point_number <span style="color:#555">&gt;</span> <span style="color:#f60">0</span>) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">group_by</span>(match_id) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">mutate</span>(match_seq <span style="color:#555">=</span> dplyr<span style="color:#555">::</span><span style="color:#c0f">row_number</span>()) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">group_by</span>(match_id, set_no) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">mutate</span>(set_seq <span style="color:#555">=</span> dplyr<span style="color:#555">::</span><span style="color:#c0f">row_number</span>()) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">group_by</span>(match_id, set_no, game_no) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">mutate</span>(game_seq <span style="color:#555">=</span> dplyr<span style="color:#555">::</span><span style="color:#c0f">row_number</span>()) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">ungroup</span>() <span style="color:#555">%&gt;%</span> 
-      <span style="color:#c0f">inner_join</span>(., time <span style="color:#555">%&gt;%</span> <span style="color:#c0f">select</span>(<span style="color:#555">-</span>elapsed_time), by <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;match_id&#34;</span>, <span style="color:#c30">&#34;set_no&#34;</span>)) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">select</span>(match_id, set_no, match_seq<span style="color:#555">:</span>game_length_mins, <span style="color:#c0f">everything</span>()) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">mutate</span>(p1score <span style="color:#555">=</span> <span style="color:#c0f">as.numeric</span>(p1score),
-             p2score <span style="color:#555">=</span> <span style="color:#c0f">as.numeric</span>(p2score))
+    points_formatted <span style="color:#666">&lt;-</span> 
+      points <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">filter</span>(point_number <span style="color:#666">&gt;</span> <span style="color:#40a070">0</span>) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">group_by</span>(match_id) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">mutate</span>(match_seq <span style="color:#666">=</span> dplyr<span style="color:#666">::</span><span style="color:#06287e">row_number</span>()) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">ungroup</span>() <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">group_by</span>(match_id, set_no) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">mutate</span>(set_seq <span style="color:#666">=</span> dplyr<span style="color:#666">::</span><span style="color:#06287e">row_number</span>()) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">ungroup</span>() <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">group_by</span>(match_id, set_no, game_no) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">mutate</span>(game_seq <span style="color:#666">=</span> dplyr<span style="color:#666">::</span><span style="color:#06287e">row_number</span>()) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">ungroup</span>() <span style="color:#666">%&gt;%</span> 
+      <span style="color:#06287e">inner_join</span>(., time <span style="color:#666">%&gt;%</span> <span style="color:#06287e">select</span>(<span style="color:#666">-</span>elapsed_time), by <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;match_id&#34;</span>, <span style="color:#4070a0">&#34;set_no&#34;</span>)) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">select</span>(match_id, set_no, match_seq<span style="color:#666">:</span>game_length_mins, <span style="color:#06287e">everything</span>()) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">mutate</span>(p1score <span style="color:#666">=</span> <span style="color:#06287e">as.numeric</span>(p1score),
+             p2score <span style="color:#666">=</span> <span style="color:#06287e">as.numeric</span>(p2score))
     
     points_formatted
     
   }
 
-<span style="color:#09f;font-style:italic"># write_feather(points, here(&#34;wimbledon&#34;, &#34;data&#34;, &#34;formatted&#34;, &#34;points.feather&#34;))</span>
+<span style="color:#60a0b0;font-style:italic"># write_feather(points, here(&#34;wimbledon&#34;, &#34;data&#34;, &#34;formatted&#34;, &#34;points.feather&#34;))</span>
 
 points
 </code></pre></div><pre><code>## # A tibble: 265,127 × 65

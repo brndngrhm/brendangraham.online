@@ -35,15 +35,6 @@
     </item>
     
     <item>
-      <title>Art</title>
-      <link>https://brendangraham.online/categories/art/</link>
-      <pubDate>Fri, 11 Feb 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://brendangraham.online/categories/art/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>R</title>
       <link>https://brendangraham.online/categories/r/</link>
       <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
@@ -58,6 +49,15 @@
       <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
       
       <guid>https://brendangraham.online/categories/tennis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Art</title>
+      <link>https://brendangraham.online/categories/art/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/art/</guid>
       <description></description>
     </item>
     

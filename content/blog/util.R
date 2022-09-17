@@ -9,12 +9,12 @@ round_numerics <-
   }
 
 get_table <- 
-  function(data){
+  function(data, size = 10, wrap = FALSE){
     data %>%
       round_numerics() %>%
       reactable::reactable(., fullWidth = F, resizable = T, filterable = T, 
-                           highlight = T, defaultPageSize = 10, wrap = FALSE,
-                           showSortIcon = T, striped = T, compact = T)
+                           highlight = T, defaultPageSize = size, wrap = wrap,
+                           showSortIcon = T, striped = T, compact = T,)
   }
 
 bg_theme <- 

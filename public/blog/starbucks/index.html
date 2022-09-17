@@ -138,7 +138,7 @@ TidyTuesday data set about the contents of various Starbucks drinks. After epxpl
       <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
     </svg></a>
 </h2>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sbucks
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sbucks
 </code></pre></div><pre><code>## # A tibble: 1,147 × 15
 ##    product_name             size  milk   whip serv_size_m_l calories total_fat_g
 ##    &lt;chr&gt;                    &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;         &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
@@ -156,7 +156,7 @@ TidyTuesday data set about the contents of various Starbucks drinks. After epxpl
 ## #   trans_fat_g &lt;chr&gt;, cholesterol_mg &lt;dbl&gt;, sodium_mg &lt;dbl&gt;,
 ## #   total_carbs_g &lt;dbl&gt;, fiber_g &lt;chr&gt;, sugar_g &lt;dbl&gt;, caffeine_mg &lt;dbl&gt;
 </code></pre>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">skimr<span style="color:#555">::</span><span style="color:#c0f">partition</span>(<span style="color:#c0f">skim</span>(sbucks))
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">skimr<span style="color:#666">::</span><span style="color:#06287e">partition</span>(<span style="color:#06287e">skim</span>(sbucks))
 </code></pre></div><p><strong>Variable type: character</strong></p>
 <table>
 <thead>
@@ -374,19 +374,19 @@ TidyTuesday data set about the contents of various Starbucks drinks. After epxpl
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">get_cor <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">function</span>(size){
-    sbucks <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">filter</span>(size <span style="color:#555">==</span> {{size}}) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">na.omit</span>() <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">select</span>(<span style="color:#c0f">where</span>(is.numeric)) <span style="color:#555">%&gt;%</span>
-      corrr<span style="color:#555">::</span><span style="color:#c0f">correlate</span>() <span style="color:#555">%&gt;%</span>
-      corrr<span style="color:#555">::</span><span style="color:#c0f">shave</span>(upper <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>) <span style="color:#555">%&gt;%</span>
-      corrr<span style="color:#555">::</span><span style="color:#c0f">rplot</span>() <span style="color:#555">+</span>
-      <span style="color:#c0f">labs</span>(title <span style="color:#555">=</span> glue<span style="color:#555">::</span><span style="color:#c0f">glue</span>(<span style="color:#c30">&#34;Corellation for {size} drinks&#34;</span>)) <span style="color:#555">+</span> big_labels
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">get_cor <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">function</span>(size){
+    sbucks <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">filter</span>(size <span style="color:#666">==</span> {{size}}) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">na.omit</span>() <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">select</span>(<span style="color:#06287e">where</span>(is.numeric)) <span style="color:#666">%&gt;%</span>
+      corrr<span style="color:#666">::</span><span style="color:#06287e">correlate</span>() <span style="color:#666">%&gt;%</span>
+      corrr<span style="color:#666">::</span><span style="color:#06287e">shave</span>(upper <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>) <span style="color:#666">%&gt;%</span>
+      corrr<span style="color:#666">::</span><span style="color:#06287e">rplot</span>() <span style="color:#666">+</span>
+      <span style="color:#06287e">labs</span>(title <span style="color:#666">=</span> glue<span style="color:#666">::</span><span style="color:#06287e">glue</span>(<span style="color:#4070a0">&#34;Corellation for {size} drinks&#34;</span>)) <span style="color:#666">+</span> big_labels
   }
 
-<span style="color:#c0f">map</span>(<span style="color:#c0f">c</span>(<span style="color:#c30">&#34;short&#34;</span>, <span style="color:#c30">&#34;tall&#34;</span>, <span style="color:#c30">&#34;grande&#34;</span>, <span style="color:#c30">&#34;venti&#34;</span>, <span style="color:#c30">&#34;trenta&#34;</span>), <span style="color:#555">~</span><span style="color:#c0f">get_cor</span>(size <span style="color:#555">=</span> .x))
+<span style="color:#06287e">map</span>(<span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;short&#34;</span>, <span style="color:#4070a0">&#34;tall&#34;</span>, <span style="color:#4070a0">&#34;grande&#34;</span>, <span style="color:#4070a0">&#34;venti&#34;</span>, <span style="color:#4070a0">&#34;trenta&#34;</span>), <span style="color:#666">~</span><span style="color:#06287e">get_cor</span>(size <span style="color:#666">=</span> .x))
 </code></pre></div><pre><code>## [[1]]
 </code></pre>
 <p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-1.png" width="1248" /></p>
@@ -407,85 +407,85 @@ TidyTuesday data set about the contents of various Starbucks drinks. After epxpl
 </code></pre>
 <p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-5.png" width="1248" /></p>
 <p>First we need to only include products where whip is an option; after viewing plot, looks we’ll need to remove some categories.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># https://juliasilge.com/blog/beer-production/</span>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic"># https://juliasilge.com/blog/beer-production/</span>
 
-whip_diff <span style="color:#555">&lt;-</span> 
-  sbucks <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">select</span>(product_name, size, milk, whip, calories) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">group_by</span>(product_name, size, milk) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(has_whip_option <span style="color:#555">=</span> <span style="color:#c0f">max</span>(whip)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">filter</span>(has_whip_option <span style="color:#555">==</span> <span style="color:#f60">1</span>) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(whip <span style="color:#555">=</span> <span style="color:#c0f">factor</span>(whip, levels <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;0&#34;</span>, <span style="color:#c30">&#34;1&#34;</span>)),
-         size <span style="color:#555">=</span> <span style="color:#c0f">factor</span>(size, levels <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;short&#34;</span>, <span style="color:#c30">&#34;tall&#34;</span>, <span style="color:#c30">&#34;grande&#34;</span>, <span style="color:#c30">&#34;venti&#34;</span>)),
-         milk <span style="color:#555">=</span> <span style="color:#c0f">factor</span>(milk, levels <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;nonfat&#34;</span>, <span style="color:#c30">&#34;soy&#34;</span>, <span style="color:#c30">&#34;coconut&#34;</span>, <span style="color:#c30">&#34;2%&#34;</span>, <span style="color:#c30">&#34;whole&#34;</span>)))
+whip_diff <span style="color:#666">&lt;-</span> 
+  sbucks <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(product_name, size, milk, whip, calories) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(product_name, size, milk) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(has_whip_option <span style="color:#666">=</span> <span style="color:#06287e">max</span>(whip)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(has_whip_option <span style="color:#666">==</span> <span style="color:#40a070">1</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(whip <span style="color:#666">=</span> <span style="color:#06287e">factor</span>(whip, levels <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;0&#34;</span>, <span style="color:#4070a0">&#34;1&#34;</span>)),
+         size <span style="color:#666">=</span> <span style="color:#06287e">factor</span>(size, levels <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;short&#34;</span>, <span style="color:#4070a0">&#34;tall&#34;</span>, <span style="color:#4070a0">&#34;grande&#34;</span>, <span style="color:#4070a0">&#34;venti&#34;</span>)),
+         milk <span style="color:#666">=</span> <span style="color:#06287e">factor</span>(milk, levels <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;nonfat&#34;</span>, <span style="color:#4070a0">&#34;soy&#34;</span>, <span style="color:#4070a0">&#34;coconut&#34;</span>, <span style="color:#4070a0">&#34;2%&#34;</span>, <span style="color:#4070a0">&#34;whole&#34;</span>)))
 
 
-whip_diff <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> whip, y <span style="color:#555">=</span> calories)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_jitter</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.5</span>) <span style="color:#555">+</span>
-  <span style="color:#c0f">geom_boxplot</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.75</span>) <span style="color:#555">+</span> 
-  <span style="color:#c0f">facet_grid</span>(milk <span style="color:#555">~</span> size, scales <span style="color:#555">=</span> <span style="color:#c30">&#39;free&#39;</span>) <span style="color:#555">+</span> 
+whip_diff <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> whip, y <span style="color:#666">=</span> calories)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">.5</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_boxplot</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">.75</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">facet_grid</span>(milk <span style="color:#666">~</span> size, scales <span style="color:#666">=</span> <span style="color:#4070a0">&#39;free&#39;</span>) <span style="color:#666">+</span> 
   big_labels
 </code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-5-1.png" width="1248" /></p>
 <p>After removing drinks with no milk, we can plot the distributions of calories and inspect for any potential interaction effects. There doesn’t seem to be any interaction effects between whipped cream and milk type used</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">whip_diff <span style="color:#555">&lt;-</span> 
-  whip_diff <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">filter</span>(size <span style="color:#555">%in%</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;grande&#34;</span>, <span style="color:#c30">&#34;short&#34;</span>, <span style="color:#c30">&#34;tall&#34;</span>, <span style="color:#c30">&#34;venti&#34;</span>),
-         milk <span style="color:#555">!=</span> <span style="color:#c30">&#39;none&#39;</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">whip_diff <span style="color:#666">&lt;-</span> 
+  whip_diff <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(size <span style="color:#666">%in%</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;grande&#34;</span>, <span style="color:#4070a0">&#34;short&#34;</span>, <span style="color:#4070a0">&#34;tall&#34;</span>, <span style="color:#4070a0">&#34;venti&#34;</span>),
+         milk <span style="color:#666">!=</span> <span style="color:#4070a0">&#39;none&#39;</span>)
 
-boxplot_milk <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">ggplot</span>(whip_diff, <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> whip, y <span style="color:#555">=</span> calories, fill <span style="color:#555">=</span> milk)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_jitter</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.5</span>) <span style="color:#555">+</span>
-  <span style="color:#c0f">geom_boxplot</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.75</span>) <span style="color:#555">+</span> 
-  <span style="color:#09f;font-style:italic"># facet_grid(. ~ size) + </span>
-  <span style="color:#c0f">labs</span>(fill <span style="color:#555">=</span> <span style="color:#c30">&#34;Milk Type&#34;</span>) <span style="color:#555">+</span> 
-  big_labels <span style="color:#555">+</span> 
-  <span style="color:#c0f">scale_y_continuous</span>(breaks <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">100</span>, <span style="color:#f60">1000</span>, <span style="color:#f60">25</span>))  <span style="color:#555">+</span>
-  <span style="color:#c0f">theme_minimal</span>() <span style="color:#555">+</span> 
-  <span style="color:#c0f">theme</span>(legend.position <span style="color:#555">=</span> <span style="color:#c30">&#34;none&#34;</span>)
+boxplot_milk <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">ggplot</span>(whip_diff, <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> whip, y <span style="color:#666">=</span> calories, fill <span style="color:#666">=</span> milk)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">.5</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_boxplot</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">.75</span>) <span style="color:#666">+</span> 
+  <span style="color:#60a0b0;font-style:italic"># facet_grid(. ~ size) + </span>
+  <span style="color:#06287e">labs</span>(fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Milk Type&#34;</span>) <span style="color:#666">+</span> 
+  big_labels <span style="color:#666">+</span> 
+  <span style="color:#06287e">scale_y_continuous</span>(breaks <span style="color:#666">=</span> <span style="color:#06287e">seq</span>(<span style="color:#40a070">100</span>, <span style="color:#40a070">1000</span>, <span style="color:#40a070">25</span>))  <span style="color:#666">+</span>
+  <span style="color:#06287e">theme_minimal</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">theme</span>(legend.position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;none&#34;</span>)
 
-line_milk <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">ggline</span>(whip_diff, x <span style="color:#555">=</span> <span style="color:#c30">&#34;whip&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#34;calories&#34;</span>, color <span style="color:#555">=</span> <span style="color:#c30">&#34;milk&#34;</span>,
-         add <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;mean_se&#34;</span>)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">theme_minimal</span>()
+line_milk <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">ggline</span>(whip_diff, x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;whip&#34;</span>, y <span style="color:#666">=</span> <span style="color:#4070a0">&#34;calories&#34;</span>, color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;milk&#34;</span>,
+         add <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;mean_se&#34;</span>)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">theme_minimal</span>()
 
-ggpubr<span style="color:#555">::</span><span style="color:#c0f">ggarrange</span>(boxplot_milk, line_milk, nrow <span style="color:#555">=</span> <span style="color:#f60">1</span>, ncol <span style="color:#555">=</span> <span style="color:#f60">2</span>)
+ggpubr<span style="color:#666">::</span><span style="color:#06287e">ggarrange</span>(boxplot_milk, line_milk, nrow <span style="color:#666">=</span> <span style="color:#40a070">1</span>, ncol <span style="color:#666">=</span> <span style="color:#40a070">2</span>)
 </code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-6-1.png" width="1248" /></p>
 <p>There may be a slight interaction effect between whipped cream and drink size</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">boxplot_size <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">ggplot</span>(whip_diff, <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> whip, y <span style="color:#555">=</span> calories, fill <span style="color:#555">=</span> size)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_jitter</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.5</span>) <span style="color:#555">+</span>
-  <span style="color:#c0f">geom_boxplot</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.75</span>) <span style="color:#555">+</span> 
-  <span style="color:#c0f">labs</span>(fill <span style="color:#555">=</span> <span style="color:#c30">&#34;Milk Type&#34;</span>) <span style="color:#555">+</span> 
-  big_labels <span style="color:#555">+</span> 
-  <span style="color:#c0f">scale_y_continuous</span>(breaks <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">100</span>, <span style="color:#f60">1000</span>, <span style="color:#f60">25</span>)) <span style="color:#555">+</span>
-  <span style="color:#c0f">theme_minimal</span>() <span style="color:#555">+</span> 
-  <span style="color:#c0f">theme</span>(legend.position <span style="color:#555">=</span> <span style="color:#c30">&#34;none&#34;</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">boxplot_size <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">ggplot</span>(whip_diff, <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> whip, y <span style="color:#666">=</span> calories, fill <span style="color:#666">=</span> size)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">.5</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_boxplot</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">.75</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">labs</span>(fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Milk Type&#34;</span>) <span style="color:#666">+</span> 
+  big_labels <span style="color:#666">+</span> 
+  <span style="color:#06287e">scale_y_continuous</span>(breaks <span style="color:#666">=</span> <span style="color:#06287e">seq</span>(<span style="color:#40a070">100</span>, <span style="color:#40a070">1000</span>, <span style="color:#40a070">25</span>)) <span style="color:#666">+</span>
+  <span style="color:#06287e">theme_minimal</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">theme</span>(legend.position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;none&#34;</span>)
 
-line_size <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">ggline</span>(whip_diff, x <span style="color:#555">=</span> <span style="color:#c30">&#34;whip&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#34;calories&#34;</span>, color <span style="color:#555">=</span> <span style="color:#c30">&#34;size&#34;</span>,
-         add <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;mean_se&#34;</span>)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">theme_minimal</span>()
+line_size <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">ggline</span>(whip_diff, x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;whip&#34;</span>, y <span style="color:#666">=</span> <span style="color:#4070a0">&#34;calories&#34;</span>, color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;size&#34;</span>,
+         add <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;mean_se&#34;</span>)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">theme_minimal</span>()
 
-ggpubr<span style="color:#555">::</span><span style="color:#c0f">ggarrange</span>(boxplot_size, line_size, nrow <span style="color:#555">=</span> <span style="color:#f60">1</span>, ncol <span style="color:#555">=</span> <span style="color:#f60">2</span>)
+ggpubr<span style="color:#666">::</span><span style="color:#06287e">ggarrange</span>(boxplot_size, line_size, nrow <span style="color:#666">=</span> <span style="color:#40a070">1</span>, ncol <span style="color:#666">=</span> <span style="color:#40a070">2</span>)
 </code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-7-1.png" width="1248" /></p>
 <p>There may be a slight interaction effect between drink size and milk used</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">boxplot_size_milk <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">ggplot</span>(whip_diff, <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> milk, y <span style="color:#555">=</span> calories, fill <span style="color:#555">=</span> size)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_jitter</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.5</span>) <span style="color:#555">+</span>
-  <span style="color:#c0f">geom_boxplot</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.75</span>) <span style="color:#555">+</span> 
-  <span style="color:#c0f">labs</span>(fill <span style="color:#555">=</span> <span style="color:#c30">&#34;Milk Type&#34;</span>) <span style="color:#555">+</span> 
-  big_labels <span style="color:#555">+</span> 
-  <span style="color:#c0f">scale_y_continuous</span>(breaks <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">100</span>, <span style="color:#f60">1000</span>, <span style="color:#f60">25</span>)) <span style="color:#555">+</span>
-  <span style="color:#c0f">theme_minimal</span>() <span style="color:#555">+</span> 
-  <span style="color:#c0f">theme</span>(legend.position <span style="color:#555">=</span> <span style="color:#c30">&#34;none&#34;</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">boxplot_size_milk <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">ggplot</span>(whip_diff, <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> milk, y <span style="color:#666">=</span> calories, fill <span style="color:#666">=</span> size)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">.5</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_boxplot</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">.75</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">labs</span>(fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Milk Type&#34;</span>) <span style="color:#666">+</span> 
+  big_labels <span style="color:#666">+</span> 
+  <span style="color:#06287e">scale_y_continuous</span>(breaks <span style="color:#666">=</span> <span style="color:#06287e">seq</span>(<span style="color:#40a070">100</span>, <span style="color:#40a070">1000</span>, <span style="color:#40a070">25</span>)) <span style="color:#666">+</span>
+  <span style="color:#06287e">theme_minimal</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">theme</span>(legend.position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;none&#34;</span>)
 
-line_size_milk <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">ggline</span>(whip_diff, x <span style="color:#555">=</span> <span style="color:#c30">&#34;milk&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#34;calories&#34;</span>, color <span style="color:#555">=</span> <span style="color:#c30">&#34;size&#34;</span>,
-         add <span style="color:#555">=</span> <span style="color:#c0f">c</span>(<span style="color:#c30">&#34;mean_se&#34;</span>)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">theme_minimal</span>()
+line_size_milk <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">ggline</span>(whip_diff, x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;milk&#34;</span>, y <span style="color:#666">=</span> <span style="color:#4070a0">&#34;calories&#34;</span>, color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;size&#34;</span>,
+         add <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;mean_se&#34;</span>)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">theme_minimal</span>()
 
-ggpubr<span style="color:#555">::</span><span style="color:#c0f">ggarrange</span>(boxplot_size_milk, line_size_milk, nrow <span style="color:#555">=</span> <span style="color:#f60">1</span>, ncol <span style="color:#555">=</span> <span style="color:#f60">2</span>)
+ggpubr<span style="color:#666">::</span><span style="color:#06287e">ggarrange</span>(boxplot_size_milk, line_size_milk, nrow <span style="color:#666">=</span> <span style="color:#40a070">1</span>, ncol <span style="color:#666">=</span> <span style="color:#40a070">2</span>)
 </code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-8-1.png" width="1248" /></p>
 
 
@@ -509,22 +509,22 @@ $$</p>
 <li>X3 is an indicator for milk type (5 levels, ref level = nonfat)</li>
 </ul>
 <p>An interaction term is added since the amount of whipped cream added may vary according to the drink size; maybe <em>Venti</em> drinks get more whipped cream added than a <em>Short</em> drink and if so the impact on calories is not consistent for whipped cream drinks as size changes.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">broom<span style="color:#555">::</span><span style="color:#c0f">tidy</span>(<span style="color:#c0f">lm</span>(calories <span style="color:#555">~</span> whip <span style="color:#555">+</span> size <span style="color:#555">+</span> milk <span style="color:#555">+</span> whip<span style="color:#555">*</span>size, data <span style="color:#555">=</span> whip_diff)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">addtable</span>()
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">broom<span style="color:#666">::</span><span style="color:#06287e">tidy</span>(<span style="color:#06287e">lm</span>(calories <span style="color:#666">~</span> whip <span style="color:#666">+</span> size <span style="color:#666">+</span> milk <span style="color:#666">+</span> whip<span style="color:#666">*</span>size, data <span style="color:#666">=</span> whip_diff)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">addtable</span>()
 </code></pre></div><div id="htmlwidget-1" class="reactable html-widget" style="width:auto;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"term":["(Intercept)","whip1","sizetall","sizegrande","sizeventi","milksoy","milkcoconut","milk2%","milkwhole","whip1:sizetall","whip1:sizegrande","whip1:sizeventi"],"estimate":[138.84,54.09,50.84,124.86,220.51,9.29,1.43,30.71,51.25,22.78,50.38,50.38],"std.error":[11.74,15.49,12.33,12.3,12.3,7.04,6.86,6.86,6.86,17.42,17.37,17.37],"statistic":[11.83,3.49,4.12,10.15,17.93,1.32,0.21,4.48,7.47,1.31,2.9,2.9],"p.value":[0,0,0,0,0,0.19,0.84,0,0,0.19,0,0]},"columns":[{"accessor":"term","name":"term","type":"character"},{"accessor":"estimate","name":"estimate","type":"numeric"},{"accessor":"std.error","name":"std.error","type":"numeric"},{"accessor":"statistic","name":"statistic","type":"numeric"},{"accessor":"p.value","name":"p.value","type":"numeric"}],"resizable":true,"filterable":true,"defaultPageSize":15,"paginationType":"numbers","showPageInfo":true,"minRows":1,"defaultExpanded":true,"highlight":true,"striped":true,"compact":true,"inline":true,"dataKey":"559549227df2e6fff5e0d092a94e24e0","key":"559549227df2e6fff5e0d092a94e24e0"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p>The intercept term alone indicates the average calories for “short” drinks with nonfat milk and without whipped cream is about 139 calories. To get the avg calories for a venti with whipped cream and whole milk, for example, we can add:</p>
 <p>138.84 + 54 + 220.51 + 51.25 + 50.38 = 514.98 calories</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">broom<span style="color:#555">::</span><span style="color:#c0f">tidy</span>(<span style="color:#c0f">lm</span>(calories <span style="color:#555">~</span> whip <span style="color:#555">+</span> size <span style="color:#555">+</span> milk <span style="color:#555">+</span> whip<span style="color:#555">*</span>size, data <span style="color:#555">=</span> whip_diff)) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">filter</span>(term <span style="color:#555">!=</span> <span style="color:#c30">&#34;(Intercept)&#34;</span>) <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">ggplot</span>(., <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> <span style="color:#c0f">reorder</span>(term, estimate), y <span style="color:#555">=</span> estimate, label <span style="color:#555">=</span> <span style="color:#c0f">round</span>(estimate, <span style="color:#f60">2</span>))) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_point</span>() <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_text</span>(nudge_x <span style="color:#555">=</span> <span style="color:#f60">.28</span>) <span style="color:#555">+</span> 
-  <span style="color:#c0f">coord_flip</span>() <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_hline</span>(yintercept <span style="color:#555">=</span> <span style="color:#f60">0</span>) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_errorbar</span>(<span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> term, ymin <span style="color:#555">=</span> estimate <span style="color:#555">-</span> std.error, ymax <span style="color:#555">=</span> estimate <span style="color:#555">+</span> std.error)) <span style="color:#555">+</span>
-  <span style="color:#c0f">labs</span>(x <span style="color:#555">=</span> <span style="color:#c30">&#34;estimate&#34;</span>, y <span style="color:#555">=</span> <span style="color:#c30">&#34;&#34;</span>,
-       title <span style="color:#555">=</span> <span style="color:#c30">&#34;Effect sizes relative to baseline&#34;</span>, subtitle <span style="color:#555">=</span> <span style="color:#c30">&#34;baseline: short, nonfat milk without whipped cream&#34;</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">broom<span style="color:#666">::</span><span style="color:#06287e">tidy</span>(<span style="color:#06287e">lm</span>(calories <span style="color:#666">~</span> whip <span style="color:#666">+</span> size <span style="color:#666">+</span> milk <span style="color:#666">+</span> whip<span style="color:#666">*</span>size, data <span style="color:#666">=</span> whip_diff)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(term <span style="color:#666">!=</span> <span style="color:#4070a0">&#34;(Intercept)&#34;</span>) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> <span style="color:#06287e">reorder</span>(term, estimate), y <span style="color:#666">=</span> estimate, label <span style="color:#666">=</span> <span style="color:#06287e">round</span>(estimate, <span style="color:#40a070">2</span>))) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_point</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_text</span>(nudge_x <span style="color:#666">=</span> <span style="color:#40a070">.28</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">coord_flip</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_hline</span>(yintercept <span style="color:#666">=</span> <span style="color:#40a070">0</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_errorbar</span>(<span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> term, ymin <span style="color:#666">=</span> estimate <span style="color:#666">-</span> std.error, ymax <span style="color:#666">=</span> estimate <span style="color:#666">+</span> std.error)) <span style="color:#666">+</span>
+  <span style="color:#06287e">labs</span>(x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;estimate&#34;</span>, y <span style="color:#666">=</span> <span style="color:#4070a0">&#34;&#34;</span>,
+       title <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Effect sizes relative to baseline&#34;</span>, subtitle <span style="color:#666">=</span> <span style="color:#4070a0">&#34;baseline: short, nonfat milk without whipped cream&#34;</span>)
 </code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-10-1.png" width="1248" /></p>
 
 
@@ -538,14 +538,14 @@ $$</p>
 </h3>
 <p>There is not a ton of data here, maybe creating some bootstrap resamples might help to model this relationship. Bootstrapping creates <em>N</em> datasets by resampling <em>with replacement</em>. All of the resamples have the same number of rows as the input dataset, and contain duplicate observations since we sampled with replacement. The assessment data are comprised of the observations that didn’t make it into a given resample.</p>
 <p>Below are the first 10 resamples of the dataset; each contains 550 observations to fit the model (the <em>analysis</em> split). the remaining observations are the <em>assessment</em> split, but are not used in this case, since we are not doing any model tuning or measuring any performance metrics. The model coefficients will be an average across all 5000 resamples.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># use bootstrap resampling; account for potential interaction effect</span>
-<span style="color:#c0f">set.seed</span>(<span style="color:#f60">1459</span>)
-samples <span style="color:#555">&lt;-</span>
-  rsample<span style="color:#555">::</span><span style="color:#c0f">bootstraps</span>(whip_diff,
-                      times <span style="color:#555">=</span> <span style="color:#f60">5000</span>,
-                      apparent <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic"># use bootstrap resampling; account for potential interaction effect</span>
+<span style="color:#06287e">set.seed</span>(<span style="color:#40a070">1459</span>)
+samples <span style="color:#666">&lt;-</span>
+  rsample<span style="color:#666">::</span><span style="color:#06287e">bootstraps</span>(whip_diff,
+                      times <span style="color:#666">=</span> <span style="color:#40a070">5000</span>,
+                      apparent <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
 
-<span style="color:#c0f">head</span>(samples, <span style="color:#f60">10</span>)
+<span style="color:#06287e">head</span>(samples, <span style="color:#40a070">10</span>)
 </code></pre></div><pre><code>## # A tibble: 10 × 2
 ##    splits            id           
 ##    &lt;list&gt;            &lt;chr&gt;        
@@ -560,35 +560,35 @@ samples <span style="color:#555">&lt;-</span>
 ##  9 &lt;split [550/199]&gt; Bootstrap0009
 ## 10 &lt;split [550/196]&gt; Bootstrap0010
 </code></pre>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">whip_models <span style="color:#555">&lt;-</span> 
-  samples <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(
-    model <span style="color:#555">=</span> <span style="color:#c0f">map</span>(splits, <span style="color:#555">~</span> <span style="color:#c0f">lm</span>(calories <span style="color:#555">~</span> whip <span style="color:#555">+</span> size <span style="color:#555">+</span> milk <span style="color:#555">+</span> whip<span style="color:#555">*</span>size, data <span style="color:#555">=</span> .)),
-    coef_info <span style="color:#555">=</span> <span style="color:#c0f">map</span>(model, tidy)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">whip_models <span style="color:#666">&lt;-</span> 
+  samples <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(
+    model <span style="color:#666">=</span> <span style="color:#06287e">map</span>(splits, <span style="color:#666">~</span> <span style="color:#06287e">lm</span>(calories <span style="color:#666">~</span> whip <span style="color:#666">+</span> size <span style="color:#666">+</span> milk <span style="color:#666">+</span> whip<span style="color:#666">*</span>size, data <span style="color:#666">=</span> .)),
+    coef_info <span style="color:#666">=</span> <span style="color:#06287e">map</span>(model, tidy)
   )
 </code></pre></div><p>Based on the plots, the estimates are about the same as the <code>lm</code> above!</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">whip_coefs <span style="color:#555">&lt;-</span> 
-  whip_models <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">unnest</span>(coef_info)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">whip_coefs <span style="color:#666">&lt;-</span> 
+  whip_models <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">unnest</span>(coef_info)
 
-means <span style="color:#555">&lt;-</span> 
-  whip_coefs <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">group_by</span>(term) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">summarise</span>(est_mean <span style="color:#555">=</span> <span style="color:#c0f">mean</span>(estimate))
+means <span style="color:#666">&lt;-</span> 
+  whip_coefs <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(term) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">summarise</span>(est_mean <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(estimate))
 
-spreads <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">int_pctl</span>(whip_models, coef_info)
+spreads <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">int_pctl</span>(whip_models, coef_info)
 
-whip_coefs <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">left_join</span>(., means, <span style="color:#c30">&#34;term&#34;</span>)  <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">left_join</span>(., spreads <span style="color:#555">%&gt;%</span> <span style="color:#c0f">select</span>(.lower, .upper, term), <span style="color:#c30">&#34;term&#34;</span>)  <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(term_label <span style="color:#555">=</span> <span style="color:#c0f">paste</span>(term, <span style="color:#c0f">round</span>(est_mean, <span style="color:#f60">2</span>))) <span style="color:#555">%&gt;%</span> 
-  <span style="color:#c0f">ggplot</span>(<span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> estimate, label <span style="color:#555">=</span> est_mean)) <span style="color:#555">+</span>
-  <span style="color:#c0f">geom_histogram</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">0.7</span>) <span style="color:#555">+</span> 
-  <span style="color:#c0f">facet_wrap</span>(.~term_label, scales <span style="color:#555">=</span> <span style="color:#c30">&#34;free&#34;</span>) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_vline</span>(<span style="color:#c0f">aes</span>(xintercept <span style="color:#555">=</span> est_mean))<span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_vline</span>(<span style="color:#c0f">aes</span>(xintercept <span style="color:#555">=</span> .lower), linetype <span style="color:#555">=</span> <span style="color:#c30">&#34;dashed&#34;</span>) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_vline</span>(<span style="color:#c0f">aes</span>(xintercept <span style="color:#555">=</span> .upper), linetype <span style="color:#555">=</span> <span style="color:#c30">&#34;dashed&#34;</span>) 
+whip_coefs <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">left_join</span>(., means, <span style="color:#4070a0">&#34;term&#34;</span>)  <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">left_join</span>(., spreads <span style="color:#666">%&gt;%</span> <span style="color:#06287e">select</span>(.lower, .upper, term), <span style="color:#4070a0">&#34;term&#34;</span>)  <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(term_label <span style="color:#666">=</span> <span style="color:#06287e">paste</span>(term, <span style="color:#06287e">round</span>(est_mean, <span style="color:#40a070">2</span>))) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> estimate, label <span style="color:#666">=</span> est_mean)) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_histogram</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">0.7</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">facet_wrap</span>(.~term_label, scales <span style="color:#666">=</span> <span style="color:#4070a0">&#34;free&#34;</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_vline</span>(<span style="color:#06287e">aes</span>(xintercept <span style="color:#666">=</span> est_mean))<span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_vline</span>(<span style="color:#06287e">aes</span>(xintercept <span style="color:#666">=</span> .lower), linetype <span style="color:#666">=</span> <span style="color:#4070a0">&#34;dashed&#34;</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_vline</span>(<span style="color:#06287e">aes</span>(xintercept <span style="color:#666">=</span> .upper), linetype <span style="color:#666">=</span> <span style="color:#4070a0">&#34;dashed&#34;</span>) 
 </code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-13-1.png" width="1248" /></p>
 
 
@@ -601,15 +601,15 @@ whip_coefs <span style="color:#555">%&gt;%</span>
     </svg></a>
 </h2>
 <p>These 2 methods are similar ways to accomplish the same goal, and in this case we got similar result. In fact, a simple faceted boxplot could have saved a ton of time and shown us the same results - calories differ across whipped cream options, milk options and size options!</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#c0f">ggplot</span>(whip_diff, <span style="color:#c0f">aes</span>(x <span style="color:#555">=</span> whip, y <span style="color:#555">=</span> calories, fill <span style="color:#555">=</span> milk)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">geom_jitter</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.5</span>) <span style="color:#555">+</span>
-  <span style="color:#c0f">geom_boxplot</span>(alpha <span style="color:#555">=</span> <span style="color:#f60">.75</span>) <span style="color:#555">+</span> 
-  <span style="color:#c0f">labs</span>(fill <span style="color:#555">=</span> <span style="color:#c30">&#34;Milk Type&#34;</span>) <span style="color:#555">+</span> 
-  big_labels <span style="color:#555">+</span> 
-  <span style="color:#c0f">facet_grid</span>(.~size) <span style="color:#555">+</span> 
-  <span style="color:#c0f">scale_y_continuous</span>(breaks <span style="color:#555">=</span> <span style="color:#c0f">seq</span>(<span style="color:#f60">100</span>, <span style="color:#f60">1000</span>, <span style="color:#f60">25</span>)) <span style="color:#555">+</span> 
-  <span style="color:#c0f">bg_theme</span>() <span style="color:#555">+</span> 
-  ggsci<span style="color:#555">::</span><span style="color:#c0f">scale_fill_npg</span>()
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">ggplot</span>(whip_diff, <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> whip, y <span style="color:#666">=</span> calories, fill <span style="color:#666">=</span> milk)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_jitter</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">.5</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_boxplot</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">.75</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">labs</span>(fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Milk Type&#34;</span>) <span style="color:#666">+</span> 
+  big_labels <span style="color:#666">+</span> 
+  <span style="color:#06287e">facet_grid</span>(.~size) <span style="color:#666">+</span> 
+  <span style="color:#06287e">scale_y_continuous</span>(breaks <span style="color:#666">=</span> <span style="color:#06287e">seq</span>(<span style="color:#40a070">100</span>, <span style="color:#40a070">1000</span>, <span style="color:#40a070">25</span>)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">bg_theme</span>() <span style="color:#666">+</span> 
+  ggsci<span style="color:#666">::</span><span style="color:#06287e">scale_fill_npg</span>()
 </code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-14-1.png" width="1248" /></p>
 
         

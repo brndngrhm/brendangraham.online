@@ -1,0 +1,297 @@
+---
+title: "Classifying Bigfoot Encounters"
+author: Brendan Graham
+date: '2022-09-17'
+slug: pell
+categories: 
+  - tidy tuesday
+  - text model
+  - data science
+tags:
+  - tidy tuesday
+  - text model
+  - data science
+subtitle: 
+summary: 'In this post I analyze a [TidyTuesday](https://github.com/rfordatascience/tidytuesday) data set about Bigfoot Encounters Grants. After exploring the data I test several different text model to classify Bigfoot enounters based on their description.'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+draft: false
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+```{r}
+library(tidytuesdayR)
+library(tidyverse)
+library(lubridate)
+library(highcharter)
+library(plotly)
+library(purrr)
+library(skimr)
+library(here)
+library(ggrepel)
+library(tidymodels)
+library(rules)
+library(doParallel)
+library(ghibli)
+library(gghighlight)
+library(highcharter)
+library(ggsci)
+library(usdata)
+library(plsmod)
+library(textrecipes)
+library(LiblineaR)
+
+source(here::here("content", "blog", "util.R"))
+
+```
+
+## Get the data
+
+```{r}
+tt_url <- 
+  "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-09-13/bigfoot.csv"
+
+bigfoot <- 
+  readr::read_csv(tt_url) %>%
+  mutate(year = year(date),
+         month = floor_date(date, 'month'),
+         month_name = month(date, label = T, abbr = T),
+         day_name = wday(date, abbr = T, label = T)
+  )
+
+skimr::skim(bigfoot)
+
+bigfoot %>% get_table(size = 15, wrap = F)
+
+```
+
+```{r}
+
+bigfoot %>%
+  group_by(month, month_name) %>%
+  tally()  %>%
+  filter(!is.na(month),
+         month > "1950-01-01") %>%
+  ungroup() %>%
+  padr::pad() %>%
+  padr::fill_by_value(n, 0) %>%
+  ggplot(aes(x = month, y = n)) + 
+  geom_line(color = bg_green, alpha = .75) + 
+  scale_x_date(breaks = scales::date_breaks("5 years"), date_labels = "%b '%y")
+
+bigfoot %>%
+  group_by(season, classification) %>%
+  tally()  %>%
+  ggplot(aes(x = season, y = n)) +
+  geom_col(aes(fill = classification), alpha = .75) 
+
+bigfoot %>%
+  group_by(day_name) %>%
+  tally()  %>%
+  filter(!is.na(day_name)) %>%
+  ggplot(aes(x = day_name, y = n)) +
+  geom_col(fill = bg_green, alpha = .75)
+
+```
+
+```{r}
+
+bigfoot %>%
+  group_by(state, season) %>%
+  tally()  %>%
+  filter(!is.na(month))
+```
+
+## Text model to classify encounters
+
+```{r}
+
+model_data <- 
+  bigfoot %>%
+  select(number, classification, observed, date, latitude, longitude, state, season, temperature_high:visibility) %>%
+  filter(classification != "Class C") %>%
+  na.omit()
+```
+
+```{r}
+# text models
+
+set.seed(194)
+bigfoot_split <- 
+  initial_split(model_data, strata = classification)
+
+train <- 
+  training(bigfoot_split)
+test <- 
+  testing(bigfoot_split)
+
+folds <- 
+  bootstraps(train, 25, strata = classification)
+
+bigfoot_rec_full <-
+  recipe(classification ~ ., data = train) %>%
+  step_rm(summary) %>%
+  step_naomit(all_predictors()) %>%
+  update_role(number, new_role = "ID Variable") %>%
+  step_tokenize(observed) %>%
+  step_stopwords(observed) %>%
+  step_tokenfilter(observed, max_tokens = 100) %>%
+  step_tfidf(observed) %>%
+  step_date(date, features = c("dow", "month", "year"), keep_original_cols = FALSE) %>%
+  step_unknown(all_nominal_predictors()) %>%
+  step_novel(all_nominal_predictors()) %>%
+  step_normalize(all_numeric_predictors()) %>%
+  step_dummy(all_nominal_predictors())
+
+bigfoot_rec_text_only <-
+  recipe(classification ~ number + observed, data = train) %>%
+  update_role(number, new_role = "ID Variable") %>%
+  step_tokenize(observed) %>%
+  step_stopwords(observed) %>%
+  step_tokenfilter(observed, max_tokens = 100) %>%
+  step_tfidf(observed)
+
+bigfoot_rec_no_text <-
+  recipe(classification ~ ., data = train) %>%
+  step_rm(summary, observed) %>%
+  step_naomit(all_predictors()) %>%
+  update_role(number, new_role = "ID Variable") %>%
+  step_date(date, features = c("dow", "month", "year"), keep_original_cols = FALSE) %>%
+  step_unknown(all_nominal_predictors()) %>%
+  step_novel(all_nominal_predictors()) %>%
+  step_normalize(all_numeric_predictors()) %>%
+  step_dummy(all_nominal_predictors())
+
+# check that things work ok
+bigfoot_rec_no_text %>% 
+  prep() %>% 
+  bake(new_data = NULL)
+
+null_spec <- 
+  null_model() %>%
+  set_engine("parsnip") %>%
+  set_mode("classification")
+
+svm_spec <-
+  svm_linear(cost = ) %>%
+  set_engine("LiblineaR") %>%
+  set_mode("classification")
+# 
+# mars_spec <-
+#   mars(
+#     num_terms = tune(), 
+#     prod_degree = tune()
+#   ) %>%
+#   set_mode("classification") %>%
+#   set_engine("earth")
+# 
+# xgb_spec <-
+#   boost_tree(
+#     mtry = tune(),
+#     trees = tune(),
+#     min_n = tune(),
+#     learn_rate = tune(),
+#     tree_depth = tune(),
+#     sample_size = tune(),
+#     loss_reduction = tune()) %>%
+#   set_mode("classification") %>%
+#   set_engine("xgboost")
+
+random_forest_spec <-
+  parsnip::rand_forest(
+    mtry = tune(),
+    trees = 1000,
+    min_n = tune()
+  ) %>%
+  set_mode("classification") %>%
+  set_engine("ranger")
+
+workflows <- 
+  workflow_set(
+    preproc = list(
+      full_recipe = bigfoot_rec_full,
+      text_only = bigfoot_rec_text_only,
+      no_text = bigfoot_rec_no_text), 
+    models = list(
+      null_model = null_spec,
+      svm = svm_spec,
+      # mars = mars_spec,
+      # xgb = xgb_spec,
+      random_forest = random_forest_spec),
+    cross = TRUE)
+
+workflows
+
+```
+
+```{r}
+tictoc::tic()
+
+cl <- 
+  parallel::makeCluster(10)
+
+doParallel::registerDoParallel(cl)
+
+grid_ctrl <-
+  control_grid(
+    save_pred = TRUE,
+    allow_par = TRUE,
+    parallel_over = "everything",
+    verbose = TRUE
+  )
+
+results <- 
+  workflow_map(fn = "tune_grid",
+               object = workflows,
+               seed = 155,
+               verbose = TRUE,
+               control = grid_ctrl,
+               grid = 10, 
+               resamples = folds,
+               metrics = metric_set(accuracy, roc_auc, mn_log_loss)
+  )
+
+stopCluster(cl)
+tictoc::toc()
+
+results %>%
+  rank_results(rank_metric = "accuracy", select_best = TRUE) %>%
+  filter(.metric == "accuracy") %>%
+  arrange(model) %>%
+  mutate(type = case_when(
+    str_detect(wflow_id, "full") ~ "full recipe",
+    str_detect(wflow_id, "no_text") ~ "no text",
+    TRUE ~ "text only")) %>%
+  ggplot(., aes(x = rank, y = mean, color = model)) + 
+  geom_point() + 
+  geom_errorbar(aes(ymin = mean - std_err, ymax = mean + std_err)) + 
+  facet_wrap(vars(type)) + 
+  scale_y_continuous(limits =c(.45, .85), breaks = seq(.45, .85, .01))
+
+```
+
+
+```{r}
+
+best_results <- 
+  results %>% 
+   extract_workflow_set_result("full_recipe_random_forest") %>% 
+   select_best(metric = "roc_auc")
+
+rf_test_results <- 
+   results %>% 
+   extract_workflow("full_recipe_random_forest") %>% 
+   finalize_workflow(best_results) %>% 
+   last_fit(split = bigfoot_split)
+
+rf_test_results
+
+```
+

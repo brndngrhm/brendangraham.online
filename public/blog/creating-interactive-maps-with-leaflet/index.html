@@ -143,109 +143,109 @@
 </h1>
 <p>To get started, I created a copy of the Friends of the Wissahickon map and exported each layer (Kiosks, Parking, Trailheads&hellip;) as its own <code>.KMZ</code> file, then used <a href="https://www.gpsvisualizer.com/convert_input">https://www.gpsvisualizer.com/convert_input</a> to convert the <code>.KMZ</code> file to <code>.GPX</code>. A <code>.GPX</code> file is basically <code>XML</code> flavored with some GPS data, so once I had the all of the <code>.GPX</code> files, I was able to use the amazing <code>XML</code> R package to parse the <code>XML</code>.</p>
 <p>As someone used to working with dataframes, parsing XML in R can be tricky. Once I understood the structure of the XML, I was able to create a function to parse the file:</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">parse_hike_xml <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">function</span>(file){
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">parse_hike_xml <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">function</span>(file){
     
-    <span style="color:#09f;font-style:italic">#import hike and parse</span>
-    hike_xml <span style="color:#555">&lt;-</span>
-      XML<span style="color:#555">::</span><span style="color:#c0f">xmlParse</span>(file)
-    nodes <span style="color:#555">&lt;-</span>
-      XML<span style="color:#555">::</span><span style="color:#c0f">getNodeSet</span>(hike_xml, <span style="color:#c30">&#34;//ns:trk&#34;</span>, <span style="color:#c30">&#34;ns&#34;</span>)
-    rows <span style="color:#555">&lt;-</span>
-      <span style="color:#c0f">lapply</span>(nodes, <span style="color:#c0f">function</span>(x) <span style="color:#c0f">data.frame</span>(<span style="color:#c0f">xmlToList</span>(x)))
-    <span style="color:#09f;font-style:italic">#usable dataframe</span>
-    plyr<span style="color:#555">::</span><span style="color:#c0f">ldply</span>(rows, data.frame) <span style="color:#555">%&gt;%</span> 
-      reshape2<span style="color:#555">::</span><span style="color:#c0f">melt</span>(id.vars <span style="color:#555">=</span> <span style="color:#c30">&#34;name&#34;</span>) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">mutate</span>(type <span style="color:#555">=</span> <span style="color:#c0f">ifelse</span>(value <span style="color:#555">&lt;</span> <span style="color:#f60">0</span>, <span style="color:#c30">&#34;lng&#34;</span>, <span style="color:#c30">&#34;lat&#34;</span>)) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">spread</span>(type, value) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">mutate</span>(lng <span style="color:#555">=</span> <span style="color:#c0f">as.numeric</span>(lng),
-             lat <span style="color:#555">=</span> <span style="color:#c0f">as.numeric</span>(lat),
-             type <span style="color:#555">=</span> <span style="color:#c30">&#34;Hike&#34;</span>) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">rename</span>(desc <span style="color:#555">=</span> <span style="color:#f60">2</span>)
+    <span style="color:#60a0b0;font-style:italic">#import hike and parse</span>
+    hike_xml <span style="color:#666">&lt;-</span>
+      XML<span style="color:#666">::</span><span style="color:#06287e">xmlParse</span>(file)
+    nodes <span style="color:#666">&lt;-</span>
+      XML<span style="color:#666">::</span><span style="color:#06287e">getNodeSet</span>(hike_xml, <span style="color:#4070a0">&#34;//ns:trk&#34;</span>, <span style="color:#4070a0">&#34;ns&#34;</span>)
+    rows <span style="color:#666">&lt;-</span>
+      <span style="color:#06287e">lapply</span>(nodes, <span style="color:#06287e">function</span>(x) <span style="color:#06287e">data.frame</span>(<span style="color:#06287e">xmlToList</span>(x)))
+    <span style="color:#60a0b0;font-style:italic">#usable dataframe</span>
+    plyr<span style="color:#666">::</span><span style="color:#06287e">ldply</span>(rows, data.frame) <span style="color:#666">%&gt;%</span> 
+      reshape2<span style="color:#666">::</span><span style="color:#06287e">melt</span>(id.vars <span style="color:#666">=</span> <span style="color:#4070a0">&#34;name&#34;</span>) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">mutate</span>(type <span style="color:#666">=</span> <span style="color:#06287e">ifelse</span>(value <span style="color:#666">&lt;</span> <span style="color:#40a070">0</span>, <span style="color:#4070a0">&#34;lng&#34;</span>, <span style="color:#4070a0">&#34;lat&#34;</span>)) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">spread</span>(type, value) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">mutate</span>(lng <span style="color:#666">=</span> <span style="color:#06287e">as.numeric</span>(lng),
+             lat <span style="color:#666">=</span> <span style="color:#06287e">as.numeric</span>(lat),
+             type <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Hike&#34;</span>) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">rename</span>(desc <span style="color:#666">=</span> <span style="color:#40a070">2</span>)
   }
 </code></pre></div><p>Once I had the function I could read in each hike file, and use <code>purrr</code> to apply my function to each one. This automates <em>almost</em> all of the work - all I need to do is come up with a description for each new hike I add. These descriptions form the hover tool-tip when a user hovers over a route in the map.</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic">#stage hike gpx files</span>
-hike_files <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">list.files</span>(<span style="color:#c30">&#39;hikes/&#39;</span>, pattern <span style="color:#555">=</span> <span style="color:#c30">&#34;\\.gpx$&#34;</span>)
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic">#stage hike gpx files</span>
+hike_files <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">list.files</span>(<span style="color:#4070a0">&#39;hikes/&#39;</span>, pattern <span style="color:#666">=</span> <span style="color:#4070a0">&#34;\\.gpx$&#34;</span>)
 
-master_hike <span style="color:#555">&lt;-</span> 
-  <span style="color:#c0f">map</span>(hike_files, <span style="color:#555">~</span><span style="color:#c0f">parse_hike_xml</span>(<span style="color:#c0f">paste0</span>(<span style="color:#c30">&#34;hikes/&#34;</span>, .))) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">map_df</span>(., bind_rows) <span style="color:#555">%&gt;%</span>
-  <span style="color:#c0f">mutate</span>(name <span style="color:#555">=</span> <span style="color:#c0f">as.character</span>(name),
-         desc <span style="color:#555">=</span> <span style="color:#c0f">case_when</span>(
-           name <span style="color:#555">==</span> <span style="color:#c30">&#34;Gorgas Creek Loop&#34;</span> <span style="color:#555">~</span> <span style="color:#c30">&#34;Clockwise loop. Starts and ends at Mt Airy Trailhead. 1.49 Mi., 105 ft. elevation&#34;</span>,
-           name <span style="color:#555">==</span> <span style="color:#c30">&#34;Houston Meadows Loop&#34;</span> <span style="color:#555">~</span> <span style="color:#c30">&#34;Counter-clockwise loop. Starts and ends at Houston Playground. 2.48 Mi., 325 ft. elevation&#34;</span>,
-           name <span style="color:#555">==</span> <span style="color:#c30">&#34;Andorra Meadow Loop&#34;</span> <span style="color:#555">~</span> <span style="color:#c30">&#34;Clockwise loop. 1.52 Mi., 104 ft. elevation&#34;</span>,
-           name <span style="color:#555">==</span> <span style="color:#c30">&#34;Lavender/Orange Loop&#34;</span> <span style="color:#555">~</span> <span style="color:#c30">&#34;Clockwise loop. Park on Crefeld and go through gated park entrance. 1.89 Mi., 233 ft. elevation&#34;</span>,
-           <span style="color:#069;font-weight:bold">TRUE</span> <span style="color:#555">~</span> <span style="color:#c30">&#34;other&#34;</span>)
+master_hike <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">map</span>(hike_files, <span style="color:#666">~</span><span style="color:#06287e">parse_hike_xml</span>(<span style="color:#06287e">paste0</span>(<span style="color:#4070a0">&#34;hikes/&#34;</span>, .))) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">map_df</span>(., bind_rows) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(name <span style="color:#666">=</span> <span style="color:#06287e">as.character</span>(name),
+         desc <span style="color:#666">=</span> <span style="color:#06287e">case_when</span>(
+           name <span style="color:#666">==</span> <span style="color:#4070a0">&#34;Gorgas Creek Loop&#34;</span> <span style="color:#666">~</span> <span style="color:#4070a0">&#34;Clockwise loop. Starts and ends at Mt Airy Trailhead. 1.49 Mi., 105 ft. elevation&#34;</span>,
+           name <span style="color:#666">==</span> <span style="color:#4070a0">&#34;Houston Meadows Loop&#34;</span> <span style="color:#666">~</span> <span style="color:#4070a0">&#34;Counter-clockwise loop. Starts and ends at Houston Playground. 2.48 Mi., 325 ft. elevation&#34;</span>,
+           name <span style="color:#666">==</span> <span style="color:#4070a0">&#34;Andorra Meadow Loop&#34;</span> <span style="color:#666">~</span> <span style="color:#4070a0">&#34;Clockwise loop. 1.52 Mi., 104 ft. elevation&#34;</span>,
+           name <span style="color:#666">==</span> <span style="color:#4070a0">&#34;Lavender/Orange Loop&#34;</span> <span style="color:#666">~</span> <span style="color:#4070a0">&#34;Clockwise loop. Park on Crefeld and go through gated park entrance. 1.89 Mi., 233 ft. elevation&#34;</span>,
+           <span style="color:#007020;font-weight:bold">TRUE</span> <span style="color:#666">~</span> <span style="color:#4070a0">&#34;other&#34;</span>)
   )
 </code></pre></div><p>I follow a similar process for adding in the markers for attractions, parking, trailheads&hellip;</p>
 <p>The rest of the code is adding the map and layers using the awesome <code>leaflet</code> package. The map background changes depending user selection, and the user can also select to show certain hikes or not:</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#09f;font-style:italic"># create base map and select map style based on user input</span>
-wiss_map <span style="color:#555">&lt;-</span>
-  <span style="color:#c0f">if</span>(input<span style="color:#555">$</span>map_style <span style="color:#555">==</span> <span style="color:#c30">&#34;Simple&#34;</span>){
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic"># create base map and select map style based on user input</span>
+wiss_map <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">if</span>(input<span style="color:#666">$</span>map_style <span style="color:#666">==</span> <span style="color:#4070a0">&#34;Simple&#34;</span>){
     
-    <span style="color:#c0f">leaflet</span>(map_data) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">addProviderTiles</span>(providers<span style="color:#555">$</span>CartoDB.Positron) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">setView</span>(lng <span style="color:#555">=</span> <span style="color:#f60">-75.21111265778796</span>,
-              lat <span style="color:#555">=</span> <span style="color:#f60">40.0493331396181</span>,
-              zoom <span style="color:#555">=</span> <span style="color:#f60">14</span>
+    <span style="color:#06287e">leaflet</span>(map_data) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">addProviderTiles</span>(providers<span style="color:#666">$</span>CartoDB.Positron) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">setView</span>(lng <span style="color:#666">=</span> <span style="color:#40a070">-75.21111265778796</span>,
+              lat <span style="color:#666">=</span> <span style="color:#40a070">40.0493331396181</span>,
+              zoom <span style="color:#666">=</span> <span style="color:#40a070">14</span>
       )
     
-  } else <span style="color:#c0f">if</span>(input<span style="color:#555">$</span>map_style <span style="color:#555">==</span> <span style="color:#c30">&#34;Detailed&#34;</span>) {
+  } else <span style="color:#06287e">if</span>(input<span style="color:#666">$</span>map_style <span style="color:#666">==</span> <span style="color:#4070a0">&#34;Detailed&#34;</span>) {
     
-    <span style="color:#c0f">leaflet</span>(map_data) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">addProviderTiles</span>(providers<span style="color:#555">$</span>HikeBike.HikeBike) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">setView</span>(lng <span style="color:#555">=</span> <span style="color:#f60">-75.21111265778796</span>,
-              lat <span style="color:#555">=</span> <span style="color:#f60">40.0493331396181</span>,
-              zoom <span style="color:#555">=</span> <span style="color:#f60">14</span>
+    <span style="color:#06287e">leaflet</span>(map_data) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">addProviderTiles</span>(providers<span style="color:#666">$</span>HikeBike.HikeBike) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">setView</span>(lng <span style="color:#666">=</span> <span style="color:#40a070">-75.21111265778796</span>,
+              lat <span style="color:#666">=</span> <span style="color:#40a070">40.0493331396181</span>,
+              zoom <span style="color:#666">=</span> <span style="color:#40a070">14</span>
       )
   } else {
     
-    <span style="color:#c0f">leaflet</span>(map_data) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">addProviderTiles</span>(providers<span style="color:#555">$</span>CartoDB.DarkMatter) <span style="color:#555">%&gt;%</span>
-      <span style="color:#c0f">setView</span>(lng <span style="color:#555">=</span> <span style="color:#f60">-75.21111265778796</span>,
-              lat <span style="color:#555">=</span> <span style="color:#f60">40.0493331396181</span>,
-              zoom <span style="color:#555">=</span> <span style="color:#f60">14</span>
+    <span style="color:#06287e">leaflet</span>(map_data) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">addProviderTiles</span>(providers<span style="color:#666">$</span>CartoDB.DarkMatter) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">setView</span>(lng <span style="color:#666">=</span> <span style="color:#40a070">-75.21111265778796</span>,
+              lat <span style="color:#666">=</span> <span style="color:#40a070">40.0493331396181</span>,
+              zoom <span style="color:#666">=</span> <span style="color:#40a070">14</span>
       )
   }
 
-<span style="color:#09f;font-style:italic">#map it</span>
-<span style="color:#c0f">if</span>(input<span style="color:#555">$</span>hike_select <span style="color:#555">==</span> <span style="color:#c30">&#34;None&#34;</span>) {
+<span style="color:#60a0b0;font-style:italic">#map it</span>
+<span style="color:#06287e">if</span>(input<span style="color:#666">$</span>hike_select <span style="color:#666">==</span> <span style="color:#4070a0">&#34;None&#34;</span>) {
   
-  wiss_map <span style="color:#555">%&gt;%</span>  
-    leaflet<span style="color:#555">::</span><span style="color:#c0f">addAwesomeMarkers</span>(<span style="color:#555">~</span>lng,
-                               <span style="color:#555">~</span>lat,
-                               popup <span style="color:#555">=</span> <span style="color:#555">~</span> <span style="color:#c0f">as.character</span>(desc),
-                               label <span style="color:#555">=</span> <span style="color:#555">~</span> <span style="color:#c0f">as.character</span>(name),
-                               labelOptions <span style="color:#555">=</span> <span style="color:#c0f">labelOptions</span>(textsize <span style="color:#555">=</span> <span style="color:#c30">&#39;13px&#39;</span>),
-                               icon <span style="color:#555">=</span> <span style="color:#555">~</span> my_icons) <span style="color:#555">%&gt;%</span> 
-    <span style="color:#c0f">addControl</span>(html <span style="color:#555">=</span> <span style="color:#c0f">markerLegendHTML</span>(IconSet <span style="color:#555">=</span> IconSet),
-               position <span style="color:#555">=</span> <span style="color:#c30">&#34;bottomleft&#34;</span>)
+  wiss_map <span style="color:#666">%&gt;%</span>  
+    leaflet<span style="color:#666">::</span><span style="color:#06287e">addAwesomeMarkers</span>(<span style="color:#666">~</span>lng,
+                               <span style="color:#666">~</span>lat,
+                               popup <span style="color:#666">=</span> <span style="color:#666">~</span> <span style="color:#06287e">as.character</span>(desc),
+                               label <span style="color:#666">=</span> <span style="color:#666">~</span> <span style="color:#06287e">as.character</span>(name),
+                               labelOptions <span style="color:#666">=</span> <span style="color:#06287e">labelOptions</span>(textsize <span style="color:#666">=</span> <span style="color:#4070a0">&#39;13px&#39;</span>),
+                               icon <span style="color:#666">=</span> <span style="color:#666">~</span> my_icons) <span style="color:#666">%&gt;%</span> 
+    <span style="color:#06287e">addControl</span>(html <span style="color:#666">=</span> <span style="color:#06287e">markerLegendHTML</span>(IconSet <span style="color:#666">=</span> IconSet),
+               position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;bottomleft&#34;</span>)
   
 } else {
   
-  wiss_map <span style="color:#555">%&gt;%</span> 
-    leaflet<span style="color:#555">::</span><span style="color:#c0f">addAwesomeMarkers</span>(<span style="color:#555">~</span>lng,
-                               <span style="color:#555">~</span>lat,
-                               popup <span style="color:#555">=</span> <span style="color:#555">~</span> <span style="color:#c0f">as.character</span>(desc),
-                               label <span style="color:#555">=</span> <span style="color:#555">~</span> <span style="color:#c0f">as.character</span>(name),
-                               labelOptions <span style="color:#555">=</span> <span style="color:#c0f">labelOptions</span>(textsize <span style="color:#555">=</span> <span style="color:#c30">&#39;13px&#39;</span>),
-                               icon <span style="color:#555">=</span> <span style="color:#555">~</span> my_icons) <span style="color:#555">%&gt;%</span>
-    <span style="color:#c0f">setView</span>(lng <span style="color:#555">=</span> <span style="color:#c0f">mean</span>(hike_data<span style="color:#555">$</span>lng),
-            lat <span style="color:#555">=</span> <span style="color:#c0f">mean</span>(hike_data<span style="color:#555">$</span>lat),
-            zoom <span style="color:#555">=</span> <span style="color:#f60">15</span>
-    ) <span style="color:#555">%&gt;%</span>
-    leaflet<span style="color:#555">::</span><span style="color:#c0f">addPolylines</span>(hike_data<span style="color:#555">$</span>lng, 
-                          hike_data<span style="color:#555">$</span>lat,
-                          weight <span style="color:#555">=</span> <span style="color:#f60">8</span>, 
-                          color <span style="color:#555">=</span> <span style="color:#c30">&#34;#ff5719&#34;</span>,
-                          stroke <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">TRUE</span>, 
-                          fillOpacity <span style="color:#555">=</span> <span style="color:#f60">500</span>,
-                          label <span style="color:#555">=</span> <span style="color:#c0f">unique</span>(hike_data<span style="color:#555">$</span>desc),
-                          labelOptions <span style="color:#555">=</span> <span style="color:#c0f">labelOptions</span>(textsize <span style="color:#555">=</span> <span style="color:#c30">&#39;15px&#39;</span>)) <span style="color:#555">%&gt;%</span>
-    <span style="color:#c0f">addControl</span>(html <span style="color:#555">=</span> <span style="color:#c0f">markerLegendHTML</span>(IconSet <span style="color:#555">=</span> IconSet),
-               position <span style="color:#555">=</span> <span style="color:#c30">&#34;bottomleft&#34;</span>)
+  wiss_map <span style="color:#666">%&gt;%</span> 
+    leaflet<span style="color:#666">::</span><span style="color:#06287e">addAwesomeMarkers</span>(<span style="color:#666">~</span>lng,
+                               <span style="color:#666">~</span>lat,
+                               popup <span style="color:#666">=</span> <span style="color:#666">~</span> <span style="color:#06287e">as.character</span>(desc),
+                               label <span style="color:#666">=</span> <span style="color:#666">~</span> <span style="color:#06287e">as.character</span>(name),
+                               labelOptions <span style="color:#666">=</span> <span style="color:#06287e">labelOptions</span>(textsize <span style="color:#666">=</span> <span style="color:#4070a0">&#39;13px&#39;</span>),
+                               icon <span style="color:#666">=</span> <span style="color:#666">~</span> my_icons) <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">setView</span>(lng <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(hike_data<span style="color:#666">$</span>lng),
+            lat <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(hike_data<span style="color:#666">$</span>lat),
+            zoom <span style="color:#666">=</span> <span style="color:#40a070">15</span>
+    ) <span style="color:#666">%&gt;%</span>
+    leaflet<span style="color:#666">::</span><span style="color:#06287e">addPolylines</span>(hike_data<span style="color:#666">$</span>lng, 
+                          hike_data<span style="color:#666">$</span>lat,
+                          weight <span style="color:#666">=</span> <span style="color:#40a070">8</span>, 
+                          color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;#ff5719&#34;</span>,
+                          stroke <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>, 
+                          fillOpacity <span style="color:#666">=</span> <span style="color:#40a070">500</span>,
+                          label <span style="color:#666">=</span> <span style="color:#06287e">unique</span>(hike_data<span style="color:#666">$</span>desc),
+                          labelOptions <span style="color:#666">=</span> <span style="color:#06287e">labelOptions</span>(textsize <span style="color:#666">=</span> <span style="color:#4070a0">&#39;15px&#39;</span>)) <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">addControl</span>(html <span style="color:#666">=</span> <span style="color:#06287e">markerLegendHTML</span>(IconSet <span style="color:#666">=</span> IconSet),
+               position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;bottomleft&#34;</span>)
 }
 </code></pre></div><p><img src="featured.jpg" alt=""></p>
 <p>You can check out all of the code for it on 

@@ -7,7 +7,8 @@ description: |
 # i enjoy building windows with numbers, exploding tennis racket strings and pedaling uphill
 image_left: false
 images:
-- img/good_many_bars.jpeg
+#- img/good_many_bars.jpeg
+- img/good_one_bar.jpeg
 show_action_link: true
 show_social_links: false
 text_align_left: false

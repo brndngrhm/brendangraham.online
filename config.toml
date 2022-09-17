@@ -1,7 +1,7 @@
 baseURL = "https://brendangraham.online"
 theme = "hugo-apero"
 languageCode = "en"
-title = "Brendan Graham Online"
+title = "Brendan Graham: Online"
 author = "Brendan Graham"
 copyright = "" # set to override the auto generated copyright using org info and now year
 googleAnalytics = ""
@@ -25,7 +25,7 @@ enableEmoji = true
     ordered = false
   [markup.highlight]
     # one of: https://xyproto.github.io/splash/docs/
-    style = "paraiso-dark" #manni
+    style = "friendly" #manni
     
 [params]
   orgName = ""

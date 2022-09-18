@@ -1,5 +1,5 @@
 ---
-title: untitled 2
+title: untitled 02
 subtitle: ![](featured.png)
 excerpt: ![](featured.png)
 date: 2022-02-01

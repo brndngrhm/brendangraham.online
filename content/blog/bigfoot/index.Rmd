@@ -27,11 +27,8 @@ editor_options:
 ---
 
 ```{r}
-library(tidytuesdayR)
 library(tidyverse)
 library(lubridate)
-library(highcharter)
-library(plotly)
 library(purrr)
 library(skimr)
 library(here)
@@ -39,11 +36,6 @@ library(ggrepel)
 library(tidymodels)
 library(rules)
 library(doParallel)
-library(ghibli)
-library(gghighlight)
-library(highcharter)
-library(ggsci)
-library(usdata)
 library(plsmod)
 library(textrecipes)
 library(LiblineaR)
@@ -68,7 +60,7 @@ bigfoot <-
 
 skimr::skim(bigfoot)
 
-bigfoot %>% get_table(size = 15, wrap = F)
+# bigfoot %>% get_table(size = 15, wrap = F)
 
 ```
 
@@ -180,13 +172,13 @@ null_spec <-
   set_mode("classification")
 
 svm_spec <-
-  svm_linear(cost = ) %>%
-  set_engine("LiblineaR") %>%
+  svm_rbf() %>%
+  set_engine("kernlab") %>%
   set_mode("classification")
 # 
 # mars_spec <-
 #   mars(
-#     num_terms = tune(), 
+#     num_terms = tune(),
 #     prod_degree = tune()
 #   ) %>%
 #   set_mode("classification") %>%
@@ -222,9 +214,10 @@ workflows <-
     models = list(
       null_model = null_spec,
       svm = svm_spec,
-      # mars = mars_spec,
+      # mars = mars_spec
       # xgb = xgb_spec,
-      random_forest = random_forest_spec),
+      random_forest = random_forest_spec
+      ),
     cross = TRUE)
 
 workflows
@@ -235,8 +228,7 @@ workflows
 tictoc::tic()
 
 cl <- 
-  parallel::makeCluster(10)
-
+  parallel::makeCluster(3)
 doParallel::registerDoParallel(cl)
 
 grid_ctrl <-
@@ -285,11 +277,18 @@ best_results <-
    extract_workflow_set_result("full_recipe_random_forest") %>% 
    select_best(metric = "roc_auc")
 
+cl <- 
+  parallel::makeCluster(3)
+doParallel::registerDoParallel(cl)
+
 rf_test_results <- 
-   results %>% 
-   extract_workflow("full_recipe_random_forest") %>% 
-   finalize_workflow(best_results) %>% 
-   last_fit(split = bigfoot_split)
+  results %>% 
+  extract_workflow("full_recipe_random_forest") %>% 
+  finalize_workflow(best_results) %>% 
+  last_fit(split = bigfoot_split)
+
+stopCluster(cl)
+tictoc::toc()
 
 rf_test_results
 

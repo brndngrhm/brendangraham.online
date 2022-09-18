@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>the online website of brendan graham
- on Brendan Graham Online</title>
+ on Brendan Graham: Online</title>
     <link>https://brendangraham.online/</link>
     <description>Recent content in the online website of brendan graham
- on Brendan Graham Online</description>
+ on Brendan Graham: Online</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sat, 10 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/index.xml" rel="self" type="application/rss+xml" />
@@ -128,7 +128,17 @@ My content section is: collection  My layout is: single-series   part 2!     doe
     </item>
     
     <item>
-      <title></title>
+      <title>Getting started with topic modeling with dog breed traits</title>
+      <link>https://brendangraham.online/blog/dogs/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/dogs/</guid>
+      <description>This post looks at a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about dog breeds. After looking at the data I try developing my first topic model</description>
+    </item>
+    
+    <item>
+      <title>untitled 01</title>
       <link>https://brendangraham.online/project/img1/</link>
       <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
       
@@ -137,7 +147,7 @@ My content section is: collection  My layout is: single-series   part 2!     doe
     </item>
     
     <item>
-      <title></title>
+      <title>untitled 02</title>
       <link>https://brendangraham.online/project/img2/</link>
       <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
       
@@ -146,7 +156,7 @@ My content section is: collection  My layout is: single-series   part 2!     doe
     </item>
     
     <item>
-      <title></title>
+      <title>untitled 03</title>
       <link>https://brendangraham.online/project/img3/</link>
       <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
       
@@ -155,7 +165,7 @@ My content section is: collection  My layout is: single-series   part 2!     doe
     </item>
     
     <item>
-      <title></title>
+      <title>untitled 04</title>
       <link>https://brendangraham.online/project/img4/</link>
       <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
       
@@ -164,7 +174,7 @@ My content section is: collection  My layout is: single-series   part 2!     doe
     </item>
     
     <item>
-      <title></title>
+      <title>untitled 05</title>
       <link>https://brendangraham.online/project/img5/</link>
       <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
       
@@ -173,13 +183,75 @@ My content section is: collection  My layout is: single-series   part 2!     doe
     </item>
     
     <item>
-      <title>Getting started with topic modeling with dog breed traits</title>
-      <link>https://brendangraham.online/blog/dogs/</link>
+      <title>untitled 06</title>
+      <link>https://brendangraham.online/project/img6/</link>
       <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://brendangraham.online/blog/dogs/</guid>
-      <description>This post looks at a 
-&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about dog breeds. After looking at the data I try developing my first topic model</description>
+      <guid>https://brendangraham.online/project/img6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 07</title>
+      <link>https://brendangraham.online/project/img7/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 08</title>
+      <link>https://brendangraham.online/project/img8/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 09</title>
+      <link>https://brendangraham.online/project/img9/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img9/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 10</title>
+      <link>https://brendangraham.online/project/img10/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img10/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 11</title>
+      <link>https://brendangraham.online/project/img11/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img11/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 12</title>
+      <link>https://brendangraham.online/project/img12/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img12/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 13</title>
+      <link>https://brendangraham.online/project/img13/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img13/</guid>
+      <description></description>
     </item>
     
     <item>
@@ -428,7 +500,7 @@ Formspree requires a (free) account and new form to be set up. The link is made 
       
       <guid>https://brendangraham.online/license/</guid>
       <description>blog posts are released under a Creative Commons Attribution-ShareAlike 4.0 International License:
-     projects and any photos on this site are released under a Attribution-NonCommercial-NoDerivatives 4.0 International License:</description>
+     art and any photos on this site are released under a Attribution-NonCommercial-NoDerivatives 4.0 International License:</description>
     </item>
     
   </channel>

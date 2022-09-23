@@ -2,15 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>*Blog*
- on Brendan Graham: Online</title>
+ on Home</title>
     <link>https://brendangraham.online/blog/</link>
     <description>Recent content in *Blog*
- on Brendan Graham: Online</description>
+ on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 10 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 17 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Creating a Hex Bin Map with Pell Grant Data</title>
+      <title>Classifying Bigfoot Encounters</title>
+      <link>https://brendangraham.online/blog/bigfoot/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/bigfoot/</guid>
+      <description>In this post I analyze a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about Bigfoot Encounters. After exploring the data I test several different text model to categorize the quality of Bigfoot enounters based on their free text description.</description>
+    </item>
+    
+    <item>
+      <title>Creating a Hex Bin Map to Show Changes Pell Grants</title>
       <link>https://brendangraham.online/blog/pell/</link>
       <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
       
@@ -80,7 +90,7 @@
     </item>
     
     <item>
-      <title>Wiss Map</title>
+      <title>Interactive Wissiahickon Valley Park Map</title>
       <link>https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/</link>
       <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
       

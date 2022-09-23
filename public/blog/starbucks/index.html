@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="generator" content="Hugo 0.80.0" />
-<title>Modeling the Relationship between Whipped Cream and Calories of Starbucks Drinks | Brendan Graham: Online</title>
+<title>Modeling the Relationship between Whipped Cream and Calories of Starbucks Drinks | Home</title>
 
 
 <meta property="twitter:site" content="@brndngrhm">
@@ -27,8 +27,8 @@
 <meta name="description" content="">
 
 
-<meta property="og:site_name" content="Brendan Graham: Online">
-<meta property="og:title" content="Modeling the Relationship between Whipped Cream and Calories of Starbucks Drinks | Brendan Graham: Online">
+<meta property="og:site_name" content="Home">
+<meta property="og:title" content="Modeling the Relationship between Whipped Cream and Calories of Starbucks Drinks | Home">
 <meta property="og:description" content="" />
 <meta property="og:type" content="page" />
 <meta property="og:url" content="https://brendangraham.online/blog/starbucks/" />
@@ -48,7 +48,7 @@
 TidyTuesday data set about the contents of various Starbucks drinks. After epxploring the data I model the effect whiped cream has on calories across variosu types of drinks.">
 <meta itemprop="datePublished" content="2021-12-21T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-12-21T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1527">
+<meta itemprop="wordCount" content="1460">
 <meta itemprop="image" content="https://brendangraham.online/blog/starbucks/featured.png">
 
 
@@ -75,7 +75,7 @@ TidyTuesday data set about the contents of various Starbucks drinks. After epxpl
 <header class="site-header pt4 pb2 mb4 bb b--transparent ph5 headroom z-max" role="banner">
   <nav class="site-nav db dt-l w-100" role="navigation">
     <a class="site-brand db dtc-l v-mid link no-underline w-100 w-33-l tc tl-l" href="https://brendangraham.online" title="Home">
-      <span class="f4 fw7">Brendan Graham: Online</span>
+      <span class="f4 fw7">Home</span>
     </a>
     <div class="site-links db dtc-l v-mid w-100 w-47-l tc tr-l mt3 mt0-l ttu tracked">
       
@@ -138,242 +138,43 @@ TidyTuesday data set about the contents of various Starbucks drinks. After epxpl
       <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
     </svg></a>
 </h2>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sbucks
+<p>Let’s load in the data and do some quick formatting:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">tt_data <span style="color:#666">&lt;-</span> 
+  readr<span style="color:#666">::</span><span style="color:#06287e">read_csv</span>(<span style="color:#4070a0">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-12-21/starbucks.csv&#39;</span>)
+
+sbucks <span style="color:#666">&lt;-</span> 
+  tt_data <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(milk <span style="color:#666">=</span> <span style="color:#06287e">case_when</span>(
+    milk <span style="color:#666">==</span> <span style="color:#40a070">0</span> <span style="color:#666">~</span> <span style="color:#4070a0">&#34;none&#34;</span>,
+    milk <span style="color:#666">==</span> <span style="color:#40a070">1</span> <span style="color:#666">~</span> <span style="color:#4070a0">&#34;nonfat&#34;</span>,
+    milk <span style="color:#666">==</span> <span style="color:#40a070">2</span> <span style="color:#666">~</span> <span style="color:#4070a0">&#34;2%&#34;</span>,
+    milk <span style="color:#666">==</span> <span style="color:#40a070">3</span> <span style="color:#666">~</span> <span style="color:#4070a0">&#34;soy&#34;</span>,
+    milk <span style="color:#666">==</span> <span style="color:#40a070">4</span> <span style="color:#666">~</span> <span style="color:#4070a0">&#34;coconut&#34;</span>,
+    milk <span style="color:#666">==</span> <span style="color:#40a070">5</span> <span style="color:#666">~</span> <span style="color:#4070a0">&#34;whole&#34;</span>,
+    <span style="color:#007020;font-weight:bold">TRUE</span> <span style="color:#666">~</span> <span style="color:#4070a0">&#34;other&#34;</span>
+  ))
+
+sbucks
 </code></pre></div><pre><code>## # A tibble: 1,147 × 15
-##    product_name             size  milk   whip serv_size_m_l calories total_fat_g
-##    &lt;chr&gt;                    &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;         &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
-##  1 brewed coffee - dark ro… short none      0           236        3         0.1
-##  2 brewed coffee - dark ro… tall  none      0           354        4         0.1
-##  3 brewed coffee - dark ro… gran… none      0           473        5         0.1
-##  4 brewed coffee - dark ro… venti none      0           591        5         0.1
-##  5 brewed coffee - decaf p… short none      0           236        3         0.1
-##  6 brewed coffee - decaf p… tall  none      0           354        4         0.1
-##  7 brewed coffee - decaf p… gran… none      0           473        5         0.1
-##  8 brewed coffee - decaf p… venti none      0           591        5         0.1
-##  9 brewed coffee - medium … short none      0           236        3         0.1
-## 10 brewed coffee - medium … tall  none      0           354        4         0.1
-## # … with 1,137 more rows, and 8 more variables: saturated_fat_g &lt;dbl&gt;,
-## #   trans_fat_g &lt;chr&gt;, cholesterol_mg &lt;dbl&gt;, sodium_mg &lt;dbl&gt;,
-## #   total_carbs_g &lt;dbl&gt;, fiber_g &lt;chr&gt;, sugar_g &lt;dbl&gt;, caffeine_mg &lt;dbl&gt;
+##    product_n…¹ size  milk   whip serv_…² calor…³ total…⁴ satur…⁵ trans…⁶ chole…⁷
+##    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
+##  1 brewed cof… short none      0     236       3     0.1       0 0             0
+##  2 brewed cof… tall  none      0     354       4     0.1       0 0             0
+##  3 brewed cof… gran… none      0     473       5     0.1       0 0             0
+##  4 brewed cof… venti none      0     591       5     0.1       0 0             0
+##  5 brewed cof… short none      0     236       3     0.1       0 0             0
+##  6 brewed cof… tall  none      0     354       4     0.1       0 0             0
+##  7 brewed cof… gran… none      0     473       5     0.1       0 0             0
+##  8 brewed cof… venti none      0     591       5     0.1       0 0             0
+##  9 brewed cof… short none      0     236       3     0.1       0 0             0
+## 10 brewed cof… tall  none      0     354       4     0.1       0 0             0
+## # … with 1,137 more rows, 5 more variables: sodium_mg &lt;dbl&gt;,
+## #   total_carbs_g &lt;dbl&gt;, fiber_g &lt;chr&gt;, sugar_g &lt;dbl&gt;, caffeine_mg &lt;dbl&gt;, and
+## #   abbreviated variable names ¹​product_name, ²​serv_size_m_l, ³​calories,
+## #   ⁴​total_fat_g, ⁵​saturated_fat_g, ⁶​trans_fat_g, ⁷​cholesterol_mg
+## # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names
 </code></pre>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">skimr<span style="color:#666">::</span><span style="color:#06287e">partition</span>(<span style="color:#06287e">skim</span>(sbucks))
-</code></pre></div><p><strong>Variable type: character</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">skim_variable</th>
-<th style="text-align:right">n_missing</th>
-<th style="text-align:right">complete_rate</th>
-<th style="text-align:right">min</th>
-<th style="text-align:right">max</th>
-<th style="text-align:right">empty</th>
-<th style="text-align:right">n_unique</th>
-<th style="text-align:right">whitespace</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">product_name</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">8</td>
-<td style="text-align:right">47</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">93</td>
-<td style="text-align:right">0</td>
-</tr>
-<tr>
-<td style="text-align:left">size</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">4</td>
-<td style="text-align:right">7</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">11</td>
-<td style="text-align:right">0</td>
-</tr>
-<tr>
-<td style="text-align:left">milk</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">2</td>
-<td style="text-align:right">7</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">6</td>
-<td style="text-align:right">0</td>
-</tr>
-<tr>
-<td style="text-align:left">trans_fat_g</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">3</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">7</td>
-<td style="text-align:right">0</td>
-</tr>
-<tr>
-<td style="text-align:left">fiber_g</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">2</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">12</td>
-<td style="text-align:right">0</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: numeric</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">skim_variable</th>
-<th style="text-align:right">n_missing</th>
-<th style="text-align:right">complete_rate</th>
-<th style="text-align:right">mean</th>
-<th style="text-align:right">sd</th>
-<th style="text-align:right">p0</th>
-<th style="text-align:right">p25</th>
-<th style="text-align:right">p50</th>
-<th style="text-align:right">p75</th>
-<th style="text-align:right">p100</th>
-<th style="text-align:left">hist</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">whip</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">0.25</td>
-<td style="text-align:right">0.43</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">0.0</td>
-<td style="text-align:right">0.0</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:left">▇▁▁▁▂</td>
-</tr>
-<tr>
-<td style="text-align:left">serv_size_m_l</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">461.34</td>
-<td style="text-align:right">172.18</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">354.0</td>
-<td style="text-align:right">473.0</td>
-<td style="text-align:right">591</td>
-<td style="text-align:right">887</td>
-<td style="text-align:left">▁▇▆▆▁</td>
-</tr>
-<tr>
-<td style="text-align:left">calories</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">228.39</td>
-<td style="text-align:right">137.67</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">130.0</td>
-<td style="text-align:right">220.0</td>
-<td style="text-align:right">320</td>
-<td style="text-align:right">640</td>
-<td style="text-align:left">▆▇▆▃▁</td>
-</tr>
-<tr>
-<td style="text-align:left">total_fat_g</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">6.19</td>
-<td style="text-align:right">5.97</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1.0</td>
-<td style="text-align:right">4.5</td>
-<td style="text-align:right">10</td>
-<td style="text-align:right">28</td>
-<td style="text-align:left">▇▃▂▁▁</td>
-</tr>
-<tr>
-<td style="text-align:left">saturated_fat_g</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">3.88</td>
-<td style="text-align:right">4.01</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">0.2</td>
-<td style="text-align:right">2.5</td>
-<td style="text-align:right">7</td>
-<td style="text-align:right">20</td>
-<td style="text-align:left">▇▃▂▁▁</td>
-</tr>
-<tr>
-<td style="text-align:left">cholesterol_mg</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">15.24</td>
-<td style="text-align:right">17.97</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">0.0</td>
-<td style="text-align:right">5.0</td>
-<td style="text-align:right">30</td>
-<td style="text-align:right">75</td>
-<td style="text-align:left">▇▂▂▁▁</td>
-</tr>
-<tr>
-<td style="text-align:left">sodium_mg</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">139.65</td>
-<td style="text-align:right">93.09</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">70.0</td>
-<td style="text-align:right">135.0</td>
-<td style="text-align:right">200</td>
-<td style="text-align:right">370</td>
-<td style="text-align:left">▇▇▇▃▂</td>
-</tr>
-<tr>
-<td style="text-align:left">total_carbs_g</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">37.72</td>
-<td style="text-align:right">23.26</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">20.0</td>
-<td style="text-align:right">37.0</td>
-<td style="text-align:right">53</td>
-<td style="text-align:right">96</td>
-<td style="text-align:left">▇▇▇▅▂</td>
-</tr>
-<tr>
-<td style="text-align:left">sugar_g</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">34.99</td>
-<td style="text-align:right">22.46</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">18.0</td>
-<td style="text-align:right">34.0</td>
-<td style="text-align:right">49</td>
-<td style="text-align:right">89</td>
-<td style="text-align:left">▇▇▇▅▂</td>
-</tr>
-<tr>
-<td style="text-align:left">caffeine_mg</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">1</td>
-<td style="text-align:right">91.86</td>
-<td style="text-align:right">78.11</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right">30.0</td>
-<td style="text-align:right">75.0</td>
-<td style="text-align:right">150</td>
-<td style="text-align:right">475</td>
-<td style="text-align:left">▇▃▁▁▁</td>
-</tr>
-</tbody>
-</table>
+<p>We can explore the correlation structure for numeric data with a correlation plot, where larger circles indicate a larger correlation nd color indicates the direction. The correlation shown here is a measure of linear correlation, which ignores other types of correlation or non-linearities in the data.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">get_cor <span style="color:#666">&lt;-</span> 
   <span style="color:#06287e">function</span>(size){
     sbucks <span style="color:#666">%&gt;%</span>
@@ -389,27 +190,24 @@ TidyTuesday data set about the contents of various Starbucks drinks. After epxpl
 <span style="color:#06287e">map</span>(<span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;short&#34;</span>, <span style="color:#4070a0">&#34;tall&#34;</span>, <span style="color:#4070a0">&#34;grande&#34;</span>, <span style="color:#4070a0">&#34;venti&#34;</span>, <span style="color:#4070a0">&#34;trenta&#34;</span>), <span style="color:#666">~</span><span style="color:#06287e">get_cor</span>(size <span style="color:#666">=</span> .x))
 </code></pre></div><pre><code>## [[1]]
 </code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-1.png" width="1248" /></p>
+<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-3-1.png" width="1248" /></p>
 <pre><code>## 
 ## [[2]]
 </code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-2.png" width="1248" /></p>
+<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-3-2.png" width="1248" /></p>
 <pre><code>## 
 ## [[3]]
 </code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-3.png" width="1248" /></p>
+<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-3-3.png" width="1248" /></p>
 <pre><code>## 
 ## [[4]]
 </code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-4.png" width="1248" /></p>
+<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-3-4.png" width="1248" /></p>
 <pre><code>## 
 ## [[5]]
 </code></pre>
-<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-5.png" width="1248" /></p>
-<p>First we need to only include products where whip is an option; after viewing plot, looks we’ll need to remove some categories.</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic"># https://juliasilge.com/blog/beer-production/</span>
-
-whip_diff <span style="color:#666">&lt;-</span> 
+<p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-3-5.png" width="1248" /></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">whip_diff <span style="color:#666">&lt;-</span> 
   sbucks <span style="color:#666">%&gt;%</span>
   <span style="color:#06287e">select</span>(product_name, size, milk, whip, calories) <span style="color:#666">%&gt;%</span>
   <span style="color:#06287e">group_by</span>(product_name, size, milk) <span style="color:#666">%&gt;%</span>
@@ -417,7 +215,8 @@ whip_diff <span style="color:#666">&lt;-</span>
   <span style="color:#06287e">filter</span>(has_whip_option <span style="color:#666">==</span> <span style="color:#40a070">1</span>) <span style="color:#666">%&gt;%</span>
   <span style="color:#06287e">mutate</span>(whip <span style="color:#666">=</span> <span style="color:#06287e">factor</span>(whip, levels <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;0&#34;</span>, <span style="color:#4070a0">&#34;1&#34;</span>)),
          size <span style="color:#666">=</span> <span style="color:#06287e">factor</span>(size, levels <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;short&#34;</span>, <span style="color:#4070a0">&#34;tall&#34;</span>, <span style="color:#4070a0">&#34;grande&#34;</span>, <span style="color:#4070a0">&#34;venti&#34;</span>)),
-         milk <span style="color:#666">=</span> <span style="color:#06287e">factor</span>(milk, levels <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;nonfat&#34;</span>, <span style="color:#4070a0">&#34;soy&#34;</span>, <span style="color:#4070a0">&#34;coconut&#34;</span>, <span style="color:#4070a0">&#34;2%&#34;</span>, <span style="color:#4070a0">&#34;whole&#34;</span>)))
+         milk <span style="color:#666">=</span> <span style="color:#06287e">factor</span>(milk, levels <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;nonfat&#34;</span>, <span style="color:#4070a0">&#34;soy&#34;</span>, <span style="color:#4070a0">&#34;coconut&#34;</span>, <span style="color:#4070a0">&#34;2%&#34;</span>, <span style="color:#4070a0">&#34;whole&#34;</span>))) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(<span style="color:#666">!</span><span style="color:#06287e">is.na</span>(calories), <span style="color:#666">!</span><span style="color:#06287e">is.na</span>(milk))
 
 
 whip_diff <span style="color:#666">%&gt;%</span>
@@ -426,7 +225,7 @@ whip_diff <span style="color:#666">%&gt;%</span>
   <span style="color:#06287e">geom_boxplot</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">.75</span>) <span style="color:#666">+</span> 
   <span style="color:#06287e">facet_grid</span>(milk <span style="color:#666">~</span> size, scales <span style="color:#666">=</span> <span style="color:#4070a0">&#39;free&#39;</span>) <span style="color:#666">+</span> 
   big_labels
-</code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-5-1.png" width="1248" /></p>
+</code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-4-1.png" width="1248" /></p>
 <p>After removing drinks with no milk, we can plot the distributions of calories and inspect for any potential interaction effects. There doesn’t seem to be any interaction effects between whipped cream and milk type used</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">whip_diff <span style="color:#666">&lt;-</span> 
   whip_diff <span style="color:#666">%&gt;%</span>
@@ -450,7 +249,7 @@ line_milk <span style="color:#666">&lt;-</span>
   <span style="color:#06287e">theme_minimal</span>()
 
 ggpubr<span style="color:#666">::</span><span style="color:#06287e">ggarrange</span>(boxplot_milk, line_milk, nrow <span style="color:#666">=</span> <span style="color:#40a070">1</span>, ncol <span style="color:#666">=</span> <span style="color:#40a070">2</span>)
-</code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-6-1.png" width="1248" /></p>
+</code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-5-1.png" width="1248" /></p>
 <p>There may be a slight interaction effect between whipped cream and drink size</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">boxplot_size <span style="color:#666">&lt;-</span> 
   <span style="color:#06287e">ggplot</span>(whip_diff, <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> whip, y <span style="color:#666">=</span> calories, fill <span style="color:#666">=</span> size)) <span style="color:#666">+</span> 
@@ -468,7 +267,7 @@ line_size <span style="color:#666">&lt;-</span>
   <span style="color:#06287e">theme_minimal</span>()
 
 ggpubr<span style="color:#666">::</span><span style="color:#06287e">ggarrange</span>(boxplot_size, line_size, nrow <span style="color:#666">=</span> <span style="color:#40a070">1</span>, ncol <span style="color:#666">=</span> <span style="color:#40a070">2</span>)
-</code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-7-1.png" width="1248" /></p>
+</code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-6-1.png" width="1248" /></p>
 <p>There may be a slight interaction effect between drink size and milk used</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">boxplot_size_milk <span style="color:#666">&lt;-</span> 
   <span style="color:#06287e">ggplot</span>(whip_diff, <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> milk, y <span style="color:#666">=</span> calories, fill <span style="color:#666">=</span> size)) <span style="color:#666">+</span> 
@@ -486,7 +285,7 @@ line_size_milk <span style="color:#666">&lt;-</span>
   <span style="color:#06287e">theme_minimal</span>()
 
 ggpubr<span style="color:#666">::</span><span style="color:#06287e">ggarrange</span>(boxplot_size_milk, line_size_milk, nrow <span style="color:#666">=</span> <span style="color:#40a070">1</span>, ncol <span style="color:#666">=</span> <span style="color:#40a070">2</span>)
-</code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-8-1.png" width="1248" /></p>
+</code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-7-1.png" width="1248" /></p>
 
 
 
@@ -512,7 +311,7 @@ $$</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">broom<span style="color:#666">::</span><span style="color:#06287e">tidy</span>(<span style="color:#06287e">lm</span>(calories <span style="color:#666">~</span> whip <span style="color:#666">+</span> size <span style="color:#666">+</span> milk <span style="color:#666">+</span> whip<span style="color:#666">*</span>size, data <span style="color:#666">=</span> whip_diff)) <span style="color:#666">%&gt;%</span>
   <span style="color:#06287e">addtable</span>()
 </code></pre></div><div id="htmlwidget-1" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"term":["(Intercept)","whip1","sizetall","sizegrande","sizeventi","milksoy","milkcoconut","milk2%","milkwhole","whip1:sizetall","whip1:sizegrande","whip1:sizeventi"],"estimate":[138.84,54.09,50.84,124.86,220.51,9.29,1.43,30.71,51.25,22.78,50.38,50.38],"std.error":[11.74,15.49,12.33,12.3,12.3,7.04,6.86,6.86,6.86,17.42,17.37,17.37],"statistic":[11.83,3.49,4.12,10.15,17.93,1.32,0.21,4.48,7.47,1.31,2.9,2.9],"p.value":[0,0,0,0,0,0.19,0.84,0,0,0.19,0,0]},"columns":[{"accessor":"term","name":"term","type":"character"},{"accessor":"estimate","name":"estimate","type":"numeric"},{"accessor":"std.error","name":"std.error","type":"numeric"},{"accessor":"statistic","name":"statistic","type":"numeric"},{"accessor":"p.value","name":"p.value","type":"numeric"}],"resizable":true,"filterable":true,"defaultPageSize":15,"paginationType":"numbers","showPageInfo":true,"minRows":1,"defaultExpanded":true,"highlight":true,"striped":true,"compact":true,"inline":true,"dataKey":"559549227df2e6fff5e0d092a94e24e0","key":"559549227df2e6fff5e0d092a94e24e0"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"term":["(Intercept)","whip1","sizetall","sizegrande","sizeventi","milksoy","milkcoconut","milk2%","milkwhole","whip1:sizetall","whip1:sizegrande","whip1:sizeventi"],"estimate":[138.84,54.09,50.84,124.86,220.51,9.29,1.43,30.71,51.25,22.78,50.38,50.38],"std.error":[11.74,15.49,12.33,12.3,12.3,7.04,6.86,6.86,6.86,17.42,17.37,17.37],"statistic":[11.83,3.49,4.12,10.15,17.93,1.32,0.21,4.48,7.47,1.31,2.9,2.9],"p.value":[0,0,0,0,0,0.19,0.84,0,0,0.19,0,0]},"columns":[{"accessor":"term","name":"term","type":"character"},{"accessor":"estimate","name":"estimate","type":"numeric"},{"accessor":"std.error","name":"std.error","type":"numeric"},{"accessor":"statistic","name":"statistic","type":"numeric"},{"accessor":"p.value","name":"p.value","type":"numeric"}],"resizable":true,"filterable":true,"defaultPageSize":15,"paginationType":"numbers","showPageInfo":true,"minRows":1,"defaultExpanded":true,"highlight":true,"striped":true,"compact":true,"inline":true,"dataKey":"559549227df2e6fff5e0d092a94e24e0"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p>The intercept term alone indicates the average calories for “short” drinks with nonfat milk and without whipped cream is about 139 calories. To get the avg calories for a venti with whipped cream and whole milk, for example, we can add:</p>
 <p>138.84 + 54 + 220.51 + 51.25 + 50.38 = 514.98 calories</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">broom<span style="color:#666">::</span><span style="color:#06287e">tidy</span>(<span style="color:#06287e">lm</span>(calories <span style="color:#666">~</span> whip <span style="color:#666">+</span> size <span style="color:#666">+</span> milk <span style="color:#666">+</span> whip<span style="color:#666">*</span>size, data <span style="color:#666">=</span> whip_diff)) <span style="color:#666">%&gt;%</span>
@@ -525,7 +324,7 @@ $$</p>
   <span style="color:#06287e">geom_errorbar</span>(<span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> term, ymin <span style="color:#666">=</span> estimate <span style="color:#666">-</span> std.error, ymax <span style="color:#666">=</span> estimate <span style="color:#666">+</span> std.error)) <span style="color:#666">+</span>
   <span style="color:#06287e">labs</span>(x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;estimate&#34;</span>, y <span style="color:#666">=</span> <span style="color:#4070a0">&#34;&#34;</span>,
        title <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Effect sizes relative to baseline&#34;</span>, subtitle <span style="color:#666">=</span> <span style="color:#4070a0">&#34;baseline: short, nonfat milk without whipped cream&#34;</span>)
-</code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-10-1.png" width="1248" /></p>
+</code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-9-1.png" width="1248" /></p>
 
 
 
@@ -589,7 +388,7 @@ whip_coefs <span style="color:#666">%&gt;%</span>
   <span style="color:#06287e">geom_vline</span>(<span style="color:#06287e">aes</span>(xintercept <span style="color:#666">=</span> est_mean))<span style="color:#666">+</span> 
   <span style="color:#06287e">geom_vline</span>(<span style="color:#06287e">aes</span>(xintercept <span style="color:#666">=</span> .lower), linetype <span style="color:#666">=</span> <span style="color:#4070a0">&#34;dashed&#34;</span>) <span style="color:#666">+</span> 
   <span style="color:#06287e">geom_vline</span>(<span style="color:#06287e">aes</span>(xintercept <span style="color:#666">=</span> .upper), linetype <span style="color:#666">=</span> <span style="color:#4070a0">&#34;dashed&#34;</span>) 
-</code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-13-1.png" width="1248" /></p>
+</code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-12-1.png" width="1248" /></p>
 
 
 
@@ -610,7 +409,7 @@ whip_coefs <span style="color:#666">%&gt;%</span>
   <span style="color:#06287e">scale_y_continuous</span>(breaks <span style="color:#666">=</span> <span style="color:#06287e">seq</span>(<span style="color:#40a070">100</span>, <span style="color:#40a070">1000</span>, <span style="color:#40a070">25</span>)) <span style="color:#666">+</span> 
   <span style="color:#06287e">bg_theme</span>() <span style="color:#666">+</span> 
   ggsci<span style="color:#666">::</span><span style="color:#06287e">scale_fill_npg</span>()
-</code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-14-1.png" width="1248" /></p>
+</code></pre></div><p><img src="https://brendangraham.online/blog/starbucks/index_files/figure-html/unnamed-chunk-13-1.png" width="1248" /></p>
 
         
         <details closed class="f6 fw7 input-reset">
@@ -620,7 +419,7 @@ whip_coefs <span style="color:#666">%&gt;%</span>
   </dl>
   <dl class="f6 lh-copy">
     <dt class="fw7">Length:</dt>
-    <dd class="fw5 ml0">8 minute read, 1527 words</dd>
+    <dd class="fw5 ml0">7 minute read, 1460 words</dd>
   </dl>
   
   <dl class="f6 lh-copy">
@@ -638,11 +437,11 @@ whip_coefs <span style="color:#666">%&gt;%</span>
   <dl class="f6 lh-copy">
     <dt class="fw7">See Also:</dt>
     
-    <dd class="fw5 ml0"><a href="/blog/pell/">Creating a Hex Bin Map with Pell Grant Data</a></dd>
+    <dd class="fw5 ml0"><a href="/blog/bigfoot/">Classifying Bigfoot Encounters</a></dd>
+    
+    <dd class="fw5 ml0"><a href="/blog/pell/">Creating a Hex Bin Map to Show Changes Pell Grants</a></dd>
     
     <dd class="fw5 ml0"><a href="/blog/dogs/">Getting started with topic modeling with dog breed traits</a></dd>
-    
-    <dd class="fw5 ml0"><a href="/blog/boardgames/">Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings</a></dd>
     
   </dl>
 </details>
@@ -658,7 +457,7 @@ whip_coefs <span style="color:#666">%&gt;%</span>
   
   
     <a class="next dtc pl2 tr v-top fw6"
-    href="https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/">Wiss Map &rarr;</a>
+    href="https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/">Interactive Wissiahickon Valley Park Map &rarr;</a>
   
 </div>
 

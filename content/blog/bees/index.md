@@ -327,11 +327,24 @@ stopCluster(cl)
 workflowsets::rank_results(results, select_best = T, rank_metric = "rmse")
 ```
 
+    ## # A tibble: 6 × 9
+    ##   wflow_id      .config          .metric  mean std_err     n prepr…¹ model  rank
+    ##   <chr>         <chr>            <chr>   <dbl>   <dbl> <int> <chr>   <chr> <int>
+    ## 1 recipe_forest Preprocessor1_M… mae      4.79  0.0353    25 recipe  rand…     1
+    ## 2 recipe_forest Preprocessor1_M… rmse     6.57  0.0716    25 recipe  rand…     1
+    ## 3 recipe_lasso  Preprocessor1_M… mae      4.92  0.0390    25 recipe  line…     2
+    ## 4 recipe_lasso  Preprocessor1_M… rmse     6.75  0.0780    25 recipe  line…     2
+    ## 5 recipe_cubist Preprocessor1_M… mae      5.04  0.0545    25 recipe  cubi…     3
+    ## 6 recipe_cubist Preprocessor1_M… rmse     6.94  0.0916    25 recipe  cubi…     3
+    ## # … with abbreviated variable name ¹​preprocessor
+
 ``` r
 autoplot(results, select_best = T) +
   bg_theme(base_size = 13) + 
   ggsci::scale_color_npg()
 ```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-1.png" width="864" />
 
 ## Using `vetiver`
 
@@ -358,7 +371,36 @@ best_model <-
   finalize_workflow(x = workflow() %>% add_recipe(recipe) %>% add_model(best_rf), 
                     parameters = best_results) %>%
   fit(train)
+
+best_model
 ```
+
+    ## ══ Workflow [trained] ══════════════════════════════════════════════════════════
+    ## Preprocessor: Recipe
+    ## Model: rand_forest()
+    ## 
+    ## ── Preprocessor ────────────────────────────────────────────────────────────────
+    ## 2 Recipe Steps
+    ## 
+    ## • step_impute_median()
+    ## • step_normalize()
+    ## 
+    ## ── Model ───────────────────────────────────────────────────────────────────────
+    ## Ranger result
+    ## 
+    ## Call:
+    ##  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~best_results$mtry,      x), num.trees = ~1000, min.node.size = min_rows(~best_results$min_n,      x), num.threads = 1, verbose = FALSE, seed = sample.int(10^5,      1)) 
+    ## 
+    ## Type:                             Regression 
+    ## Number of trees:                  1000 
+    ## Sample size:                      856 
+    ## Number of independent variables:  6 
+    ## Mtry:                             1 
+    ## Target node size:                 34 
+    ## Variable importance mode:         none 
+    ## Splitrule:                        variance 
+    ## OOB prediction error (MSE):       43.64448 
+    ## R squared (OOB):                  0.201183
 
 Next we create `vetiver` object and pin to temp board. The piece of code at the end of this chunk creates a file for us called `plumber.R` and puts it in the working directory. This file contains the packages and files necessary to deploy the model as an API. But, first we can test it locally in the next step.
 
@@ -395,9 +437,6 @@ endpoint
 preds <- 
   predict(endpoint, test) %>%
   cbind(., test)
-
-preds %>%
-  add_table()
 ```
 
 Ideally the points in the scatterplot would fall along, or near, the 45-degree line, so the model performance isn’t great. But we were able to successfully deploy it as an API and retrieve predictions!

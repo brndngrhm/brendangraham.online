@@ -5,10 +5,6 @@ image:
   caption:
   focal_point: Smart
 links:
-- icon: twitter
-  icon_pack: fab
-  name: Follow
-  url: https://twitter.com/brndngrhm
 summary: Use the Spotify API to analyze your favorite artists songs
 tags:
 - Project

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>the online website of brendan graham
- on Brendan Graham: Online</title>
+    <title>brendan graham
+ on Home</title>
     <link>https://brendangraham.online/</link>
-    <description>Recent content in the online website of brendan graham
- on Brendan Graham: Online</description>
+    <description>Recent content in brendan graham
+ on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 10 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 17 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Wimbledon analysis part 1: get the data</title>
       <link>https://brendangraham.online/blog/tennis-series/01-tennis/tennis-part1/</link>
@@ -118,7 +118,17 @@ My content section is: collection  My layout is: single-series   part 2!     doe
     </item>
     
     <item>
-      <title>Creating a Hex Bin Map with Pell Grant Data</title>
+      <title>Classifying Bigfoot Encounters</title>
+      <link>https://brendangraham.online/blog/bigfoot/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/bigfoot/</guid>
+      <description>In this post I analyze a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about Bigfoot Encounters. After exploring the data I test several different text model to categorize the quality of Bigfoot enounters based on their free text description.</description>
+    </item>
+    
+    <item>
+      <title>Creating a Hex Bin Map to Show Changes Pell Grants</title>
       <link>https://brendangraham.online/blog/pell/</link>
       <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
       
@@ -255,6 +265,267 @@ My content section is: collection  My layout is: single-series   part 2!     doe
     </item>
     
     <item>
+      <title>untitled 14</title>
+      <link>https://brendangraham.online/project/img14/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img14/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 15</title>
+      <link>https://brendangraham.online/project/img15/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img15/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 16</title>
+      <link>https://brendangraham.online/project/img16/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img16/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 17</title>
+      <link>https://brendangraham.online/project/img17/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img17/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 18</title>
+      <link>https://brendangraham.online/project/img18/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img18/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 19</title>
+      <link>https://brendangraham.online/project/img19/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img19/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 20</title>
+      <link>https://brendangraham.online/project/img20/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img20/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 21</title>
+      <link>https://brendangraham.online/project/img21/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img21/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 22</title>
+      <link>https://brendangraham.online/project/img22/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img22/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 23</title>
+      <link>https://brendangraham.online/project/img23/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img23/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 24</title>
+      <link>https://brendangraham.online/project/img24/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img24/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 25</title>
+      <link>https://brendangraham.online/project/img25/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img25/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 26</title>
+      <link>https://brendangraham.online/project/img26/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img26/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 27</title>
+      <link>https://brendangraham.online/project/img27/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img27/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 28</title>
+      <link>https://brendangraham.online/project/img28/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img28/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 29</title>
+      <link>https://brendangraham.online/project/img29/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img29/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 30</title>
+      <link>https://brendangraham.online/project/img30/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img30/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 31</title>
+      <link>https://brendangraham.online/project/img31/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img31/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 32</title>
+      <link>https://brendangraham.online/project/img32/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img32/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 33</title>
+      <link>https://brendangraham.online/project/img33/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img33/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 34</title>
+      <link>https://brendangraham.online/project/img34/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img34/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 35</title>
+      <link>https://brendangraham.online/project/img35/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img35/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 36</title>
+      <link>https://brendangraham.online/project/img36/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img36/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 37</title>
+      <link>https://brendangraham.online/project/img37/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img37/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 38</title>
+      <link>https://brendangraham.online/project/img38/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img38/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 39</title>
+      <link>https://brendangraham.online/project/img39/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img39/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 40</title>
+      <link>https://brendangraham.online/project/img40/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img40/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 41</title>
+      <link>https://brendangraham.online/project/img41/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img41/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 42</title>
+      <link>https://brendangraham.online/project/img42/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img42/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings</title>
       <link>https://brendangraham.online/blog/boardgames/</link>
       <pubDate>Wed, 26 Jan 2022 00:00:00 +0000</pubDate>
@@ -305,7 +576,7 @@ My content section is: collection  My layout is: single-series   part 2!     doe
     </item>
     
     <item>
-      <title>Wiss Map</title>
+      <title>Interactive Wissiahickon Valley Park Map</title>
       <link>https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/</link>
       <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
       

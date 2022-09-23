@@ -1,0 +1,91 @@
+---
+title: ""
+author:
+date:
+slug: hydrowaste
+categories: 
+tags:
+subtitle: 
+summary: 'In this post I analyze a [TidyTuesday](https://github.com/rfordatascience/tidytuesday) data set about wastwater plants. After exploring the data I...'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+draft: true
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+```{r include = FALSE}
+library(tidyverse)
+library(lubridate)
+library(purrr)
+library(skimr)
+library(here)
+library(ggrepel)
+library(tidymodels)
+library(rules)
+library(doParallel)
+library(plsmod)
+library(textrecipes)
+library(LiblineaR)
+library(ggsci)
+
+source(here::here("content", "blog", "util.R"))
+
+```
+
+In this post I analyze a [TidyTuesday](https://github.com/rfordatascience/tidytuesday) data set about Bigfoot Encounters. After exploring the data I test several different text model to categorize the quality of Bigfoot encounters based on their free text description.
+
+## Explore the data
+
+let's read in the data from the [TidyTuesday](https://github.com/rfordatascience/tidytuesday) repo and display it in an interactive table. Looks like there are some free text fields describing the encounter and location, as well as some variables for location, date, weather and the classification of the encounter. The encounter observation are used to drive the [classification system](https://www.bfro.net/gdb/classify.asp).
+
+```{r}
+tt_url <- 
+  "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-09-20/HydroWASTE_v10.csv"
+
+waste <- 
+  readr::read_csv(tt_url) %>%
+  janitor::clean_names() %>% 
+  mutate(
+    wwtp_name = iconv(wwtp_name, from = 'UTF-8', to = 'ASCII//TRANSLIT'),
+    country = iconv(country, from = 'UTF-8', to = 'ASCII//TRANSLIT'),
+    qual_loc = case_when(
+      qual_loc == 1 ~ "high",
+      qual_loc == 2 ~ "medium",
+      qual_loc == 3 ~ "low",
+      qual_loc == 4 ~ "not_analyzed",
+      TRUE ~ "Other"),
+    qual_pop = case_when(
+      qual_pop == 1 ~ "pop_served",
+      qual_pop == 2 ~ "pop_equiv",
+      qual_pop == 3 ~ "estimated_ww_dsch_avail",
+      qual_pop == 4 ~ "estimated_ww_dsch_not_avail",
+      TRUE ~ "Other"
+    ),
+    qual_waste = case_when(
+      qual_waste == 1 ~ "treated",
+      qual_waste == 2 ~ "design_capacity",
+      qual_waste == 3 ~ "reported_unknown_type",
+      qual_waste == 4 ~ "estimated",
+      TRUE ~ "Other"
+    ),
+    qual_level = case_when(
+      qual_level == 1 ~ "reported",
+      qual_level == 2 ~ "estimated",
+      TRUE ~ "Other"
+    )
+  )
+
+waste %>% 
+  get_table()
+
+waste %>%
+  ggplot(., aes(x = log(pop_served), y = log(waste_dis))) + geom_point()
+
+```

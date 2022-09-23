@@ -2,7 +2,7 @@
 title: "Classifying Bigfoot Encounters"
 author: Brendan Graham
 date: '2022-09-17'
-slug: pell
+slug: bigfoot
 categories: 
   - tidy tuesday
   - text model
@@ -12,7 +12,7 @@ tags:
   - text model
   - data science
 subtitle: 
-summary: 'In this post I analyze a [TidyTuesday](https://github.com/rfordatascience/tidytuesday) data set about Bigfoot Encounters Grants. After exploring the data I test several different text model to classify Bigfoot enounters based on their description.'
+summary: 'In this post I analyze a [TidyTuesday](https://github.com/rfordatascience/tidytuesday) data set about Bigfoot Encounters. After exploring the data I test several different text model to categorize the quality of Bigfoot enounters based on their free text description.'
 featured: no
 image:
   caption: ''
@@ -26,7 +26,7 @@ editor_options:
     wrap: 72
 ---
 
-```{r}
+```{r include = FALSE}
 library(tidyverse)
 library(lubridate)
 library(purrr)
@@ -39,12 +39,17 @@ library(doParallel)
 library(plsmod)
 library(textrecipes)
 library(LiblineaR)
+library(ggsci)
 
 source(here::here("content", "blog", "util.R"))
 
 ```
 
-## Get the data
+In this post I analyze a [TidyTuesday](https://github.com/rfordatascience/tidytuesday) data set about Bigfoot Encounters. After exploring the data I test several different text model to categorize the quality of Bigfoot encounters based on their free text description.
+
+## Explore the data
+
+let's read in the data from the [TidyTuesday](https://github.com/rfordatascience/tidytuesday) repo and display it in an interactive table. Looks like there are some free text fields describing the encounter and location, as well as some variables for location, date, weather and the classification of the encounter. The encounter observation are used to drive the [classification system](https://www.bfro.net/gdb/classify.asp).
 
 ```{r}
 tt_url <- 
@@ -52,18 +57,19 @@ tt_url <-
 
 bigfoot <- 
   readr::read_csv(tt_url) %>%
-  mutate(year = year(date),
-         month = floor_date(date, 'month'),
-         month_name = month(date, label = T, abbr = T),
-         day_name = wday(date, abbr = T, label = T)
+  mutate(
+    year = year(date),
+    month = floor_date(date, 'month'),
+    month_name = month(date, label = T, abbr = T),
+    day_name = wday(date, abbr = T, label = T)
   )
 
-skimr::skim(bigfoot)
-
-# bigfoot %>% get_table(size = 15, wrap = F)
+bigfoot %>% 
+  get_table()
 
 ```
 
+The data goes pretty far, with the most encounters occurring in July 2006, with 35 total sightings.
 ```{r}
 
 bigfoot %>%
@@ -75,36 +81,49 @@ bigfoot %>%
   padr::pad() %>%
   padr::fill_by_value(n, 0) %>%
   ggplot(aes(x = month, y = n)) + 
-  geom_line(color = bg_green, alpha = .75) + 
-  scale_x_date(breaks = scales::date_breaks("5 years"), date_labels = "%b '%y")
+  geom_point(color = bg_green, alpha = .75) + 
+  geom_smooth(method = 'loess', color = "cornflowerblue", se = F) + 
+  # geom_line(color = bg_green, alpha = .75) + 
+  scale_x_date(breaks = scales::date_breaks("5 years"), date_labels = "%b '%y") + 
+  labs(x = "Month", y = "# Sightings", title = "Monthly Bigfoot Sightings") + 
+  geom_label_repel(data = . %>% filter(n == max(n)),
+                  aes(label = paste0(format(month, "%B '%y"), ": ", n, " Total Sightings. \nOver 1 sighting per day on avg!")), nudge_x = -20)
+  
+```
 
+Most encounters are Class A or Class B, and those 2 classes seem to be pretty evenly distributed across seasons and day of the week.
+```{r}
 bigfoot %>%
   group_by(season, classification) %>%
   tally()  %>%
-  ggplot(aes(x = season, y = n)) +
-  geom_col(aes(fill = classification), alpha = .75) 
+  ggplot(aes(x = season, y = n, fill = classification), alpha = .85) +
+  geom_bar(stat = 'identity', position = 'fill', alpha = .85) + 
+  bg_theme() + 
+  scale_fill_npg() + 
+  scale_y_continuous(labels = scales::percent) + 
+  labs(x = "Season", y = "Frequency of Observations", title = "Bigfoot Observations by Season")
 
 bigfoot %>%
-  group_by(day_name) %>%
+  group_by(day_name, classification) %>%
   tally()  %>%
   filter(!is.na(day_name)) %>%
-  ggplot(aes(x = day_name, y = n)) +
-  geom_col(fill = bg_green, alpha = .75)
-
-```
-
-```{r}
-
-bigfoot %>%
-  group_by(state, season) %>%
-  tally()  %>%
-  filter(!is.na(month))
+  ggplot(aes(x = day_name, y = n, fill = classification), alpha = .85) +
+  geom_bar(stat = 'identity', position = 'fill', alpha = .85) + 
+  bg_theme() + 
+  scale_fill_npg() + 
+  scale_y_continuous(labels = scales::percent)+  
+  labs(x = "Day of Week", y = "Frequency of Observations", title = "Bigfoot Observations by Day of Week")
 ```
 
 ## Text model to classify encounters
 
-```{r}
+Here we try several models to predict the class of encounters - remove some irrelevant predictors, remove Class C and omit rows with any missing data.
 
+  > The BFRO's report classification system rates the circumstantial potential for misinterpretation, not the credibility of the witness or how interesting the report is.
+
+So our model is not classifying the credibility of the report, but instead classifying the surrounding environment and circumstances of the encounter.
+
+```{r}
 model_data <- 
   bigfoot %>%
   select(number, classification, observed, date, latitude, longitude, state, season, temperature_high:visibility) %>%
@@ -112,9 +131,8 @@ model_data <-
   na.omit()
 ```
 
+prep for modeling: split the data and create folds for model cross validation 
 ```{r}
-# text models
-
 set.seed(194)
 bigfoot_split <- 
   initial_split(model_data, strata = classification)
@@ -127,6 +145,14 @@ test <-
 folds <- 
   bootstraps(train, 25, strata = classification)
 
+```
+
+We try 2 model recipes
+ * include all columns - free text and weather data
+ * include just the observation free-text data
+
+```{r}
+
 bigfoot_rec_full <-
   recipe(classification ~ ., data = train) %>%
   step_rm(summary) %>%
@@ -137,8 +163,8 @@ bigfoot_rec_full <-
   step_tokenfilter(observed, max_tokens = 100) %>%
   step_tfidf(observed) %>%
   step_date(date, features = c("dow", "month", "year"), keep_original_cols = FALSE) %>%
-  step_unknown(all_nominal_predictors()) %>%
   step_novel(all_nominal_predictors()) %>%
+  step_unknown(all_nominal_predictors()) %>%
   step_normalize(all_numeric_predictors()) %>%
   step_dummy(all_nominal_predictors())
 
@@ -150,21 +176,16 @@ bigfoot_rec_text_only <-
   step_tokenfilter(observed, max_tokens = 100) %>%
   step_tfidf(observed)
 
-bigfoot_rec_no_text <-
-  recipe(classification ~ ., data = train) %>%
-  step_rm(summary, observed) %>%
-  step_naomit(all_predictors()) %>%
-  update_role(number, new_role = "ID Variable") %>%
-  step_date(date, features = c("dow", "month", "year"), keep_original_cols = FALSE) %>%
-  step_unknown(all_nominal_predictors()) %>%
-  step_novel(all_nominal_predictors()) %>%
-  step_normalize(all_numeric_predictors()) %>%
-  step_dummy(all_nominal_predictors())
-
 # check that things work ok
-bigfoot_rec_no_text %>% 
+bigfoot_rec_full %>% 
   prep() %>% 
   bake(new_data = NULL)
+
+```
+
+Specify 3 models and bundle them into a workflow:
+
+```{r}
 
 null_spec <- 
   null_model() %>%
@@ -175,26 +196,6 @@ svm_spec <-
   svm_rbf() %>%
   set_engine("kernlab") %>%
   set_mode("classification")
-# 
-# mars_spec <-
-#   mars(
-#     num_terms = tune(),
-#     prod_degree = tune()
-#   ) %>%
-#   set_mode("classification") %>%
-#   set_engine("earth")
-# 
-# xgb_spec <-
-#   boost_tree(
-#     mtry = tune(),
-#     trees = tune(),
-#     min_n = tune(),
-#     learn_rate = tune(),
-#     tree_depth = tune(),
-#     sample_size = tune(),
-#     loss_reduction = tune()) %>%
-#   set_mode("classification") %>%
-#   set_engine("xgboost")
 
 random_forest_spec <-
   parsnip::rand_forest(
@@ -209,13 +210,10 @@ workflows <-
   workflow_set(
     preproc = list(
       full_recipe = bigfoot_rec_full,
-      text_only = bigfoot_rec_text_only,
-      no_text = bigfoot_rec_no_text), 
+      text_only = bigfoot_rec_text_only), 
     models = list(
       null_model = null_spec,
       svm = svm_spec,
-      # mars = mars_spec
-      # xgb = xgb_spec,
       random_forest = random_forest_spec
       ),
     cross = TRUE)
@@ -224,11 +222,10 @@ workflows
 
 ```
 
+tune all model/recipe combinations using the cross validation folds
 ```{r}
-tictoc::tic()
 
-cl <- 
-  parallel::makeCluster(3)
+cl <- parallel::makeCluster(3)
 doParallel::registerDoParallel(cl)
 
 grid_ctrl <-
@@ -250,9 +247,10 @@ results <-
                metrics = metric_set(accuracy, roc_auc, mn_log_loss)
   )
 
-stopCluster(cl)
-tictoc::toc()
+```
 
+Evaluate the model performance:
+```{r}
 results %>%
   rank_results(rank_metric = "accuracy", select_best = TRUE) %>%
   filter(.metric == "accuracy") %>%
@@ -264,33 +262,66 @@ results %>%
   ggplot(., aes(x = rank, y = mean, color = model)) + 
   geom_point() + 
   geom_errorbar(aes(ymin = mean - std_err, ymax = mean + std_err)) + 
-  facet_wrap(vars(type)) + 
-  scale_y_continuous(limits =c(.45, .85), breaks = seq(.45, .85, .01))
+  facet_wrap(vars(type))
 
 ```
 
-
+finalize model
 ```{r}
 
 best_results <- 
   results %>% 
-   extract_workflow_set_result("full_recipe_random_forest") %>% 
+   extract_workflow_set_result("text_only_random_forest") %>% 
    select_best(metric = "roc_auc")
-
-cl <- 
-  parallel::makeCluster(3)
-doParallel::registerDoParallel(cl)
 
 rf_test_results <- 
   results %>% 
-  extract_workflow("full_recipe_random_forest") %>% 
+  extract_workflow("text_only_random_forest") %>% 
   finalize_workflow(best_results) %>% 
   last_fit(split = bigfoot_split)
 
+rf_test_results %>% 
+  collect_metrics()
+
+rf_test_results %>% 
+   collect_predictions() %>% 
+  conf_mat(truth = classification, estimate = .pred_class)
+
+rf_test_results %>% 
+  pull(.predictions)
+
+final_workflow <-
+  results %>% 
+  extract_workflow("text_only_random_forest") %>% 
+  finalize_workflow(best_results)
+  
+final_model <- 
+  fit(final_workflow, model_data)
+
 stopCluster(cl)
-tictoc::toc()
 
-rf_test_results
+```
 
+predict on new data
+```{r}
+bigfoot_sigthings <-
+  tibble(
+    number = c(1, 2, 3, 4),
+    observed = c(
+      "I walked up hills and came up to ridge that was very difficult to climb. I spotted a foot print. I climbed up and there it was a foot print. I
+      did not really believe in Bigfoot but nowhaving second thoughts. We even went back the next day which was today 11/1/09 and made a cast of the
+      print. Of course it was not as deep as yesterday but we still took the print and have pictures from yesterday on the cell phone.",
+      "I had a conversation with an animal that was definitely bigfoot. He told me his name and we shook hands and I even have a framed picture of a
+      selfie we took together in the woods in front of his favorite tree",
+      "My dad said he saw bigfoot but didn't get a really good look.",
+      "It was in Montana on the Flathead Indian Reservation,near an area known as Evaro. This is about 20 miles northwest of Missoula, MT. It occured near our residence, which was located about 4 miles deep into the woods from the nearest main roadway (Highway 93). The only way to get to our residence was by following an old dirt road that winds its way through the forest."
+    )
+  )
+    
+predict(
+  final_model,
+  new_data = bigfoot_sigthings
+)
+      
 ```
 

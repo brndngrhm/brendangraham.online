@@ -173,7 +173,6 @@ Prep the recipe to make sure there are no issues with the pre-processing steps
 prep(recipe) %>% 
   bake(new_data = NULL) %>% 
   get_table()
-
 ```
 
 Three models are specified and combined with the recipe into a *workflowset*, which is a certain type of `tidymodels` object that makes tuning and comparing several models extremely easy.
@@ -209,7 +208,7 @@ workflows
 
 Here we tune the models via grid search and check the results. We have a grid of size 10, which means each model is fit using 10 different hyperparameter combinations. That, combined with the 25 resamples per model, means we fit 250 models for each of the 3 models specified above for a total of 750 models.
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 
 cl <- 
   makeCluster(10)
@@ -238,11 +237,11 @@ results <-
 stopCluster(cl)
 ```
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 workflowsets::rank_results(results, select_best = T, rank_metric = "rmse")
 ```
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 autoplot(results, select_best = T) +
   bg_theme(base_size = 13) + 
   ggsci::scale_color_npg()
@@ -256,7 +255,7 @@ From the [package website:](https://vetiver.tidymodels.org/index.html)
 
 This is great because prepping a model for deployment and then managing the deployment/versioning can be a pain. `vetiver` takes a fitted workflow, so we choose the best model based on the plot above, and "finalize" it by "locking in" the hyperparameter values that of random forest model and fitting that model on training set (in reality though, you would typically tune and compare several models, select the best model, evaluate on the test set, finalize the model, deploy it, and then predict on new data as necessary. We don't have any new data though, so we're using the test dataset as our "new data")
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 
 best_results <- 
   results %>% 
@@ -274,6 +273,8 @@ best_model <-
   finalize_workflow(x = workflow() %>% add_recipe(recipe) %>% add_model(best_rf), 
                     parameters = best_results) %>%
   fit(train)
+
+best_model
 
 ```
 
@@ -314,8 +315,6 @@ preds <-
   predict(endpoint, test) %>%
   cbind(., test)
 
-preds %>%
-  add_table()
 ```
 
 Ideally the points in the scatterplot would fall along, or near, the 45-degree line, so the model performance isn't great. But we were able to successfully deploy it as an API and retrieve predictions!

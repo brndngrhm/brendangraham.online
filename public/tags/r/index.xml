@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>R on Brendan Graham: Online</title>
+    <title>R on Home</title>
     <link>https://brendangraham.online/tags/r/</link>
-    <description>Recent content in R on Brendan Graham: Online</description>
+    <description>Recent content in R on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 02 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/tags/r/index.xml" rel="self" type="application/rss+xml" />

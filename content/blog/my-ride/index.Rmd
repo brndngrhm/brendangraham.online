@@ -27,7 +27,7 @@ draft: TRUE
 
 I created this app to help monitor my training rides, specifically  interval workouts done outdoors (or at least those not done on a smart trainer). Smart trainers lock you in to a certain wattage, so there's no uncertainty about whether or not you held the correct power for the prescribed time. But interval workouts done outdoors are a different story - you're either manually reviewing them afterwards or getting a feel for if you hit the interval during the ride as you glance down. This app uses changepoint detection to automatically detect sustained changes in your effort, and can tell you the average power within each detected change region.
 
-This app was fun to create - I got to learn how to parse `.fit` files and learned about how to implement changepoint detection to automatically detect intervals. However, shortly after I created it I came across an amazing app called https://intervals.icu/, which is the same kind of idea, but 1000x better. Regardless, I still use the app and am happy with how it came out and what I was able to learn by developing it.
+This app was fun to create - I learned how to parse `.fit` files and learned about how to implement changepoint detection to automatically detect intervals. However, shortly after I created it I came across an amazing app called https://intervals.icu/, which is the same kind of idea, but 1000x better. Regardless, I still use the app and am happy with how it came out and what I was able to learn by developing it.
 
 ## Changepoint Detection
 

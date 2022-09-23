@@ -1,6 +1,7 @@
 
 options(scipen = 100)
 options(tidymodels.dark = TRUE) 
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 
 round_numerics <- 
   function(data, digits = 2){
@@ -9,12 +10,19 @@ round_numerics <-
   }
 
 get_table <- 
-  function(data, size = 10, wrap = FALSE){
+  function(data, size = 10, wrap = FALSE, ...){
     data %>%
       round_numerics() %>%
-      reactable::reactable(., fullWidth = F, resizable = T, filterable = T, 
-                           highlight = T, defaultPageSize = size, wrap = wrap,
-                           showSortIcon = T, striped = T, compact = T,)
+      reactable::reactable(., 
+                           fullWidth = F,
+                           resizable = T,
+                           filterable = T, 
+                           highlight = T,
+                           defaultPageSize = size,
+                           wrap = wrap,
+                           showSortIcon = T,
+                           striped = T,
+                           compact = T)
   }
 
 bg_theme <- 

@@ -64,12 +64,57 @@
   
   <url>
     <loc>https://brendangraham.online/blog/</loc>
-    <lastmod>2022-09-10T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/</loc>
+    <lastmod>2022-09-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://brendangraham.online/categories/</loc>
-    <lastmod>2022-09-10T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/blog/bigfoot/</loc>
+    <lastmod>2022-09-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/tags/data-science/</loc>
+    <lastmod>2022-09-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/categories/data-science/</loc>
+    <lastmod>2022-09-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/tags/</loc>
+    <lastmod>2022-09-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/tags/text-model/</loc>
+    <lastmod>2022-09-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/categories/text-model/</loc>
+    <lastmod>2022-09-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/tags/tidy-tuesday/</loc>
+    <lastmod>2022-09-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/categories/tidy-tuesday/</loc>
+    <lastmod>2022-09-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -94,26 +139,6 @@
   
   <url>
     <loc>https://brendangraham.online/categories/hex-bin-map/</loc>
-    <lastmod>2022-09-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://brendangraham.online/tags/</loc>
-    <lastmod>2022-09-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://brendangraham.online/</loc>
-    <lastmod>2022-09-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://brendangraham.online/tags/tidy-tuesday/</loc>
-    <lastmod>2022-09-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://brendangraham.online/categories/tidy-tuesday/</loc>
     <lastmod>2022-09-10T00:00:00+00:00</lastmod>
   </url>
   
@@ -258,17 +283,152 @@
   </url>
   
   <url>
+    <loc>https://brendangraham.online/project/img14/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img15/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img16/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img17/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img18/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img19/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img20/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img21/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img22/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img23/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img24/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img25/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img26/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img27/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img28/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img29/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img30/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img31/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img32/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img33/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img34/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img35/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img36/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img37/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img38/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img39/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img40/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img41/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://brendangraham.online/project/img42/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://brendangraham.online/blog/boardgames/</loc>
-    <lastmod>2022-01-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://brendangraham.online/tags/data-science/</loc>
-    <lastmod>2022-01-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://brendangraham.online/categories/data-science/</loc>
     <lastmod>2022-01-26T00:00:00+00:00</lastmod>
   </url>
   
@@ -323,6 +483,11 @@
   </url>
   
   <url>
+    <loc>https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/</loc>
+    <lastmod>2021-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://brendangraham.online/categories/leaflet/</loc>
     <lastmod>2021-09-01T00:00:00+00:00</lastmod>
   </url>
@@ -334,11 +499,6 @@
   
   <url>
     <loc>https://brendangraham.online/categories/parse-xml/</loc>
-    <lastmod>2021-09-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/</loc>
     <lastmod>2021-09-01T00:00:00+00:00</lastmod>
   </url>
   

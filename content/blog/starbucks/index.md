@@ -33,55 +33,47 @@ editor_options:
 
 ## Explore the Data
 
+Let’s load in the data and do some quick formatting:
+
 ``` r
+tt_data <- 
+  readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-12-21/starbucks.csv')
+
+sbucks <- 
+  tt_data %>%
+  mutate(milk = case_when(
+    milk == 0 ~ "none",
+    milk == 1 ~ "nonfat",
+    milk == 2 ~ "2%",
+    milk == 3 ~ "soy",
+    milk == 4 ~ "coconut",
+    milk == 5 ~ "whole",
+    TRUE ~ "other"
+  ))
+
 sbucks
 ```
 
     ## # A tibble: 1,147 × 15
-    ##    product_name             size  milk   whip serv_size_m_l calories total_fat_g
-    ##    <chr>                    <chr> <chr> <dbl>         <dbl>    <dbl>       <dbl>
-    ##  1 brewed coffee - dark ro… short none      0           236        3         0.1
-    ##  2 brewed coffee - dark ro… tall  none      0           354        4         0.1
-    ##  3 brewed coffee - dark ro… gran… none      0           473        5         0.1
-    ##  4 brewed coffee - dark ro… venti none      0           591        5         0.1
-    ##  5 brewed coffee - decaf p… short none      0           236        3         0.1
-    ##  6 brewed coffee - decaf p… tall  none      0           354        4         0.1
-    ##  7 brewed coffee - decaf p… gran… none      0           473        5         0.1
-    ##  8 brewed coffee - decaf p… venti none      0           591        5         0.1
-    ##  9 brewed coffee - medium … short none      0           236        3         0.1
-    ## 10 brewed coffee - medium … tall  none      0           354        4         0.1
-    ## # … with 1,137 more rows, and 8 more variables: saturated_fat_g <dbl>,
-    ## #   trans_fat_g <chr>, cholesterol_mg <dbl>, sodium_mg <dbl>,
-    ## #   total_carbs_g <dbl>, fiber_g <chr>, sugar_g <dbl>, caffeine_mg <dbl>
+    ##    product_n…¹ size  milk   whip serv_…² calor…³ total…⁴ satur…⁵ trans…⁶ chole…⁷
+    ##    <chr>       <chr> <chr> <dbl>   <dbl>   <dbl>   <dbl>   <dbl> <chr>     <dbl>
+    ##  1 brewed cof… short none      0     236       3     0.1       0 0             0
+    ##  2 brewed cof… tall  none      0     354       4     0.1       0 0             0
+    ##  3 brewed cof… gran… none      0     473       5     0.1       0 0             0
+    ##  4 brewed cof… venti none      0     591       5     0.1       0 0             0
+    ##  5 brewed cof… short none      0     236       3     0.1       0 0             0
+    ##  6 brewed cof… tall  none      0     354       4     0.1       0 0             0
+    ##  7 brewed cof… gran… none      0     473       5     0.1       0 0             0
+    ##  8 brewed cof… venti none      0     591       5     0.1       0 0             0
+    ##  9 brewed cof… short none      0     236       3     0.1       0 0             0
+    ## 10 brewed cof… tall  none      0     354       4     0.1       0 0             0
+    ## # … with 1,137 more rows, 5 more variables: sodium_mg <dbl>,
+    ## #   total_carbs_g <dbl>, fiber_g <chr>, sugar_g <dbl>, caffeine_mg <dbl>, and
+    ## #   abbreviated variable names ¹​product_name, ²​serv_size_m_l, ³​calories,
+    ## #   ⁴​total_fat_g, ⁵​saturated_fat_g, ⁶​trans_fat_g, ⁷​cholesterol_mg
+    ## # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names
 
-``` r
-skimr::partition(skim(sbucks))
-```
-
-**Variable type: character**
-
-| skim_variable | n_missing | complete_rate | min | max | empty | n_unique | whitespace |
-|:--------------|----------:|--------------:|----:|----:|------:|---------:|-----------:|
-| product_name  |         0 |             1 |   8 |  47 |     0 |       93 |          0 |
-| size          |         0 |             1 |   4 |   7 |     0 |       11 |          0 |
-| milk          |         0 |             1 |   2 |   7 |     0 |        6 |          0 |
-| trans_fat_g   |         0 |             1 |   1 |   3 |     0 |        7 |          0 |
-| fiber_g       |         0 |             1 |   1 |   2 |     0 |       12 |          0 |
-
-**Variable type: numeric**
-
-| skim_variable   | n_missing | complete_rate |   mean |     sd |  p0 |   p25 |   p50 | p75 | p100 | hist  |
-|:----------------|----------:|--------------:|-------:|-------:|----:|------:|------:|----:|-----:|:------|
-| whip            |         0 |             1 |   0.25 |   0.43 |   0 |   0.0 |   0.0 |   0 |    1 | ▇▁▁▁▂ |
-| serv_size_m\_l  |         0 |             1 | 461.34 | 172.18 |   0 | 354.0 | 473.0 | 591 |  887 | ▁▇▆▆▁ |
-| calories        |         0 |             1 | 228.39 | 137.67 |   0 | 130.0 | 220.0 | 320 |  640 | ▆▇▆▃▁ |
-| total_fat_g     |         0 |             1 |   6.19 |   5.97 |   0 |   1.0 |   4.5 |  10 |   28 | ▇▃▂▁▁ |
-| saturated_fat_g |         0 |             1 |   3.88 |   4.01 |   0 |   0.2 |   2.5 |   7 |   20 | ▇▃▂▁▁ |
-| cholesterol_mg  |         0 |             1 |  15.24 |  17.97 |   0 |   0.0 |   5.0 |  30 |   75 | ▇▂▂▁▁ |
-| sodium_mg       |         0 |             1 | 139.65 |  93.09 |   0 |  70.0 | 135.0 | 200 |  370 | ▇▇▇▃▂ |
-| total_carbs_g   |         0 |             1 |  37.72 |  23.26 |   0 |  20.0 |  37.0 |  53 |   96 | ▇▇▇▅▂ |
-| sugar_g         |         0 |             1 |  34.99 |  22.46 |   0 |  18.0 |  34.0 |  49 |   89 | ▇▇▇▅▂ |
-| caffeine_mg     |         0 |             1 |  91.86 |  78.11 |   0 |  30.0 |  75.0 | 150 |  475 | ▇▃▁▁▁ |
+We can explore the correlation structure for numeric data with a correlation plot, where larger circles indicate a larger correlation nd color indicates the direction. The correlation shown here is a measure of linear correlation, which ignores other types of correlation or non-linearities in the data.
 
 ``` r
 get_cor <- 
@@ -101,33 +93,29 @@ map(c("short", "tall", "grande", "venti", "trenta"), ~get_cor(size = .x))
 
     ## [[1]]
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="1248" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-1.png" width="1248" />
 
     ## 
     ## [[2]]
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-2.png" width="1248" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-2.png" width="1248" />
 
     ## 
     ## [[3]]
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-3.png" width="1248" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-3.png" width="1248" />
 
     ## 
     ## [[4]]
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-4.png" width="1248" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-4.png" width="1248" />
 
     ## 
     ## [[5]]
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-5.png" width="1248" />
-
-First we need to only include products where whip is an option; after viewing plot, looks we’ll need to remove some categories.
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-5.png" width="1248" />
 
 ``` r
-# https://juliasilge.com/blog/beer-production/
-
 whip_diff <- 
   sbucks %>%
   select(product_name, size, milk, whip, calories) %>%
@@ -136,7 +124,8 @@ whip_diff <-
   filter(has_whip_option == 1) %>%
   mutate(whip = factor(whip, levels = c("0", "1")),
          size = factor(size, levels = c("short", "tall", "grande", "venti")),
-         milk = factor(milk, levels = c("nonfat", "soy", "coconut", "2%", "whole")))
+         milk = factor(milk, levels = c("nonfat", "soy", "coconut", "2%", "whole"))) %>%
+  filter(!is.na(calories), !is.na(milk))
 
 
 whip_diff %>%
@@ -147,7 +136,7 @@ whip_diff %>%
   big_labels
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="1248" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="1248" />
 
 After removing drinks with no milk, we can plot the distributions of calories and inspect for any potential interaction effects. There doesn’t seem to be any interaction effects between whipped cream and milk type used
 
@@ -176,7 +165,7 @@ line_milk <-
 ggpubr::ggarrange(boxplot_milk, line_milk, nrow = 1, ncol = 2)
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="1248" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="1248" />
 
 There may be a slight interaction effect between whipped cream and drink size
 
@@ -199,7 +188,7 @@ line_size <-
 ggpubr::ggarrange(boxplot_size, line_size, nrow = 1, ncol = 2)
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="1248" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="1248" />
 
 There may be a slight interaction effect between drink size and milk used
 
@@ -222,7 +211,7 @@ line_size_milk <-
 ggpubr::ggarrange(boxplot_size_milk, line_size_milk, nrow = 1, ncol = 2)
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="1248" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="1248" />
 
 ## Simple model
 
@@ -247,7 +236,7 @@ broom::tidy(lm(calories ~ whip + size + milk + whip*size, data = whip_diff)) %>%
 ```
 
 <div id="htmlwidget-1" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"term":["(Intercept)","whip1","sizetall","sizegrande","sizeventi","milksoy","milkcoconut","milk2%","milkwhole","whip1:sizetall","whip1:sizegrande","whip1:sizeventi"],"estimate":[138.84,54.09,50.84,124.86,220.51,9.29,1.43,30.71,51.25,22.78,50.38,50.38],"std.error":[11.74,15.49,12.33,12.3,12.3,7.04,6.86,6.86,6.86,17.42,17.37,17.37],"statistic":[11.83,3.49,4.12,10.15,17.93,1.32,0.21,4.48,7.47,1.31,2.9,2.9],"p.value":[0,0,0,0,0,0.19,0.84,0,0,0.19,0,0]},"columns":[{"accessor":"term","name":"term","type":"character"},{"accessor":"estimate","name":"estimate","type":"numeric"},{"accessor":"std.error","name":"std.error","type":"numeric"},{"accessor":"statistic","name":"statistic","type":"numeric"},{"accessor":"p.value","name":"p.value","type":"numeric"}],"resizable":true,"filterable":true,"defaultPageSize":15,"paginationType":"numbers","showPageInfo":true,"minRows":1,"defaultExpanded":true,"highlight":true,"striped":true,"compact":true,"inline":true,"dataKey":"559549227df2e6fff5e0d092a94e24e0","key":"559549227df2e6fff5e0d092a94e24e0"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"term":["(Intercept)","whip1","sizetall","sizegrande","sizeventi","milksoy","milkcoconut","milk2%","milkwhole","whip1:sizetall","whip1:sizegrande","whip1:sizeventi"],"estimate":[138.84,54.09,50.84,124.86,220.51,9.29,1.43,30.71,51.25,22.78,50.38,50.38],"std.error":[11.74,15.49,12.33,12.3,12.3,7.04,6.86,6.86,6.86,17.42,17.37,17.37],"statistic":[11.83,3.49,4.12,10.15,17.93,1.32,0.21,4.48,7.47,1.31,2.9,2.9],"p.value":[0,0,0,0,0,0.19,0.84,0,0,0.19,0,0]},"columns":[{"accessor":"term","name":"term","type":"character"},{"accessor":"estimate","name":"estimate","type":"numeric"},{"accessor":"std.error","name":"std.error","type":"numeric"},{"accessor":"statistic","name":"statistic","type":"numeric"},{"accessor":"p.value","name":"p.value","type":"numeric"}],"resizable":true,"filterable":true,"defaultPageSize":15,"paginationType":"numbers","showPageInfo":true,"minRows":1,"defaultExpanded":true,"highlight":true,"striped":true,"compact":true,"inline":true,"dataKey":"559549227df2e6fff5e0d092a94e24e0"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 
 The intercept term alone indicates the average calories for “short” drinks with nonfat milk and without whipped cream is about 139 calories. To get the avg calories for a venti with whipped cream and whole milk, for example, we can add:
 
@@ -266,7 +255,7 @@ broom::tidy(lm(calories ~ whip + size + milk + whip*size, data = whip_diff)) %>%
        title = "Effect sizes relative to baseline", subtitle = "baseline: short, nonfat milk without whipped cream")
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="1248" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="1248" />
 
 ### Bootstrap Resampling
 
@@ -335,7 +324,7 @@ whip_coefs %>%
   geom_vline(aes(xintercept = .upper), linetype = "dashed") 
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-1.png" width="1248" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="1248" />
 
 ## Conclusion
 
@@ -353,4 +342,4 @@ ggplot(whip_diff, aes(x = whip, y = calories, fill = milk)) +
   ggsci::scale_fill_npg()
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-1.png" width="1248" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-1.png" width="1248" />

@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="generator" content="Hugo 0.80.0" />
-<title>Trying out new Tidymodels package: vetiver | Brendan Graham: Online</title>
+<title>Trying out new Tidymodels package: vetiver | Home</title>
 
 
 <meta property="twitter:site" content="@brndngrhm">
@@ -27,8 +27,8 @@
 <meta name="description" content="">
 
 
-<meta property="og:site_name" content="Brendan Graham: Online">
-<meta property="og:title" content="Trying out new Tidymodels package: vetiver | Brendan Graham: Online">
+<meta property="og:site_name" content="Home">
+<meta property="og:title" content="Trying out new Tidymodels package: vetiver | Home">
 <meta property="og:description" content="" />
 <meta property="og:type" content="page" />
 <meta property="og:url" content="https://brendangraham.online/blog/bees/" />
@@ -48,7 +48,7 @@
 TidyTuesday data set about changes in bee colonies After looking at the data I build and locally deploy a model api to predict the percentage of colonies lost">
 <meta itemprop="datePublished" content="2022-01-11T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-01-11T00:00:00+00:00" />
-<meta itemprop="wordCount" content="5780">
+<meta itemprop="wordCount" content="5991">
 <meta itemprop="image" content="https://brendangraham.online/blog/bees/featured.png">
 
 
@@ -75,7 +75,7 @@ TidyTuesday data set about changes in bee colonies After looking at the data I b
 <header class="site-header pt4 pb2 mb4 bb b--transparent ph5 headroom z-max" role="banner">
   <nav class="site-nav db dt-l w-100" role="navigation">
     <a class="site-brand db dtc-l v-mid link no-underline w-100 w-33-l tc tl-l" href="https://brendangraham.online" title="Home">
-      <span class="f4 fw7">Brendan Graham: Online</span>
+      <span class="f4 fw7">Home</span>
     </a>
     <div class="site-links db dtc-l v-mid w-100 w-47-l tc tr-l mt3 mt0-l ttu tracked">
       
@@ -393,10 +393,22 @@ results <span style="color:#666">&lt;-</span>
 
 <span style="color:#06287e">stopCluster</span>(cl)
 </code></pre></div><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">workflowsets<span style="color:#666">::</span><span style="color:#06287e">rank_results</span>(results, select_best <span style="color:#666">=</span> T, rank_metric <span style="color:#666">=</span> <span style="color:#4070a0">&#34;rmse&#34;</span>)
-</code></pre></div><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">autoplot</span>(results, select_best <span style="color:#666">=</span> T) <span style="color:#666">+</span>
+</code></pre></div><pre><code>## # A tibble: 6 × 9
+##   wflow_id      .config          .metric  mean std_err     n prepr…¹ model  rank
+##   &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;
+## 1 recipe_forest Preprocessor1_M… mae      4.79  0.0353    25 recipe  rand…     1
+## 2 recipe_forest Preprocessor1_M… rmse     6.57  0.0716    25 recipe  rand…     1
+## 3 recipe_lasso  Preprocessor1_M… mae      4.92  0.0390    25 recipe  line…     2
+## 4 recipe_lasso  Preprocessor1_M… rmse     6.75  0.0780    25 recipe  line…     2
+## 5 recipe_cubist Preprocessor1_M… mae      5.04  0.0545    25 recipe  cubi…     3
+## 6 recipe_cubist Preprocessor1_M… rmse     6.94  0.0916    25 recipe  cubi…     3
+## # … with abbreviated variable name ¹​preprocessor
+</code></pre>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">autoplot</span>(results, select_best <span style="color:#666">=</span> T) <span style="color:#666">+</span>
   <span style="color:#06287e">bg_theme</span>(base_size <span style="color:#666">=</span> <span style="color:#40a070">13</span>) <span style="color:#666">+</span> 
   ggsci<span style="color:#666">::</span><span style="color:#06287e">scale_color_npg</span>()
-</code></pre></div>
+</code></pre></div><p><img src="https://brendangraham.online/blog/bees/index_files/figure-html/unnamed-chunk-14-1.png" width="864" /></p>
+
 
 
 
@@ -428,7 +440,36 @@ best_model <span style="color:#666">&lt;-</span>
   <span style="color:#06287e">finalize_workflow</span>(x <span style="color:#666">=</span> <span style="color:#06287e">workflow</span>() <span style="color:#666">%&gt;%</span> <span style="color:#06287e">add_recipe</span>(recipe) <span style="color:#666">%&gt;%</span> <span style="color:#06287e">add_model</span>(best_rf), 
                     parameters <span style="color:#666">=</span> best_results) <span style="color:#666">%&gt;%</span>
   <span style="color:#06287e">fit</span>(train)
-</code></pre></div><p>Next we create <code>vetiver</code> object and pin to temp board. The piece of code at the end of this chunk creates a file for us called <code>plumber.R</code> and puts it in the working directory. This file contains the packages and files necessary to deploy the model as an API. But, first we can test it locally in the next step.</p>
+
+best_model
+</code></pre></div><pre><code>## ══ Workflow [trained] ══════════════════════════════════════════════════════════
+## Preprocessor: Recipe
+## Model: rand_forest()
+## 
+## ── Preprocessor ────────────────────────────────────────────────────────────────
+## 2 Recipe Steps
+## 
+## • step_impute_median()
+## • step_normalize()
+## 
+## ── Model ───────────────────────────────────────────────────────────────────────
+## Ranger result
+## 
+## Call:
+##  ranger::ranger(x = maybe_data_frame(x), y = y, mtry = min_cols(~best_results$mtry,      x), num.trees = ~1000, min.node.size = min_rows(~best_results$min_n,      x), num.threads = 1, verbose = FALSE, seed = sample.int(10^5,      1)) 
+## 
+## Type:                             Regression 
+## Number of trees:                  1000 
+## Sample size:                      856 
+## Number of independent variables:  6 
+## Mtry:                             1 
+## Target node size:                 34 
+## Variable importance mode:         none 
+## Splitrule:                        variance 
+## OOB prediction error (MSE):       43.64448 
+## R squared (OOB):                  0.201183
+</code></pre>
+<p>Next we create <code>vetiver</code> object and pin to temp board. The piece of code at the end of this chunk creates a file for us called <code>plumber.R</code> and puts it in the working directory. This file contains the packages and files necessary to deploy the model as an API. But, first we can test it locally in the next step.</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">v <span style="color:#666">&lt;-</span> 
   <span style="color:#06287e">vetiver_model</span>(model <span style="color:#666">=</span> best_model, 
                 model_name <span style="color:#666">=</span> <span style="color:#4070a0">&#34;lost-colony-model&#34;</span>)
@@ -458,9 +499,6 @@ endpoint
 preds <span style="color:#666">&lt;-</span> 
   <span style="color:#06287e">predict</span>(endpoint, test) <span style="color:#666">%&gt;%</span>
   <span style="color:#06287e">cbind</span>(., test)
-
-preds <span style="color:#666">%&gt;%</span>
-  <span style="color:#06287e">add_table</span>()
 </code></pre></div><p>Ideally the points in the scatterplot would fall along, or near, the 45-degree line, so the model performance isn’t great. But we were able to successfully deploy it as an API and retrieve predictions!</p>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">preds <span style="color:#666">%&gt;%</span>
   <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> colony_lost_pct, y <span style="color:#666">=</span> .pred)) <span style="color:#666">+</span> 
@@ -479,7 +517,7 @@ preds <span style="color:#666">%&gt;%</span>
   </dl>
   <dl class="f6 lh-copy">
     <dt class="fw7">Length:</dt>
-    <dd class="fw5 ml0">28 minute read, 5780 words</dd>
+    <dd class="fw5 ml0">29 minute read, 5991 words</dd>
   </dl>
   
   <dl class="f6 lh-copy">
@@ -497,11 +535,11 @@ preds <span style="color:#666">%&gt;%</span>
   <dl class="f6 lh-copy">
     <dt class="fw7">See Also:</dt>
     
-    <dd class="fw5 ml0"><a href="/blog/pell/">Creating a Hex Bin Map with Pell Grant Data</a></dd>
+    <dd class="fw5 ml0"><a href="/blog/bigfoot/">Classifying Bigfoot Encounters</a></dd>
+    
+    <dd class="fw5 ml0"><a href="/blog/pell/">Creating a Hex Bin Map to Show Changes Pell Grants</a></dd>
     
     <dd class="fw5 ml0"><a href="/blog/dogs/">Getting started with topic modeling with dog breed traits</a></dd>
-    
-    <dd class="fw5 ml0"><a href="/blog/boardgames/">Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings</a></dd>
     
   </dl>
 </details>

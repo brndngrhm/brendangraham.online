@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Brendan Graham: Online</title>
+    <title>Tags on Home</title>
     <link>https://brendangraham.online/tags/</link>
-    <description>Recent content in Tags on Brendan Graham: Online</description>
+    <description>Recent content in Tags on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 10 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 17 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>data science</title>
+      <link>https://brendangraham.online/tags/data-science/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/data-science/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>text model</title>
+      <link>https://brendangraham.online/tags/text-model/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/text-model/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidy tuesday</title>
+      <link>https://brendangraham.online/tags/tidy-tuesday/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/tidy-tuesday/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>data viz</title>
       <link>https://brendangraham.online/tags/data-viz/</link>
@@ -22,15 +49,6 @@
       <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>https://brendangraham.online/tags/hex-bin-map/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tidy tuesday</title>
-      <link>https://brendangraham.online/tags/tidy-tuesday/</link>
-      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://brendangraham.online/tags/tidy-tuesday/</guid>
       <description></description>
     </item>
     
@@ -76,15 +94,6 @@
       <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
       
       <guid>https://brendangraham.online/tags/topic-modeling/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>data science</title>
-      <link>https://brendangraham.online/tags/data-science/</link>
-      <pubDate>Wed, 26 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://brendangraham.online/tags/data-science/</guid>
       <description></description>
     </item>
     

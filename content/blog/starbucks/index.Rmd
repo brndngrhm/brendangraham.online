@@ -41,6 +41,8 @@ library(furrr)
 library(future)
 library(ggpubr)
 
+# https://juliasilge.com/blog/beer-production/
+
 big_labels <-
   theme(text = element_text(size = 14)) 
 
@@ -108,7 +110,13 @@ bg_theme <-
 bg_red <- "#E64B35"
 bg_green <- "#00a087"
 bg_blue <- "#4DBBD5"
+```
 
+## Explore the Data
+
+Let's load in the data and do some quick formatting:
+
+```{r}
 tt_data <- 
   readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-12-21/starbucks.csv')
 
@@ -121,19 +129,13 @@ sbucks <-
     milk == 3 ~ "soy",
     milk == 4 ~ "coconut",
     milk == 5 ~ "whole",
-    TRUE ~ "FROG"
+    TRUE ~ "other"
   ))
-```
 
-## Explore the Data
-
-```{r}
 sbucks
 ```
 
-```{r}
-skimr::partition(skim(sbucks))
-```
+We can explore the correlation structure for numeric data with a correlation plot, where larger circles indicate a larger correlation nd color indicates the direction. The correlation shown here is a measure of linear correlation, which ignores other types of correlation or non-linearities in the data.
 
 ```{r}
 get_cor <- 
@@ -152,11 +154,7 @@ map(c("short", "tall", "grande", "venti", "trenta"), ~get_cor(size = .x))
 
 ```
 
-First we need to only include products where whip is an option; after viewing plot, looks we'll need to remove some categories.
-
 ```{r}
-# https://juliasilge.com/blog/beer-production/
-
 whip_diff <- 
   sbucks %>%
   select(product_name, size, milk, whip, calories) %>%
@@ -165,7 +163,8 @@ whip_diff <-
   filter(has_whip_option == 1) %>%
   mutate(whip = factor(whip, levels = c("0", "1")),
          size = factor(size, levels = c("short", "tall", "grande", "venti")),
-         milk = factor(milk, levels = c("nonfat", "soy", "coconut", "2%", "whole")))
+         milk = factor(milk, levels = c("nonfat", "soy", "coconut", "2%", "whole"))) %>%
+  filter(!is.na(calories), !is.na(milk))
 
 
 whip_diff %>%

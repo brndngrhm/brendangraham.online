@@ -26,7 +26,7 @@ editor_options:
     wrap: 72
 ---
 
-```{r}
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
 library(tidytuesdayR)
 library(tidyverse)
 library(lubridate)
@@ -51,33 +51,30 @@ source(here::here("content", "blog", "util.R"))
 
 ## Get the data
 
-First I read in the data and do some minor cleaning:\
-\* only include data post-1999 since it looks like 1999 isn't a full
-year of data. \* overwrite the `state_name` variable with the full state
-name instead of the abbreviation. This makes creating a hex bin map
-later on a little easier. One consequence of this is Puerto Rico and
-other US Territories are excluded
+First I read in the data and do some minor cleaning:
+
+-   only include data post-1999 since it looks like 1999 isn't a full
+    year of data.
+
+-   overwrite the `state_name` variable with the full state name instead
+    of the abbreviation. This makes creating a hex bin map later on a
+    little easier. One consequence of this is Puerto Rico and other US
+    Territories are excluded
 
 ```{r}
 tt_url <- 
   "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-08-30/pell.csv"
 
 pell <- 
-  readr::read_csv(tt_url)
-
-skimr::skim(pell)
-
-```
-
-```{r}
-pell <-
   readr::read_csv(tt_url) %>%
   janitor::clean_names() %>%
   filter(year > 1999) %>%
   mutate(state_name = usdata::abbr2state(abbr = state))
 
 pell %>% 
+  head(25) %>%
   get_table()
+
 ```
 
 ## Explore the data
@@ -101,20 +98,20 @@ ggpubr::ggarrange(
   pell %>% 
     group_by(year) %>%
     summarise(total_amt = sum(award, na.rm = T)) %>% 
-    ggplot(., aes(x = year, y = total_amt)) +
+    ggplot(., aes(x = year, y = total_amt/1000000)) +
     geom_col(fill = bg_green) +
     bg_theme(base_size = 12, plot_title_size = 12) + 
     scale_y_continuous(labels = dollar) + 
-    labs(x = "Year", y = "", title = "Total Pell Grant Dollar Amount per Year"),
+    labs(x = "Year", y = "$mil", title = "Total Pell Grant Dollar Amount per Year"),
   
   pell %>%
     group_by(year) %>%
     summarise(mean_amt = mean(award, na.rm = T)) %>% 
-    ggplot(., aes(x = year, y = mean_amt)) +
+    ggplot(., aes(x = year, y = mean_amt/1000000)) +
     geom_col(fill = bg_blue) +
     bg_theme(base_size = 12, plot_title_size = 12) + 
     scale_y_continuous(labels = dollar) + 
-    labs(x = "Year", y = "", title = "Mean Pell Grant Dollar Amount per Year"), 
+    labs(x = "Year", y = "$mil", title = "Mean Pell Grant Dollar Amount per Year"), 
   nrow = 3,
   ncol = 1
 )
@@ -136,7 +133,7 @@ pell %>%
   gghighlight(label_key = state, use_direct_label = T, state %in% c("CA", "AZ"), use_group_by = FALSE) + 
   labs(x = "Year", y = "Amount ($)", title = "Mean Pell Grant Dollar Amount per Year") + 
   scale_color_npg() + 
-  bg_theme()
+  bg_theme(base_size = 14, plot_title_size = 14)
 ```
 
 Digging into this post 2009 increase some more, there is some evidence
@@ -160,7 +157,7 @@ Specifically, that document notes that
 This plot ranks states in order of change post-2009, with Arizona
 leading the way.
 
-```{r}
+```{r fig.height = 8, fig.width = 10}
 # https://www.cbo.gov/sites/default/files/cbofiles/attachments/44448_PellGrants_9-5-13.pdf
 
 time_prep <- 
@@ -194,7 +191,7 @@ pell_time_state_comparison %>%
   scale_fill_gradient(low = "cornflowerblue", high = bg_green) + 
   geom_col(show.legend = FALSE) + 
   coord_flip() + 
-  bg_theme(base_size = 16) +
+  bg_theme(base_size = 13, plot_title_size = 14) +
   geom_text(hjust = 1.05, family = 'RobotoMono-Regular', size = 3, color = 'white') + 
   labs(y = "Amount($)", x = "State", title =" States Ranked by Post-2009 Change in Mean Grant Amount")
 

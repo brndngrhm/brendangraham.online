@@ -1,7 +1,7 @@
 baseURL = "https://brendangraham.online"
 theme = "hugo-apero"
 languageCode = "en"
-title = "Brendan Graham: Online"
+title = "Home"
 author = "Brendan Graham"
 copyright = "" # set to override the auto generated copyright using org info and now year
 googleAnalytics = ""

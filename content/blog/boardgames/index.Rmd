@@ -1,0 +1,434 @@
+---
+title: "Combining 'Traditional' and Text-Based Models to Board Game Ratings"
+author: Brendan Graham
+date: '2022-01-26'
+slug: boardgames
+categories: 
+  - tidy tuesday
+  - tidymodels
+  - data science
+tags:
+  - tidy tuesday
+  - tidymodels
+  - data science
+subtitle: 
+summary: 'This post looks at a past [TidyTuesday](https://github.com/rfordatascience/tidytuesday) data set about board game ratings. After looking at the data I attempt to predict avereage board game'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+draft: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(echo = T, fig.height = 7, fig.width = 9, message = FALSE, warning = FALSE)
+
+options(scipen = 100)
+options(tidymodels.dark = TRUE) 
+
+library(tidytuesdayR)
+library(tidyverse)
+library(lubridate)
+library(highcharter)
+library(plotly)
+library(purrr)
+library(skimr)
+library(here)
+library(ggrepel)
+library(tidymodels)
+library(rules)
+library(vetiver)
+library(doParallel)
+library(pins)
+library(ghibli)
+library(plsmod)
+library(textrecipes)
+library(LiblineaR)
+library(tidytext)
+library(ggsci)
+
+round_numerics <- 
+  function(data, digits = 2){
+    data %>%
+      mutate(across(where(is.numeric), ~ round(.x, digits)))
+  }
+
+add_table <- 
+  function(data, digits = 2){
+    data %>%
+      round_numerics(digits = digits) %>%
+      reactable::reactable(., fullWidth = F, resizable = T, filterable = T, 
+                           highlight = T, defaultPageSize = 10, wrap = FALSE,
+                           showSortIcon = T, striped = T, compact = T)
+  }
+
+bg_theme <- 
+  function(base_size = 11,
+           strip_text_size = 12,
+           strip_text_margin = 10,
+           subtitle_size = 13,
+           subtitle_margin = 10,
+           plot_title_size = 16,
+           plot_title_margin = 10,
+           font = "RobotoMono-Regular",
+           ...) {
+    
+    ret <-
+      ggplot2::theme_gray(base_family = font,
+                          base_size = base_size, ...,) +
+      theme(
+        panel.background = element_rect(fill = "#e9e9ea"),
+        plot.background = element_rect(fill = "#f3f3f3"),
+        legend.background = element_rect(fill = "#f3f3f3"),
+        panel.grid = element_line(color = "#ffffff"),
+        panel.grid.major = element_line(color = "#ffffff")
+        )
+    
+    ret$strip.text <-
+      ggplot2::element_text(
+        # hjust = 0,
+        vjust = -.8,
+        size = strip_text_size,
+        margin = ggplot2::margin(b = strip_text_margin),
+        family = font
+      )
+    
+    ret$plot.subtitle <-
+      ggplot2::element_text(
+        hjust = 0,
+        size = subtitle_size,
+        margin = ggplot2::margin(b = subtitle_margin),
+        family = font
+      )
+    
+    ret$plot.title <-
+      ggplot2::element_text(
+        hjust = 0,
+        size = plot_title_size,
+        margin = ggplot2::margin(b = plot_title_margin),
+        family = font
+      )
+    
+    ret
+  }
+
+bg_green <- "#00a087"
+
+ratings <- 
+  readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-25/ratings.csv')
+
+details <- 
+  readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-25/details.csv')
+
+```
+
+Last week I tried out a text based model for the first time. This week I want to continue working with a text based model, but supplement the text data with other non-text predictors. The goal will be to use the board game category (text data) and other non-text data to predict the average board game rating.
+
+## Explore the Data
+
+there are 2 tables, one that has the ratings variable we'll use as the outcome, and the other has some columns to be used as predictors. 
+
+```{r}
+ratings
+```
+
+```{r}
+details
+```
+
+Using the `skimr` package we can get a quick understanding of the characteristics of each table.
+
+```{r}
+skimr::skim_to_list(ratings)
+```
+
+```{r}
+skimr::skim_to_list(details)
+```
+
+Looks like there are 200 games missing descriptions:
+```{r}
+ratings %>%
+  anti_join(., details, by = c("id")) %>%
+  nrow()
+```
+
+The distribution of the outcome variable, ratings, is somewhat normally distributed with a mean rating of 6.42 out of 10.
+```{r}
+n_games <- 
+  ratings %>% 
+  distinct(name) %>% 
+  nrow()
+
+overall_avg <- 
+  ratings %>% 
+  summarise(mean_rating = mean(average, na.rm = T)) %>%
+  pull(mean_rating)
+
+ratings %>%
+  ggplot(aes(x = average)) + 
+  geom_histogram(alpha = .75, fill = bg_green) + 
+  bg_theme(base_size = 13) + 
+  geom_vline(aes(xintercept = mean(average)), linetype = 'dashed') + 
+  scale_y_continuous(expand = c(0, 25), breaks = seq(0, 3000, 100)) + 
+  labs(x = "rating", y = '', title =  paste("rating distribution of", format(n_games, big.mark = ','),
+                                            "games"),
+       subtitle = paste("overall avg rating:", round(overall_avg, 2)))
+
+```
+
+Here we can dive into the category column. First we combine the ratings data with the details and then tokenize the category column into individual rows per category descriptor. This wirll help form the basis of the text recipe developed later on.
+
+```{r}
+combined <- 
+  ratings %>%
+  inner_join(., details %>% select(-num), by = c("id")) %>%
+  select(-c(url, rank, bayes_average, users_rated, yearpublished, thumbnail, primary,
+            boardgameexpansion, boardgameimplementation, boardgamedesigner, description,
+            boardgamepublisher,boardgameartist, boardgamefamily, boardgamemechanic,
+            owned, trading, wanting, wishing, minplaytime, maxplaytime, year)) %>%
+  select(num, id, name, average, boardgamecategory, everything()) %>%
+  rename(category = boardgamecategory) %>%
+  mutate(category = str_remove_all(category, "'"),
+         category = str_remove_all(category, '"'),
+         category = str_replace_all(category, "\\[|\\]", ""),
+         category = trimws(category)) %>%
+  filter(!(is.na(category)))
+
+tidy_category <-
+  combined %>%
+  unnest_tokens(word, category)
+
+tidy_category %>%
+  count(word, sort = TRUE)
+```
+
+Since we are also including non-text data in the model, we should explore those predictors as well. The function below iterates over the numeric columns and checks the relationship between the numeric columns with the average rating. There are a number of outliers that need to be handled to make the plots more meaningful.
+
+```{r}
+get_scatter <- 
+  function(data, var){
+    
+    variable_filter <- 
+      if (var == "maxplayers"){
+        25
+      } else if (var == "playingtime"){
+        500
+      } else {
+        10000000
+      }
+    
+    data %>%
+      select(average, one_of({{var}})) %>%
+      rename(variable = 2) %>%
+      filter(variable <= variable_filter) %>%
+      ggplot(., aes(x = average, y = variable)) +
+      geom_point(alpha = .3, color = bg_green) + 
+      bg_theme(base_size = 13) +
+      labs(x = "avg rating", y = var, title = paste(var, "vs average rating"))
+
+  }
+
+numeric_cols <- 
+  combined %>%
+  select(where(is.numeric)) %>%
+  select(-c(id, num, average)) %>%
+  names
+
+purrr::map(numeric_cols, ~get_scatter(combined, .x))
+
+```
+
+## Create Some Models
+
+To prep the text data for modeling we can create a matrix with each words TF-IDf value. From the `step_tfidf()` documentation:
+
+>Term frequency-inverse document frequency is the product of two statistics: the term frequency (TF) and the inverse document frequency (IDF).
+>
+>Term frequency measures how many times each token appears in each observation.
+>
+>Inverse document frequency is a measure of how informative a word is, e.g., how common or rare the word is across all the observations. If a word >appears in all the observations it might not give that much insight, but if it only appears in some it might help differentiate between observations.
+>
+>The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / (# documents where the term appears))
+
+Normally we'd used `step_tokenfilter()` as well, but there are not that many categories so we can use all 113. The important step here is to prep() the recipe and then bake() the results. This sequence of functions applies and executes the recipe, and returns a dataframe ready to be joined with the other predictors.
+
+```{r}
+text_prep <- 
+  recipe(average ~ num + id + name + category, data = combined) %>%
+  update_role(num, id, name, new_role = "ID variables") %>%
+  step_tokenize(category) %>%
+  step_tfidf(category) %>%
+  prep() %>%
+  bake(new_data = NULL)
+
+text_prep
+```
+
+```{r}
+model_data <- 
+  combined %>%
+  select(-category) %>%
+  left_join(., text_prep %>% select(-c(num, name, average)), "id") 
+
+model_data
+```
+
+Then we prep for modelling by creating splits, resamples, model specifications, recipes (several to compare), and the workflowset:
+
+```{r}
+
+set.seed(113)
+splits <- 
+  model_data %>%
+  initial_split(strata = average)
+
+train <-
+  training(splits)
+test <-
+  testing(splits)
+
+folds <- 
+  vfold_cv(train, strata = average)
+```
+
+3 recipes are created here with the goal of seeing which combination works the best: one with the just text features, `recipe_text` and one without any text features, `recipe_no_text` and then one with all features, `recipe_all`.
+
+```{r}
+
+recipe_all <- 
+  recipe(average ~ ., data = train) %>%
+  update_role(num, id, name, new_role = "ID variables") %>%
+  step_normalize(minplayers, maxplayers, playingtime, minage)
+
+recipe_text <- 
+  recipe_all %>%
+  step_rm(minplayers, maxplayers, playingtime, minage)
+
+recipe_no_text <- 
+  recipe_all %>%
+  step_rm(starts_with('tfidf'))
+
+```
+
+```{r}
+
+svm_spec <-
+  svm_linear(cost = tune(),
+             margin = tune()
+  ) %>%
+  set_mode("regression") %>%
+  set_engine("LiblineaR")
+
+lasso_spec <- 
+  parsnip::linear_reg(penalty = tune(), 
+                      mixture = 1) %>%
+  set_engine("glmnet")
+
+mars_spec <- 
+  parsnip::mars(num_terms = tune(),
+                prod_degree = tune()) %>%
+  set_mode('regression') %>%
+  set_engine("earth")
+
+workflows <- 
+  workflow_set(
+    preproc = list(recipe_all = recipe_all,
+                   recipe_text = recipe_text,
+                   recipe_numeric = recipe_no_text), 
+    models = list(svm = svm_spec,
+                  lasso = lasso_spec,
+                  mars = mars_spec
+    ),
+    cross = TRUE)
+
+workflows
+
+```
+
+Here we compare the model performance. It looks like the lasso models with the full set of predictors performs the best (circles) and the models without the category text performed the worst (triangles)
+
+```{r}
+
+grid_ctrl <-
+  control_grid(
+    save_pred = TRUE,
+    allow_par = TRUE,
+    parallel_over = "everything",
+    verbose = TRUE
+  )
+
+cl <- 
+  makeCluster(10)
+
+doParallel::registerDoParallel(cl)
+
+results <- 
+  workflow_map(fn = "tune_grid",
+               object = workflows,
+               seed = 155,
+               verbose = TRUE,
+               control = grid_ctrl,
+               grid = 10, 
+               resamples = folds,
+               metrics = metric_set(rmse, mae)
+  )
+
+stopCluster(cl)
+```
+
+```{r}
+
+rank_results(results, select_best = T) %>% 
+  mutate(model = ifelse(str_detect(wflow_id, "lasso"), "lasso", model),
+         recipe_type = case_when(
+           str_detect(wflow_id, "text") ~ "text_recipe",
+           str_detect(wflow_id, "all") ~ "full recipe",
+           TRUE ~ "no_text_recipe")) %>%
+  filter(.metric == 'rmse') %>%
+  ggplot(.,aes(x = rank,  y = mean, color = model, shape = recipe_type)) +
+  geom_errorbar(aes(ymin = mean - std_err, ymax = mean + std_err)) + 
+  geom_point(size = 3, alpha = .75) + 
+  labs(title = "Model Performance Across Recipes", subtitle = "metric: RMSE") + 
+  bg_theme(base_size = 13) + 
+  ggsci::scale_color_npg()
+
+```
+
+The predicted vs actual performance of the "best" model is not very good. But oh well, and anyway the goal of this post was to combine text data and non-text data into a model.
+
+```{r}
+best_results <- 
+   results %>% 
+   extract_workflow_set_result("recipe_all_lasso") %>% 
+   select_best(metric = "rmse")
+
+best_results
+
+cl <- 
+  makeCluster(10)
+
+test_results <- 
+   results %>% 
+   extract_workflow("recipe_all_lasso") %>% 
+   finalize_workflow(best_results) %>% 
+   last_fit(split = splits)
+
+collect_metrics(test_results)
+
+stopCluster(cl)
+
+test_results %>% 
+  collect_predictions() %>% 
+  ggplot(aes(x = average, y = .pred)) + 
+  geom_abline(col = "#e64b35", lty = 2) + 
+  geom_point(alpha = 0.35, color = "#00a087") + 
+  coord_obs_pred() + 
+  labs(x = "observed", y = "predicted") + 
+  bg_theme(base_size = 13) + 
+  ggsci::scale_color_npg()
+```

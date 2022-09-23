@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Home</title>
+    <link>https://brendangraham.online/categories/</link>
+    <description>Recent content in Categories on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 17 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>data science</title>
+      <link>https://brendangraham.online/categories/data-science/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/data-science/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>text model</title>
+      <link>https://brendangraham.online/categories/text-model/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/text-model/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidy tuesday</title>
+      <link>https://brendangraham.online/categories/tidy-tuesday/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/tidy-tuesday/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>data viz</title>
+      <link>https://brendangraham.online/categories/data-viz/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/data-viz/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hex bin map</title>
+      <link>https://brendangraham.online/categories/hex-bin-map/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/hex-bin-map/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>https://brendangraham.online/categories/r/</link>
+      <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tennis</title>
+      <link>https://brendangraham.online/categories/tennis/</link>
+      <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/tennis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Art</title>
+      <link>https://brendangraham.online/categories/art/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/art/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidytext</title>
+      <link>https://brendangraham.online/categories/tidytext/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/tidytext/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>topic modeling</title>
+      <link>https://brendangraham.online/categories/topic-modeling/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/topic-modeling/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidymodels</title>
+      <link>https://brendangraham.online/categories/tidymodels/</link>
+      <pubDate>Wed, 26 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/tidymodels/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>api</title>
+      <link>https://brendangraham.online/categories/api/</link>
+      <pubDate>Tue, 11 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/api/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>plumber</title>
+      <link>https://brendangraham.online/categories/plumber/</link>
+      <pubDate>Tue, 11 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/plumber/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>leaflet</title>
+      <link>https://brendangraham.online/categories/leaflet/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/leaflet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>map</title>
+      <link>https://brendangraham.online/categories/map/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/map/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>parse xml</title>
+      <link>https://brendangraham.online/categories/parse-xml/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/parse-xml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Theme Features</title>
+      <link>https://brendangraham.online/categories/theme-features/</link>
+      <pubDate>Thu, 28 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/theme-features/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>evergreen</title>
+      <link>https://brendangraham.online/categories/evergreen/</link>
+      <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/evergreen/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>package</title>
+      <link>https://brendangraham.online/categories/package/</link>
+      <pubDate>Wed, 03 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/categories/package/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

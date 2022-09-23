@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head>
+  
+                           
+     
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.80.0" />
+<title>Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings | Home</title>
+
+
+<meta property="twitter:site" content="@brndngrhm">
+<meta property="twitter:creator" content="@brndngrhm">
+
+
+
+
+
+
+
+  
+    
+  
+<meta name="description" content="">
+
+
+<meta property="og:site_name" content="Home">
+<meta property="og:title" content="Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings | Home">
+<meta property="og:description" content="" />
+<meta property="og:type" content="page" />
+<meta property="og:url" content="https://brendangraham.online/blog/boardgames/" />
+<meta property="og:locale" content="en">
+
+
+
+
+    
+        <meta property="og:image" content="https://brendangraham.online/blog/boardgames/featured.png" >
+        <meta property="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="https://brendangraham.online/blog/boardgames/featured.png" >
+    
+    
+  <meta itemprop="name" content="Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings">
+<meta itemprop="description" content="This post looks at a past 
+TidyTuesday data set about board game ratings. After looking at the data I attempt to predict avereage board game">
+<meta itemprop="datePublished" content="2022-01-26T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-01-26T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2428">
+<meta itemprop="image" content="https://brendangraham.online/blog/boardgames/featured.png">
+
+
+
+<meta itemprop="keywords" content="tidy tuesday,tidymodels,data science," />
+
+  
+  
+  <!--[if IE]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="shortcut icon" href="" type="image/x-icon">
+  <link rel="icon" href="" type="image/x-icon">
+  
+  
+  <link rel="stylesheet" href="/style.main.min.748d32745e8f9c104956428ac7a5c34d14f9057c0a6c22350e05ee46cb277d52.css" integrity="sha256-dI0ydF6PnBBJVkKKx6XDTRT5BXwKbCI1DgXuRssnfVI=" media="screen">
+  
+  
+  <script src="/panelset.min.41f62c42d5f25dd80e81136866f4f1baa1bc17669edfd002e75c0e107953789b.js" type="text/javascript"></script>
+  
+  
+  <script src="/main.min.07ec8e08cbb63db3a2cf7d4a7df6f7be00c715f13b64d8df6a2c48441ba8b14b.js" type="text/javascript"></script>
+</head>
+<body>
+      <div class="grid-container">
+<header class="site-header pt4 pb2 mb4 bb b--transparent ph5 headroom z-max" role="banner">
+  <nav class="site-nav db dt-l w-100" role="navigation">
+    <a class="site-brand db dtc-l v-mid link no-underline w-100 w-33-l tc tl-l" href="https://brendangraham.online" title="Home">
+      <span class="f4 fw7">Home</span>
+    </a>
+    <div class="site-links db dtc-l v-mid w-100 w-47-l tc tr-l mt3 mt0-l ttu tracked">
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 active" href="/blog/" title="Data">Data</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/project/" title="Art">Art</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/talk/" title="Talks">Talks</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/docs/brendan_graham_resume.pdf" title="">Resume</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/contact/" title="Contact">Contact</a>
+      
+      
+    </div>
+  </nav>
+</header>
+
+<main class="page-main pa4" role="main">
+  <section class="page-content mw7 center">
+    <article class="post-content pa0 ph4-l">
+      <header class="post-header">
+        <h1 class="f1 lh-solid measure-narrow mb3 fw4">Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings</h1>
+        
+        <p class="f6 measure lh-copy mv1">By Brendan Graham in <a href="https://brendangraham.online/categories/tidy-tuesday">tidy tuesday</a>  <a href="https://brendangraham.online/categories/tidymodels">tidymodels</a>  <a href="https://brendangraham.online/categories/data-science">data science</a> </p>
+        <p class="f7 db mv0 ttu">January 26, 2022</p>
+
+      
+
+      </header>
+      <section class="post-body pt5 pb4">
+        <p>Last week I tried out a text based model for the first time. This week I want to continue working with a text based model, but supplement the text data with other non-text predictors. The goal will be to use the board game category (text data) and other non-text data to predict the average board game rating.</p>
+
+
+
+
+<h2 id="explore-the-data">Explore the Data
+  <a href="#explore-the-data"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h2>
+<p>there are 2 tables, one that has the ratings variable we&rsquo;ll use as the outcome, and the other has some columns to be used as predictors.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ratings
+</code></pre></div><pre><code>## # A tibble: 21,831 × 10
+##      num     id name     year  rank average bayes_average users_rated url       
+##    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;     
+##  1   105  30549 Pandem…  2008   106    7.59          7.49      108975 /boardgam…
+##  2   189    822 Carcas…  2000   190    7.42          7.31      108738 /boardgam…
+##  3   428     13 Catan    1995   429    7.14          6.97      108024 /boardgam…
+##  4    72  68448 7 Wond…  2010    73    7.74          7.63       89982 /boardgam…
+##  5   103  36218 Domini…  2008   104    7.61          7.50       81561 /boardgam…
+##  6   191   9209 Ticket…  2004   192    7.41          7.30       76171 /boardgam…
+##  7   100 178900 Codena…  2015   101    7.6           7.51       74419 /boardgam…
+##  8     3 167791 Terraf…  2016     4    8.42          8.27       74216 /boardgam…
+##  9    15 173346 7 Wond…  2015    16    8.11          7.98       69472 /boardgam…
+## 10    35  31260 Agrico…  2007    36    7.93          7.81       66093 /boardgam…
+## # … with 21,821 more rows, and 1 more variable: thumbnail &lt;chr&gt;
+</code></pre><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">details
+</code></pre></div><pre><code>## # A tibble: 21,631 × 23
+##      num     id primary   description        yearpublished minplayers maxplayers
+##    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;                      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+##  1     0  30549 Pandemic  In Pandemic, seve…          2008          2          4
+##  2     1    822 Carcasso… Carcassonne is a …          2000          2          5
+##  3     2     13 Catan     In CATAN (formerl…          1995          3          4
+##  4     3  68448 7 Wonders You are the leade…          2010          2          7
+##  5     4  36218 Dominion  &amp;quot;You are a m…          2008          2          4
+##  6     5   9209 Ticket t… With elegantly si…          2004          2          5
+##  7     6 178900 Codenames Codenames is an e…          2015          2          8
+##  8     7 167791 Terrafor… In the 2400s, man…          2016          1          5
+##  9     8 173346 7 Wonder… In many ways 7 Wo…          2015          2          2
+## 10     9  31260 Agricola  Description from …          2007          1          5
+## # … with 21,621 more rows, and 16 more variables: playingtime &lt;dbl&gt;,
+## #   minplaytime &lt;dbl&gt;, maxplaytime &lt;dbl&gt;, minage &lt;dbl&gt;,
+## #   boardgamecategory &lt;chr&gt;, boardgamemechanic &lt;chr&gt;, boardgamefamily &lt;chr&gt;,
+## #   boardgameexpansion &lt;chr&gt;, boardgameimplementation &lt;chr&gt;,
+## #   boardgamedesigner &lt;chr&gt;, boardgameartist &lt;chr&gt;, boardgamepublisher &lt;chr&gt;,
+## #   owned &lt;dbl&gt;, trading &lt;dbl&gt;, wanting &lt;dbl&gt;, wishing &lt;dbl&gt;
+</code></pre><p>Using the <code>skimr</code> package we can get a quick understanding of the characteristics of each table.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">skimr<span style="color:#666">::</span><span style="color:#06287e">skim_to_list</span>(ratings)
+</code></pre></div><p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">skim_variable</th>
+<th style="text-align:right">n_missing</th>
+<th style="text-align:right">complete_rate</th>
+<th style="text-align:right">min</th>
+<th style="text-align:right">max</th>
+<th style="text-align:right">empty</th>
+<th style="text-align:right">n_unique</th>
+<th style="text-align:right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">name</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">107</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">21432</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">url</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">16</td>
+<td style="text-align:right">68</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">21831</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">thumbnail</td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">135</td>
+<td style="text-align:right">139</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">21816</td>
+<td style="text-align:right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">skim_variable</th>
+<th style="text-align:right">n_missing</th>
+<th style="text-align:right">complete_rate</th>
+<th style="text-align:right">mean</th>
+<th style="text-align:right">sd</th>
+<th style="text-align:right">p0</th>
+<th style="text-align:right">p25</th>
+<th style="text-align:right">p50</th>
+<th style="text-align:right">p75</th>
+<th style="text-align:right">p100</th>
+<th style="text-align:left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">num</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">10915.00</td>
+<td style="text-align:right">6302.21</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">5457.50</td>
+<td style="text-align:right">10915.00</td>
+<td style="text-align:right">16372.50</td>
+<td style="text-align:right">21830.00</td>
+<td style="text-align:left">▇▇▇▇▇</td>
+</tr>
+<tr>
+<td style="text-align:left">id</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">118144.78</td>
+<td style="text-align:right">105369.55</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">12308.50</td>
+<td style="text-align:right">104994.00</td>
+<td style="text-align:right">207219.00</td>
+<td style="text-align:right">350992.00</td>
+<td style="text-align:left">▇▂▃▃▂</td>
+</tr>
+<tr>
+<td style="text-align:left">year</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1987.44</td>
+<td style="text-align:right">193.51</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">2001.00</td>
+<td style="text-align:right">2011.00</td>
+<td style="text-align:right">2017.00</td>
+<td style="text-align:right">3500.00</td>
+<td style="text-align:left">▁▁▇▁▁</td>
+</tr>
+<tr>
+<td style="text-align:left">rank</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">10916.00</td>
+<td style="text-align:right">6302.21</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">5458.50</td>
+<td style="text-align:right">10916.00</td>
+<td style="text-align:right">16373.50</td>
+<td style="text-align:right">21831.00</td>
+<td style="text-align:left">▇▇▇▇▇</td>
+</tr>
+<tr>
+<td style="text-align:left">average</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">6.42</td>
+<td style="text-align:right">0.93</td>
+<td style="text-align:right">1.04</td>
+<td style="text-align:right">5.83</td>
+<td style="text-align:right">6.45</td>
+<td style="text-align:right">7.04</td>
+<td style="text-align:right">9.57</td>
+<td style="text-align:left">▁▁▅▇▁</td>
+</tr>
+<tr>
+<td style="text-align:left">bayes_average</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">5.68</td>
+<td style="text-align:right">0.36</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">5.51</td>
+<td style="text-align:right">5.54</td>
+<td style="text-align:right">5.67</td>
+<td style="text-align:right">8.51</td>
+<td style="text-align:left">▁▁▁▇▁</td>
+</tr>
+<tr>
+<td style="text-align:left">users_rated</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">866.96</td>
+<td style="text-align:right">3679.82</td>
+<td style="text-align:right">30.00</td>
+<td style="text-align:right">56.00</td>
+<td style="text-align:right">122.00</td>
+<td style="text-align:right">392.00</td>
+<td style="text-align:right">108975.00</td>
+<td style="text-align:left">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">skimr<span style="color:#666">::</span><span style="color:#06287e">skim_to_list</span>(details)
+</code></pre></div><p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">skim_variable</th>
+<th style="text-align:right">n_missing</th>
+<th style="text-align:right">complete_rate</th>
+<th style="text-align:right">min</th>
+<th style="text-align:right">max</th>
+<th style="text-align:right">empty</th>
+<th style="text-align:right">n_unique</th>
+<th style="text-align:right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">primary</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">107</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">21236</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">description</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">49</td>
+<td style="text-align:right">16144</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">21615</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">boardgamecategory</td>
+<td style="text-align:right">283</td>
+<td style="text-align:right">0.99</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">216</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">6730</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">boardgamemechanic</td>
+<td style="text-align:right">1590</td>
+<td style="text-align:right">0.93</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">478</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">8291</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">boardgamefamily</td>
+<td style="text-align:right">3761</td>
+<td style="text-align:right">0.83</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">2768</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">11285</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">boardgameexpansion</td>
+<td style="text-align:right">16125</td>
+<td style="text-align:right">0.25</td>
+<td style="text-align:right">7</td>
+<td style="text-align:right">18150</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">5264</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">boardgameimplementation</td>
+<td style="text-align:right">16769</td>
+<td style="text-align:right">0.22</td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">890</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">4247</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">boardgamedesigner</td>
+<td style="text-align:right">596</td>
+<td style="text-align:right">0.97</td>
+<td style="text-align:right">7</td>
+<td style="text-align:right">332</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">9136</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">boardgameartist</td>
+<td style="text-align:right">5907</td>
+<td style="text-align:right">0.73</td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">8408</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">9080</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">boardgamepublisher</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">3744</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">11265</td>
+<td style="text-align:right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">skim_variable</th>
+<th style="text-align:right">n_missing</th>
+<th style="text-align:right">complete_rate</th>
+<th style="text-align:right">mean</th>
+<th style="text-align:right">sd</th>
+<th style="text-align:right">p0</th>
+<th style="text-align:right">p25</th>
+<th style="text-align:right">p50</th>
+<th style="text-align:right">p75</th>
+<th style="text-align:right">p100</th>
+<th style="text-align:left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">num</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">10815.00</td>
+<td style="text-align:right">6244.48</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">5407.5</td>
+<td style="text-align:right">10815</td>
+<td style="text-align:right">16222.5</td>
+<td style="text-align:right">21630</td>
+<td style="text-align:left">▇▇▇▇▇</td>
+</tr>
+<tr>
+<td style="text-align:left">id</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">118133.09</td>
+<td style="text-align:right">105310.42</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">12280.5</td>
+<td style="text-align:right">105187</td>
+<td style="text-align:right">207013.0</td>
+<td style="text-align:right">350992</td>
+<td style="text-align:left">▇▂▃▃▂</td>
+</tr>
+<tr>
+<td style="text-align:left">yearpublished</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1986.09</td>
+<td style="text-align:right">210.04</td>
+<td style="text-align:right">-3500</td>
+<td style="text-align:right">2001.0</td>
+<td style="text-align:right">2011</td>
+<td style="text-align:right">2017.0</td>
+<td style="text-align:right">2023</td>
+<td style="text-align:left">▁▁▁▁▇</td>
+</tr>
+<tr>
+<td style="text-align:left">minplayers</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">2.01</td>
+<td style="text-align:right">0.69</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">2.0</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">2.0</td>
+<td style="text-align:right">10</td>
+<td style="text-align:left">▇▁▁▁▁</td>
+</tr>
+<tr>
+<td style="text-align:left">maxplayers</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">5.71</td>
+<td style="text-align:right">15.10</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">4.0</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">6.0</td>
+<td style="text-align:right">999</td>
+<td style="text-align:left">▇▁▁▁▁</td>
+</tr>
+<tr>
+<td style="text-align:left">playingtime</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">90.51</td>
+<td style="text-align:right">534.83</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">25.0</td>
+<td style="text-align:right">45</td>
+<td style="text-align:right">90.0</td>
+<td style="text-align:right">60000</td>
+<td style="text-align:left">▇▁▁▁▁</td>
+</tr>
+<tr>
+<td style="text-align:left">minplaytime</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">63.65</td>
+<td style="text-align:right">447.21</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">20.0</td>
+<td style="text-align:right">30</td>
+<td style="text-align:right">60.0</td>
+<td style="text-align:right">60000</td>
+<td style="text-align:left">▇▁▁▁▁</td>
+</tr>
+<tr>
+<td style="text-align:left">maxplaytime</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">90.51</td>
+<td style="text-align:right">534.83</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">25.0</td>
+<td style="text-align:right">45</td>
+<td style="text-align:right">90.0</td>
+<td style="text-align:right">60000</td>
+<td style="text-align:left">▇▁▁▁▁</td>
+</tr>
+<tr>
+<td style="text-align:left">minage</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">9.61</td>
+<td style="text-align:right">3.64</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">8.0</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">12.0</td>
+<td style="text-align:right">25</td>
+<td style="text-align:left">▂▇▆▁▁</td>
+</tr>
+<tr>
+<td style="text-align:left">owned</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1487.92</td>
+<td style="text-align:right">5395.08</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">150.0</td>
+<td style="text-align:right">322</td>
+<td style="text-align:right">903.5</td>
+<td style="text-align:right">168364</td>
+<td style="text-align:left">▇▁▁▁▁</td>
+</tr>
+<tr>
+<td style="text-align:left">trading</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">43.59</td>
+<td style="text-align:right">102.41</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">5.0</td>
+<td style="text-align:right">13</td>
+<td style="text-align:right">38.0</td>
+<td style="text-align:right">2508</td>
+<td style="text-align:left">▇▁▁▁▁</td>
+</tr>
+<tr>
+<td style="text-align:left">wanting</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">42.03</td>
+<td style="text-align:right">117.94</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">3.0</td>
+<td style="text-align:right">9</td>
+<td style="text-align:right">29.0</td>
+<td style="text-align:right">2011</td>
+<td style="text-align:left">▇▁▁▁▁</td>
+</tr>
+<tr>
+<td style="text-align:left">wishing</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">233.66</td>
+<td style="text-align:right">800.66</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">14.0</td>
+<td style="text-align:right">39</td>
+<td style="text-align:right">131.0</td>
+<td style="text-align:right">19325</td>
+<td style="text-align:left">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+<p>Looks like there are 200 games missing descriptions:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ratings <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">anti_join</span>(., details, by <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;id&#34;</span>)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">nrow</span>()
+</code></pre></div><pre><code>## [1] 200
+</code></pre><p>The distribution of the outcome variable, ratings, is somewhat normally distributed with a mean rating of 6.42 out of 10.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">n_games <span style="color:#666">&lt;-</span> 
+  ratings <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">distinct</span>(name) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">nrow</span>()
+
+overall_avg <span style="color:#666">&lt;-</span> 
+  ratings <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">summarise</span>(mean_rating <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(average, na.rm <span style="color:#666">=</span> T)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">pull</span>(mean_rating)
+
+ratings <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> average)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_histogram</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">.75</span>, fill <span style="color:#666">=</span> bg_green) <span style="color:#666">+</span> 
+  <span style="color:#06287e">bg_theme</span>(base_size <span style="color:#666">=</span> <span style="color:#40a070">13</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_vline</span>(<span style="color:#06287e">aes</span>(xintercept <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(average)), linetype <span style="color:#666">=</span> <span style="color:#4070a0">&#39;dashed&#39;</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">scale_y_continuous</span>(expand <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">0</span>, <span style="color:#40a070">25</span>), breaks <span style="color:#666">=</span> <span style="color:#06287e">seq</span>(<span style="color:#40a070">0</span>, <span style="color:#40a070">3000</span>, <span style="color:#40a070">100</span>)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">labs</span>(x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;rating&#34;</span>, y <span style="color:#666">=</span> <span style="color:#4070a0">&#39;&#39;</span>, title <span style="color:#666">=</span>  <span style="color:#06287e">paste</span>(<span style="color:#4070a0">&#34;rating distribution of&#34;</span>, <span style="color:#06287e">format</span>(n_games, big.mark <span style="color:#666">=</span> <span style="color:#4070a0">&#39;,&#39;</span>),
+                                            <span style="color:#4070a0">&#34;games&#34;</span>),
+       subtitle <span style="color:#666">=</span> <span style="color:#06287e">paste</span>(<span style="color:#4070a0">&#34;overall avg rating:&#34;</span>, <span style="color:#06287e">round</span>(overall_avg, <span style="color:#40a070">2</span>)))
+</code></pre></div><p><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-7-1.png" width="864" /></p>
+<p>Here we can dive into the category column. First we combine the ratings data with the details and then tokenize the category column into individual rows per category descriptor. This wirll help form the basis of the text recipe developed later on.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">combined <span style="color:#666">&lt;-</span> 
+  ratings <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">inner_join</span>(., details <span style="color:#666">%&gt;%</span> <span style="color:#06287e">select</span>(<span style="color:#666">-</span>num), by <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;id&#34;</span>)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(<span style="color:#666">-</span><span style="color:#06287e">c</span>(url, rank, bayes_average, users_rated, yearpublished, thumbnail, primary,
+            boardgameexpansion, boardgameimplementation, boardgamedesigner, description,
+            boardgamepublisher,boardgameartist, boardgamefamily, boardgamemechanic,
+            owned, trading, wanting, wishing, minplaytime, maxplaytime, year)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(num, id, name, average, boardgamecategory, <span style="color:#06287e">everything</span>()) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">rename</span>(category <span style="color:#666">=</span> boardgamecategory) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(category <span style="color:#666">=</span> <span style="color:#06287e">str_remove_all</span>(category, <span style="color:#4070a0">&#34;&#39;&#34;</span>),
+         category <span style="color:#666">=</span> <span style="color:#06287e">str_remove_all</span>(category, <span style="color:#4070a0">&#39;&#34;&#39;</span>),
+         category <span style="color:#666">=</span> <span style="color:#06287e">str_replace_all</span>(category, <span style="color:#4070a0">&#34;\\[|\\]&#34;</span>, <span style="color:#4070a0">&#34;&#34;</span>),
+         category <span style="color:#666">=</span> <span style="color:#06287e">trimws</span>(category)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(<span style="color:#666">!</span>(<span style="color:#06287e">is.na</span>(category)))
+
+tidy_category <span style="color:#666">&lt;-</span>
+  combined <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">unnest_tokens</span>(word, category)
+
+tidy_category <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">count</span>(word, sort <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+</code></pre></div><pre><code>## # A tibble: 113 × 2
+##    word         n
+##    &lt;chr&gt;    &lt;int&gt;
+##  1 game     10882
+##  2 card      6402
+##  3 wargame   3820
+##  4 fantasy   2681
+##  5 war       1996
+##  6 party     1968
+##  7 dice      1847
+##  8 fiction   1666
+##  9 science   1666
+## 10 fighting  1658
+## # … with 103 more rows
+</code></pre><p>Since we are also including non-text data in the model, we should explore those predictors as well. The function below iterates over the numeric columns and checks the relationship between the numeric columns with the average rating. There are a number of outliers that need to be handled to make the plots more meaningful.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">get_scatter <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">function</span>(data, var){
+    
+    variable_filter <span style="color:#666">&lt;-</span> 
+      <span style="color:#06287e">if </span>(var <span style="color:#666">==</span> <span style="color:#4070a0">&#34;maxplayers&#34;</span>){
+        <span style="color:#40a070">25</span>
+      } else <span style="color:#06287e">if </span>(var <span style="color:#666">==</span> <span style="color:#4070a0">&#34;playingtime&#34;</span>){
+        <span style="color:#40a070">500</span>
+      } else {
+        <span style="color:#40a070">10000000</span>
+      }
+    
+    data <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">select</span>(average, <span style="color:#06287e">one_of</span>({{var}})) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">rename</span>(variable <span style="color:#666">=</span> <span style="color:#40a070">2</span>) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">filter</span>(variable <span style="color:#666">&lt;=</span> variable_filter) <span style="color:#666">%&gt;%</span>
+      <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> average, y <span style="color:#666">=</span> variable)) <span style="color:#666">+</span>
+      <span style="color:#06287e">geom_point</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">.3</span>, color <span style="color:#666">=</span> bg_green) <span style="color:#666">+</span> 
+      <span style="color:#06287e">bg_theme</span>(base_size <span style="color:#666">=</span> <span style="color:#40a070">13</span>) <span style="color:#666">+</span>
+      <span style="color:#06287e">labs</span>(x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;avg rating&#34;</span>, y <span style="color:#666">=</span> var, title <span style="color:#666">=</span> <span style="color:#06287e">paste</span>(var, <span style="color:#4070a0">&#34;vs average rating&#34;</span>))
+
+  }
+
+numeric_cols <span style="color:#666">&lt;-</span> 
+  combined <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(<span style="color:#06287e">where</span>(is.numeric)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(<span style="color:#666">-</span><span style="color:#06287e">c</span>(id, num, average)) <span style="color:#666">%&gt;%</span>
+  names
+
+purrr<span style="color:#666">::</span><span style="color:#06287e">map</span>(numeric_cols, <span style="color:#666">~</span><span style="color:#06287e">get_scatter</span>(combined, .x))
+</code></pre></div><pre><code>## [[1]]
+</code></pre><p><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-9-1.png" width="864" /></p>
+<pre><code>## 
+## [[2]]
+</code></pre><p><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-9-2.png" width="864" /></p>
+<pre><code>## 
+## [[3]]
+</code></pre><p><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-9-3.png" width="864" /></p>
+<pre><code>## 
+## [[4]]
+</code></pre><p><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-9-4.png" width="864" /></p>
+
+
+
+
+<h2 id="create-some-models">Create Some Models
+  <a href="#create-some-models"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h2>
+<p>To prep the text data for modeling we can create a matrix with each words TF-IDf value. From the <code>step_tfidf()</code> documentation:</p>
+<blockquote>
+<p>Term frequency-inverse document frequency is the product of two statistics: the term frequency (TF) and the inverse document frequency (IDF).</p>
+<p>Term frequency measures how many times each token appears in each observation.</p>
+<p>Inverse document frequency is a measure of how informative a word is, e.g., how common or rare the word is across all the observations. If a word &gt;appears in all the observations it might not give that much insight, but if it only appears in some it might help differentiate between observations.</p>
+<p>The IDF is defined as follows: idf = log(1 + (# documents in the corpus) / (# documents where the term appears))</p>
+</blockquote>
+<p>Normally we&rsquo;d used <code>step_tokenfilter()</code> as well, but there are not that many categories so we can use all 113. The important step here is to prep() the recipe and then bake() the results. This sequence of functions applies and executes the recipe, and returns a dataframe ready to be joined with the other predictors.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">text_prep <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">recipe</span>(average <span style="color:#666">~</span> num <span style="color:#666">+</span> id <span style="color:#666">+</span> name <span style="color:#666">+</span> category, data <span style="color:#666">=</span> combined) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">update_role</span>(num, id, name, new_role <span style="color:#666">=</span> <span style="color:#4070a0">&#34;ID variables&#34;</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">step_tokenize</span>(category) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">step_tfidf</span>(category) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">prep</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">bake</span>(new_data <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">NULL</span>)
+
+text_prep
+</code></pre></div><pre><code>## # A tibble: 21,348 × 117
+##      num     id name  average tfidf_category_… tfidf_category_… tfidf_category_…
+##    &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1   105  30549 Pand…    7.59                0                0                0
+##  2   189    822 Carc…    7.42                0                0                0
+##  3   428     13 Catan    7.14                0                0                0
+##  4    72  68448 7 Wo…    7.74                0                0                0
+##  5   103  36218 Domi…    7.61                0                0                0
+##  6   191   9209 Tick…    7.41                0                0                0
+##  7   100 178900 Code…    7.6                 0                0                0
+##  8     3 167791 Terr…    8.42                0                0                0
+##  9    15 173346 7 Wo…    8.11                0                0                0
+## 10    35  31260 Agri…    7.93                0                0                0
+## # … with 21,338 more rows, and 110 more variables:
+## #   tfidf_category_adventure &lt;dbl&gt;, tfidf_category_age &lt;dbl&gt;,
+## #   tfidf_category_agents &lt;dbl&gt;, tfidf_category_american &lt;dbl&gt;,
+## #   tfidf_category_ancient &lt;dbl&gt;, tfidf_category_and &lt;dbl&gt;,
+## #   tfidf_category_animals &lt;dbl&gt;, tfidf_category_arabian &lt;dbl&gt;,
+## #   tfidf_category_aviation &lt;dbl&gt;, tfidf_category_base &lt;dbl&gt;,
+## #   tfidf_category_based &lt;dbl&gt;, tfidf_category_bluffing &lt;dbl&gt;, …
+</code></pre><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">model_data <span style="color:#666">&lt;-</span> 
+  combined <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(<span style="color:#666">-</span>category) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">left_join</span>(., text_prep <span style="color:#666">%&gt;%</span> <span style="color:#06287e">select</span>(<span style="color:#666">-</span><span style="color:#06287e">c</span>(num, name, average)), <span style="color:#4070a0">&#34;id&#34;</span>) 
+
+model_data
+</code></pre></div><pre><code>## # A tibble: 21,348 × 121
+##      num     id name            average minplayers maxplayers playingtime minage
+##    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;
+##  1   105  30549 Pandemic           7.59          2          4          45      8
+##  2   189    822 Carcassonne        7.42          2          5          45      7
+##  3   428     13 Catan              7.14          3          4         120     10
+##  4    72  68448 7 Wonders          7.74          2          7          30     10
+##  5   103  36218 Dominion           7.61          2          4          30     13
+##  6   191   9209 Ticket to Ride     7.41          2          5          60      8
+##  7   100 178900 Codenames          7.6           2          8          15     14
+##  8     3 167791 Terraforming M…    8.42          1          5         120     12
+##  9    15 173346 7 Wonders Duel     8.11          2          2          30     10
+## 10    35  31260 Agricola           7.93          1          5         150     12
+## # … with 21,338 more rows, and 113 more variables:
+## #   tfidf_category_abstract &lt;dbl&gt;, tfidf_category_action &lt;dbl&gt;,
+## #   tfidf_category_adult &lt;dbl&gt;, tfidf_category_adventure &lt;dbl&gt;,
+## #   tfidf_category_age &lt;dbl&gt;, tfidf_category_agents &lt;dbl&gt;,
+## #   tfidf_category_american &lt;dbl&gt;, tfidf_category_ancient &lt;dbl&gt;,
+## #   tfidf_category_and &lt;dbl&gt;, tfidf_category_animals &lt;dbl&gt;,
+## #   tfidf_category_arabian &lt;dbl&gt;, tfidf_category_aviation &lt;dbl&gt;, …
+</code></pre><p>Then we prep for modelling by creating splits, resamples, model specifications, recipes (several to compare), and the workflowset:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">set.seed</span>(<span style="color:#40a070">113</span>)
+splits <span style="color:#666">&lt;-</span> 
+  model_data <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">initial_split</span>(strata <span style="color:#666">=</span> average)
+
+train <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">training</span>(splits)
+test <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">testing</span>(splits)
+
+folds <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">vfold_cv</span>(train, strata <span style="color:#666">=</span> average)
+</code></pre></div><p>3 recipes are created here with the goal of seeing which combination works the best: one with the just text features, <code>recipe_text</code> and one without any text features, <code>recipe_no_text</code> and then one with all features, <code>recipe_all</code>.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">recipe_all <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">recipe</span>(average <span style="color:#666">~</span> ., data <span style="color:#666">=</span> train) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">update_role</span>(num, id, name, new_role <span style="color:#666">=</span> <span style="color:#4070a0">&#34;ID variables&#34;</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">step_normalize</span>(minplayers, maxplayers, playingtime, minage)
+
+recipe_text <span style="color:#666">&lt;-</span> 
+  recipe_all <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">step_rm</span>(minplayers, maxplayers, playingtime, minage)
+
+recipe_no_text <span style="color:#666">&lt;-</span> 
+  recipe_all <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">step_rm</span>(<span style="color:#06287e">starts_with</span>(<span style="color:#4070a0">&#39;tfidf&#39;</span>))
+</code></pre></div><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">svm_spec <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">svm_linear</span>(cost <span style="color:#666">=</span> <span style="color:#06287e">tune</span>(),
+             margin <span style="color:#666">=</span> <span style="color:#06287e">tune</span>()
+  ) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">set_mode</span>(<span style="color:#4070a0">&#34;regression&#34;</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">set_engine</span>(<span style="color:#4070a0">&#34;LiblineaR&#34;</span>)
+
+lasso_spec <span style="color:#666">&lt;-</span> 
+  parsnip<span style="color:#666">::</span><span style="color:#06287e">linear_reg</span>(penalty <span style="color:#666">=</span> <span style="color:#06287e">tune</span>(), 
+                      mixture <span style="color:#666">=</span> <span style="color:#40a070">1</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">set_engine</span>(<span style="color:#4070a0">&#34;glmnet&#34;</span>)
+
+mars_spec <span style="color:#666">&lt;-</span> 
+  parsnip<span style="color:#666">::</span><span style="color:#06287e">mars</span>(num_terms <span style="color:#666">=</span> <span style="color:#06287e">tune</span>(),
+                prod_degree <span style="color:#666">=</span> <span style="color:#06287e">tune</span>()) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">set_mode</span>(<span style="color:#4070a0">&#39;regression&#39;</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">set_engine</span>(<span style="color:#4070a0">&#34;earth&#34;</span>)
+
+workflows <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">workflow_set</span>(
+    preproc <span style="color:#666">=</span> <span style="color:#06287e">list</span>(recipe_all <span style="color:#666">=</span> recipe_all,
+                   recipe_text <span style="color:#666">=</span> recipe_text,
+                   recipe_numeric <span style="color:#666">=</span> recipe_no_text), 
+    models <span style="color:#666">=</span> <span style="color:#06287e">list</span>(svm <span style="color:#666">=</span> svm_spec,
+                  lasso <span style="color:#666">=</span> lasso_spec,
+                  mars <span style="color:#666">=</span> mars_spec
+    ),
+    cross <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+
+workflows
+</code></pre></div><pre><code>## # A workflow set/tibble: 9 × 4
+##   wflow_id             info             option    result    
+##   &lt;chr&gt;                &lt;list&gt;           &lt;list&gt;    &lt;list&gt;    
+## 1 recipe_all_svm       &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
+## 2 recipe_all_lasso     &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
+## 3 recipe_all_mars      &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
+## 4 recipe_text_svm      &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
+## 5 recipe_text_lasso    &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
+## 6 recipe_text_mars     &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
+## 7 recipe_numeric_svm   &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
+## 8 recipe_numeric_lasso &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
+## 9 recipe_numeric_mars  &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;
+</code></pre><p>Here we compare the model performance. It looks like the lasso models with the full set of predictors performs the best (circles) and the models without the category text performed the worst (triangles)</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">grid_ctrl <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">control_grid</span>(
+    save_pred <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>,
+    allow_par <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>,
+    parallel_over <span style="color:#666">=</span> <span style="color:#4070a0">&#34;everything&#34;</span>,
+    verbose <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>
+  )
+
+cl <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">makeCluster</span>(<span style="color:#40a070">10</span>)
+
+doParallel<span style="color:#666">::</span><span style="color:#06287e">registerDoParallel</span>(cl)
+
+results <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">workflow_map</span>(fn <span style="color:#666">=</span> <span style="color:#4070a0">&#34;tune_grid&#34;</span>,
+               object <span style="color:#666">=</span> workflows,
+               seed <span style="color:#666">=</span> <span style="color:#40a070">155</span>,
+               verbose <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>,
+               control <span style="color:#666">=</span> grid_ctrl,
+               grid <span style="color:#666">=</span> <span style="color:#40a070">10</span>, 
+               resamples <span style="color:#666">=</span> folds,
+               metrics <span style="color:#666">=</span> <span style="color:#06287e">metric_set</span>(rmse, mae)
+  )
+
+<span style="color:#06287e">stopCluster</span>(cl)
+</code></pre></div><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">rank_results</span>(results, select_best <span style="color:#666">=</span> T) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">mutate</span>(model <span style="color:#666">=</span> <span style="color:#06287e">ifelse</span>(<span style="color:#06287e">str_detect</span>(wflow_id, <span style="color:#4070a0">&#34;lasso&#34;</span>), <span style="color:#4070a0">&#34;lasso&#34;</span>, model),
+         recipe_type <span style="color:#666">=</span> <span style="color:#06287e">case_when</span>(
+           <span style="color:#06287e">str_detect</span>(wflow_id, <span style="color:#4070a0">&#34;text&#34;</span>) <span style="color:#666">~</span> <span style="color:#4070a0">&#34;text_recipe&#34;</span>,
+           <span style="color:#06287e">str_detect</span>(wflow_id, <span style="color:#4070a0">&#34;all&#34;</span>) <span style="color:#666">~</span> <span style="color:#4070a0">&#34;full recipe&#34;</span>,
+           <span style="color:#007020;font-weight:bold">TRUE</span> <span style="color:#666">~</span> <span style="color:#4070a0">&#34;no_text_recipe&#34;</span>)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(.metric <span style="color:#666">==</span> <span style="color:#4070a0">&#39;rmse&#39;</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">.,aes</span>(x <span style="color:#666">=</span> rank,  y <span style="color:#666">=</span> mean, color <span style="color:#666">=</span> model, shape <span style="color:#666">=</span> recipe_type)) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_errorbar</span>(<span style="color:#06287e">aes</span>(ymin <span style="color:#666">=</span> mean <span style="color:#666">-</span> std_err, ymax <span style="color:#666">=</span> mean <span style="color:#666">+</span> std_err)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_point</span>(size <span style="color:#666">=</span> <span style="color:#40a070">3</span>, alpha <span style="color:#666">=</span> <span style="color:#40a070">.75</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">labs</span>(title <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Model Performance Across Recipes&#34;</span>, subtitle <span style="color:#666">=</span> <span style="color:#4070a0">&#34;metric: RMSE&#34;</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">bg_theme</span>(base_size <span style="color:#666">=</span> <span style="color:#40a070">13</span>) <span style="color:#666">+</span> 
+  ggsci<span style="color:#666">::</span><span style="color:#06287e">scale_color_npg</span>()
+</code></pre></div><p><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-16-1.png" width="864" /></p>
+<p>The predicted vs actual performance of the &ldquo;best&rdquo; model is not very good. But oh well, and anyway the goal of this post was to combine text data and non-text data into a model.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">best_results <span style="color:#666">&lt;-</span> 
+   results <span style="color:#666">%&gt;%</span> 
+   <span style="color:#06287e">extract_workflow_set_result</span>(<span style="color:#4070a0">&#34;recipe_all_lasso&#34;</span>) <span style="color:#666">%&gt;%</span> 
+   <span style="color:#06287e">select_best</span>(metric <span style="color:#666">=</span> <span style="color:#4070a0">&#34;rmse&#34;</span>)
+
+best_results
+</code></pre></div><pre><code>## # A tibble: 1 × 2
+##   penalty .config              
+##     &lt;dbl&gt; &lt;fct&gt;                
+## 1 0.00350 Preprocessor1_Model08
+</code></pre><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cl <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">makeCluster</span>(<span style="color:#40a070">10</span>)
+
+test_results <span style="color:#666">&lt;-</span> 
+   results <span style="color:#666">%&gt;%</span> 
+   <span style="color:#06287e">extract_workflow</span>(<span style="color:#4070a0">&#34;recipe_all_lasso&#34;</span>) <span style="color:#666">%&gt;%</span> 
+   <span style="color:#06287e">finalize_workflow</span>(best_results) <span style="color:#666">%&gt;%</span> 
+   <span style="color:#06287e">last_fit</span>(split <span style="color:#666">=</span> splits)
+
+<span style="color:#06287e">collect_metrics</span>(test_results)
+</code></pre></div><pre><code>## # A tibble: 2 × 4
+##   .metric .estimator .estimate .config             
+##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;fct&gt;               
+## 1 rmse    standard       0.822 Preprocessor1_Model1
+## 2 rsq     standard       0.215 Preprocessor1_Model1
+</code></pre><div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">stopCluster</span>(cl)
+
+test_results <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">collect_predictions</span>() <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> average, y <span style="color:#666">=</span> .pred)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_abline</span>(col <span style="color:#666">=</span> <span style="color:#4070a0">&#34;#e64b35&#34;</span>, lty <span style="color:#666">=</span> <span style="color:#40a070">2</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_point</span>(alpha <span style="color:#666">=</span> <span style="color:#40a070">0.35</span>, color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;#00a087&#34;</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">coord_obs_pred</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">labs</span>(x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;observed&#34;</span>, y <span style="color:#666">=</span> <span style="color:#4070a0">&#34;predicted&#34;</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">bg_theme</span>(base_size <span style="color:#666">=</span> <span style="color:#40a070">13</span>) <span style="color:#666">+</span> 
+  ggsci<span style="color:#666">::</span><span style="color:#06287e">scale_color_npg</span>()
+</code></pre></div><p><img src="https://brendangraham.online/blog/boardgames/index_files/figure-html/unnamed-chunk-17-1.png" width="864" /></p>
+
+        
+        <details closed class="f6 fw7 input-reset">
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Posted on:</dt>
+    <dd class="fw5 ml0">January 26, 2022</dd>
+  </dl>
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Length:</dt>
+    <dd class="fw5 ml0">12 minute read, 2428 words</dd>
+  </dl>
+  
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Categories:</dt>
+    <dd class="fw5 ml0"> <a href="https://brendangraham.online/categories/tidy-tuesday">tidy tuesday</a>  <a href="https://brendangraham.online/categories/tidymodels">tidymodels</a>  <a href="https://brendangraham.online/categories/data-science">data science</a> </dd>
+  </dl>
+  
+  
+  
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Tags:</dt>
+    <dd class="fw5 ml0"> <a href="https://brendangraham.online/tags/tidy-tuesday">tidy tuesday</a>  <a href="https://brendangraham.online/tags/tidymodels">tidymodels</a>  <a href="https://brendangraham.online/tags/data-science">data science</a> </dd>
+  </dl>
+  
+  <dl class="f6 lh-copy">
+    <dt class="fw7">See Also:</dt>
+    
+    <dd class="fw5 ml0"><a href="/blog/bigfoot/">Classifying Bigfoot Encounters</a></dd>
+    
+    <dd class="fw5 ml0"><a href="/blog/pell/">Creating a Hex Bin Map to Show Changes Pell Grants</a></dd>
+    
+    <dd class="fw5 ml0"><a href="/blog/dogs/">Getting started with topic modeling with dog breed traits</a></dd>
+    
+  </dl>
+</details>
+
+      </section>
+      <footer class="post-footer">
+        <div class="post-pagination dt w-100 mt4 mb2">
+  
+  
+    <a class="prev dtc pr2 tl v-top fw6"
+    href="https://brendangraham.online/blog/dogs/">&larr; Getting started with topic modeling with dog breed traits</a>
+  
+  
+  
+    <a class="next dtc pl2 tr v-top fw6"
+    href="https://brendangraham.online/blog/chocolate-ratings/">Comparing Traditional and Text-Based Models to Predict Chocolate Rating &rarr;</a>
+  
+</div>
+
+      </footer>
+    </article>
+    
+      
+<div class="post-comments pa0 pa4-l mt4">
+  
+  <script src="https://utteranc.es/client.js"
+          repo="brndngrhm/brendangraham.online"
+          issue-term="pathname"
+          theme="boxy-light"
+          label="comments :crystal_ball:"
+          crossorigin="anonymous"
+          async
+          type="text/javascript">
+  </script>
+  
+</div>
+
+    
+  </section>
+</main>
+<footer class="site-footer pv4 bt b--transparent ph5" role="contentinfo">
+  <nav class="db dt-l w-100">
+    <p class="site-copyright f7 db dtc-l v-mid w-100 w-33-l tc tl-l pv2 pv0-l mv0 lh-copy">
+      &copy; 2022
+      <span class="middot-divider"></span>
+      Made with <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/hugo-apero/" rel="dct:source">Hugo Apéro</a></span>.
+      <br />
+      
+Based on <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/formspree/blogophonic-hugo" rel="dct:source">Blogophonic</a></span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://formspree.io" property="cc:attributionName" rel="cc:attributionURL">Formspree</a>.
+    </p>
+    
+    <div class="site-social-links db dtc-l v-mid w-100 w-33-l tc pv2 pv0-l mv0">
+      <div class="social-icon-links" aria-hidden="true">
+  
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://github.com/brndngrhm" title="github" target="_blank" rel="noopener">
+      <i class="fab fa-github fa-lg fa-fw"></i>
+    </a>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://twitter.com/brndngrhm" title="twitter" target="_blank" rel="noopener">
+      <i class="fab fa-twitter fa-lg fa-fw"></i>
+    </a>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://www.linkedin.com/in/brndngrhm/" title="linkedin" target="_blank" rel="noopener">
+      <i class="fab fa-linkedin fa-lg fa-fw"></i>
+    </a>
+  
+</div>
+
+    </div>
+    
+    <div class="site-links f6 db dtc-l v-mid w-100 w-67-l tc tr-l pv2 pv0-l mv0">
+      
+      <a class="dib pv1 ph2 link" href="/license/" title="License">License</a>
+      
+      <a class="dib pv1 ph2 link" href="/contact/" title="Contact form">Contact</a>
+      
+    </div>
+  </nav>
+  
+    <script>
+
+    var i, text, code, codes = document.getElementsByTagName('code');
+    for (let i = 0; i < codes.length;) {
+      code = codes[i];
+      if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+        text = code.textContent;
+        if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
+          text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
+          code.textContent = text;
+        }
+        if (/^\\\((.|\s)+\\\)$/.test(text) ||
+            /^\\\[(.|\s)+\\\]$/.test(text) ||
+            /^\$(.|\s)+\$$/.test(text) ||
+            /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+          code.outerHTML = code.innerHTML;  
+          continue;
+        }
+      }
+      i++;
+    }
+</script>
+
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+
+    
+  
+  
+</footer>
+
+      </div>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>A Project Portfolio To Grow on Brendan Graham Online</title>
+    <link>https://brendangraham.online/art/</link>
+    <description>Recent content in A Project Portfolio To Grow on Brendan Graham Online</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 02 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/art/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Palmer Penguins</title>
+      <link>https://brendangraham.online/art/test/</link>
+      <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/art/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Palmer Penguins</title>
+      <link>https://brendangraham.online/art/test2/</link>
+      <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/art/test2/</guid>
+      <description>“Grid is the very first CSS module created specifically to solve the layout problems we&amp;rsquo;ve all been hacking our way around for as long as we&amp;rsquo;ve been making websites.”     — Chris House, A Complete Guide to CSS Grid Layout 1
+ Since I began building websites in Y2K, I&amp;rsquo;ve lost count how many times the phrase &amp;ldquo;&amp;hellip;there&amp;rsquo;s got to be a better way to do this&amp;rdquo; has passed my lips.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://brendangraham.online/art/img1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/art/img1/</guid>
+      <description>title: subtitle: &amp;quot;&amp;quot; excerpt: date: author: draft: false tags:
+ hugo-site categories: Theme Features R package  layout options: single or single-sidebar   layout: single-sidebar links:
+ icon: door-open icon_pack: fas name: website url: https://allisonhorst.github.io/palmerpenguins/ icon: github icon_pack: fab name: code url: https://github.com/allisonhorst/palmerpenguins/ icon: newspaper icon_pack: far name: Blog post url: https://education.rstudio.com/blog/2020/07/palmerpenguins-cran/   </description>
+    </item>
+    
+  </channel>
+</rss>

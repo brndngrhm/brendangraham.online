@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>data science on Home</title>
+    <link>https://brendangraham.online/categories/data-science/</link>
+    <description>Recent content in data science on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 17 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/categories/data-science/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Classifying Bigfoot Encounters</title>
+      <link>https://brendangraham.online/blog/bigfoot/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/bigfoot/</guid>
+      <description>In this post I analyze a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about Bigfoot Encounters. After exploring the data I test several different text model to categorize the quality of Bigfoot enounters based on their free text description.</description>
+    </item>
+    
+    <item>
+      <title>Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings</title>
+      <link>https://brendangraham.online/blog/boardgames/</link>
+      <pubDate>Wed, 26 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/boardgames/</guid>
+      <description>This post looks at a past 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about board game ratings. After looking at the data I attempt to predict avereage board game</description>
+    </item>
+    
+    <item>
+      <title>Comparing Traditional and Text-Based Models to Predict Chocolate Rating</title>
+      <link>https://brendangraham.online/blog/chocolate-ratings/</link>
+      <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/chocolate-ratings/</guid>
+      <description>This post looks at a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about chocolate. After looking at the data I compare text based and &amp;ldquo;traditional&amp;rdquo; modelling approaches to predict a chocolate ratings</description>
+    </item>
+    
+    <item>
+      <title>Trying out new Tidymodels package: vetiver</title>
+      <link>https://brendangraham.online/blog/bees/</link>
+      <pubDate>Tue, 11 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/bees/</guid>
+      <description>This post looks at a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about changes in bee colonies After looking at the data I build and locally deploy a model api to predict the percentage of colonies lost</description>
+    </item>
+    
+    <item>
+      <title>Modeling the Relationship between Whipped Cream and Calories of Starbucks Drinks</title>
+      <link>https://brendangraham.online/blog/starbucks/</link>
+      <pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/starbucks/</guid>
+      <description>This post looks at a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about the contents of various Starbucks drinks. After epxploring the data I model the effect whiped cream has on calories across variosu types of drinks.</description>
+    </item>
+    
+  </channel>
+</rss>

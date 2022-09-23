@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on Home</title>
+    <link>https://brendangraham.online/tags/r/</link>
+    <description>Recent content in R on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 02 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Wimbledon analysis part 1: get the data</title>
+      <link>https://brendangraham.online/blog/tennis-series/01-tennis/tennis-part1/</link>
+      <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/tennis-series/01-tennis/tennis-part1/</guid>
+      <description>This post is the first in a series on analyzing Wimbledon tournament data.</description>
+    </item>
+    
+  </channel>
+</rss>

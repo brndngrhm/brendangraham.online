@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>*Talks*
+ on Home</title>
+    <link>https://brendangraham.online/talk/</link>
+    <description>Recent content in *Talks*
+ on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 27 Jan 2020 11:40:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/talk/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Shiny New Things - Using R to Bridge the Gap in EMR Reporting</title>
+      <link>https://brendangraham.online/talk/rstudio_conf_2020/</link>
+      <pubDate>Mon, 27 Jan 2020 11:40:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/talk/rstudio_conf_2020/</guid>
+      <description>Presentation on how we use R for reporting purposes at Children&amp;rsquo;s Hospital of Philadelphia</description>
+    </item>
+    
+  </channel>
+</rss>

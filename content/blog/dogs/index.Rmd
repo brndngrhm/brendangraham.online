@@ -1,0 +1,347 @@
+---
+title: "Getting started with topic modeling with dog breed traits"
+author: Brendan Graham
+date: '2022-02-01'
+slug: dogs
+categories: 
+  - tidy tuesday
+  - topic modeling
+  - tidytext
+tags:
+  - tidy tuesday
+  - topic modeling
+  - tidytext
+subtitle: 
+summary: 'This post looks at a [TidyTuesday](https://github.com/rfordatascience/tidytuesday) data set about dog breeds. After looking at the data I try developing my first topic model'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+draft: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(echo = T, fig.height = 7, fig.width = 9, message = FALSE, warning = FALSE)
+
+options(scipen = 100)
+options(tidymodels.dark = TRUE) 
+
+library(tidyverse)
+library(lubridate)
+library(purrr)
+library(skimr)
+library(tidymodels)
+library(tidytext)
+library(rules)
+library(vetiver)
+library(doParallel)
+library(ggsci)
+library(stm)
+library(ggimage)
+library(tm)
+library(topicmodels)
+library(ggrepel)
+
+round_numerics <- 
+  function(data, digits = 2){
+    data %>%
+      mutate(across(where(is.numeric), ~ round(.x, digits)))
+  }
+
+add_table <- 
+  function(data, rows = 10){
+    data %>%
+      round_numerics() %>%
+      reactable::reactable(., fullWidth = F, resizable = T, filterable = T, 
+                           highlight = T, defaultPageSize = rows, wrap = TRUE,
+                           showSortIcon = T, striped = T, compact = T)
+  }
+
+bg_theme <- 
+  function(base_size = 11,
+           strip_text_size = 12,
+           strip_text_margin = 10,
+           subtitle_size = 13,
+           subtitle_margin = 10,
+           plot_title_size = 16,
+           plot_title_margin = 10,
+           font = "RobotoMono-Regular",
+           ...) {
+    
+    ret <-
+      ggplot2::theme_gray(base_family = font,
+                          base_size = base_size, ...,) +
+      theme(
+        panel.background = element_rect(fill = "#e9e9ea"),
+        plot.background = element_rect(fill = "#f3f3f3"),
+        legend.background = element_rect(fill = "#f3f3f3"),
+        panel.grid = element_line(color = "#ffffff"),
+        panel.grid.major = element_line(color = "#ffffff")
+        )
+    
+    ret$strip.text <-
+      ggplot2::element_text(
+        # hjust = 0,
+        vjust = -.8,
+        size = strip_text_size,
+        margin = ggplot2::margin(b = strip_text_margin),
+        family = font
+      )
+    
+    ret$plot.subtitle <-
+      ggplot2::element_text(
+        hjust = 0,
+        size = subtitle_size,
+        margin = ggplot2::margin(b = subtitle_margin),
+        family = font
+      )
+    
+    ret$plot.title <-
+      ggplot2::element_text(
+        hjust = 0,
+        size = plot_title_size,
+        margin = ggplot2::margin(b = plot_title_margin),
+        family = font
+      )
+    
+    ret
+  }
+
+bg_red <- "#E64B35"
+bg_green <- "#00a087"
+bg_blue <- "#4DBBD5"
+
+```
+
+## Introduction
+
+I first learned about topic modeling after watching this [video](https://www.youtube.com/watch?v=2i0Cu8MMGRc) of Julia Silge creating topic models for Spice Girls lyrics. After checking out this weeks Tidy Tuesday datasets I thought I might try to learn about topic modeling and to develop one using dog breed traits.
+
+## Explore the data
+
+```{r}
+breed_traits <-
+  readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_traits.csv') %>%
+  janitor::clean_names() %>%
+  mutate(breed = str_squish(breed))
+
+trait_description <-
+  readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/trait_description.csv') %>%
+  janitor::clean_names() %>%
+  mutate(trait = str_squish(trait))
+
+breed_rank_all <-
+  readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_rank.csv') %>%
+  janitor::clean_names() %>%
+  mutate(breed = str_squish(breed))
+  
+```
+
+```{r}
+breed_traits 
+```
+
+```{r}
+# trait_description <- 
+#   trait_description %>% 
+#   mutate(trait = stringr::str_to_lower(trait),
+#          trait = stringr::str_replace_all(trait, ' ', '_'),
+#          trait = stringr::str_replace_all(trait, '/', '_'))
+
+trait_description 
+```
+
+```{r}
+breed_rank_all
+```
+
+Top and bottom 5 breeds based on avg rank 2012-2020
+ 
+```{r}
+breed_rank_all %>%
+  select(-c(links, image)) %>%
+  pivot_longer(cols = starts_with("x"), values_to = 'rank') %>%
+  group_by(breed) %>%
+  summarise(mean_rank = mean(rank, na.rm = T),
+            sd = sd(rank, na.rm = T)) %>%
+  ungroup() %>%
+  arrange(mean_rank) %>%
+  mutate(rank = row_number()) %>% 
+  filter(rank <=5 | rank >= nrow(.) - 4) %>% 
+    add_table(rows = 10)
+```
+
+Between 2013 - 2020, Labrador Retrievers were never *not* #1. French Bulldogs ranking was are most improved from 9 to 2, while Yorkshire Terriers have largest drop from 6 to 10.
+
+```{r}
+
+breed_rank_all %>%
+  # select(-c(links, image)) %>%
+  pivot_longer(cols = starts_with("x"), values_to = 'rank') %>%
+  mutate(name = str_replace_all(name, "x", ""),
+         name = str_replace_all(name, "_rank", ""),
+         year = as.numeric(name)
+  ) %>%
+  select(-name) %>%
+  group_by(year) %>%
+  mutate(top_15 = ifelse(rank <= 10, 1, 0)) %>% 
+  filter(top_15 == 1) %>%
+  ungroup() %>%
+  group_by(breed) %>%
+  mutate(
+    label = case_when(
+      year == min(year) ~ paste(breed, rank),
+      year == max(year) ~ paste(breed, rank),
+      TRUE ~ NA_character_),
+    image_url = case_when(
+      year == min(year) ~ image,
+      year == max(year) ~ image,
+      TRUE ~ NA_character_)) %>%
+  ggplot(aes(x = as.factor(year), y = rank, group = breed, label = label)) + 
+  geom_point(show.legend = FALSE, aes(color = breed)) + 
+  geom_line(show.legend = FALSE, aes(color = breed)) + 
+  geom_image(aes(image = image_url), size=.05) + 
+  geom_label_repel(nudge_y = 0.4) + 
+  bg_theme() + 
+  scale_y_continuous(breaks = seq(1, 10, 1)) + 
+  labs(x = NULL, y = "rank", title = "Changes in Breed Ranks", subtitle = "top 10 breeds in each year only") 
+
+```
+
+```{r eval = FALSE}
+mean_rank <- 
+  breed_rank_all %>%
+  select(-c(links, image)) %>%
+  pivot_longer(cols = starts_with("x"), values_to = 'rank') %>%
+  group_by(breed) %>%
+  summarise(mean_rank = mean(rank, na.rm = T),
+            sd = sd(rank)) %>% 
+  mutate(breed = trimws(breed),
+         breed = as.character(breed)) %>%
+  ungroup() %>%
+  arrange(mean_rank) %>%
+  mutate(rank = row_number()) %>%
+  ungroup() %>%
+  as_tibble()
+
+```
+
+```{r eval = FALSE}
+traits <- 
+  breed_traits %>%
+  select(breed, coat_type, coat_length, everything()) %>% 
+  ungroup() %>%
+  as_tibble() %>%
+  pivot_longer(cols = 4:ncol(.), names_to = "trait", values_to = 'trait_score') %>% 
+  left_join(., trait_description, by = 'trait') %>%
+  ungroup() %>%
+  as_tibble() %>% 
+  left_join(., mean_rank, by = 'breed')
+
+traits %>% 
+  add_table()
+
+```
+
+## Topic Modeling
+
+This dataset gave the opportunity to dive into [Text Mining with R](https://www.tidytextmining.com/index.html) to learn more about text analysis and topic modeling.
+
+ > Topic modeling is a method for unsupervised classification of such documents, similar to clustering on numeric data, which finds natural groups of items even when we’re not sure what we’re looking for.
+
+Next the tidytext’s `unnest_tokens()` is used to separate the trait descriptions into words, then stop words and some other the common words are removed. This results in a dataframe with 1 word per trait per row. as a first step
+
+```{r}
+
+trait_list <- 
+  c("Affectionate With Family", "Trainability Level", "Barking Level", "Mental Stimulation Needs")
+
+tidy_descripion <-
+  trait_description %>%
+  filter(trait %in% trait_list) %>%
+  unnest_tokens(word, description) %>%
+  anti_join(get_stopwords()) %>% 
+  filter(!word %in% c("breed", "breeds", "breed's", "dogs"))
+  
+tidy_descripion %>%
+  count(word, sort = TRUE)
+
+```
+
+Next we need to make the data into a `DocumentTermMatrix` using `cast_dtm()`
+
+```{r}
+
+desc_dtm <-
+  tidy_descripion %>%
+  count(trait, word) %>%
+  tidytext::cast_dtm(trait, word, n)
+
+dim(desc_dtm)
+
+```
+
+This means there are 4 traits (i.e. documents) and 76 different tokens (i.e. terms or words) in our dataset for modeling. Then we use `LDA()` to create a 4 topic model, one for each of the 4 traits we filtered for above.
+
+```{r}
+# Latent Dirichlet allocation algorithms for topic modelling
+traits_lda <- 
+  LDA(desc_dtm, k = 4, control = list(seed = 173))
+
+traits_lda
+```
+
+we can examine per-topic-per-word probabilities, `r expression(beta)`, where the model computes the probability of a given term being generated from a given topic. For example, the term “affectionate” has an almost zero probability of being generated from topics 1, 2, or 3, but it makes up about 5% of topic 4. 
+
+```{r}
+# per-topic-per-word probabilities.
+trait_topics <- 
+  tidy(traits_lda, matrix = "beta")
+
+trait_topics
+```
+
+From the plot we can pretty clearly see that topic 1 is probably Mental Stimulation Needs, topic 2 is likely Trainability Level, topic 3 is Barking Level and topic 4 is probably Affectionate With Family
+
+```{r}
+top_terms <- 
+  trait_topics %>%
+  ungroup() %>%
+  group_by(topic) %>%
+  slice_max(beta, n = 5, with_ties = FALSE) %>% 
+  ungroup() %>%
+  arrange(topic, -beta)
+
+top_terms %>%
+  mutate(term = reorder_within(term, beta, topic)) %>%
+  ggplot(aes(x = beta, y = term, fill = factor(topic))) +
+  geom_col(show.legend = FALSE, alpha = .76) +
+  facet_wrap(~ topic, scales = "free") +
+  scale_y_reordered() + 
+  bg_theme() +
+  scale_fill_npg()
+
+```
+
+We can then examine per-document-per-topic probabilities, `r expression(gamma)`. This lets us take a look at topic probabilities of each trait. This aligns well with the plot above.
+
+```{r}
+
+traits_gamma <- 
+  tidy(traits_lda, matrix = "gamma")
+
+traits_gamma
+
+traits_gamma %>%
+  ggplot(aes(x = factor(topic), y = gamma, color = factor(topic))) +
+  geom_point(size = 3, show.legend = FALSE) +
+  facet_wrap(~ document) +
+  labs(x = "topic", y = expression(gamma)) + 
+  bg_theme() +
+  scale_color_npg()
+
+```

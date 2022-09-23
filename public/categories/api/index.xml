@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>api on Home</title>
+    <link>https://brendangraham.online/categories/api/</link>
+    <description>Recent content in api on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 11 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/categories/api/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Trying out new Tidymodels package: vetiver</title>
+      <link>https://brendangraham.online/blog/bees/</link>
+      <pubDate>Tue, 11 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/bees/</guid>
+      <description>This post looks at a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about changes in bee colonies After looking at the data I build and locally deploy a model api to predict the percentage of colonies lost</description>
+    </item>
+    
+  </channel>
+</rss>

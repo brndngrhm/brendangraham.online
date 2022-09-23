@@ -1,0 +1,141 @@
+---
+title: "Legos"
+author: Brendan Graham
+date: '2022-02-01'
+slug: dogs
+categories: 
+  - tidy tuesday
+tags:
+  - tidy tuesday
+subtitle: 
+summary: 
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+draft: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(tidytuesdayR)
+library(tidyverse)
+library(lubridate)
+library(highcharter)
+library(plotly)
+library(purrr)
+library(skimr)
+library(here)
+library(ggrepel)
+library(tidymodels)
+library(rules)
+library(doParallel)
+library(ghibli)
+library(gghighlight)
+library(highcharter)
+library(ggsci)
+library(usdata)
+
+source(here::here("content", "blog", "util.R"))
+
+inventories <-
+  readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-09-06/inventories.csv.gz')
+
+inventory_sets <-
+    readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-09-06/inventory_sets.csv.gz')
+
+sets <-
+  readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-09-06/sets.csv.gz')
+
+theme_dict <- 
+  readr::read_csv(here::here("content", "blog", "legos", "themes.csv"))
+
+skimr::skim(inventories)
+skimr::skim(inventory_sets)
+skimr::skim(sets)
+
+inventories %>% 
+  get_table()
+
+inventory_sets %>% 
+  get_table()
+
+sets %>% 
+  get_table()
+  
+```
+
+```{r}
+
+sets %>%
+  filter(num_parts > 10) %>%
+  group_by(year) %>%
+  summarise(total_sets = n_distinct(set_num),
+            mean_parts = mean(num_parts, na.rm = T),
+            sd_parts = sd(num_parts, na.rm = T)) %>%
+  ggplot(., aes(x = year, y = mean_parts)) + 
+  geom_point(aes(size = total_sets, color = rev(total_sets)), alpha = .75) + 
+  geom_errorbar(aes(ymin = mean_parts - sd_parts, ymax = mean_parts + sd_parts)) + 
+  bg_theme()
+
+
+sets %>%
+  filter(num_parts > 10) %>%
+  group_by(year) %>%
+  summarise(total_sets = n_distinct(set_num),
+            mean_parts = mean(num_parts, na.rm = T),
+            sd_parts = sd(num_parts, na.rm = T)) %>%
+  ggplot(., aes(x = year, y = mean_parts)) + 
+  geom_point(aes(size = total_sets, color = rev(total_sets)), alpha = .75) + 
+  geom_errorbar(aes(ymin = mean_parts - sd_parts, ymax = mean_parts + sd_parts)) + 
+  bg_theme()
+
+```
+
+```{r}
+plot_test <- 
+  sets %>%
+  left_join(., theme_dict %>% rename(theme_name = name), by = c("theme_id" = "id")) %>% 
+  filter(num_parts > 10) %>%
+  group_by(theme_name) %>%
+  summarise(n = n(),
+            mean_parts = mean(num_parts)) %>% 
+  filter(n > 15) %>%
+  ggplot(., aes(x = n, y = mean_parts, color = theme_name, label = theme_name)) + 
+  geom_point(show.legend = FALSE) + 
+  geom_hline(aes(yintercept = median(mean_parts))) + 
+  geom_vline(aes(xintercept = median(n))) + 
+  geom_text_repel(max.overlaps = 25, show.legend = FALSE) + 
+  bg_theme() + 
+  labs(x = "Count of Sets per Theme", y = "Mean Parts per Set", title = "Avg Parts vs Count of Sets")
+
+sets %>%
+  left_join(., theme_dict %>% rename(theme_name = name), by = c("theme_id" = "id")) %>%
+  filter(num_parts > 10) %>%
+  group_by(theme_name, theme_id, name) %>% 
+  tally(sort = T) %>% 
+  get_table()
+
+
+
+sets %>%
+  filter(num_parts > 10) %>%
+  left_join(., theme_dict %>% rename(theme_name = name), by = c("theme_id" = "id")) %>%
+  group_by(theme_name) %>% 
+  summarise(total_sets = n_distinct(set_num),
+            mean_parts = mean(num_parts, na.rm = T),
+            sd_parts = sd(num_parts, na.rm = T)) %>%
+  ungroup() %>%
+  top_n(n = 50, wt = mean_parts) %>%
+  ggplot(., aes(x = reorder(theme_name, mean_parts), y = mean_parts)) + 
+  geom_point() + 
+  coord_flip() + 
+  geom_errorbar(aes(ymin = mean_parts - sd_parts, ymax = mean_parts + sd_parts)) + 
+  bg_theme()
+
+
+```
+

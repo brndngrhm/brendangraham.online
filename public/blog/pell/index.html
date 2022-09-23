@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head>
+  
+                           
+     
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.80.0" />
+<title>Creating a Hex Bin Map to Show Changes Pell Grants | Home</title>
+
+
+<meta property="twitter:site" content="@brndngrhm">
+<meta property="twitter:creator" content="@brndngrhm">
+
+
+
+
+
+
+
+  
+    
+  
+<meta name="description" content="">
+
+
+<meta property="og:site_name" content="Home">
+<meta property="og:title" content="Creating a Hex Bin Map to Show Changes Pell Grants | Home">
+<meta property="og:description" content="" />
+<meta property="og:type" content="page" />
+<meta property="og:url" content="https://brendangraham.online/blog/pell/" />
+<meta property="og:locale" content="en">
+
+
+
+
+    
+        <meta property="og:image" content="https://brendangraham.online/blog/pell/featured.png" >
+        <meta property="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="https://brendangraham.online/blog/pell/featured.png" >
+    
+    
+  <meta itemprop="name" content="Creating a Hex Bin Map to Show Changes Pell Grants">
+<meta itemprop="description" content="This post analyzes a 
+TidyTuesday data set about Pell Grants. After exploring the data I dig into changes in amounts post-2009 and create some visualizations.">
+<meta itemprop="datePublished" content="2022-09-10T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-09-10T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1156">
+<meta itemprop="image" content="https://brendangraham.online/blog/pell/featured.png">
+
+
+
+<meta itemprop="keywords" content="tidy tuesday,data viz,hex bin map," />
+
+  
+  
+  <!--[if IE]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="shortcut icon" href="" type="image/x-icon">
+  <link rel="icon" href="" type="image/x-icon">
+  
+  
+  <link rel="stylesheet" href="/style.main.min.748d32745e8f9c104956428ac7a5c34d14f9057c0a6c22350e05ee46cb277d52.css" integrity="sha256-dI0ydF6PnBBJVkKKx6XDTRT5BXwKbCI1DgXuRssnfVI=" media="screen">
+  
+  
+  <script src="/panelset.min.41f62c42d5f25dd80e81136866f4f1baa1bc17669edfd002e75c0e107953789b.js" type="text/javascript"></script>
+  
+  
+  <script src="/main.min.07ec8e08cbb63db3a2cf7d4a7df6f7be00c715f13b64d8df6a2c48441ba8b14b.js" type="text/javascript"></script>
+</head>
+<body>
+      <div class="grid-container">
+<header class="site-header pt4 pb2 mb4 bb b--transparent ph5 headroom z-max" role="banner">
+  <nav class="site-nav db dt-l w-100" role="navigation">
+    <a class="site-brand db dtc-l v-mid link no-underline w-100 w-33-l tc tl-l" href="https://brendangraham.online" title="Home">
+      <span class="f4 fw7">Home</span>
+    </a>
+    <div class="site-links db dtc-l v-mid w-100 w-47-l tc tr-l mt3 mt0-l ttu tracked">
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 active" href="/blog/" title="Data">Data</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/project/" title="Art">Art</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/talk/" title="Talks">Talks</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/docs/brendan_graham_resume.pdf" title="">Resume</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/contact/" title="Contact">Contact</a>
+      
+      
+    </div>
+  </nav>
+</header>
+
+<main class="page-main pa4" role="main">
+  <section class="page-content mw7 center">
+    <article class="post-content pa0 ph4-l">
+      <header class="post-header">
+        <h1 class="f1 lh-solid measure-narrow mb3 fw4">Creating a Hex Bin Map to Show Changes Pell Grants</h1>
+        
+        <p class="f6 measure lh-copy mv1">By Brendan Graham in <a href="https://brendangraham.online/categories/tidy-tuesday">tidy tuesday</a>  <a href="https://brendangraham.online/categories/data-viz">data viz</a>  <a href="https://brendangraham.online/categories/hex-bin-map">hex bin map</a> </p>
+        <p class="f7 db mv0 ttu">September 10, 2022</p>
+
+      
+
+      </header>
+      <section class="post-body pt5 pb4">
+        <script src="https://brendangraham.online/blog/pell/index_files/core-js/shim.min.js"></script>
+<script src="https://brendangraham.online/blog/pell/index_files/react/react.min.js"></script>
+<script src="https://brendangraham.online/blog/pell/index_files/react/react-dom.min.js"></script>
+<script src="https://brendangraham.online/blog/pell/index_files/reactwidget/react-tools.js"></script>
+<script src="https://brendangraham.online/blog/pell/index_files/htmlwidgets/htmlwidgets.js"></script>
+<script src="https://brendangraham.online/blog/pell/index_files/reactable-binding/reactable.js"></script>
+
+
+
+
+<h2 id="get-the-data">Get the data
+  <a href="#get-the-data"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h2>
+<p>First I read in the data and do some minor cleaning:</p>
+<ul>
+<li>
+<p>only include data post-1999 since it looks like 1999 isn’t a full
+year of data.</p>
+</li>
+<li>
+<p>overwrite the <code>state_name</code> variable with the full state name instead
+of the abbreviation. This makes creating a hex bin map later on a
+little easier. One consequence of this is Puerto Rico and other US
+Territories are excluded</p>
+</li>
+</ul>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">tt_url <span style="color:#666">&lt;-</span> 
+  <span style="color:#4070a0">&#34;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-08-30/pell.csv&#34;</span>
+
+pell <span style="color:#666">&lt;-</span> 
+  readr<span style="color:#666">::</span><span style="color:#06287e">read_csv</span>(tt_url) <span style="color:#666">%&gt;%</span>
+  janitor<span style="color:#666">::</span><span style="color:#06287e">clean_names</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(year <span style="color:#666">&gt;</span> <span style="color:#40a070">1999</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(state_name <span style="color:#666">=</span> usdata<span style="color:#666">::</span><span style="color:#06287e">abbr2state</span>(abbr <span style="color:#666">=</span> state))
+
+pell <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">head</span>(<span style="color:#40a070">25</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">get_table</span>()
+</code></pre></div><div id="htmlwidget-1" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"state":["AK","AK","AK","AK","AK","AK","AK","AK","AK","AK","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL","AL"],"award":[176368,111287.57,300101.39,380022.17,24900,20946,105450.5,3499882.17,2461738,408827,6163713.79,1805533.41,97580.5,7504705,1580385,5762405,3354757,1068798,4077959.65,449587,7242423.59,4377051,1344746.11,1255224,1785314.41],"recipient":[98,55,186,245,12,12,48,1910,1220,233,2488,895,46,3131,821,2685,1590,716,1991,207,3463,2457,841,840,889],"name":["Alaska Pacific University","Alaska Vocational Technical Center","Career Academy","Charter College","Ilisagvik College","New Concepts Beauty School","Sheldon Jackson College","University of Alaska - Anchorage","University of Alaska at Fairbanks","University of Alaska at Southeast","Alabama Agricultural & Mechanical University","Alabama Southern Community College","Alabama State College of Barber Styling","Alabama State University","Athens State University","Auburn University","Auburn University Montgomery","Bessemer State Technical College","Bevill State Community College","Birmingham Southern College","Bishop State Community College - Main Campus","Calhoun State Community College","Capps College","Central Alabama Community College","Chattahoochee Valley Community College"],"session":["2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01","2000-01"],"year":[2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000],"state_name":["Alaska","Alaska","Alaska","Alaska","Alaska","Alaska","Alaska","Alaska","Alaska","Alaska","Alabama","Alabama","Alabama","Alabama","Alabama","Alabama","Alabama","Alabama","Alabama","Alabama","Alabama","Alabama","Alabama","Alabama","Alabama"]},"columns":[{"accessor":"state","name":"state","type":"character"},{"accessor":"award","name":"award","type":"numeric"},{"accessor":"recipient","name":"recipient","type":"numeric"},{"accessor":"name","name":"name","type":"character"},{"accessor":"session","name":"session","type":"character"},{"accessor":"year","name":"year","type":"numeric"},{"accessor":"state_name","name":"state_name","type":"character"}],"resizable":true,"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"striped":true,"compact":true,"nowrap":true,"inline":true,"dataKey":"5be4316b0d82a1284278fd9a536d76b4"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+
+
+
+
+<h2 id="explore-the-data">Explore the data
+  <a href="#explore-the-data"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h2>
+<p>It looks like some time around 2009 the total dollar amount of Pell
+grants increased and remained at a higher level the prior to 2009. The
+volume of grants remained constant though, so we see the impact of this
+increase in the average amount per grant.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ggpubr<span style="color:#666">::</span><span style="color:#06287e">ggarrange</span>(
+  
+  pell <span style="color:#666">%&gt;%</span> 
+    <span style="color:#06287e">group_by</span>(year) <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">tally</span>() <span style="color:#666">%&gt;%</span> 
+    <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> year, y <span style="color:#666">=</span> n)) <span style="color:#666">+</span>
+    <span style="color:#06287e">geom_col</span>(fill <span style="color:#666">=</span> bg_red) <span style="color:#666">+</span>
+    <span style="color:#06287e">bg_theme</span>(base_size <span style="color:#666">=</span> <span style="color:#40a070">12</span>, plot_title_size <span style="color:#666">=</span> <span style="color:#40a070">12</span>) <span style="color:#666">+</span> 
+    <span style="color:#06287e">labs</span>(x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Year&#34;</span>, y <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Count&#34;</span>, title <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Total Pell Grant Volume per Year&#34;</span>),
+  
+  pell <span style="color:#666">%&gt;%</span> 
+    <span style="color:#06287e">group_by</span>(year) <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">summarise</span>(total_amt <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(award, na.rm <span style="color:#666">=</span> T)) <span style="color:#666">%&gt;%</span> 
+    <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> year, y <span style="color:#666">=</span> total_amt<span style="color:#666">/</span><span style="color:#40a070">1000000</span>)) <span style="color:#666">+</span>
+    <span style="color:#06287e">geom_col</span>(fill <span style="color:#666">=</span> bg_green) <span style="color:#666">+</span>
+    <span style="color:#06287e">bg_theme</span>(base_size <span style="color:#666">=</span> <span style="color:#40a070">12</span>, plot_title_size <span style="color:#666">=</span> <span style="color:#40a070">12</span>) <span style="color:#666">+</span> 
+    <span style="color:#06287e">scale_y_continuous</span>(labels <span style="color:#666">=</span> dollar) <span style="color:#666">+</span> 
+    <span style="color:#06287e">labs</span>(x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Year&#34;</span>, y <span style="color:#666">=</span> <span style="color:#4070a0">&#34;$mil&#34;</span>, title <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Total Pell Grant Dollar Amount per Year&#34;</span>),
+  
+  pell <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">group_by</span>(year) <span style="color:#666">%&gt;%</span>
+    <span style="color:#06287e">summarise</span>(mean_amt <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(award, na.rm <span style="color:#666">=</span> T)) <span style="color:#666">%&gt;%</span> 
+    <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> year, y <span style="color:#666">=</span> mean_amt<span style="color:#666">/</span><span style="color:#40a070">1000000</span>)) <span style="color:#666">+</span>
+    <span style="color:#06287e">geom_col</span>(fill <span style="color:#666">=</span> bg_blue) <span style="color:#666">+</span>
+    <span style="color:#06287e">bg_theme</span>(base_size <span style="color:#666">=</span> <span style="color:#40a070">12</span>, plot_title_size <span style="color:#666">=</span> <span style="color:#40a070">12</span>) <span style="color:#666">+</span> 
+    <span style="color:#06287e">scale_y_continuous</span>(labels <span style="color:#666">=</span> dollar) <span style="color:#666">+</span> 
+    <span style="color:#06287e">labs</span>(x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Year&#34;</span>, y <span style="color:#666">=</span> <span style="color:#4070a0">&#34;$mil&#34;</span>, title <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Mean Pell Grant Dollar Amount per Year&#34;</span>), 
+  nrow <span style="color:#666">=</span> <span style="color:#40a070">3</span>,
+  ncol <span style="color:#666">=</span> <span style="color:#40a070">1</span>
+)
+</code></pre></div><p><img src="https://brendangraham.online/blog/pell/index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Looking state by states we can see not all states behave the same. Some
+states spike post 2009 and come down to a new baseline level like AZ,
+while some increase and remain steady at a new level, like CA.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pell <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">group_by</span>(state, year) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">summarise</span>(mean_amt <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(award, na.rm <span style="color:#666">=</span> T)) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">ungroup</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> year, y <span style="color:#666">=</span> mean_amt, color <span style="color:#666">=</span> state)) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_line</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_point</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">scale_y_continuous</span>(labels <span style="color:#666">=</span> dollar) <span style="color:#666">+</span> 
+  <span style="color:#06287e">gghighlight</span>(label_key <span style="color:#666">=</span> state, use_direct_label <span style="color:#666">=</span> T, state <span style="color:#666">%in%</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;CA&#34;</span>, <span style="color:#4070a0">&#34;AZ&#34;</span>), use_group_by <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">labs</span>(x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Year&#34;</span>, y <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Amount ($)&#34;</span>, title <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Mean Pell Grant Dollar Amount per Year&#34;</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">scale_color_npg</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">bg_theme</span>(base_size <span style="color:#666">=</span> <span style="color:#40a070">14</span>, plot_title_size <span style="color:#666">=</span> <span style="color:#40a070">14</span>)
+</code></pre></div><p><img src="https://brendangraham.online/blog/pell/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Digging into this post 2009 increase some more, there is some evidence
+that the policy changes as a result of the 2008 financial crisis can
+explain some of what we’re seeing in the data.</p>
+<p>Specifically, that document notes that</p>
+<blockquote>
+<p>the recession of 2007–2009 and the subsequent slow recovery drew more
+students into the recipient pool. Eligibility increased as adult
+students and the families of dependent students experienced losses in
+income and assets; enrollment of eligible students also rose as people
+who had lost jobs sought to acquire new skills and people who would
+have entered the workforce enrolled in school because they could not
+find employment. The expansion of online education, particularly at
+for-profit institutions, attracted still more students, many of whom
+were eligible for Pell grant.</p>
+</blockquote>
+
+
+
+
+<h2 id="visualizing-the-change">Visualizing the Change
+  <a href="#visualizing-the-change"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h2>
+<p>This plot ranks states in order of change post-2009, with Arizona
+leading the way.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic"># https://www.cbo.gov/sites/default/files/cbofiles/attachments/44448_PellGrants_9-5-13.pdf</span>
+
+time_prep <span style="color:#666">&lt;-</span> 
+  pell <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(timeframe <span style="color:#666">=</span> <span style="color:#06287e">ifelse</span>(year <span style="color:#666">&lt;</span> <span style="color:#40a070">2009</span>, <span style="color:#4070a0">&#34;pre_2009&#34;</span>, <span style="color:#4070a0">&#34;post_2009&#34;</span>)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(year, state_name, timeframe) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">summarise</span>(total <span style="color:#666">=</span> <span style="color:#06287e">n</span>()) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ungroup</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(state_name, timeframe) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(mean_grants <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(total)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(state_name, timeframe, mean_grants)
+
+pell_time_state_comparison <span style="color:#666">&lt;-</span> 
+  pell <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(timeframe <span style="color:#666">=</span> <span style="color:#06287e">ifelse</span>(year <span style="color:#666">&lt;</span> <span style="color:#40a070">2009</span>, <span style="color:#4070a0">&#34;pre_2009&#34;</span>, <span style="color:#4070a0">&#34;post_2009&#34;</span>)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(state_name, timeframe) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">summarise</span>(total_amt <span style="color:#666">=</span> <span style="color:#06287e">sum</span>(award, na.rm <span style="color:#666">=</span> T),
+            mean_amt <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(award, na.rm <span style="color:#666">=</span> T),
+            sd_amt <span style="color:#666">=</span> <span style="color:#06287e">sd</span>(award, na.rm <span style="color:#666">=</span> T)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">left_join</span>(., time_prep, by <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;state_name&#34;</span>, <span style="color:#4070a0">&#34;timeframe&#34;</span>)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">distinct</span>()
+
+
+pell_time_state_comparison <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">select</span>(state_name, mean_amt, timeframe) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">pivot_wider</span>(names_from <span style="color:#666">=</span> timeframe, values_from <span style="color:#666">=</span> mean_amt) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(diff <span style="color:#666">=</span> post_2009 <span style="color:#666">-</span> pre_2009) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(<span style="color:#666">!</span>(<span style="color:#06287e">is.na</span>(state_name))) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> <span style="color:#06287e">reorder</span>(state_name, diff), y <span style="color:#666">=</span> diff, label <span style="color:#666">=</span> <span style="color:#06287e">paste0</span>(<span style="color:#4070a0">&#34;$&#34;</span>, <span style="color:#06287e">round</span>(diff<span style="color:#666">/</span><span style="color:#40a070">100000</span>,<span style="color:#40a070">2</span>)),  fill <span style="color:#666">=</span> <span style="color:#06287e">log</span>(diff))) <span style="color:#666">+</span> 
+  <span style="color:#06287e">scale_y_continuous</span>(labels <span style="color:#666">=</span> scales<span style="color:#666">::</span>dollar) <span style="color:#666">+</span> 
+  <span style="color:#06287e">scale_fill_gradient</span>(low <span style="color:#666">=</span> <span style="color:#4070a0">&#34;cornflowerblue&#34;</span>, high <span style="color:#666">=</span> bg_green) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_col</span>(show.legend <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">coord_flip</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">bg_theme</span>(base_size <span style="color:#666">=</span> <span style="color:#40a070">13</span>, plot_title_size <span style="color:#666">=</span> <span style="color:#40a070">14</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_text</span>(hjust <span style="color:#666">=</span> <span style="color:#40a070">1.05</span>, family <span style="color:#666">=</span> <span style="color:#4070a0">&#39;RobotoMono-Regular&#39;</span>, size <span style="color:#666">=</span> <span style="color:#40a070">3</span>, color <span style="color:#666">=</span> <span style="color:#4070a0">&#39;white&#39;</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">labs</span>(y <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Amount($)&#34;</span>, x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;State&#34;</span>, title <span style="color:#666">=</span><span style="color:#4070a0">&#34; States Ranked by Post-2009 Change in Mean Grant Amount&#34;</span>)
+</code></pre></div><p><img src="https://brendangraham.online/blog/pell/index_files/figure-html/unnamed-chunk-4-1.png" width="960" /></p>
+<p>We can also visualize these increases using a hex bin map, in which each
+state is represented by a hexagon , color coded with the post-2009
+increase in avg Pell grant money received.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic"># https://r-graph-gallery.com/328-hexbin-map-of-the-usa.html</span>
+
+<span style="color:#60a0b0;font-style:italic"># Download the Hexagones boundaries at geojson format here: </span>
+<span style="color:#60a0b0;font-style:italic"># https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map.</span>
+
+<span style="color:#06287e">library</span>(tidyverse)
+<span style="color:#06287e">library</span>(geojsonio)
+<span style="color:#06287e">library</span>(RColorBrewer)
+<span style="color:#06287e">library</span>(rgdal)
+
+<span style="color:#60a0b0;font-style:italic"># Download the Hexagones boundaries at geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map.</span>
+
+<span style="color:#60a0b0;font-style:italic"># Load this file. (Note: I stored in a folder called DATA)</span>
+spdf <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">geojson_read</span>(here<span style="color:#666">::</span><span style="color:#06287e">here</span>(<span style="color:#4070a0">&#34;content&#34;</span>, <span style="color:#4070a0">&#34;blog&#34;</span>, <span style="color:#4070a0">&#34;pell&#34;</span>, <span style="color:#4070a0">&#34;us_states_hexgrid.geojson&#34;</span>),
+               what <span style="color:#666">=</span> <span style="color:#4070a0">&#34;sp&#34;</span>)
+
+<span style="color:#60a0b0;font-style:italic"># Bit of reformating</span>
+spdf<span style="color:#666">@</span>data <span style="color:#666">&lt;-</span> 
+  spdf<span style="color:#666">@</span>data <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(google_name <span style="color:#666">=</span> <span style="color:#06287e">gsub</span>(<span style="color:#4070a0">&#34; \\(United States\\)&#34;</span>, <span style="color:#4070a0">&#34;&#34;</span>, google_name))
+
+<span style="color:#60a0b0;font-style:italic"># Show framework</span>
+<span style="color:#60a0b0;font-style:italic"># plot(spdf)</span>
+
+<span style="color:#06287e">library</span>(broom)
+spdf_fortified <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">tidy</span>(spdf, region <span style="color:#666">=</span> <span style="color:#4070a0">&#34;google_name&#34;</span>)
+
+<span style="color:#06287e">library</span>(rgeos)
+centers <span style="color:#666">&lt;-</span> 
+  <span style="color:#06287e">cbind.data.frame</span>(<span style="color:#06287e">data.frame</span>(<span style="color:#06287e">gCentroid</span>(spdf, byid<span style="color:#666">=</span><span style="color:#007020;font-weight:bold">TRUE</span>), id<span style="color:#666">=</span>spdf<span style="color:#666">@</span>data<span style="color:#666">$</span>iso3166_2))
+
+<span style="color:#06287e">ggplot</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_polygon</span>(data <span style="color:#666">=</span> spdf_fortified, <span style="color:#06287e">aes</span>( x <span style="color:#666">=</span> long, y <span style="color:#666">=</span> lat, group <span style="color:#666">=</span> group), fill<span style="color:#666">=</span><span style="color:#4070a0">&#34;skyblue&#34;</span>, color<span style="color:#666">=</span><span style="color:#4070a0">&#34;white&#34;</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_text</span>(data<span style="color:#666">=</span>centers, <span style="color:#06287e">aes</span>(x<span style="color:#666">=</span>x, y<span style="color:#666">=</span>y, label<span style="color:#666">=</span>id)) <span style="color:#666">+</span>
+  <span style="color:#06287e">theme_void</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">coord_map</span>()
+</code></pre></div><p><img src="https://brendangraham.online/blog/pell/index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic"># Merge geospatial and numerical information</span>
+spdf_fortified <span style="color:#666">&lt;-</span> 
+  spdf_fortified <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">left_join</span>(. , pell_time_state_comparison <span style="color:#666">%&gt;%</span> 
+              <span style="color:#06287e">select</span>(state_name, mean_amt, timeframe) <span style="color:#666">%&gt;%</span>
+              <span style="color:#06287e">pivot_wider</span>(names_from <span style="color:#666">=</span> timeframe, values_from <span style="color:#666">=</span> mean_amt) <span style="color:#666">%&gt;%</span>
+              <span style="color:#06287e">mutate</span>(diff <span style="color:#666">=</span> post_2009 <span style="color:#666">-</span> pre_2009), by <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;id&#34;</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#34;state_name&#34;</span>)) 
+ 
+<span style="color:#60a0b0;font-style:italic"># Make a first chloropleth map</span>
+<span style="color:#06287e">ggplot</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_polygon</span>(data <span style="color:#666">=</span> spdf_fortified, <span style="color:#06287e">aes</span>(fill <span style="color:#666">=</span>  diff, x <span style="color:#666">=</span> long, y <span style="color:#666">=</span> lat, group <span style="color:#666">=</span> group)) <span style="color:#666">+</span>
+  <span style="color:#06287e">scale_fill_gradient</span>(trans <span style="color:#666">=</span> <span style="color:#4070a0">&#34;log&#34;</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">theme_void</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">coord_map</span>()
+</code></pre></div><p><img src="https://brendangraham.online/blog/pell/index_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">hist</span>(spdf_fortified<span style="color:#666">$</span>diff)
+</code></pre></div><p><img src="https://brendangraham.online/blog/pell/index_files/figure-html/unnamed-chunk-5-3.png" width="672" /></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#60a0b0;font-style:italic"># Prepare binning</span>
+
+spdf_fortified<span style="color:#666">$</span>bin <span style="color:#666">&lt;-</span>
+  <span style="color:#06287e">cut</span>(spdf_fortified<span style="color:#666">$</span>diff, 
+      breaks <span style="color:#666">=</span><span style="color:#06287e">c</span>(<span style="color:#06287e">seq</span>(<span style="color:#40a070">0</span>, <span style="color:#40a070">12000000</span>, <span style="color:#40a070">2000000</span>), <span style="color:#007020;font-weight:bold">Inf</span>), 
+      labels <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;0-$2 mil&#34;</span>, <span style="color:#4070a0">&#34;$2-$4 mil&#34;</span>, <span style="color:#4070a0">&#34;$4-$6 mil&#34;</span>, <span style="color:#4070a0">&#34;$6-$8 mil&#34;</span>, <span style="color:#4070a0">&#34;$8-$10 mil&#34;</span>, <span style="color:#4070a0">&#34;$10-$12 mil&#34;</span>, <span style="color:#4070a0">&#34;$12+ mil&#34;</span>),
+      include.lowest <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">TRUE</span>)
+ 
+<span style="color:#60a0b0;font-style:italic"># Prepare a color scale coming from the viridis color palette</span>
+<span style="color:#06287e">library</span>(viridis)
+my_palette <span style="color:#666">&lt;-</span>
+  viridis<span style="color:#666">::</span><span style="color:#06287e">inferno</span>(<span style="color:#40a070">6</span>)
+
+<span style="color:#06287e">ggplot</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_polygon</span>(data <span style="color:#666">=</span> spdf_fortified, <span style="color:#06287e">aes</span>(fill <span style="color:#666">=</span> bin, x <span style="color:#666">=</span> long, y <span style="color:#666">=</span> lat, group <span style="color:#666">=</span> group)) <span style="color:#666">+</span>
+  <span style="color:#06287e">geom_text</span>(data<span style="color:#666">=</span>centers, <span style="color:#06287e">aes</span>(x<span style="color:#666">=</span>x, y<span style="color:#666">=</span>y, label<span style="color:#666">=</span>id), color<span style="color:#666">=</span><span style="color:#4070a0">&#34;white&#34;</span>, size<span style="color:#666">=</span><span style="color:#40a070">3</span>, alpha<span style="color:#666">=</span><span style="color:#40a070">0.6</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">theme_void</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">coord_map</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">scale_fill_manual</span>( 
+    values <span style="color:#666">=</span> my_palette, 
+    name <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Change in Pell Grants $millions&#34;</span>, 
+    guide <span style="color:#666">=</span> <span style="color:#06287e">guide_legend</span>(keyheight <span style="color:#666">=</span> <span style="color:#06287e">unit</span>(<span style="color:#40a070">3</span>, units <span style="color:#666">=</span> <span style="color:#4070a0">&#34;mm&#34;</span>),
+                          keywidth<span style="color:#666">=</span><span style="color:#06287e">unit</span>(<span style="color:#40a070">12</span>, units <span style="color:#666">=</span> <span style="color:#4070a0">&#34;mm&#34;</span>),
+                         label.position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;bottom&#34;</span>,
+                         title.position <span style="color:#666">=</span> <span style="color:#4070a0">&#39;top&#39;</span>, nrow<span style="color:#666">=</span><span style="color:#40a070">1</span>) 
+  ) <span style="color:#666">+</span>
+  <span style="color:#06287e">ggtitle</span>(<span style="color:#4070a0">&#34;Change in Mean Pell Grants by State\nPre/Post 2009&#34;</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">theme</span>(
+    legend.position <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">0.5</span>, <span style="color:#40a070">0.9</span>),
+    text <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;#22211d&#34;</span>),
+    plot.background <span style="color:#666">=</span> <span style="color:#06287e">element_rect</span>(fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;#f5f5f2&#34;</span>, color <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">NA</span>), 
+    panel.background <span style="color:#666">=</span> <span style="color:#06287e">element_rect</span>(fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;#f5f5f2&#34;</span>, color <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">NA</span>), 
+    legend.background <span style="color:#666">=</span> <span style="color:#06287e">element_rect</span>(fill <span style="color:#666">=</span> <span style="color:#4070a0">&#34;#f5f5f2&#34;</span>, color <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">NA</span>),
+    plot.title <span style="color:#666">=</span> <span style="color:#06287e">element_text</span>(size<span style="color:#666">=</span> <span style="color:#40a070">22</span>, hjust<span style="color:#666">=</span><span style="color:#40a070">0.5</span>, color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;#4e4d47&#34;</span>, margin <span style="color:#666">=</span> <span style="color:#06287e">margin</span>(b <span style="color:#666">=</span> <span style="color:#40a070">-0.1</span>, t <span style="color:#666">=</span> <span style="color:#40a070">0.4</span>, l <span style="color:#666">=</span> <span style="color:#40a070">2</span>, unit <span style="color:#666">=</span> <span style="color:#4070a0">&#34;cm&#34;</span>)),
+  )
+</code></pre></div><p><img src="https://brendangraham.online/blog/pell/index_files/figure-html/unnamed-chunk-5-4.png" width="672" /></p>
+
+        
+        <details closed class="f6 fw7 input-reset">
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Posted on:</dt>
+    <dd class="fw5 ml0">September 10, 2022</dd>
+  </dl>
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Length:</dt>
+    <dd class="fw5 ml0">6 minute read, 1156 words</dd>
+  </dl>
+  
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Categories:</dt>
+    <dd class="fw5 ml0"> <a href="https://brendangraham.online/categories/tidy-tuesday">tidy tuesday</a>  <a href="https://brendangraham.online/categories/data-viz">data viz</a>  <a href="https://brendangraham.online/categories/hex-bin-map">hex bin map</a> </dd>
+  </dl>
+  
+  
+  
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Tags:</dt>
+    <dd class="fw5 ml0"> <a href="https://brendangraham.online/tags/tidy-tuesday">tidy tuesday</a>  <a href="https://brendangraham.online/tags/data-viz">data viz</a>  <a href="https://brendangraham.online/tags/hex-bin-map">hex bin map</a> </dd>
+  </dl>
+  
+  <dl class="f6 lh-copy">
+    <dt class="fw7">See Also:</dt>
+    
+    <dd class="fw5 ml0"><a href="/blog/bigfoot/">Classifying Bigfoot Encounters</a></dd>
+    
+    <dd class="fw5 ml0"><a href="/blog/dogs/">Getting started with topic modeling with dog breed traits</a></dd>
+    
+    <dd class="fw5 ml0"><a href="/blog/boardgames/">Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings</a></dd>
+    
+  </dl>
+</details>
+
+      </section>
+      <footer class="post-footer">
+        <div class="post-pagination dt w-100 mt4 mb2">
+  
+  
+    <a class="prev dtc pr2 tl v-top fw6"
+    href="https://brendangraham.online/blog/bigfoot/">&larr; Classifying Bigfoot Encounters</a>
+  
+  
+  
+    <a class="next dtc pl2 tr v-top fw6"
+    href="https://brendangraham.online/blog/dogs/">Getting started with topic modeling with dog breed traits &rarr;</a>
+  
+</div>
+
+      </footer>
+    </article>
+    
+      
+<div class="post-comments pa0 pa4-l mt4">
+  
+  <script src="https://utteranc.es/client.js"
+          repo="brndngrhm/brendangraham.online"
+          issue-term="pathname"
+          theme="boxy-light"
+          label="comments :crystal_ball:"
+          crossorigin="anonymous"
+          async
+          type="text/javascript">
+  </script>
+  
+</div>
+
+    
+  </section>
+</main>
+<footer class="site-footer pv4 bt b--transparent ph5" role="contentinfo">
+  <nav class="db dt-l w-100">
+    <p class="site-copyright f7 db dtc-l v-mid w-100 w-33-l tc tl-l pv2 pv0-l mv0 lh-copy">
+      &copy; 2022
+      <span class="middot-divider"></span>
+      Made with <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/hugo-apero/" rel="dct:source">Hugo Apéro</a></span>.
+      <br />
+      
+Based on <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/formspree/blogophonic-hugo" rel="dct:source">Blogophonic</a></span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://formspree.io" property="cc:attributionName" rel="cc:attributionURL">Formspree</a>.
+    </p>
+    
+    <div class="site-social-links db dtc-l v-mid w-100 w-33-l tc pv2 pv0-l mv0">
+      <div class="social-icon-links" aria-hidden="true">
+  
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://github.com/brndngrhm" title="github" target="_blank" rel="noopener">
+      <i class="fab fa-github fa-lg fa-fw"></i>
+    </a>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://twitter.com/brndngrhm" title="twitter" target="_blank" rel="noopener">
+      <i class="fab fa-twitter fa-lg fa-fw"></i>
+    </a>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://www.linkedin.com/in/brndngrhm/" title="linkedin" target="_blank" rel="noopener">
+      <i class="fab fa-linkedin fa-lg fa-fw"></i>
+    </a>
+  
+</div>
+
+    </div>
+    
+    <div class="site-links f6 db dtc-l v-mid w-100 w-67-l tc tr-l pv2 pv0-l mv0">
+      
+      <a class="dib pv1 ph2 link" href="/license/" title="License">License</a>
+      
+      <a class="dib pv1 ph2 link" href="/contact/" title="Contact form">Contact</a>
+      
+    </div>
+  </nav>
+  
+    <script>
+
+    var i, text, code, codes = document.getElementsByTagName('code');
+    for (let i = 0; i < codes.length;) {
+      code = codes[i];
+      if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+        text = code.textContent;
+        if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
+          text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
+          code.textContent = text;
+        }
+        if (/^\\\((.|\s)+\\\)$/.test(text) ||
+            /^\\\[(.|\s)+\\\]$/.test(text) ||
+            /^\$(.|\s)+\$$/.test(text) ||
+            /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+          code.outerHTML = code.innerHTML;  
+          continue;
+        }
+      }
+      i++;
+    }
+</script>
+
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+
+    
+  
+  
+</footer>
+
+      </div>
+    </body>
+</html>

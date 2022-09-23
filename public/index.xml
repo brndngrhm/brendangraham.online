@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>brendan graham
+ on Home</title>
+    <link>https://brendangraham.online/</link>
+    <description>Recent content in brendan graham
+ on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 17 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Wimbledon analysis part 1: get the data</title>
+      <link>https://brendangraham.online/blog/tennis-series/01-tennis/tennis-part1/</link>
+      <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/tennis-series/01-tennis/tennis-part1/</guid>
+      <description>This post is the first in a series on analyzing Wimbledon tournament data.</description>
+    </item>
+    
+    <item>
+      <title>Netlify</title>
+      <link>https://brendangraham.online/collection/day02/01-netlify/</link>
+      <pubDate>Sat, 02 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/collection/day02/01-netlify/</guid>
+      <description>So far, we&amp;rsquo;ve been leveraging GitHub Pages for publishing. This works great, but for blogdown we&amp;rsquo;ll start using Netlify. Let&amp;rsquo;s start RIGHT NOW with a site we&amp;rsquo;ve already built and published.
+Pre-requisites     Pick either your postcards site, or your distill site from day 01. Refresh your memory- which repository was it again?</description>
+    </item>
+    
+    <item>
+      <title>A GitHub profile</title>
+      <link>https://brendangraham.online/collection/day01/01-github/</link>
+      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/collection/day01/01-github/</guid>
+      <description>Profile     https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/personalizing-your-profile
+Pin projects to profile     https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/pinning-items-to-your-profile
+Profile README     This is new! Let&amp;rsquo;s do it:
+https://docs.github.com/en/github/setting-up-and-managing-your-github-profile/managing-your-profile-readme</description>
+    </item>
+    
+    <item>
+      <title>Prework</title>
+      <link>https://brendangraham.online/collection/prework/</link>
+      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/collection/prework/</guid>
+      <description>Welcome to the Introducing Yourself Online workshop! We look forward to meeting you. Before attending the workshop, please complete the following prework.
+Set up RStudio Cloud     Sign up for a free RStudio Cloud account at https://rstudio.cloud/ before the workshop. I recommend logging in with an existing Google or GitHub account, if you have one (rather than creating a new account with another password you have to remember).</description>
+    </item>
+    
+    <item>
+      <title>A postcard</title>
+      <link>https://brendangraham.online/collection/day01/02-postcards/</link>
+      <pubDate>Sat, 02 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/collection/day01/02-postcards/</guid>
+      <description>Pre-requisites     First, make sure you have the latest version of the postcards package installed from CRAN:
+install.packages(&amp;quot;postcards&amp;quot;) Restart your R session. If you use RStudio, use the menu item Session &amp;gt; Restart R or the associated keyboard shortcut:
+ Ctrl + Shift + F10 (Windows and Linux) or Command + Shift + F10 (Mac OS).  packageVersion(&amp;quot;postcards&amp;quot;) [1] ‘0.2.0’  Create GitHub repo     Online.</description>
+    </item>
+    
+    <item>
+      <title>A second post</title>
+      <link>https://brendangraham.online/default_blog/02-spoonful/</link>
+      <pubDate>Sat, 02 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/default_blog/02-spoonful/</guid>
+      <description>Hi, I&#39;m the here-bot cat! Use me to find your way in your website.
+Here I am: content/default_blog/02-spoonful/index.md  To remove me, delete this line inside that file: {{&amp;lt; here &amp;gt;}}
+My content section is: default_blog  My layout is: single-series  Images in this page bundle: /default_blog/02-spoonful/sidebar-inverse.jpg   part 2!     does this work?      now for some very cool things     more     get ready!</description>
+    </item>
+    
+    <item>
+      <title>Using blogdown</title>
+      <link>https://brendangraham.online/collection/day02/02-blogdown/</link>
+      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/collection/day02/02-blogdown/</guid>
+      <description>Pre-requisites     First, make sure you have the latest version of the blogdown package installed from CRAN:
+install.packages(&amp;quot;blogdoown&amp;quot;) Restart your R session. If you use RStudio, use the menu item Session &amp;gt; Restart R or the associated keyboard shortcut:
+ Ctrl + Shift + F10 (Windows and Linux) or Command + Shift + F10 (Mac OS).  packageVersion(&amp;quot;blogdown&amp;quot;) [1] ‘1.0’  Create GitHub repo     Online.</description>
+    </item>
+    
+    <item>
+      <title>A third post</title>
+      <link>https://brendangraham.online/default_blog/03-spoonful/</link>
+      <pubDate>Sun, 03 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/default_blog/03-spoonful/</guid>
+      <description>Hi, I&#39;m the here-bot cat! Use me to find your way in your website.
+Here I am: content/default_blog/03-spoonful/index.markdown  Here is my R Markdown source file: default_blog/03-spoonful/index.Rmarkdown You&#39;ll want to edit this file, then re-knit to see the changes take effect in your site preview.
+ To remove me, delete this line inside that file: {{&amp;lt; here &amp;gt;}}
+My content section is: default_blog  My layout is: single-series  Images in this page bundle: /default_blog/03-spoonful/featured-photo.</description>
+    </item>
+    
+    <item>
+      <title>A distill site</title>
+      <link>https://brendangraham.online/collection/day01/03-distill/</link>
+      <pubDate>Sat, 02 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/collection/day01/03-distill/</guid>
+      <description>Pre-requisites     First, make sure you have the latest version of the distill package installed from CRAN:
+install.packages(&amp;quot;distill&amp;quot;)  Restart your R session. If you use RStudio, use the menu item Session &amp;gt; Restart R or the associated keyboard shortcut:
+ Ctrl + Shift + F10 (Windows and Linux) or Command + Shift + F10 (Mac OS).  &amp;lt;!-- --&amp;gt; packageVersion(&amp;quot;distill&amp;quot;) [1] ‘1.2’  Create GitHub repo     Online.</description>
+    </item>
+    
+    <item>
+      <title>Warm woolen mittens</title>
+      <link>https://brendangraham.online/collection/day02/03-blogdown/</link>
+      <pubDate>Sat, 02 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/collection/day02/03-blogdown/</guid>
+      <description>Hi, I&#39;m the here-bot cat! Use me to find your way in your website.
+Here I am: content/collection/day02/03-blogdown/index.md  To remove me, delete this line inside that file: {{&amp;lt; here &amp;gt;}}
+My content section is: collection  My layout is: single-series   part 2!     does this work?      now for some very cool things     more     get ready!</description>
+    </item>
+    
+    <item>
+      <title>Classifying Bigfoot Encounters</title>
+      <link>https://brendangraham.online/blog/bigfoot/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/bigfoot/</guid>
+      <description>In this post I analyze a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about Bigfoot Encounters. After exploring the data I test several different text model to categorize the quality of Bigfoot enounters based on their free text description.</description>
+    </item>
+    
+    <item>
+      <title>Creating a Hex Bin Map to Show Changes Pell Grants</title>
+      <link>https://brendangraham.online/blog/pell/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/pell/</guid>
+      <description>This post analyzes a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about Pell Grants. After exploring the data I dig into changes in amounts post-2009 and create some visualizations.</description>
+    </item>
+    
+    <item>
+      <title>Getting started with topic modeling with dog breed traits</title>
+      <link>https://brendangraham.online/blog/dogs/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/dogs/</guid>
+      <description>This post looks at a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about dog breeds. After looking at the data I try developing my first topic model</description>
+    </item>
+    
+    <item>
+      <title>untitled 01</title>
+      <link>https://brendangraham.online/project/img1/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 02</title>
+      <link>https://brendangraham.online/project/img2/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 03</title>
+      <link>https://brendangraham.online/project/img3/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 04</title>
+      <link>https://brendangraham.online/project/img4/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img4/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 05</title>
+      <link>https://brendangraham.online/project/img5/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img5/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 06</title>
+      <link>https://brendangraham.online/project/img6/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 07</title>
+      <link>https://brendangraham.online/project/img7/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 08</title>
+      <link>https://brendangraham.online/project/img8/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 09</title>
+      <link>https://brendangraham.online/project/img9/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img9/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 10</title>
+      <link>https://brendangraham.online/project/img10/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img10/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 11</title>
+      <link>https://brendangraham.online/project/img11/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img11/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 12</title>
+      <link>https://brendangraham.online/project/img12/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img12/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 13</title>
+      <link>https://brendangraham.online/project/img13/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img13/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 14</title>
+      <link>https://brendangraham.online/project/img14/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img14/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 15</title>
+      <link>https://brendangraham.online/project/img15/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img15/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 16</title>
+      <link>https://brendangraham.online/project/img16/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img16/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 17</title>
+      <link>https://brendangraham.online/project/img17/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img17/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 18</title>
+      <link>https://brendangraham.online/project/img18/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img18/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 19</title>
+      <link>https://brendangraham.online/project/img19/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img19/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 20</title>
+      <link>https://brendangraham.online/project/img20/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img20/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 21</title>
+      <link>https://brendangraham.online/project/img21/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img21/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 22</title>
+      <link>https://brendangraham.online/project/img22/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img22/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 23</title>
+      <link>https://brendangraham.online/project/img23/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img23/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 24</title>
+      <link>https://brendangraham.online/project/img24/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img24/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 25</title>
+      <link>https://brendangraham.online/project/img25/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img25/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 26</title>
+      <link>https://brendangraham.online/project/img26/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img26/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 27</title>
+      <link>https://brendangraham.online/project/img27/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img27/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 28</title>
+      <link>https://brendangraham.online/project/img28/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img28/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 29</title>
+      <link>https://brendangraham.online/project/img29/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img29/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 30</title>
+      <link>https://brendangraham.online/project/img30/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img30/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 31</title>
+      <link>https://brendangraham.online/project/img31/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img31/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 32</title>
+      <link>https://brendangraham.online/project/img32/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img32/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 33</title>
+      <link>https://brendangraham.online/project/img33/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img33/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 34</title>
+      <link>https://brendangraham.online/project/img34/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img34/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 35</title>
+      <link>https://brendangraham.online/project/img35/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img35/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 36</title>
+      <link>https://brendangraham.online/project/img36/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img36/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 37</title>
+      <link>https://brendangraham.online/project/img37/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img37/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 38</title>
+      <link>https://brendangraham.online/project/img38/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img38/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 39</title>
+      <link>https://brendangraham.online/project/img39/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img39/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 40</title>
+      <link>https://brendangraham.online/project/img40/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img40/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 41</title>
+      <link>https://brendangraham.online/project/img41/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img41/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>untitled 42</title>
+      <link>https://brendangraham.online/project/img42/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/project/img42/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Combining &#39;Traditional&#39; and Text-Based Models to Board Game Ratings</title>
+      <link>https://brendangraham.online/blog/boardgames/</link>
+      <pubDate>Wed, 26 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/boardgames/</guid>
+      <description>This post looks at a past 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about board game ratings. After looking at the data I attempt to predict avereage board game</description>
+    </item>
+    
+    <item>
+      <title>Comparing Traditional and Text-Based Models to Predict Chocolate Rating</title>
+      <link>https://brendangraham.online/blog/chocolate-ratings/</link>
+      <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/chocolate-ratings/</guid>
+      <description>This post looks at a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about chocolate. After looking at the data I compare text based and &amp;ldquo;traditional&amp;rdquo; modelling approaches to predict a chocolate ratings</description>
+    </item>
+    
+    <item>
+      <title>Trying out new Tidymodels package: vetiver</title>
+      <link>https://brendangraham.online/blog/bees/</link>
+      <pubDate>Tue, 11 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/bees/</guid>
+      <description>This post looks at a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about changes in bee colonies After looking at the data I build and locally deploy a model api to predict the percentage of colonies lost</description>
+    </item>
+    
+    <item>
+      <title>Comparing Variability in Ultra Trail Running Results Across Countries</title>
+      <link>https://brendangraham.online/blog/ultra-trail-running/</link>
+      <pubDate>Sun, 02 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/ultra-trail-running/</guid>
+      <description>This post looks at a past 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about ultra trail running. After looking at the data I attempt to quantify and compare the variation in rankings between countries.</description>
+    </item>
+    
+    <item>
+      <title>Modeling the Relationship between Whipped Cream and Calories of Starbucks Drinks</title>
+      <link>https://brendangraham.online/blog/starbucks/</link>
+      <pubDate>Tue, 21 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/starbucks/</guid>
+      <description>This post looks at a 
+&lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TidyTuesday&lt;/a&gt; data set about the contents of various Starbucks drinks. After epxploring the data I model the effect whiped cream has on calories across variosu types of drinks.</description>
+    </item>
+    
+    <item>
+      <title>Interactive Wissiahickon Valley Park Map</title>
+      <link>https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/</guid>
+      <description>parsing XML and using &lt;code&gt;Leaflet&lt;/code&gt; to create interactive maps in R</description>
+    </item>
+    
+    <item>
+      <title>Set up your social</title>
+      <link>https://brendangraham.online/default_blog/social/</link>
+      <pubDate>Thu, 28 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/default_blog/social/</guid>
+      <description>There are five places where you can choose to show social icons. Here is the tl;dr:
+ site header (set in config.toml), site footer (set in config.toml),  homepage (set in content/_index.md),  about page in the sidebar (set in content/about/sidebar/index.md), and  contact page (set in content/form/contact.md).  Read on to learn how to set up your social icons, and how to show/hide them.
+Configure social     Wherever you end up wanting to show your social icons, you&amp;rsquo;ll need to start by setting up the links in your site config.</description>
+    </item>
+    
+    <item>
+      <title>Style your site colors</title>
+      <link>https://brendangraham.online/default_blog/color-themes/</link>
+      <pubDate>Wed, 27 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/default_blog/color-themes/</guid>
+      <description>You can totally customize your site&amp;rsquo;s theme colors within minutes of creating a new site. Read on to find out how, and decide which of the three options meets your needs.
+Use a color theme     Hugo Apéro includes 8 built-in color themes that work &amp;ldquo;out of the box.&amp;rdquo; This means you can use a color theme to quickly customize the look of your site without needing to write any CSS.</description>
+    </item>
+    
+    <item>
+      <title>Style your site typography</title>
+      <link>https://brendangraham.online/default_blog/fonts/</link>
+      <pubDate>Wed, 27 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/default_blog/fonts/</guid>
+      <description>As with color themes, you can completely customize your site&amp;rsquo;s fonts within minutes of creating a new site. How you do it depends on how much control and customization you need.
+Embedded fonts     Hugo Apéro includes 6 embedded fonts that work &amp;ldquo;out of the box.&amp;rdquo; We selected 3 serif and 3 sans-serif options that we thought looked good with this theme, in our humble opinions. All embedded fonts include real italics so you may emphasize to your heart&amp;rsquo;s content ❤️!</description>
+    </item>
+    
+    <item>
+      <title>An evergreen post</title>
+      <link>https://brendangraham.online/default_blog/evergreen/</link>
+      <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/default_blog/evergreen/</guid>
+      <description>Rendering mathematical equations     Examples from the mathjax demo. But they work with katex as well.
+Rmarkdown     In .Rmarkdown documents, you can use either
+$a \ne 0$ to get inline math: \(a \ne 0\). There is no conflict with using dollar symbols regularly, because knitr automatically escapes freestanding dollar symbols.
+And you can use
+$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$ to get a math paragraph:</description>
+    </item>
+    
+    <item>
+      <title>Using panelsets</title>
+      <link>https://brendangraham.online/default_blog/seedling/</link>
+      <pubDate>Sat, 02 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/default_blog/seedling/</guid>
+      <description>Courtesy of panelset.js by Garrick Aden-Buie, from his xaringanExtra package: https://pkg.garrickadenbuie.com/xaringanExtra/#/panelset
+For example, this panelset:
+Hello! 👋 hello
+ Goodbye 💨 goodbye
+  Was created by combining this theme&amp;rsquo;s panelset and panel shortcodes:
+{{&amp;lt; panelset class=&amp;#34;greetings&amp;#34; &amp;gt;}} {{&amp;lt; panel name=&amp;#34;Hello! :wave:&amp;#34; &amp;gt;}} hello {{&amp;lt; /panel &amp;gt;}} {{&amp;lt; panel name=&amp;#34;Goodbye :dash:&amp;#34; &amp;gt;}} goodbye {{&amp;lt; /panel &amp;gt;}} {{&amp;lt; /panelset &amp;gt;}} You could also revert to HTML as well. For example, this panelset:</description>
+    </item>
+    
+    <item>
+      <title>An Rmarkdown post</title>
+      <link>https://brendangraham.online/default_blog/rmarkdown/</link>
+      <pubDate>Wed, 30 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/default_blog/rmarkdown/</guid>
+      <description> Air quality     with(airquality, boxplot(Temp ~ Month)) with(airquality, plot(Ozone ~ Temp)) mlev &amp;lt;- levels(with(airquality, as.factor(Month))) with(airquality, plot(Ozone ~ Temp, pch = as.numeric(mlev), col = mlev)) </description>
+    </item>
+    
+    <item>
+      <title>Routeabaga</title>
+      <link>https://brendangraham.online/blog/routeabaga/</link>
+      <pubDate>Fri, 06 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/routeabaga/</guid>
+      <description>Discover new cycling routes</description>
+    </item>
+    
+    <item>
+      <title>Shiny New Things - Using R to Bridge the Gap in EMR Reporting</title>
+      <link>https://brendangraham.online/talk/rstudio_conf_2020/</link>
+      <pubDate>Mon, 27 Jan 2020 11:40:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/talk/rstudio_conf_2020/</guid>
+      <description>Presentation on how we use R for reporting purposes at Children&amp;rsquo;s Hospital of Philadelphia</description>
+    </item>
+    
+    <item>
+      <title>Everyone Everywhere Music Analysis Tool</title>
+      <link>https://brendangraham.online/blog/spotify-data/</link>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/spotify-data/</guid>
+      <description>Use the Spotify API to analyze your favorite artists songs</description>
+    </item>
+    
+    <item>
+      <title>RideTracker</title>
+      <link>https://brendangraham.online/blog/ride-tracker/</link>
+      <pubDate>Tue, 26 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/ride-tracker/</guid>
+      <description>Data viz project tracking my cycling habits</description>
+    </item>
+    
+    <item>
+      <title>Tachyons for Style</title>
+      <link>https://brendangraham.online/default_project/giraffes/</link>
+      <pubDate>Wed, 03 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/default_project/giraffes/</guid>
+      <description>Tachyons is a design system that allows you to design gorgeous interfaces in the browser with little effort.      Because Speed     Building this static site generator theme was the first time I used an Atomic (or Functional) CSS system like Tachyons. It&amp;rsquo;s a design system that provides very small (which means fast) CSS modules that you can use in your HTML. So, rather than writing every line of CSS, you apply the style you need as you write your HTML with easy to understand shorthand class names.</description>
+    </item>
+    
+    <item>
+      <title>Palmer Penguins</title>
+      <link>https://brendangraham.online/default_project/penguins/</link>
+      <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/default_project/penguins/</guid>
+      <description>“Grid is the very first CSS module created specifically to solve the layout problems we&amp;rsquo;ve all been hacking our way around for as long as we&amp;rsquo;ve been making websites.”     — Chris House, A Complete Guide to CSS Grid Layout 1
+ Since I began building websites in Y2K, I&amp;rsquo;ve lost count how many times the phrase &amp;ldquo;&amp;hellip;there&amp;rsquo;s got to be a better way to do this&amp;rdquo; has passed my lips.</description>
+    </item>
+    
+    <item>
+      <title>Bakeoff</title>
+      <link>https://brendangraham.online/default_project/bakeoff/</link>
+      <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/default_project/bakeoff/</guid>
+      <description>Formspree makes it easy to receive submissions from HTML forms on your static website.      Functional Form     This theme has a form-to-email feature built in, thanks to the simple Formspree integration. All you need to activate the form is a valid recipient email address saved in the front matter of the form (/content/forms/contact.md). Of course, the example shown below (your@email.here) must not be used.</description>
+    </item>
+    
+    <item>
+      <title>Built-in Contact Form</title>
+      <link>https://brendangraham.online/default_blog/built-in-contact-form/</link>
+      <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/default_blog/built-in-contact-form/</guid>
+      <description>Formspree makes it easy to receive submissions from HTML forms on your static website.      Functional Form     This theme has a form-to-email feature built in, thanks to the simple Formspree integration. All you need to activate the form is a valid recipient email address saved in the front matter of the form (/content/forms/contact.md). Of course, the example shown below (your@email.here) must not be used.</description>
+    </item>
+    
+    <item>
+      <title>Typography Styles &amp; Element Examples</title>
+      <link>https://brendangraham.online/elements/</link>
+      <pubDate>Mon, 18 Feb 2019 12:27:33 -0600</pubDate>
+      
+      <guid>https://brendangraham.online/elements/</guid>
+      <description>Font Sizes   A A A A A A A A   6rem
+(96px) 5rem
+(80px) 3rem
+(48px) 2.25rem
+(36px) 1.5rem
+(24px) 1.25rem
+(20px) 1rem
+(16px) .875rem
+(14px)     Type Samples Head&amp;shy;line Sub&amp;shy;head&amp;shy;line Level 1 Heading One page to rule them all...well, not really. This page displays sample typography and page elements to illustrate their style. Things like headings and paragraphs showing the beautiful type scale, form elements, tabular data, and image layouts just to name a few.</description>
+    </item>
+    
+    <item>
+      <title>contact brendan graham online</title>
+      <link>https://brendangraham.online/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/contact/</guid>
+      <description>** Contact page don&amp;rsquo;t contain a body, just the front matter above. See form.html in the layouts folder.
+Formspree requires a (free) account and new form to be set up. The link is made on the final published url in the field: Restrict to Domain. It is possible to register up to 2 emails free and you can select which one you want the forms to go to within Formspree in the Settings tab.</description>
+    </item>
+    
+    <item>
+      <title>Contributors</title>
+      <link>https://brendangraham.online/contributors/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/contributors/</guid>
+      <description>Thank you to all the folks who have contributed both technical and creative skills to this project:
+   Desirée De Leon 🦒 (designed 5 of the custom color themes, made illustrations for the workshop, and provided general aesthetic feedback along the way)
+   Garrick Aden-Buie 🧙‍♀️ (debugged headroom.js and lent his panelset.js code to the theme)
+   Allison Horst 🐕 (awesome illustrations of campfires, seedlings, and evergreens, as well as my R Markdown hedgehog mascot 🦔)</description>
+    </item>
+    
+    <item>
+      <title>licenses
+</title>
+      <link>https://brendangraham.online/license/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/license/</guid>
+      <description>blog posts are released under a Creative Commons Attribution-ShareAlike 4.0 International License:
+     art and any photos on this site are released under a Attribution-NonCommercial-NoDerivatives 4.0 International License:</description>
+    </item>
+    
+  </channel>
+</rss>

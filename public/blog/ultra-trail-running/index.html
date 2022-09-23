@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head>
+  
+                           
+     
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.80.0" />
+<title>Comparing Variability in Ultra Trail Running Results Across Countries | Home</title>
+
+
+<meta property="twitter:site" content="@brndngrhm">
+<meta property="twitter:creator" content="@brndngrhm">
+
+
+
+
+
+
+
+  
+    
+  
+<meta name="description" content="using coefficient of variation to compare variation in race results">
+
+
+<meta property="og:site_name" content="Home">
+<meta property="og:title" content="Comparing Variability in Ultra Trail Running Results Across Countries | Home">
+<meta property="og:description" content="using coefficient of variation to compare variation in race results" />
+<meta property="og:type" content="page" />
+<meta property="og:url" content="https://brendangraham.online/blog/ultra-trail-running/" />
+<meta property="og:locale" content="en">
+
+
+
+
+    
+        <meta property="og:image" content="https://brendangraham.online/blog/ultra-trail-running/featured.png" >
+        <meta property="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="https://brendangraham.online/blog/ultra-trail-running/featured.png" >
+    
+    
+  <meta itemprop="name" content="Comparing Variability in Ultra Trail Running Results Across Countries">
+<meta itemprop="description" content="This post looks at a past 
+TidyTuesday data set about ultra trail running. After looking at the data I attempt to quantify and compare the variation in rankings between countries.">
+<meta itemprop="datePublished" content="2022-01-02T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-01-02T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1149">
+<meta itemprop="image" content="https://brendangraham.online/blog/ultra-trail-running/featured.png">
+
+
+
+<meta itemprop="keywords" content="tidy tuesday," />
+
+  
+  
+  <!--[if IE]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="shortcut icon" href="" type="image/x-icon">
+  <link rel="icon" href="" type="image/x-icon">
+  
+  
+  <link rel="stylesheet" href="/style.main.min.748d32745e8f9c104956428ac7a5c34d14f9057c0a6c22350e05ee46cb277d52.css" integrity="sha256-dI0ydF6PnBBJVkKKx6XDTRT5BXwKbCI1DgXuRssnfVI=" media="screen">
+  
+  
+  <script src="/panelset.min.41f62c42d5f25dd80e81136866f4f1baa1bc17669edfd002e75c0e107953789b.js" type="text/javascript"></script>
+  
+  
+  <script src="/main.min.07ec8e08cbb63db3a2cf7d4a7df6f7be00c715f13b64d8df6a2c48441ba8b14b.js" type="text/javascript"></script>
+</head>
+<body>
+      <div class="grid-container">
+<header class="site-header pt4 pb2 mb4 bb b--transparent ph5 headroom z-max" role="banner">
+  <nav class="site-nav db dt-l w-100" role="navigation">
+    <a class="site-brand db dtc-l v-mid link no-underline w-100 w-33-l tc tl-l" href="https://brendangraham.online" title="Home">
+      <span class="f4 fw7">Home</span>
+    </a>
+    <div class="site-links db dtc-l v-mid w-100 w-47-l tc tr-l mt3 mt0-l ttu tracked">
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 active" href="/blog/" title="Data">Data</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/project/" title="Art">Art</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/talk/" title="Talks">Talks</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/docs/brendan_graham_resume.pdf" title="">Resume</a>
+      
+        
+        
+        
+      <a class="link f6 f5-l dib pv1 ph2 " href="/contact/" title="Contact">Contact</a>
+      
+      
+    </div>
+  </nav>
+</header>
+
+<main class="page-main pa4" role="main">
+  <section class="page-content mw7 center">
+    <article class="post-content pa0 ph4-l">
+      <header class="post-header">
+        <h1 class="f1 lh-solid measure-narrow mb3 fw4">Comparing Variability in Ultra Trail Running Results Across Countries</h1>
+        <h4 class="f4 mt0 mb4 lh-title measure">using coefficient of variation to compare variation in race results</h4>
+        <p class="f6 measure lh-copy mv1">By Brendan Graham in <a href="https://brendangraham.online/categories/tidy-tuesday">tidy tuesday</a> </p>
+        <p class="f7 db mv0 ttu">January 2, 2022</p>
+
+      
+
+      </header>
+      <section class="post-body pt5 pb4">
+        <script src="https://brendangraham.online/blog/ultra-trail-running/index_files/core-js/shim.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/react/react.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/react/react-dom.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/reactwidget/react-tools.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/htmlwidgets/htmlwidgets.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/reactable-binding/reactable.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/core-js/shim.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/react/react.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/react/react-dom.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/reactwidget/react-tools.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/htmlwidgets/htmlwidgets.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/reactable-binding/reactable.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/core-js/shim.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/react/react.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/react/react-dom.min.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/reactwidget/react-tools.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/htmlwidgets/htmlwidgets.js"></script>
+<script src="https://brendangraham.online/blog/ultra-trail-running/index_files/reactable-binding/reactable.js"></script>
+<p>This post looks at a past 
+<a href="https://github.com/rfordatascience/tidytuesday" target="_blank" rel="noopener">TidyTuesday</a> data set about ultra trail running. After looking at the data I attempt to quantify and compare the variation in rankings between countries.</p>
+
+
+
+
+<h2 id="explore-the-data">Explore the Data
+  <a href="#explore-the-data"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h2>
+<p>Race data is at the race level; events are made up of races. There can be multiple event observations per year.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">race
+</code></pre></div><pre><code>## # A tibble: 1,207 × 14
+##    race_year_id event   race   city  country date       start_time participation
+##           &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;date&gt;     &lt;time&gt;     &lt;chr&gt;        
+##  1        68140 Peak D… Mills… Cast… United… 2021-09-03 19:00      solo         
+##  2        72496 UTMB®   UTMB®  Cham… France  2021-08-27 17:00      Solo         
+##  3        69855 Grand … Ultra… viel… France  2021-08-20 05:00      solo         
+##  4        67856 Persen… PERSE… Asen… Bulgar… 2021-08-20 18:00      solo         
+##  5        70469 Runfir… 100 M… uluk… Turkey  2021-08-20 18:00      solo         
+##  6        66887 Swiss … 160KM  Müns… Switze… 2021-08-15 17:00      solo         
+##  7        67851 Salomo… Salom… Foll… Norway  2021-08-14 07:00      solo         
+##  8        68241 Ultra … 160KM  Spa   Belgium 2021-08-14 07:00      solo         
+##  9        70241 Québec… QMT-1… Beau… Canada  2021-08-13 22:00      solo         
+## 10        69945 Bunket… BBUT … LIND… Sweden  2021-08-07 10:00      solo         
+## # … with 1,197 more rows, and 6 more variables: distance &lt;dbl&gt;,
+## #   elevation_gain &lt;dbl&gt;, elevation_loss &lt;dbl&gt;, aid_stations &lt;dbl&gt;,
+## #   participants &lt;dbl&gt;, year &lt;dbl&gt;
+</code></pre>
+<p>Example data for <code>Run Rabbit Run</code> event:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">race <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">filter</span>(event <span style="color:#666">==</span> <span style="color:#4070a0">&#34;RUN RABBIT RUN&#34;</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(event, race, year) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">arrange</span>(year) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">add_table</span>()
+</code></pre></div><div id="htmlwidget-1" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"event":["RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN","RUN RABBIT RUN"],"race":["RUN RABBIT RUN 100 HARE","RUN RABBIT RUN 100 TORTOISE RUN","RUN RABBIT RUN 100 HARE","RUN RABBIT RUN 100 TORTOISE RUN","RUN RABBIT RUN 100 HARE","RUN RABBIT RUN 100 TORTOISE RUN","RUN RABBIT RUN 100 HARE","100 HARE","100 Hare","100 Hare"],"year":[2013,2013,2014,2014,2015,2015,2016,2017,2018,2019]},"columns":[{"accessor":"event","name":"event","type":"character"},{"accessor":"race","name":"race","type":"character"},{"accessor":"year","name":"year","type":"numeric"}],"resizable":true,"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"striped":true,"compact":true,"nowrap":true,"inline":true,"dataKey":"e96c781bfa55a192fc88a08cca833c94","key":"e96c781bfa55a192fc88a08cca833c94"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</br>  
+Some races can have thousands of participants:
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">race <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">select</span>(event, race, participants) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">distinct</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">arrange</span>(<span style="color:#06287e">desc</span>(participants)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">head</span>(<span style="color:#40a070">10</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">add_table</span>()
+</code></pre></div><div id="htmlwidget-2" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"event":["Le Grand Raid De La Réunion","Grand Raid De La Réunion","Le Grand Raid De La Réunion","Ultra-Trail Mt. Fuji","UTMB®","SPARNATRAIL","Sinister 7 Ultra","Val d’Aran by UTMB®","Ultra-Trail Mt. Fuji","Sinister 7 Ultra"],"race":["La Diagonale Des Fous","La Diagonale Des Fous","Le Grand Raid De La Réunion","UTMF - Full Course 165km","UTMB®","P'tiot Sparnatrail","Solo","VDA","UTMF","Solo"],"participants":[2900,2500,2500,2400,2300,1800,1600,1500,1400,1400]},"columns":[{"accessor":"event","name":"event","type":"character"},{"accessor":"race","name":"race","type":"character"},{"accessor":"participants","name":"participants","type":"numeric"}],"resizable":true,"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"striped":true,"compact":true,"nowrap":true,"inline":true,"dataKey":"cf1a981737c86de0c680cede1afaa865","key":"cf1a981737c86de0c680cede1afaa865"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<p>Ranking data is at the racer level; racers can appear more than once:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ultra_rankings 
+</code></pre></div><pre><code>## # A tibble: 137,803 × 8
+##    race_year_id  rank runner     time     age gender nationality time_in_seconds
+##           &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;                 &lt;dbl&gt;
+##  1        68140     1 VERHEUL J… 26H 3…    30 M      GBR                   95725
+##  2        68140     2 MOULDING … 27H 0…    43 M      GBR                   97229
+##  3        68140     3 RICHARDSO… 28H 4…    38 M      GBR                  103747
+##  4        68140     4 DYSON Fio… 30H 5…    55 W      GBR                  111217
+##  5        68140     5 FRONTERAS… 32H 4…    48 W      GBR                  117981
+##  6        68140     6 THOMAS Le… 32H 4…    31 M      GBR                  118000
+##  7        68140     7 SHORT Deb… 33H 3…    55 W      GBR                  120601
+##  8        68140     8 CROSSLEY … 33H 3…    40 W      GBR                  120803
+##  9        68140     9 BUTCHER K… 34H 5…    47 M      GBR                  125656
+## 10        68140    10 Hendry Bi… 34H 5…    29 M      GBR                  125979
+## # … with 137,793 more rows
+</code></pre>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ultra_rankings <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(runner, nationality) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">tally</span>(sort <span style="color:#666">=</span> T) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">head</span>(<span style="color:#40a070">10</span>) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">add_table</span>()
+</code></pre></div><div id="htmlwidget-3" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"runner":["SMITH Mike","DONNELLY Susan","FANCETT Kenneth","CARTER Williams","FU Chihping","HANDLOSER Walter","ETTINGHAUSEN Ed","CATMUR Edward","JOHNSON Eric","JONES Chris"],"nationality":["USA","USA","GBR","USA","USA","USA","USA","GBR","USA","USA"],"n":[61,47,41,39,39,31,30,29,29,29]},"columns":[{"accessor":"runner","name":"runner","type":"character"},{"accessor":"nationality","name":"nationality","type":"character"},{"accessor":"n","name":"n","type":"numeric"}],"resizable":true,"filterable":true,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"striped":true,"compact":true,"nowrap":true,"inline":true,"dataKey":"2baded73304a5e0ca351411d2190c59c","key":"2baded73304a5e0ca351411d2190c59c"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+
+
+
+
+<h3 id="variation-in-ranking-among-countries">Variation in Ranking Among Countries
+  <a href="#variation-in-ranking-among-countries"><svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg></a>
+</h3>
+<p>Rankings seem interesting, let’s try and see which countries have runners with the most <em>consistent</em> rankings. First we need to prep the data a little bit. We’ll set a threshold to only include countries where runners from that given country participated in at least 15 races.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">country_counts <span style="color:#666">&lt;-</span> 
+  ultra_rankings <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(nationality, race_year_id) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">distinct</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(nationality) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">tally</span>()
+
+runner_count <span style="color:#666">&lt;-</span>
+  ultra_rankings <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(nationality, runner) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">distinct</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(nationality) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">tally</span>()
+
+<span style="color:#06287e">quantile</span>(country_counts<span style="color:#666">$</span>n, probs <span style="color:#666">=</span> <span style="color:#06287e">seq</span>(<span style="color:#40a070">0</span>, <span style="color:#40a070">1</span>, <span style="color:#40a070">.10</span>))
+</code></pre></div><pre><code>##    0%   10%   20%   30%   40%   50%   60%   70%   80%   90%  100% 
+##   1.0   1.0   2.0   3.3   8.0  15.5  31.0  41.7  82.4 128.7 700.0
+</code></pre>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#06287e">quantile</span>(runner_count<span style="color:#666">$</span>n, probs <span style="color:#666">=</span> <span style="color:#06287e">seq</span>(<span style="color:#40a070">0</span>, <span style="color:#40a070">1</span>, <span style="color:#40a070">.10</span>))
+</code></pre></div><pre><code>##      0%     10%     20%     30%     40%     50%     60%     70%     80%     90% 
+##     1.0     1.0     1.0     3.0     6.0    16.0    49.4   143.1   261.6   873.0 
+##    100% 
+## 20345.0
+</code></pre>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">top_countries <span style="color:#666">&lt;-</span> 
+  ultra_rankings <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(nationality, race_year_id) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">distinct</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(nationality) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">tally</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(n <span style="color:#666">&gt;</span> <span style="color:#40a070">15</span>) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">pull</span>(nationality)
+
+top_countries <span style="color:#666">&lt;-</span> 
+  ultra_rankings <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(nationality <span style="color:#666">%in%</span> top_countries) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">na.omit</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">select</span>(nationality, runner) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">distinct</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">group_by</span>(nationality) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">tally</span>() <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">filter</span>(n <span style="color:#666">&gt;</span> <span style="color:#40a070">15</span>) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">pull</span>(nationality)
+
+ultra_rankings <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(nationality <span style="color:#666">%in%</span> top_countries) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(<span style="color:#666">!</span><span style="color:#06287e">is.na</span>(rank)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(rank)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_histogram</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">ggtitle</span>(<span style="color:#4070a0">&#34;race rankings&#34;</span>) <span style="color:#666">+</span> 
+  big_labels
+</code></pre></div><p><img src="https://brendangraham.online/blog/ultra-trail-running/index_files/figure-html/unnamed-chunk-8-1.png" width="1152" /></p>
+<p>Ranking is highly skewed, so we can use a modified formula for the coefficient of variation meant for log-normal data:
+$$
+{cv_{raw}} = \sqrt{e^{s^2_{ln}} - 1}
+$$</p>
+<p>where <code>\(s_{ln}\)</code> is the sample standard deviation of the data after a natural log transformation. Another alternative we could use the Coefficient of <em>Quartile</em> Variation (see below), but we’ll stick with the modified <em>cv</em> instead.</p>
+<p><em>Coefficient of Quartile Variation</em></p>
+<p>$$
+QCV = [(q3 - q1)/(q3 + q1))]*100
+$$</p>
+<p>After calculating the CV for log-normal data, we can compare each countries variation. France, Luxembourg and Korea are interesting in that they are relatively consistent, but their median ranks are very high. This suggests racers from these countries get consistently poor results</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cv_log <span style="color:#666">&lt;-</span> 
+  ultra_rankings <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(nationality <span style="color:#666">%in%</span> top_countries) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(<span style="color:#666">!</span><span style="color:#06287e">is.na</span>(rank), <span style="color:#666">!</span>(<span style="color:#06287e">is.na</span>(gender))) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">mutate</span>(log_rank <span style="color:#666">=</span> <span style="color:#06287e">log</span>(rank)) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">group_by</span>(nationality) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">summarise</span>(
+    mean_rank <span style="color:#666">=</span> <span style="color:#06287e">mean</span>(rank, na.rm <span style="color:#666">=</span> T),
+    median_rank <span style="color:#666">=</span> <span style="color:#06287e">median</span>(rank, na.rm <span style="color:#666">=</span> T),
+    q3 <span style="color:#666">=</span> <span style="color:#06287e">quantile</span>(x <span style="color:#666">=</span> rank, probs <span style="color:#666">=</span> <span style="color:#40a070">.75</span>, na.rm <span style="color:#666">=</span> T),
+    q1 <span style="color:#666">=</span> <span style="color:#06287e">quantile</span>(x <span style="color:#666">=</span> rank, probs <span style="color:#666">=</span> <span style="color:#40a070">.25</span>, na.rm <span style="color:#666">=</span> T),
+    sd_rank <span style="color:#666">=</span> <span style="color:#06287e">sd</span>(log_rank, na.rm <span style="color:#666">=</span> T),
+    cv_log <span style="color:#666">=</span> <span style="color:#06287e">sqrt</span>((<span style="color:#06287e">exp</span>(<span style="color:#40a070">1</span>)<span style="color:#06287e">^</span>(sd_rank^2)) <span style="color:#666">-</span> <span style="color:#40a070">1</span>),
+    qcv <span style="color:#666">=</span> ((q3 <span style="color:#666">-</span> q1)<span style="color:#666">/</span>(q3 <span style="color:#666">+</span> q1))<span style="color:#666">*</span><span style="color:#40a070">100</span>
+  )
+
+cv_log <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> <span style="color:#06287e">reorder</span>(nationality, cv_log), y <span style="color:#666">=</span> cv_log, label <span style="color:#666">=</span> <span style="color:#06287e">round</span>(mean_rank, <span style="color:#40a070">2</span>))) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_point</span>(size <span style="color:#666">=</span> <span style="color:#40a070">3.5</span>, alpha <span style="color:#666">=</span> <span style="color:#40a070">.85</span>, <span style="color:#06287e">aes</span>(color <span style="color:#666">=</span> mean_rank)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">scale_color_distiller</span>(direction <span style="color:#666">=</span> <span style="color:#40a070">-1</span>, palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;BuPu&#34;</span>) <span style="color:#666">+</span>
+  <span style="color:#06287e">coord_flip</span>() <span style="color:#666">+</span>
+  <span style="color:#06287e">labs</span>(y <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Coefficient of Variation&#34;</span>, x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;&#34;</span>, color <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Mean Rank&#34;</span>,
+       title <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Coefficient of Variation in Race Rankings&#34;</span>) <span style="color:#666">+</span> 
+  big_labels
+</code></pre></div><p><img src="https://brendangraham.online/blog/ultra-trail-running/index_files/figure-html/unnamed-chunk-9-1.png" width="1152" /></p>
+<p>Let’s see if this CV aligns with the distributions of the top 2 and bottom 2 ranked countries. We can compare the ranking distributions of THA and USA with that of EDU and EST. The plot shows that ranking distribution for THA and USA are not as skewed as ECU and EST</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ultra_rankings <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(nationality <span style="color:#666">%in%</span> top_countries) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(<span style="color:#666">!</span><span style="color:#06287e">is.na</span>(rank)) <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">filter</span>(nationality <span style="color:#666">%in%</span> <span style="color:#06287e">c</span>(<span style="color:#4070a0">&#34;USA&#34;</span>, <span style="color:#4070a0">&#34;THA&#34;</span>, <span style="color:#4070a0">&#34;EST&#34;</span>, <span style="color:#4070a0">&#34;ECU&#34;</span>)) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#06287e">ggplot</span>(<span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> rank, fill <span style="color:#666">=</span> nationality)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_histogram</span>(position <span style="color:#666">=</span> <span style="color:#4070a0">&#34;stack&#34;</span>, show.legend <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">FALSE</span>, alpha <span style="color:#666">=</span> <span style="color:#40a070">.55</span>) <span style="color:#666">+</span> 
+  <span style="color:#06287e">facet_wrap</span>(<span style="color:#06287e">vars</span>(nationality), scales <span style="color:#666">=</span> <span style="color:#4070a0">&#39;free&#39;</span>) <span style="color:#666">+</span>
+  big_labels <span style="color:#666">+</span> 
+  <span style="color:#06287e">scale_fill_brewer</span>(palette <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Dark2&#34;</span>) 
+</code></pre></div><p><img src="https://brendangraham.online/blog/ultra-trail-running/index_files/figure-html/unnamed-chunk-10-1.png" width="1152" /></p>
+<p>Plotting each country’s mean rank vs CV shows there is slight correlation; countries whose runners are more consistent tend to have better ranking on average.</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cv_log <span style="color:#666">%&gt;%</span>
+  <span style="color:#06287e">ggplot</span>(., <span style="color:#06287e">aes</span>(x <span style="color:#666">=</span> cv_log, y <span style="color:#666">=</span> mean_rank, label <span style="color:#666">=</span> nationality, <span style="color:#40a070">2</span>)) <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_text_repel</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_point</span>() <span style="color:#666">+</span> 
+  <span style="color:#06287e">geom_smooth</span>(method <span style="color:#666">=</span> <span style="color:#4070a0">&#34;gam&#34;</span>, se <span style="color:#666">=</span> F) <span style="color:#666">+</span>
+  <span style="color:#06287e">labs</span>(x <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Coefficient of Variation&#34;</span>, y <span style="color:#666">=</span> <span style="color:#4070a0">&#34;Mean Rank&#34;</span>)  <span style="color:#666">+</span> 
+  <span style="color:#06287e">scale_y_continuous</span>(breaks <span style="color:#666">=</span> <span style="color:#06287e">seq</span>(<span style="color:#40a070">0</span>, <span style="color:#40a070">800</span>, <span style="color:#40a070">25</span>)) <span style="color:#666">+</span>
+  <span style="color:#06287e">scale_x_continuous</span>(limits <span style="color:#666">=</span> <span style="color:#06287e">c</span>(<span style="color:#40a070">1.5</span>, <span style="color:#40a070">10</span>), breaks <span style="color:#666">=</span> <span style="color:#06287e">seq</span>(<span style="color:#40a070">0</span>, <span style="color:#40a070">10</span>, <span style="color:#40a070">1</span>)) <span style="color:#666">+</span> 
+  big_labels
+</code></pre></div><p><img src="https://brendangraham.online/blog/ultra-trail-running/index_files/figure-html/unnamed-chunk-11-1.png" width="1152" /></p>
+
+        
+        <details closed class="f6 fw7 input-reset">
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Posted on:</dt>
+    <dd class="fw5 ml0">January 2, 2022</dd>
+  </dl>
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Length:</dt>
+    <dd class="fw5 ml0">6 minute read, 1149 words</dd>
+  </dl>
+  
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Categories:</dt>
+    <dd class="fw5 ml0"> <a href="https://brendangraham.online/categories/tidy-tuesday">tidy tuesday</a> </dd>
+  </dl>
+  
+  
+  
+  <dl class="f6 lh-copy">
+    <dt class="fw7">Tags:</dt>
+    <dd class="fw5 ml0"> <a href="https://brendangraham.online/tags/tidy-tuesday">tidy tuesday</a> </dd>
+  </dl>
+  
+  <dl class="f6 lh-copy">
+    <dt class="fw7">See Also:</dt>
+    
+    <dd class="fw5 ml0"><a href="/blog/bigfoot/">Classifying Bigfoot Encounters</a></dd>
+    
+    <dd class="fw5 ml0"><a href="/blog/pell/">Creating a Hex Bin Map to Show Changes Pell Grants</a></dd>
+    
+    <dd class="fw5 ml0"><a href="/blog/dogs/">Getting started with topic modeling with dog breed traits</a></dd>
+    
+  </dl>
+</details>
+
+      </section>
+      <footer class="post-footer">
+        <div class="post-pagination dt w-100 mt4 mb2">
+  
+  
+    <a class="prev dtc pr2 tl v-top fw6"
+    href="https://brendangraham.online/blog/bees/">&larr; Trying out new Tidymodels package: vetiver</a>
+  
+  
+  
+    <a class="next dtc pl2 tr v-top fw6"
+    href="https://brendangraham.online/blog/starbucks/">Modeling the Relationship between Whipped Cream and Calories of Starbucks Drinks &rarr;</a>
+  
+</div>
+
+      </footer>
+    </article>
+    
+      
+<div class="post-comments pa0 pa4-l mt4">
+  
+  <script src="https://utteranc.es/client.js"
+          repo="brndngrhm/brendangraham.online"
+          issue-term="pathname"
+          theme="boxy-light"
+          label="comments :crystal_ball:"
+          crossorigin="anonymous"
+          async
+          type="text/javascript">
+  </script>
+  
+</div>
+
+    
+  </section>
+</main>
+<footer class="site-footer pv4 bt b--transparent ph5" role="contentinfo">
+  <nav class="db dt-l w-100">
+    <p class="site-copyright f7 db dtc-l v-mid w-100 w-33-l tc tl-l pv2 pv0-l mv0 lh-copy">
+      &copy; 2022
+      <span class="middot-divider"></span>
+      Made with <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/hugo-apero/" rel="dct:source">Hugo Apéro</a></span>.
+      <br />
+      
+Based on <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/formspree/blogophonic-hugo" rel="dct:source">Blogophonic</a></span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://formspree.io" property="cc:attributionName" rel="cc:attributionURL">Formspree</a>.
+    </p>
+    
+    <div class="site-social-links db dtc-l v-mid w-100 w-33-l tc pv2 pv0-l mv0">
+      <div class="social-icon-links" aria-hidden="true">
+  
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://github.com/brndngrhm" title="github" target="_blank" rel="noopener">
+      <i class="fab fa-github fa-lg fa-fw"></i>
+    </a>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://twitter.com/brndngrhm" title="twitter" target="_blank" rel="noopener">
+      <i class="fab fa-twitter fa-lg fa-fw"></i>
+    </a>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <a class="link dib h1 w1 ml0 mr2 f6 o-90 glow" href="https://www.linkedin.com/in/brndngrhm/" title="linkedin" target="_blank" rel="noopener">
+      <i class="fab fa-linkedin fa-lg fa-fw"></i>
+    </a>
+  
+</div>
+
+    </div>
+    
+    <div class="site-links f6 db dtc-l v-mid w-100 w-67-l tc tr-l pv2 pv0-l mv0">
+      
+      <a class="dib pv1 ph2 link" href="/license/" title="License">License</a>
+      
+      <a class="dib pv1 ph2 link" href="/contact/" title="Contact form">Contact</a>
+      
+    </div>
+  </nav>
+  
+    <script>
+
+    var i, text, code, codes = document.getElementsByTagName('code');
+    for (let i = 0; i < codes.length;) {
+      code = codes[i];
+      if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+        text = code.textContent;
+        if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
+          text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
+          code.textContent = text;
+        }
+        if (/^\\\((.|\s)+\\\)$/.test(text) ||
+            /^\\\[(.|\s)+\\\]$/.test(text) ||
+            /^\$(.|\s)+\$$/.test(text) ||
+            /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+          code.outerHTML = code.innerHTML;  
+          continue;
+        }
+      }
+      i++;
+    }
+</script>
+
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+
+
+    
+  
+  
+</footer>
+
+      </div>
+    </body>
+</html>

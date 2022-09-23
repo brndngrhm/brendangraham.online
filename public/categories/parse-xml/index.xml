@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>parse xml on Home</title>
+    <link>https://brendangraham.online/categories/parse-xml/</link>
+    <description>Recent content in parse xml on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 01 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/categories/parse-xml/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Interactive Wissiahickon Valley Park Map</title>
+      <link>https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/creating-interactive-maps-with-leaflet/</guid>
+      <description>parsing XML and using &lt;code&gt;Leaflet&lt;/code&gt; to create interactive maps in R</description>
+    </item>
+    
+  </channel>
+</rss>

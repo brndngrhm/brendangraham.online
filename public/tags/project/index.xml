@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Project on Home</title>
+    <link>https://brendangraham.online/tags/project/</link>
+    <description>Recent content in Project on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 06 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/tags/project/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Routeabaga</title>
+      <link>https://brendangraham.online/blog/routeabaga/</link>
+      <pubDate>Fri, 06 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/routeabaga/</guid>
+      <description>Discover new cycling routes</description>
+    </item>
+    
+    <item>
+      <title>Everyone Everywhere Music Analysis Tool</title>
+      <link>https://brendangraham.online/blog/spotify-data/</link>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/spotify-data/</guid>
+      <description>Use the Spotify API to analyze your favorite artists songs</description>
+    </item>
+    
+    <item>
+      <title>RideTracker</title>
+      <link>https://brendangraham.online/blog/ride-tracker/</link>
+      <pubDate>Tue, 26 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/blog/ride-tracker/</guid>
+      <description>Data viz project tracking my cycling habits</description>
+    </item>
+    
+  </channel>
+</rss>

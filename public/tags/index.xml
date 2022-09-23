@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Home</title>
+    <link>https://brendangraham.online/tags/</link>
+    <description>Recent content in Tags on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 17 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://brendangraham.online/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>data science</title>
+      <link>https://brendangraham.online/tags/data-science/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/data-science/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>text model</title>
+      <link>https://brendangraham.online/tags/text-model/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/text-model/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidy tuesday</title>
+      <link>https://brendangraham.online/tags/tidy-tuesday/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/tidy-tuesday/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>data viz</title>
+      <link>https://brendangraham.online/tags/data-viz/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/data-viz/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hex bin map</title>
+      <link>https://brendangraham.online/tags/hex-bin-map/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/hex-bin-map/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>https://brendangraham.online/tags/r/</link>
+      <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tennis</title>
+      <link>https://brendangraham.online/tags/tennis/</link>
+      <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/tennis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Art</title>
+      <link>https://brendangraham.online/tags/art/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/art/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidytext</title>
+      <link>https://brendangraham.online/tags/tidytext/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/tidytext/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>topic modeling</title>
+      <link>https://brendangraham.online/tags/topic-modeling/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/topic-modeling/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidymodels</title>
+      <link>https://brendangraham.online/tags/tidymodels/</link>
+      <pubDate>Wed, 26 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/tidymodels/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>api</title>
+      <link>https://brendangraham.online/tags/api/</link>
+      <pubDate>Tue, 11 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/api/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>plumber</title>
+      <link>https://brendangraham.online/tags/plumber/</link>
+      <pubDate>Tue, 11 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/plumber/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hugo-site</title>
+      <link>https://brendangraham.online/tags/hugo-site/</link>
+      <pubDate>Thu, 28 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/hugo-site/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>style</title>
+      <link>https://brendangraham.online/tags/style/</link>
+      <pubDate>Wed, 27 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/style/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Other</title>
+      <link>https://brendangraham.online/tags/other/</link>
+      <pubDate>Fri, 06 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/other/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Project</title>
+      <link>https://brendangraham.online/tags/project/</link>
+      <pubDate>Fri, 06 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/project/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cycling Analytics</title>
+      <link>https://brendangraham.online/tags/cycling-analytics/</link>
+      <pubDate>Tue, 26 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/cycling-analytics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>series</title>
+      <link>https://brendangraham.online/tags/series/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://brendangraham.online/tags/series/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
